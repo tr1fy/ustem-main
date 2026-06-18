@@ -1,4 +1,4 @@
-import { ArrowRight, CalendarDays, MessageSquare, Megaphone } from 'lucide-react'
+import { ArrowRight, CalendarDays, FileText, MessageSquare, Megaphone } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 
 const formLinks: Record<string, string> = {
@@ -6,10 +6,16 @@ const formLinks: Record<string, string> = {
   kz: 'https://forms.gle/PSZ91XMrbVcm78rQA'
 }
 
+const programLinks: Record<string, string> = {
+  ru: 'https://docs.google.com/document/d/1pHREQJCoxwLCeT7fDq8NwXY7QX5DJ5p5f4y8HCQnuxw/edit?tab=t.0',
+  kz: 'https://docs.google.com/document/d/1pHREQJCoxwLCeT7fDq8NwXY7QX5DJ5p5f4y8HCQnuxw/edit?tab=t.0'
+}
+
 const PublicDiscussion = () => {
   const t = useTranslations('PublicDiscussion')
   const locale = useLocale()
   const formLink = formLinks[locale] ?? formLinks.kz
+  const programLink = programLinks[locale] ?? programLinks.kz
 
   return (
     <section className='bg-gradient-to-b from-gray-50 to-white px-4 py-12 sm:px-6 lg:px-20 lg:py-16'>
@@ -71,21 +77,33 @@ const PublicDiscussion = () => {
             <p className='mt-5 max-w-3xl text-base leading-7 text-gray-600'>
               {t('description')}
             </p>
-            <div className='mt-7 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
+            <div className='mt-7 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between'>
               <div className='space-y-2 rounded-2xl bg-blue-50 px-5 py-4 text-sm font-semibold text-[#0066C3]'>
                 <p>{t('publishedAt')}</p>
                 <p>{t('deadline')}</p>
               </div>
-              <a
-                href={formLink}
-                target='_blank'
-                rel='noopener noreferrer'
-                className='inline-flex items-center justify-center gap-3 rounded-xl bg-[#0085FF] px-6 py-4 text-base font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#0066C3] hover:shadow-lg hover:shadow-blue-200'
-                aria-label={t('ariaLabel')}
-              >
-                {t('cta')}
-                <ArrowRight className='h-5 w-5' />
-              </a>
+              <div className='flex flex-col gap-3 sm:flex-row'>
+                <a
+                  href={programLink}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='inline-flex items-center justify-center gap-3 rounded-xl border border-[#0085FF] bg-white px-5 py-4 text-base font-semibold text-[#0066C3] transition duration-300 hover:-translate-y-0.5 hover:bg-blue-50 hover:shadow-lg hover:shadow-blue-100'
+                  aria-label={t('programAriaLabel')}
+                >
+                  <FileText className='h-5 w-5' />
+                  {t('programCta')}
+                </a>
+                <a
+                  href={formLink}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='inline-flex items-center justify-center gap-3 rounded-xl bg-[#0085FF] px-5 py-4 text-base font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#0066C3] hover:shadow-lg hover:shadow-blue-200'
+                  aria-label={t('ariaLabel')}
+                >
+                  {t('cta')}
+                  <ArrowRight className='h-5 w-5' />
+                </a>
+              </div>
             </div>
           </div>
         </div>

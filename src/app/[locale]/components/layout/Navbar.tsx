@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   Navbar as NavbarNext,
   NavbarBrand,
@@ -8,23 +8,15 @@ import {
 } from '@nextui-org/react'
 import { UstemLogo } from '../shared/FirstLogo'
 import { Button } from '@/app/[locale]/components/ui/button'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 const Navbar = (): React.ReactNode => {
-  const [currentLanguage, setCurrentLanguage] = useState(() => {
-    if (typeof window === 'undefined') return 'kz';
-
-    const path = window.location.pathname;
-    if (path.endsWith('/ru')) return 'ru';
-    if (path.endsWith('/kz')) return 'kz';
-    return 'kz';
-  });
+  const currentLanguage = useLocale()
+  const targetLanguage = currentLanguage === 'ru' ? 'kz' : 'ru'
+  const targetLanguageLabel = targetLanguage === 'ru' ? 'РУ' : 'ҚҚ'
 
   const toggleLanguage = () => {
-    const newLang = currentLanguage === 'ru' ? 'kz' : 'ru';
-    setCurrentLanguage(newLang);
-    window.history.pushState({}, '', `/${newLang}`);
-    window.location.reload();
+    window.location.assign(`/${targetLanguage}`);
   };
 
   const menuItems = [
@@ -72,7 +64,7 @@ const Navbar = (): React.ReactNode => {
                 d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
-            {currentLanguage === 'ru' ? 'РУ' : 'ҚҚ'}
+            {targetLanguageLabel}
           </button>
         </NavbarItem>
 
@@ -123,7 +115,7 @@ const Navbar = (): React.ReactNode => {
                   d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              {currentLanguage === 'ru' ? 'РУ' : 'ҚҚ'}
+              {targetLanguageLabel}
             </button>
           </NavbarItem>
 
