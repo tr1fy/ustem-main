@@ -42,7 +42,7 @@ export const articles: Article[] = [
           {
             label:
               'Для ознакомления с образовательной программой перейдите по ссылке: RU ОП «Robotics Lab: робототехника в образовании»',
-            href: '#',
+            href: '/docs/robotics-lab-ru.pdf',
           },
           {
             label: 'Предложения принимаются по ССЫЛКЕ до 26 июня 2026 года.',
@@ -66,7 +66,7 @@ export const articles: Article[] = [
           {
             label:
               'Білім беру бағдарламасымен танысу үшін мына сілтемеге өтіңіз: KZ ОП «Robotics Lab: білім берудегі робототехника»',
-            href: 'https://docs.google.com/document/d/1pHREQJCoxwLCeT7fDq8NwXY7QX5DJ5p5f4y8HCQnuxw/edit?tab=t.0',
+            href: '/docs/robotics-lab-kz.pdf',
           },
           {
             label:

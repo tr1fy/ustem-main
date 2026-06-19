@@ -7,8 +7,8 @@ const formLinks: Record<string, string> = {
 }
 
 const programLinks: Record<string, string> = {
-  ru: 'https://docs.google.com/document/d/1pHREQJCoxwLCeT7fDq8NwXY7QX5DJ5p5f4y8HCQnuxw/edit?tab=t.0',
-  kz: 'https://docs.google.com/document/d/1pHREQJCoxwLCeT7fDq8NwXY7QX5DJ5p5f4y8HCQnuxw/edit?tab=t.0'
+  ru: '/docs/robotics-lab-ru.pdf',
+  kz: '/docs/robotics-lab-kz.pdf'
 }
 
 const PublicDiscussion = () => {
