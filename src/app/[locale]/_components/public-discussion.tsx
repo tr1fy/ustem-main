@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { ArrowRight, CalendarDays, FileText, MessageSquare, Megaphone } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 
@@ -16,6 +17,7 @@ const PublicDiscussion = () => {
   const locale = useLocale()
   const formLink = formLinks[locale] ?? formLinks.kz
   const programLink = programLinks[locale] ?? programLinks.kz
+  const detailsLink = `/${locale}/public-discussion`
 
   return (
     <section className='bg-gradient-to-b from-gray-50 to-white px-4 py-12 sm:px-6 lg:px-20 lg:py-16'>
@@ -83,6 +85,12 @@ const PublicDiscussion = () => {
                 <p>{t('deadline')}</p>
               </div>
               <div className='flex flex-col gap-3 sm:flex-row'>
+                <Link
+                  href={detailsLink}
+                  className='inline-flex items-center justify-center gap-3 rounded-xl bg-gray-100 px-5 py-4 text-base font-semibold text-gray-800 transition duration-300 hover:-translate-y-0.5 hover:bg-gray-200 hover:shadow-lg hover:shadow-gray-100'
+                >
+                  {t('detailsCta')}
+                </Link>
                 <a
                   href={programLink}
                   target='_blank'
