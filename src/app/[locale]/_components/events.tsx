@@ -48,18 +48,6 @@ const Review = ({
 
 const reviews = [
   {
-    text: 'review_1',
-    name: 'Асхат Аймагамбетов',
-    who: 'who_1',
-    photo: '/feedback-photos/ashat.jpg'
-  },
-  {
-    text: 'review_2',
-    name: 'Гани Бисембаев',
-    who: 'who_2',
-    photo: '/feedback-photos/gani.jpg'
-  },
-  {
     text: 'review_3',
     name: 'Бауыржан Оспанов',
     who: 'who_3',
