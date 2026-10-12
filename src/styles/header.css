@@ -1,0 +1,723 @@
+/* =========================================================================
+ * Header — TZ v1.0 §5.1–5.3, §5.5 in the brand-guideline style (Inter,
+ * white, Aral-gradient accents). Tokens live in globals.css.
+ * Prefix .hdr-; .site-header is the <header> element. States:
+ *   .is-solid        first 80px: plain white, no line (every page; the
+ *                    homepage hero starts below the bar)
+ *   .is-scrolled     after 80px: frosted white 90% + blur(16px) + 1px line
+ *   .is-menu-open    mobile sheet open: solid white, the sheet's 2px Aral
+ *                    rule is the divider
+ * ====================================================================== */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: var(--header-h);
+  color: var(--ink);
+  background-color: var(--white);
+  transition: background-color var(--dur) var(--ease);
+}
+/* Frosted layer. It lives on ::before (not on <header>) because
+   backdrop-filter on the header would make it the containing block of the
+   position: fixed mobile sheet and crop the sheet to the bar. */
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(255, 255, 255, 0.9);
+  -webkit-backdrop-filter: saturate(160%) blur(16px);
+  backdrop-filter: saturate(160%) blur(16px);
+  box-shadow: inset 0 -1px 0 var(--line);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms var(--ease);
+}
+.site-header.is-scrolled {
+  background-color: transparent;
+}
+.site-header.is-scrolled::before {
+  opacity: 1;
+}
+
+.hdr-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+  /* Tailwind's own .container adds breakpoint max-widths; the header keeps
+     the design-system width (min(1280px, 100% - 2 × gutter)). */
+  max-width: none;
+}
+
+/* ---------- logo (original brand colours, never recoloured) ---------- */
+.hdr-logo {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  min-height: 44px;
+  margin-right: auto;
+}
+.hdr-logo svg {
+  width: 112px;
+  height: auto;
+  aspect-ratio: 138 / 41;
+}
+
+/* ---------- desktop navigation ---------- */
+.hdr-nav {
+  display: none;
+}
+.hdr-nav-list {
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.hdr-nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.hdr-nav-link {
+  --hdr-pad: 7px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--hdr-pad);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  transition: color var(--dur) var(--ease);
+}
+/* Active page: 2px Aral-gradient underline (the guideline's header rule).
+   Hover draws the same rule in from the left. */
+.hdr-nav-link::after {
+  content: '';
+  position: absolute;
+  left: var(--hdr-pad);
+  right: var(--hdr-pad);
+  bottom: 6px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--aral);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 300ms var(--ease);
+}
+.hdr-nav-link:hover {
+  color: var(--blue);
+}
+.hdr-nav-link:hover::after,
+.hdr-nav-link[aria-current]::after {
+  transform: scaleX(1);
+}
+
+/* «Жарыстар»: the text is a link, the chevron is its own button. The
+   button box hugs the icon (and its focus ring); ::before stretches the hit
+   area to 44 × 44 px (TZ §9.3) over the gap before the next item, so the two
+   targets never overlap. */
+.hdr-nav-link.hdr-nav-link-split {
+  padding-right: 2px;
+}
+.hdr-nav-link-split::after {
+  right: 2px;
+}
+.hdr-has-panel:has(.hdr-chevron[aria-expanded='true']) .hdr-nav-link {
+  color: var(--blue);
+}
+.hdr-chevron {
+  --hdr-reach: 16px; /* 28px box + 16px reach = 44px target */
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 44px;
+  margin-right: var(--hdr-reach);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--ink);
+  transition: color var(--dur) var(--ease);
+}
+.hdr-chevron::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: calc(-1 * var(--hdr-reach));
+}
+.site-header .hdr-chevron:focus-visible {
+  outline-offset: -3px;
+}
+/* The chevron's reach replaces the next item's leading padding. */
+.hdr-has-panel + .hdr-nav-item > .hdr-nav-link {
+  padding-left: 0;
+}
+.hdr-has-panel + .hdr-nav-item > .hdr-nav-link::after {
+  left: 0;
+}
+.hdr-chevron svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+  transition: transform 250ms var(--ease);
+}
+.hdr-chevron:hover,
+.hdr-chevron[aria-expanded='true'] {
+  color: var(--blue);
+}
+.hdr-chevron[aria-expanded='true'] svg {
+  transform: rotate(180deg);
+}
+
+/* ---------- shared popover surface (dropdown + language list) ----------
+   White, rounded, a soft blue-tinted shadow and a hairline ring so the edge
+   still reads over a white page. Opens with a 200ms fade + 6px rise. */
+.hdr-panel,
+.hdr-lang-list {
+  position: absolute;
+  z-index: 10;
+  color: var(--ink);
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow:
+    0 0 0 1px rgba(27, 31, 36, 0.06),
+    0 12px 32px -16px rgba(20, 40, 80, 0.14),
+    var(--shadow-soft);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition:
+    opacity 200ms var(--ease),
+    transform 200ms var(--ease),
+    visibility 0s linear 200ms;
+}
+.hdr-panel.is-open,
+.hdr-lang-list.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition-delay: 0s;
+}
+.site-header .hdr-panel :focus-visible,
+.site-header .hdr-lang-list :focus-visible {
+  outline-offset: 0;
+}
+
+/* ---------- §5.2 competitions panel ---------- */
+.hdr-panel {
+  top: calc(100% + 8px);
+  left: -24px;
+  width: 568px;
+  padding: 24px 28px 28px;
+}
+/* Invisible bridge over the gap so the pointer can travel into it. */
+.hdr-panel::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  height: 10px;
+}
+.hdr-panel-all {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: var(--radius-pill);
+  color: var(--blue);
+  font-size: 15px;
+  font-weight: 600;
+  transition: background-color var(--dur) var(--ease);
+}
+.hdr-panel-all svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2;
+  transition: transform var(--dur) var(--ease);
+}
+.hdr-panel-all:hover,
+.hdr-panel-all[aria-current] {
+  background: var(--tint);
+}
+.hdr-panel-all:hover svg {
+  transform: translateX(3px);
+}
+/* 2px Aral rule under the panel's head row, as in the guideline layouts. */
+.hdr-panel-cols {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 12px;
+  padding-top: 24px;
+}
+.hdr-panel-cols::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 14px;
+  right: 14px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--aral);
+}
+.hdr-panel-heading {
+  padding: 0 14px 8px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.hdr-panel-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.hdr-panel-link {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: var(--radius-pill);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.3;
+  transition:
+    background-color var(--dur) var(--ease),
+    color var(--dur) var(--ease);
+}
+.hdr-panel-link:hover {
+  color: var(--blue);
+  background: var(--tint);
+}
+.hdr-panel-link[aria-current] {
+  color: var(--blue);
+  font-weight: 600;
+}
+
+/* ---------- actions: Connect · language · burger ---------- */
+.hdr-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: none;
+}
+/* Compact blue pill; the trailing arrow sits in its own circle (globals). */
+.btn.hdr-connect {
+  display: none;
+  gap: 8px;
+  min-height: 44px;
+  margin-right: 6px;
+  padding: 6px 20px 6px 18px;
+  font-size: 15px;
+}
+
+.hdr-lang {
+  position: relative;
+}
+.hdr-lang-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 10px 0 12px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition:
+    background-color var(--dur) var(--ease),
+    color var(--dur) var(--ease);
+}
+.hdr-lang-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+  transition: transform 250ms var(--ease);
+}
+.hdr-lang-btn:hover,
+.hdr-lang-btn[aria-expanded='true'] {
+  color: var(--blue);
+  background: var(--tint);
+}
+.hdr-lang-btn[aria-expanded='true'] svg {
+  transform: rotate(180deg);
+}
+.hdr-lang-list {
+  /* 8px below the header edge, whatever the bar height */
+  top: calc(100% + (var(--header-h) - 44px) / 2 + 8px);
+  right: 0;
+  min-width: 208px;
+  margin: 0;
+  padding: 8px;
+  list-style: none;
+}
+.hdr-lang-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: var(--radius-pill);
+  font-size: 15px;
+  font-weight: 500;
+  transition:
+    background-color var(--dur) var(--ease),
+    color var(--dur) var(--ease);
+}
+.hdr-lang-option svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2;
+}
+.hdr-lang-option:hover {
+  color: var(--blue);
+  background: var(--tint);
+}
+.hdr-lang-option[aria-current='true'] {
+  color: var(--blue);
+  font-weight: 600;
+}
+
+/* Burger: a long and a short line that rotate into an × (250ms). The two
+   transform lists match so each function interpolates on its own. */
+.hdr-burger {
+  display: inline-grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin-right: -12px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: none;
+  color: var(--ink);
+}
+.hdr-burger-lines {
+  position: relative;
+  width: 22px;
+  height: 14px;
+}
+.hdr-burger-lines > span {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 22px;
+  height: 2px;
+  margin-top: -1px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform 250ms var(--ease);
+}
+.hdr-burger-lines > span:first-child {
+  transform: translate(0, -4px) rotate(0deg) scaleX(1);
+}
+.hdr-burger-lines > span:last-child {
+  transform: translate(-4px, 4px) rotate(0deg) scaleX(0.64);
+}
+.hdr-burger[aria-expanded='true'] .hdr-burger-lines > span:first-child {
+  transform: translate(0, 0) rotate(45deg) scaleX(1);
+}
+.hdr-burger[aria-expanded='true'] .hdr-burger-lines > span:last-child {
+  transform: translate(0, 0) rotate(-45deg) scaleX(1);
+}
+
+/* While the mobile menu is open its own Connect + KK/RU/EN take over. */
+.site-header.is-menu-open :is(.hdr-connect, .hdr-lang) {
+  visibility: hidden;
+}
+
+/* ---------- mobile menu (§5.3): full-screen white sheet ---------- */
+.hdr-mobile {
+  position: fixed;
+  top: var(--header-h);
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 60;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  color: var(--ink);
+  background: var(--white);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 200ms var(--ease),
+    visibility 0s linear 200ms;
+}
+.hdr-mobile.is-open {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+.hdr-mobile-inner {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  max-width: none;
+  padding-block: 0 calc(24px + env(safe-area-inset-bottom, 0px));
+}
+/* 2px Aral rule at the top of the sheet: the bar's divider. */
+.hdr-mobile-inner::before {
+  content: '';
+  flex: none;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--aral);
+  transform-origin: left center;
+}
+.hdr-m-list,
+.hdr-m-sublist {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.hdr-m-list {
+  margin-top: 8px;
+}
+.hdr-m-item {
+  border-bottom: 1px solid var(--line);
+}
+.hdr-m-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  min-height: 64px;
+  padding: 10px 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-align: left;
+  transition: color var(--dur) var(--ease);
+}
+.hdr-m-link[aria-current],
+.hdr-m-link.is-active {
+  color: var(--blue);
+}
+.hdr-m-link svg {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  stroke-width: 1.75;
+  transition: transform 250ms var(--ease);
+}
+.hdr-m-toggle[aria-expanded='true'] svg {
+  transform: rotate(180deg);
+}
+.hdr-m-group {
+  padding: 0 0 20px;
+}
+.hdr-m-group[hidden] {
+  display: none;
+}
+.hdr-m-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px; /* TZ 5.3: mobile-menu tap areas >= 48px */
+  color: var(--blue);
+  font-size: 17px;
+  font-weight: 600;
+}
+.hdr-m-all svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2;
+  transition: transform var(--dur) var(--ease);
+}
+.hdr-m-all:hover svg {
+  transform: translateX(3px);
+}
+.hdr-m-heading {
+  margin-top: 16px;
+  margin-bottom: 2px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.hdr-m-sublink {
+  display: flex;
+  align-items: center;
+  min-height: 48px; /* TZ 5.3: mobile-menu tap areas >= 48px */
+  color: var(--ink);
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+.hdr-m-sublink[aria-current],
+.hdr-m-all[aria-current] {
+  color: var(--blue);
+}
+
+.hdr-m-footer {
+  display: grid;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 40px;
+}
+/* Full-width Connect: label left, arrow circle right. */
+.btn.hdr-m-connect {
+  justify-content: space-between;
+  min-height: 56px;
+  padding: 8px 8px 8px 24px;
+  font-size: 17px;
+}
+.btn.hdr-m-connect > svg:last-child:not(:first-child) {
+  padding: 12px;
+  margin: 0;
+}
+/* KK | RU | EN segmented control; the selected language is blue. */
+.hdr-m-langs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  padding: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--paper);
+}
+.hdr-m-lang {
+  min-height: 48px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  transition:
+    background-color var(--dur) var(--ease),
+    color var(--dur) var(--ease);
+}
+.hdr-m-lang:hover {
+  color: var(--blue);
+}
+.hdr-m-lang[aria-pressed='true'] {
+  background: var(--blue);
+  color: var(--white);
+  box-shadow: 0 6px 14px -8px rgba(0, 105, 218, 0.55);
+}
+
+/* ---------- motion: the sheet's rule draws in, rows rise in 40ms steps
+   (7 rows + footer → last delay 280ms). Only transform/opacity; with
+   reduced motion everything is simply there. ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .hdr-mobile.is-open .hdr-mobile-inner::before {
+    animation: hdr-rule-in 600ms var(--ease) both;
+  }
+  .hdr-mobile.is-open :is(.hdr-m-item, .hdr-m-footer) {
+    animation: hdr-row-in 300ms var(--ease) both;
+    animation-delay: calc(var(--i, 0) * 40ms);
+  }
+  .hdr-m-group:not([hidden]) {
+    animation: hdr-group-in 250ms var(--ease) both;
+  }
+}
+@keyframes hdr-rule-in {
+  from {
+    transform: scaleX(0);
+  }
+}
+@keyframes hdr-row-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+@keyframes hdr-group-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+/* ---------- breakpoints ---------- */
+@media (min-width: 768px) {
+  .btn.hdr-connect {
+    display: inline-flex;
+  }
+  .hdr-m-link {
+    min-height: 72px;
+    font-size: 24px;
+  }
+  .hdr-m-footer {
+    max-width: 480px;
+  }
+}
+/* 1200–1339: the full Kazakh menu has to fit (longest labels
+   «Серіктестерге», «USTEM Academy») even with a classic 15–17px scrollbar,
+   so until 1340px the bar keeps the 8px gap, 14px links with 6px padding,
+   a 108px logo, a slimmer Connect pill and a tighter language button
+   (measured: ≥ 20px between logo and menu at 1200 − 17px scrollbar). */
+@media (min-width: 1200px) {
+  .hdr-logo svg {
+    width: 108px;
+  }
+  .hdr-nav-link {
+    --hdr-pad: 6px;
+  }
+  .btn.hdr-connect {
+    margin-right: 0;
+    padding: 6px 18px 6px 14px;
+  }
+  .hdr-lang-btn {
+    padding: 0 6px 0 8px;
+  }
+  .hdr-nav {
+    display: block;
+    height: 100%;
+  }
+  .hdr-burger,
+  .hdr-mobile {
+    display: none;
+  }
+}
+@media (min-width: 1340px) {
+  .hdr-bar {
+    gap: 16px;
+  }
+  .hdr-logo svg {
+    width: 132px;
+  }
+  .hdr-nav-link {
+    --hdr-pad: 10px;
+    font-size: 15px;
+  }
+  .btn.hdr-connect {
+    margin-right: 4px;
+    padding: 6px 20px 6px 18px;
+  }
+  .hdr-lang-btn {
+    padding: 0 10px 0 12px;
+  }
+}

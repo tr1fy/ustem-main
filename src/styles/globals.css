@@ -2,20 +2,641 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
+/* =========================================================================
+ * USTEM design system v2 — brand guideline (Sailaukan design, 2023)
+ * Inter; White + Aral gradient (Sea #0075F2 → Lake #189CD9 → Sky #52BDEA)
+ * + Dark gray. Breathing white layouts, photos in rounded masks, partially
+ * cropped gradient circles (max 2–3 per view), patterns used sparingly.
+ * Area styles: header.css, footer.css, home.css, competitions.css,
+ * pages.css, news.css, contact.css.
+ * ====================================================================== */
+
+:root {
+  /* brand palette */
+  --sea: #0075f2;
+  --lake: #189cd9;
+  --sky: #52bdea;
+  --aral: linear-gradient(120deg, #0075f2 0%, #189cd9 58%, #52bdea 100%);
+  /* deep end of the Aral gradient for white-text surfaces: every stop keeps
+     white ≥ 5.2:1 and --on-dark-muted ≥ 4.6:1 */
+  --aral-deep: linear-gradient(135deg, #0050b8 0%, #005fcd 55%, #0069da 100%);
+  --aral-soft: linear-gradient(120deg, #e8f2fe 0%, #e6f5fc 60%, #eef9fd 100%);
+
+  /* roles */
+  --blue: #0069da; /* brand blue for text/links/buttons: 5.2:1 with white */
+  --blue-hover: #005cc2;
+  --ink: #1b1f24; /* brand dark gray */
+  --paper: #f5f7fa;
+  --tint: #edf5ff; /* faint brand-blue surface */
+  --white: #ffffff;
+
+  --text: var(--ink);
+  --muted: #5c6670; /* 5.9:1 on white, 5.5:1 on paper */
+  --line: #e6eaef;
+  --on-dark: #ffffff;
+  --on-dark-muted: #eaf3ff; /* on --blue / every --aral-deep stop: ≥ 4.6:1 */
+  --line-dark: rgba(255, 255, 255, 0.22);
+
+  --container: 1280px;
+  --gutter: 16px;
+  --section: 72px;
+  --header-h: 60px;
+
+  --radius: 24px;
+  --radius-lg: 32px;
+  --radius-sm: 16px;
+  --radius-pill: 999px;
+  --shadow: 0 40px 80px -44px rgba(0, 72, 160, 0.32), 0 2px 8px rgba(20, 40, 80, 0.04);
+  --shadow-soft: 0 24px 48px -32px rgba(0, 72, 160, 0.24);
+
+  --dur: 220ms;
+  --dur-slow: 700ms;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --fs-display: clamp(3rem, 1.6rem + 6vw, 7.5rem);
+  --fs-h1: clamp(2.5rem, 1.6rem + 3.6vw, 4.75rem);
+  --fs-h2: clamp(2rem, 1.5rem + 1.9vw, 3.25rem);
+  --fs-h3: clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem);
+  --fs-body: 1.0625rem;
+  --fs-small: 0.875rem;
+}
+@media (min-width: 768px) {
+  :root {
+    --gutter: 32px;
+    --section: 112px;
+  }
+}
+@media (min-width: 1200px) {
+  :root {
+    --gutter: 48px;
+    --section: 144px;
+    --header-h: 76px;
+  }
+}
+
+/* ---------- base ---------- */
+html {
+  scroll-padding-top: calc(var(--header-h) + 16px);
+  overflow-x: clip;
+}
+@media (prefers-reduced-motion: no-preference) {
   html {
-    @apply text-gray-900;
+    scroll-behavior: smooth;
+  }
+}
+body {
+  margin: 0;
+  overflow-x: clip;
+  background: var(--white);
+  color: var(--text);
+  font-family: var(--font-sans), 'Helvetica Neue', Arial, sans-serif;
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+img,
+video {
+  max-width: 100%;
+  display: block;
+}
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  color: inherit;
+  font-weight: 700; /* Inter Bold — brand guideline */
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+/* Phones: a single long word («конфиденциальности») is wider than the
+   column at H1 size; hyphenate only such long words, never short ones. */
+@media (max-width: 599px) {
+  h1,
+  h2 {
+    hyphens: auto;
+    -webkit-hyphenate-limit-before: 5;
+    -webkit-hyphenate-limit-after: 5;
+    hyphenate-limit-chars: 12 5 5;
+  }
+}
+h1 {
+  font-size: var(--fs-h1);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+h2 {
+  font-size: var(--fs-h2);
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+}
+h3 {
+  font-size: var(--fs-h3);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+p {
+  margin: 0;
+}
+:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.on-dark :focus-visible,
+:is(.site-footer, .hero) :focus-visible {
+  outline-color: var(--white);
+}
+::selection {
+  color: var(--white);
+  background: var(--blue);
+}
+
+/* ---------- layout primitives ---------- */
+.site-shell {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+.site-shell > main {
+  flex: 1 0 auto;
+}
+.container {
+  width: min(var(--container), 100% - 2 * var(--gutter));
+  /* Tailwind's own .container (still loaded for the legacy auth pages) caps
+     max-width per breakpoint (1024px at 1024–1279px); cancel it. */
+  max-width: none;
+  margin-inline: auto;
+}
+.section {
+  padding-block: var(--section);
+}
+.section + .section {
+  padding-top: 0;
+}
+.section-paper {
+  background: var(--paper);
+}
+.section-paper + .section,
+.section + .section-paper {
+  padding-top: var(--section);
+}
+.stack > * + * {
+  margin-top: 16px;
+}
+
+/* Section heading: H2 + optional one-line lead + optional link. */
+.section-head {
+  display: grid;
+  gap: 16px 48px;
+  margin-bottom: clamp(32px, 4vw, 56px);
+}
+.section-head h2 {
+  max-width: 22ch;
+}
+.section-head p {
+  max-width: 56ch;
+  color: var(--muted);
+}
+@media (min-width: 1024px) {
+  .section-head {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+  }
+  .section-head > :last-child:not(:first-child) {
+    justify-self: end;
   }
 }
 
-@layer components {
-  .text-white {
-    color: #ffffff !important;
+/* Inner page header (TZ §8): breadcrumb, H1, one-line lead. */
+.page-head {
+  padding-block: clamp(40px, 6vw, 88px) clamp(32px, 4vw, 56px);
+}
+.page-head h1 {
+  max-width: 18ch;
+}
+.page-head p {
+  margin-top: 20px;
+  max-width: 60ch;
+  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  color: var(--muted);
+}
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+  font-size: var(--fs-small);
+  color: var(--muted);
+}
+.breadcrumbs a:hover {
+  color: var(--blue);
+}
+.breadcrumbs li {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+}
+.breadcrumbs li + li::before {
+  content: '/';
+  opacity: 0.6;
+}
+.breadcrumbs ol {
+  display: contents;
+}
+
+/* ---------- labels ---------- */
+.label {
+  display: inline-block;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.lead {
+  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  color: var(--muted);
+}
+.muted {
+  color: var(--muted);
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 2px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* ---------- buttons & links ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 12px 24px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur) var(--ease),
+    color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    transform var(--dur) var(--ease);
+}
+.btn:active {
+  transform: scale(0.98);
+}
+.btn svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+/* Trailing arrow sits in its own circle ("button-in-button"). */
+.btn > svg:last-child:not(:first-child) {
+  box-sizing: content-box;
+  width: 16px;
+  height: 16px;
+  padding: 8px;
+  margin: -6px -14px -6px 2px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  transition: transform var(--dur) var(--ease);
+}
+.btn:hover > svg:last-child:not(:first-child) {
+  transform: translate(2px, -1px);
+}
+.btn-primary {
+  color: var(--white);
+  background: var(--blue);
+}
+.btn-primary:hover {
+  background: var(--blue-hover);
+}
+.btn-secondary {
+  color: var(--ink);
+  border-color: var(--line);
+  background: var(--white);
+}
+.btn-secondary > svg:last-child:not(:first-child),
+.btn-light > svg:last-child:not(:first-child) {
+  background: var(--tint);
+  color: var(--blue);
+}
+.btn-secondary:hover {
+  border-color: var(--ink);
+}
+.btn-light {
+  color: var(--ink);
+  background: var(--white);
+}
+.btn-light:hover {
+  background: var(--paper);
+}
+.btn-block {
+  width: 100%;
+}
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  font-weight: 700;
+  color: var(--blue);
+}
+.link-arrow svg {
+  width: 18px;
+  height: 18px;
+  transition: transform var(--dur) var(--ease);
+}
+.link-arrow:hover svg {
+  transform: translateX(3px);
+}
+.link-arrow.is-external:hover svg {
+  transform: translate(2px, -2px);
+}
+.on-dark .link-arrow {
+  color: var(--white);
+}
+
+/* ---------- cards ---------- */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius);
+  background: var(--white);
+  overflow: hidden;
+  isolation: isolate;
+}
+.card-media {
+  position: relative;
+  overflow: hidden;
+  background: var(--paper);
+  aspect-ratio: 16 / 10;
+}
+.card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 500ms var(--ease);
+}
+a.card:hover .card-media img,
+.card:has(a:hover) .card-media img {
+  transform: scale(1.04);
+}
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px 0 0;
+}
+.card-body p {
+  color: var(--muted);
+}
+.card-link::after {
+  /* stretch the primary link over the whole card */
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* ---------- partner logo band (TZ §6.7) ----------
+ * The supplied white marks on a deep-blue band, two rows drifting in
+ * opposite directions with faded edges. Every img carries its balanced
+ * width in --w (site-content.ts partnerLogos); --k scales it and --gap
+ * sets the air between marks per breakpoint. Each track holds the set
+ * twice and moves by exactly one set (-50%), so the loop never jumps.  */
+.ptn-band {
+  --k: 0.72;
+  --gap: 48px;
+  --row-h: 64px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 28px 0 32px;
+  /* same corner and shadow as the Partners card it sits with */
+  border-radius: 28px;
+  background: linear-gradient(135deg, #004fb6 0%, #005ccb 55%, #0066d6 100%);
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.14);
+  color: var(--white);
+}
+.ptn-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 20px;
+  margin-bottom: 16px;
+}
+.ptn-title {
+  color: var(--white);
+  font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+.ptn-toggle {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--white);
+  transition:
+    background-color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
+.ptn-toggle svg {
+  width: 16px;
+  height: 16px;
+}
+.ptn-toggle:hover {
+  border-color: var(--white);
+  background: rgba(255, 255, 255, 0.12);
+}
+.ptn-toggle:focus-visible {
+  outline: 3px solid var(--white);
+  outline-offset: 3px;
+}
+.ptn-rows {
+  display: grid;
+  gap: 8px;
+}
+.ptn-row {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+.ptn-track {
+  display: flex;
+  width: max-content;
+  animation: ptn-drift var(--dur, 110s) linear infinite;
+}
+.ptn-row:nth-child(2) .ptn-track {
+  animation-direction: reverse;
+}
+.ptn-row:hover .ptn-track,
+.ptn-band.is-paused .ptn-track {
+  animation-play-state: paused;
+}
+@keyframes ptn-drift {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+/* the trailing gap keeps both halves the same width */
+.ptn-set {
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+  margin: 0;
+  padding: 0 var(--gap) 0 0;
+  list-style: none;
+}
+.ptn-logo {
+  display: grid;
+  place-items: center;
+  flex: none;
+  height: var(--row-h);
+}
+.ptn-logo img {
+  width: calc(var(--w) * var(--k) * 1px);
+  height: auto;
+  opacity: 0.92;
+  transition: opacity var(--dur) var(--ease);
+}
+.ptn-logo:hover img {
+  opacity: 1;
+}
+@media (min-width: 768px) {
+  .ptn-band {
+    --k: 0.84;
+    --gap: 64px;
+    --row-h: 76px;
+    padding: 40px 0 44px;
+    border-radius: 34px;
+  }
+  .ptn-head {
+    padding: 0 40px;
+    margin-bottom: 20px;
+  }
+  .ptn-rows {
+    gap: 12px;
+  }
+}
+@media (min-width: 1200px) {
+  .ptn-band {
+    --k: 1;
+    --gap: 88px;
+    --row-h: 88px;
+    padding: 52px 0 56px;
+  }
+  .ptn-head {
+    padding: 0 56px;
+    margin-bottom: 24px;
+  }
+}
+/* no drift: each row wraps into centred lines and the copy is dropped */
+@media (prefers-reduced-motion: reduce) {
+  .ptn-track {
+    width: auto;
+    animation: none;
+  }
+  .ptn-set {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 8px;
+    padding: 0 20px;
+  }
+  .ptn-set[aria-hidden='true'],
+  .ptn-toggle {
+    display: none;
+  }
+  .ptn-row {
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 }
 
-@layer utilities {
-  .text-gradient {
-    @apply bg-clip-text text-transparent;
+/* ---------- utilities ---------- */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  padding: 12px 20px;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+  color: var(--white);
+  font-weight: 700;
+  transform: translateY(-160%);
+  transition: transform var(--dur) var(--ease);
+}
+.skip-link:focus {
+  transform: none;
+}
+
+/* Reveal: one restrained fade-up (JS adds .will-reveal only after mount, so
+   no-JS and reduced motion always rest fully visible). */
+.reveal.will-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 700ms var(--ease),
+    transform 700ms var(--ease);
+}
+.reveal.will-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

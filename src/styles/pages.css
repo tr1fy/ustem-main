@@ -1,0 +1,1165 @@
+/* =========================================================================
+ * pages — /about, /academy, /projects, /projects/{slug} (TZ §8.1–8.3)
+ * Brand-guideline redesign (Sailaukan design, 2023): white and airy, photos
+ * in rounded masks, ONE flourish per section (a partially covered Aral
+ * circle, an oversized wordmark rising behind a photo, or a 2px Aral rule).
+ * Prefix .pg-. Tokens and primitives live in globals.css.
+ * Breakpoints, mobile-first: 375 base → 768 → 1024 → 1200.
+ *
+ * Motion (only transform/opacity, all of it skipped for reduced motion):
+ *   - page intro: CSS entrance cascade on load (copy, photo, circle, word);
+ *   - sections: <Reveal> fade-up; wrappers with .pg-stagger keep still and
+ *     cascade their .pg-item children by style="--i: n" (80ms steps);
+ *   - hover: image scale 1.04 / arrow nudge, 200–500ms var(--ease);
+ *   - the about circle drifts with scroll where animation-timeline exists.
+ * Content always rests fully visible: .will-reveal is only added by JS after
+ * mount (reveal.tsx), and keyframes end on the natural state.
+ * ====================================================================== */
+
+/* ---------- motion: section reveal + stagger ---------- */
+.pg-main .reveal.will-reveal {
+  transform: translateY(24px);
+  transition:
+    opacity 700ms var(--ease),
+    transform 700ms var(--ease);
+}
+.pg-main .reveal.will-reveal.is-visible {
+  transform: none;
+}
+.pg-main .reveal.pg-stagger.will-reveal {
+  opacity: 1;
+  transform: none;
+}
+.pg-stagger.will-reveal .pg-item {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 700ms var(--ease) calc(var(--i, 0) * 80ms),
+    transform 700ms var(--ease) calc(var(--i, 0) * 80ms);
+}
+.pg-stagger.will-reveal.is-visible .pg-item {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- breadcrumbs: 44px targets (TZ §9.3, WCAG 2.5.8) ----------
+ * The links grow to 44px tall; the -11px / 13px margins keep the text
+ * exactly where the 22px line sat, so the head rhythm is unchanged
+ * (-11 + 44 + 13 = 22 + 24). Scoped to these pages; once globals.css
+ * .breadcrumbs does the same, this block can go. */
+.pg-main .breadcrumbs {
+  align-items: center;
+  margin-block: -11px 13px;
+}
+.pg-main .breadcrumbs li {
+  align-items: center;
+}
+.pg-main .breadcrumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* ---------- page intro: head + one visual ---------- */
+.pg-intro {
+  position: relative;
+  /* crops the circle / wordmark at the viewport edge */
+  overflow: hidden;
+  overflow: clip;
+}
+.pg-intro-grid {
+  display: grid;
+  gap: 48px;
+  /* top = the plain .page-head top padding, so the crumbs sit at the same
+     height on every page (/projects, /news, /contacts, details…) */
+  padding-block: clamp(40px, 6vw, 88px) clamp(56px, 7vw, 96px);
+}
+.pg-intro-grid > .page-head {
+  /* PageHead brings its own .container; inside this grid it must not. */
+  width: auto;
+  margin: 0;
+  padding: 0;
+}
+.pg-intro .page-head h1 {
+  max-width: 14ch;
+}
+.pg-intro .page-head > p {
+  max-width: 52ch;
+  margin-top: 24px;
+}
+.pg-intro .pg-head-action {
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 36px;
+  white-space: normal;
+  text-align: left;
+}
+/* /projects has no visual: the head is the container itself, closed by one
+   2px Aral rule (the guideline's header rule) — the page's only flourish. */
+.pg-intro-plain .page-head {
+  padding-bottom: clamp(24px, 3vw, 40px);
+}
+.pg-head-rule {
+  display: block;
+  height: 2px;
+  margin-top: clamp(32px, 4vw, 48px);
+  border-radius: 2px;
+  background: var(--aral);
+  transform-origin: left;
+}
+.pg-intro-plain + .section {
+  padding-top: clamp(16px, 2vw, 32px);
+}
+.pg-intro:not(.pg-intro-plain) + .section:not(.section-paper) {
+  padding-top: clamp(24px, 3vw, 48px);
+}
+
+.pg-intro-media {
+  position: relative;
+  isolation: isolate;
+  container-type: inline-size;
+  margin: 0;
+}
+.pg-photo {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--paper);
+  aspect-ratio: 4 / 3;
+}
+.pg-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.pg-photo-wide img {
+  object-position: 50% 60%;
+}
+.pg-photo-tall {
+  aspect-ratio: 4 / 5;
+}
+.pg-photo-tall img {
+  object-position: 50% 35%;
+}
+.pg-caption {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--muted);
+}
+.pg-caption::before {
+  content: '';
+  flex: none;
+  width: 24px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--aral);
+}
+
+/* About: one Aral circle, mostly covered by the photo, cropped by the edge. */
+.pg-orb {
+  position: absolute;
+  z-index: -1;
+  top: -9cqw;
+  right: -17cqw;
+  width: 60cqw;
+  aspect-ratio: 1;
+}
+.pg-circle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--aral);
+}
+.pg-circle::after {
+  /* thin inner ring, echoing the logo-mark construction circles */
+  content: '';
+  position: absolute;
+  inset: 9%;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+/* Academy: an oversized pale wordmark behind the photo — lettering, not a
+   second title. Baseline sits at ~17cqw of the figure and the x-height
+   starts at ~5cqw; the photo starts at 12.5cqw, so it covers the lower
+   ~40% of the word and the descender never shows. Same quiet tint as the
+   404 numerals. (cqw on a child of .pg-intro-media resolves against the
+   figure.) */
+.pg-intro-academy .pg-photo {
+  margin-top: 12.5cqw;
+}
+.pg-word {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: -1cqw;
+  font-size: 22.5cqw;
+  font-weight: 800;
+  line-height: 0.8;
+  letter-spacing: -0.055em;
+  white-space: nowrap;
+  color: #e4eefc;
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .pg-photo {
+    border-radius: var(--radius-lg);
+  }
+}
+@media (min-width: 1024px) {
+  /* One head layout site-wide (as /projects/[slug], /competitions/[slug]):
+     crumbs at the top, H1 right below, the visual starting level with the
+     H1 — never the text stack centred against the photo. */
+  .pg-intro-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 64px;
+  }
+  .pg-intro-media {
+    /* the breadcrumb row: -11px + 44px + 13px (see .pg-detail-media) */
+    margin-top: 46px;
+  }
+  .pg-intro-academy .pg-intro-grid {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  }
+  .pg-intro-academy .pg-photo-tall {
+    aspect-ratio: 1 / 1;
+  }
+  .pg-intro-academy .pg-photo-tall img {
+    object-position: 50% 40%;
+  }
+}
+@media (min-width: 1200px) {
+  .pg-intro-grid {
+    gap: 96px;
+  }
+}
+
+/* Entrance: copy cascades, photo rises and settles, circle blooms, word
+   rises. Ends on the natural state; reduced motion skips it. */
+@media (prefers-reduced-motion: no-preference) {
+  .pg-intro .page-head > * {
+    animation: pg-copy 700ms var(--ease) both;
+  }
+  .pg-intro .page-head > :nth-child(2) {
+    animation-delay: 70ms;
+  }
+  .pg-intro .page-head > :nth-child(3) {
+    animation-delay: 140ms;
+  }
+  .pg-intro .page-head > :nth-child(4) {
+    animation-delay: 210ms;
+  }
+  .pg-photo {
+    animation: pg-photo 1000ms var(--ease) 120ms both;
+  }
+  .pg-photo img {
+    animation: pg-settle 1600ms var(--ease) 120ms both;
+  }
+  .pg-circle {
+    animation: pg-bloom 1100ms var(--ease) 60ms both;
+  }
+  .pg-word {
+    animation: pg-rise 1100ms var(--ease) 240ms both;
+  }
+  .pg-caption {
+    animation: pg-copy 700ms var(--ease) 650ms both;
+  }
+  .pg-intro .page-head > .pg-head-rule {
+    animation: pg-draw 1100ms var(--ease) 280ms both;
+  }
+  @supports (animation-timeline: view()) {
+    .pg-orb {
+      animation: pg-drift linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
+@keyframes pg-copy {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+@keyframes pg-photo {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+}
+@keyframes pg-settle {
+  from {
+    transform: scale(1.08);
+  }
+}
+@keyframes pg-bloom {
+  from {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+}
+@keyframes pg-rise {
+  from {
+    opacity: 0;
+    transform: translateY(32%);
+  }
+}
+@keyframes pg-draw {
+  from {
+    transform: scaleX(0);
+  }
+}
+@keyframes pg-drift {
+  from {
+    transform: translateY(-8%);
+  }
+  to {
+    transform: translateY(12%);
+  }
+}
+
+/* ---------- About: three airy direction tiles ---------- */
+.pg-tiles {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pg-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-block: 32px;
+  padding-right: 64px;
+  border-top: 1px solid var(--line);
+}
+.pg-tile::before {
+  /* the 2px Aral rule draws in on hover / keyboard focus */
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--aral);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 500ms var(--ease);
+}
+.pg-tile:hover::before,
+.pg-tile:focus-within::before {
+  transform: scaleX(1);
+}
+.pg-tile-icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 14px;
+  border-radius: 50%;
+  background: var(--tint);
+  color: var(--blue);
+}
+.pg-tile-icon svg {
+  width: 26px;
+  height: 26px;
+}
+.pg-tile h3 a {
+  transition: color var(--dur) var(--ease);
+}
+.pg-tile:hover h3 a {
+  color: var(--blue);
+}
+.pg-tile p {
+  max-width: 34ch;
+  color: var(--muted);
+}
+/* The site-wide "go" arrow (same as .cmp-card-go): 44px --tint circle,
+   blue on hover, arrow nudges 3px. */
+.pg-tile-arrow,
+.pg-project-arrow {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--tint);
+  color: var(--blue);
+  transition:
+    background-color 250ms var(--ease),
+    color 250ms var(--ease);
+}
+.pg-tile-arrow svg,
+.pg-project-arrow svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2;
+  transition: transform 250ms var(--ease);
+}
+.pg-tile:hover .pg-tile-arrow,
+.pg-project:hover .pg-project-arrow {
+  background: var(--blue);
+  color: var(--white);
+}
+.pg-tile:hover .pg-tile-arrow svg,
+.pg-project:hover .pg-project-arrow svg {
+  transform: translateX(3px);
+}
+.pg-project:hover .pg-project-arrow.is-external svg {
+  transform: translate(2px, -2px);
+}
+.pg-tile-arrow {
+  position: absolute;
+  top: 38px;
+  right: 0;
+}
+@supports selector(:has(*)) {
+  .pg-tile .card-link:focus-visible {
+    outline: none;
+  }
+  .pg-tile:has(.card-link:focus-visible) {
+    outline: 3px solid var(--blue);
+    outline-offset: 6px;
+    border-radius: var(--radius-sm);
+  }
+}
+@media (min-width: 1024px) {
+  .pg-tiles {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 48px;
+  }
+  .pg-tile {
+    padding: 40px 0 0;
+  }
+  /* No fixed tile height: the row is as tall as its longest text, and the
+     arrows line up 16px under it (gap 10px + 6px). */
+  .pg-tile p {
+    padding-bottom: 6px;
+  }
+  .pg-tile-arrow {
+    position: static;
+    margin-top: auto;
+  }
+}
+
+/* ---------- About: milestones 2022–2025 ---------- */
+.pg-timeline {
+  position: relative;
+  display: grid;
+  gap: 32px;
+  margin: 0;
+  padding: 0 0 0 36px;
+  list-style: none;
+}
+.pg-timeline::before {
+  content: '';
+  position: absolute;
+  top: 18px;
+  bottom: 18px;
+  left: 5px;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--sea), var(--lake) 60%, var(--sky));
+  transform-origin: top;
+  transition: transform 1200ms var(--ease);
+}
+.pg-stagger.will-reveal .pg-timeline::before {
+  transform: scaleY(0);
+}
+.pg-stagger.will-reveal.is-visible .pg-timeline::before {
+  transform: none;
+}
+.pg-step {
+  position: relative;
+  display: grid;
+  gap: 6px;
+}
+.pg-step::before {
+  content: '';
+  position: absolute;
+  top: 14px;
+  left: -36px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--blue);
+  background: var(--paper);
+}
+.pg-step:last-child::before {
+  border-color: var(--blue);
+  background: var(--blue);
+  box-shadow: 0 0 0 6px rgba(0, 105, 218, 0.14);
+}
+.pg-step-year {
+  font-size: clamp(2.5rem, 1.6rem + 3.4vw, 4.75rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+.pg-step:last-child .pg-step-year {
+  color: var(--blue);
+}
+.pg-step-place {
+  font-size: 1.0625rem;
+  color: var(--muted);
+}
+.pg-milestones-foot {
+  display: grid;
+  gap: 8px;
+  margin-top: clamp(40px, 5vw, 64px);
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.pg-note {
+  font-weight: 600;
+  color: var(--ink);
+}
+.pg-source {
+  font-size: var(--fs-small);
+  color: var(--muted);
+}
+.pg-source a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding-block: 8px;
+  font-weight: 600;
+  color: var(--blue);
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 105, 218, 0.35);
+  text-underline-offset: 3px;
+}
+.pg-source a:hover {
+  text-decoration-color: currentColor;
+}
+.pg-source svg {
+  width: 14px;
+  height: 14px;
+}
+@media (min-width: 768px) {
+  .pg-timeline {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    padding: 44px 0 0;
+  }
+  .pg-timeline::before {
+    top: 5px;
+    bottom: auto;
+    left: 0;
+    right: 0;
+    width: auto;
+    height: 2px;
+    background: var(--aral);
+    transform-origin: left;
+  }
+  .pg-stagger.will-reveal .pg-timeline::before {
+    transform: scaleX(0);
+  }
+  .pg-step::before {
+    top: -44px;
+    left: 0;
+  }
+  .pg-milestones-foot {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 8px 48px;
+  }
+}
+
+/* ---------- About: #reports ---------- */
+.pg-reports-inner {
+  position: relative;
+  display: grid;
+  gap: 20px 64px;
+  padding-top: 40px;
+}
+.pg-reports-inner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--aral);
+}
+.pg-reports-body p {
+  max-width: 48ch;
+  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  color: var(--muted);
+}
+.pg-reports-body .link-arrow {
+  margin-top: 12px;
+  font-size: 1.125rem;
+  overflow-wrap: anywhere;
+}
+@media (min-width: 1024px) {
+  .pg-reports-inner {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: start;
+    padding-top: 56px;
+  }
+}
+
+/* ---------- Academy: two airy program cards ---------- */
+.pg-programs {
+  display: grid;
+  gap: 16px;
+}
+.pg-program {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px 24px 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--white);
+}
+.pg-program-circle {
+  /* a quarter of an Aral circle, cropped by the card's corner */
+  position: absolute;
+  z-index: -1;
+  top: -84px;
+  right: -84px;
+  width: 168px;
+  height: 168px;
+  border-radius: 50%;
+  background: var(--aral);
+}
+.pg-program:nth-child(2) .pg-program-circle {
+  background: linear-gradient(300deg, #0075f2 0%, #189cd9 58%, #52bdea 100%);
+}
+.pg-program h3 {
+  max-width: calc(100% - 72px);
+  font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+}
+.pg-program > p {
+  max-width: 52ch;
+  color: var(--muted);
+}
+.pg-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 24px;
+  margin: 8px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.pg-meta dt {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.pg-meta dd {
+  margin: 6px 0 0;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ink);
+}
+.pg-program .pg-down {
+  margin-top: auto;
+  align-self: flex-start;
+}
+.link-arrow.pg-down:hover svg {
+  transform: translateY(3px);
+}
+@media (min-width: 768px) {
+  .pg-programs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .pg-program {
+    padding: 40px 40px 32px;
+  }
+  .pg-program-circle {
+    top: -110px;
+    right: -110px;
+    width: 220px;
+    height: 220px;
+  }
+  .pg-program h3 {
+    max-width: calc(100% - 96px);
+  }
+}
+@media (min-width: 1200px) {
+  .pg-program {
+    padding: 48px 48px 36px;
+    gap: 20px;
+  }
+}
+
+/* ---------- Academy: public consultation table ---------- */
+.pg-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+.pg-table thead {
+  /* below 1200px: column names move into each cell's label */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+.pg-table,
+.pg-table tbody,
+.pg-table tr,
+.pg-table th,
+.pg-table td {
+  display: block;
+}
+.pg-table tbody {
+  display: grid;
+  gap: 16px;
+}
+.pg-table tbody tr {
+  padding: 8px 16px 12px;
+  border-radius: var(--radius);
+  background: var(--white);
+}
+.pg-table tbody th {
+  padding: 20px 0 12px;
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+.pg-table td {
+  display: grid;
+  grid-template-columns: 6.75rem minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding-block: 8px;
+  border-top: 1px solid var(--line);
+}
+.pg-table td::before {
+  content: attr(data-label);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.pg-table td > * {
+  justify-self: start;
+}
+.pg-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 4px 14px 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--tint);
+  color: var(--blue);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  line-height: 1.3;
+}
+.pg-status svg {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  stroke-width: 2.25;
+}
+.pg-docs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.pg-doc {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 16px 0 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--white);
+  color: var(--ink);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition:
+    border-color var(--dur) var(--ease),
+    color var(--dur) var(--ease),
+    background-color var(--dur) var(--ease);
+}
+.pg-doc svg {
+  width: 18px;
+  height: 18px;
+  color: var(--blue);
+  transition: transform var(--dur) var(--ease);
+}
+.pg-doc:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+  background: var(--tint);
+}
+.pg-doc:hover svg {
+  transform: translateY(2px);
+}
+.pg-table .link-arrow {
+  min-height: 44px;
+  font-size: 0.9375rem;
+}
+
+@media (min-width: 768px) {
+  /* tablets and small laptops: the two rows sit side by side as cards */
+  .pg-table tbody {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .pg-table tbody tr {
+    padding: 12px 28px 16px;
+    border-radius: var(--radius-lg);
+  }
+  .pg-table td {
+    grid-template-columns: 8rem minmax(0, 1fr);
+  }
+  .pg-table .link-arrow {
+    font-size: 1rem;
+  }
+}
+@media (min-width: 1200px) {
+  .pg-table-wrap {
+    padding: 12px 40px 8px;
+    border-radius: var(--radius-lg);
+    background: var(--white);
+  }
+  .pg-table {
+    display: table;
+  }
+  .pg-table thead {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    display: table-header-group;
+  }
+  .pg-table tbody {
+    display: table-row-group;
+  }
+  .pg-table tr,
+  .pg-table tbody tr {
+    display: table-row;
+    padding: 0;
+    border-radius: 0;
+    background: none;
+  }
+  .pg-table th,
+  .pg-table td,
+  .pg-table tbody th {
+    display: table-cell;
+    min-height: 0;
+    padding: 28px 24px 28px 0;
+    border-top: 0;
+    border-bottom: 1px solid var(--line);
+    vertical-align: middle;
+  }
+  .pg-table tbody tr:last-child > * {
+    border-bottom: 0;
+  }
+  .pg-table thead th {
+    padding-block: 20px 16px;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .pg-table tbody th {
+    font-size: 1.25rem;
+  }
+  .pg-table td::before {
+    content: none;
+  }
+  .pg-status,
+  .pg-table .link-arrow {
+    white-space: nowrap;
+  }
+  .pg-table thead th:nth-child(1) {
+    width: 15%;
+  }
+  .pg-table thead th:nth-child(2) {
+    width: 17%;
+  }
+  .pg-table thead th:nth-child(3) {
+    width: 21%;
+  }
+  .pg-table th:last-child,
+  .pg-table td:last-child {
+    padding-right: 0;
+  }
+}
+
+/* ---------- Projects: two large airy cards ---------- */
+.pg-projects {
+  display: grid;
+  gap: 56px 32px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pg-project {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+/* Sub-brand artwork (red STEM Hanym, purple Jasampaz) is shown as a framed
+   object on brand paper, never full-bleed, so the page stays USTEM's. */
+.pg-project-media {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: clamp(20px, 3vw, 40px);
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+.pg-project-media picture {
+  display: block;
+  width: 100%;
+}
+.pg-project-media img {
+  width: 100%;
+  height: auto;
+  /* phones: the 4:3 logo artwork (Jasampaz's 2:3 one is centre-cropped) */
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-soft);
+  transition: transform 500ms var(--ease);
+}
+.pg-project:hover .pg-project-media img {
+  transform: scale(1.04);
+}
+.pg-project-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 12px 24px;
+}
+.pg-project-body > :not(.pg-project-arrow) {
+  grid-column: 1;
+}
+.pg-project-body .chip {
+  justify-self: start;
+}
+.pg-project h2 {
+  font-size: clamp(1.75rem, 1.35rem + 1.5vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+}
+.pg-project h2 a {
+  transition: color var(--dur) var(--ease);
+}
+.pg-project:hover h2 a {
+  color: var(--blue);
+}
+.pg-project-body p {
+  max-width: 44ch;
+  color: var(--muted);
+}
+.pg-project-arrow {
+  /* look: the shared "go" circle, see .pg-tile-arrow */
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  align-self: center;
+}
+@supports selector(:has(*)) {
+  .pg-project .card-link:focus-visible {
+    outline: none;
+  }
+  .pg-project:has(.card-link:focus-visible) {
+    outline: 3px solid var(--blue);
+    outline-offset: 8px;
+    border-radius: var(--radius);
+  }
+}
+@media (min-width: 768px) {
+  .pg-projects {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .pg-project-media {
+    border-radius: var(--radius-lg);
+    aspect-ratio: 16 / 10;
+  }
+  .pg-project-media img {
+    aspect-ratio: 2 / 1;
+  }
+}
+@media (min-width: 1200px) {
+  .pg-projects {
+    gap: 64px 48px;
+  }
+}
+
+/* ---------- Project page: same template as /competitions/{slug} ----------
+ * Phones: head → cover (1:1 logo artwork) → definitions.
+ * ≥1024px: text column on the left, 4:3 sticky cover on the right. */
+.pg-detail {
+  display: grid;
+  gap: 40px;
+  padding-bottom: var(--section);
+}
+.pg-detail > .page-head {
+  /* PageHead brings its own .container; inside this one it must not. */
+  width: auto;
+  margin: 0;
+  padding-bottom: 0;
+}
+.pg-detail .page-head h1 {
+  font-size: clamp(2.5rem, 1.75rem + 2.6vw, 4.5rem);
+}
+.pg-detail-media {
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--paper);
+  aspect-ratio: 1 / 1;
+}
+.pg-detail-media picture {
+  display: block;
+  height: 100%;
+}
+.pg-detail-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.pg-defs {
+  display: grid;
+  gap: clamp(32px, 4vw, 48px);
+  margin: 0;
+}
+.pg-def {
+  position: relative;
+  display: grid;
+  gap: 12px;
+  padding-top: 24px;
+}
+/* One header-style 2px Aral rule opens the list (and draws in); the rest
+   are quiet 1px hairlines. */
+.pg-def::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--line);
+}
+.pg-def:first-child::before {
+  height: 2px;
+  border-radius: 2px;
+  background: var(--aral);
+  transform-origin: left;
+  transition: transform 1000ms var(--ease) 100ms;
+}
+.pg-stagger.will-reveal .pg-def:first-child::before {
+  transform: scaleX(0);
+}
+.pg-stagger.will-reveal.is-visible .pg-def:first-child::before {
+  transform: none;
+}
+.pg-def dt {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.pg-def dd {
+  margin: 0;
+}
+.pg-def dd p {
+  max-width: 32ch;
+  font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.pg-def dd .btn {
+  margin-top: 28px;
+}
+@media (min-width: 768px) {
+  .pg-detail-media {
+    border-radius: var(--radius-lg);
+    aspect-ratio: 2 / 1;
+  }
+  .pg-def {
+    grid-template-columns: minmax(0, 11rem) minmax(0, 1fr);
+    align-items: baseline;
+    gap: 16px 32px;
+    padding-top: 28px;
+  }
+}
+@media (min-width: 1024px) {
+  .pg-detail {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    grid-template-rows: auto 1fr;
+    gap: 56px 64px;
+    align-items: start;
+  }
+  .pg-detail > .page-head {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .pg-detail-body {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .pg-detail-media {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    position: sticky;
+    top: calc(var(--header-h) + 32px);
+    /* start level with the H1 (as on competitions): page-head top padding
+       + the breadcrumb row (-11px + 44px + 13px = 46px, as the old 22px
+       line + 24px margin) */
+    margin-top: calc(clamp(40px, 6vw, 88px) + 46px);
+    aspect-ratio: 4 / 3;
+  }
+}
+@media (min-width: 1200px) {
+  .pg-detail {
+    column-gap: 96px;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .pg-detail > .page-head > * {
+    animation: pg-copy 700ms var(--ease) both;
+  }
+  .pg-detail > .page-head > :nth-child(2) {
+    animation-delay: 70ms;
+  }
+  .pg-detail-media {
+    animation: pg-photo 1000ms var(--ease) 120ms both;
+  }
+}

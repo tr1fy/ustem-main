@@ -1,0 +1,1359 @@
+/* =========================================================================
+ * Homepage (TZ §6) — hero, numbers card, projects, trust, news, partners.
+ * Prefixes: .hero-*, .imp-*, .tst-*, .home-*. Tokens live in globals.css.
+ * Mobile-first: 375px base, then 600 / 640 / 768 / 1024 / 1200.
+ * Brand guideline: white + Aral gradient, rounded photo masks, partially
+ * cropped circles (max one per section), motion on transform/opacity only.
+ * ====================================================================== */
+
+/* ---------- 6.1 Hero — Figma «Hero» (node 400-1048) ----------
+ * A full-bleed Aral panel of four concentric circles with the team photo on
+ * the right. Every circle is filled with the same Sea → Sky gradient over
+ * its own box, so each one reads as a lighter rim on the one behind it.
+ * Back to front: photo → circles 4, 3 → the photo again, masked to the
+ * players and the table → circles 2, 1 → copy. The circles share one centre
+ * (--cx from the left, --cy from the bottom).
+ * ≥1024px everything is measured in px of the 1440 frame: --u is one of
+ * them, so the circles, the photo and the heading scale as one picture.   */
+.hero {
+  --hero-fill: linear-gradient(8deg, var(--sea) 50%, var(--sky));
+  /* «ДАМЫТАТЫН ҚОР.» is 612px at the layout's 61px, wider than the column:
+     6% smaller KZ type keeps the heading on the same three lines as RU
+     instead of leaving «ҚОР.» alone on a fourth. */
+  --hero-h1-k: 1;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: var(--white);
+  background: var(--hero-fill);
+}
+:lang(kk) .hero {
+  --hero-h1-k: 0.94;
+}
+.hero-art {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.hero-ring {
+  position: absolute;
+  left: calc(var(--cx) - var(--r));
+  bottom: calc(var(--cy) - var(--r));
+  width: calc(2 * var(--r));
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--hero-fill);
+}
+.hero-ring-1 {
+  --r: calc(300 * var(--u));
+}
+.hero-ring-2 {
+  --r: calc(504 * var(--u));
+}
+.hero-ring-3 {
+  --r: calc(688 * var(--u));
+}
+.hero-ring-4 {
+  --r: calc(864 * var(--u));
+}
+.hero-slide {
+  position: absolute;
+  inset: 0;
+}
+/* The photos only ever show outside the outer circle (inside it the
+   circles cover them). Masking them there too means a browser that fails
+   to paint a huge circle shows the hero's own gradient, never a photo
+   edge. */
+.hero-slide-photo {
+  --r4: calc(864 * var(--u));
+  -webkit-mask: radial-gradient(circle at left var(--cx) bottom var(--cy), transparent calc(var(--r4) - 1px), #000 var(--r4));
+  mask: radial-gradient(circle at left var(--cx) bottom var(--cy), transparent calc(var(--r4) - 1px), #000 var(--r4));
+}
+.hero-photo {
+  position: absolute;
+  left: var(--photo-x);
+  bottom: var(--photo-y);
+  width: var(--photo-w);
+  max-width: none;
+  height: var(--photo-h);
+  min-height: var(--photo-min-h, 0px);
+}
+/* Each mask is the alpha of the cut-out on its photo's own canvas (the
+   table's last row carried down to the bottom edge), so it stretches 1:1
+   over every src of that photo. */
+.hero-cutout {
+  -webkit-mask: var(--hero-mask) 0 0 / 100% 100% no-repeat;
+  mask: var(--hero-mask) 0 0 / 100% 100% no-repeat;
+}
+.hero-s1 {
+  --hero-mask: url('/images/people/team-fll-hero-mask.webp');
+}
+.hero-s2 {
+  --hero-mask: url('/images/people/fll-referee-hero-mask.webp');
+}
+.hero-s3 {
+  --hero-mask: url('/images/people/ftc-team-hero-mask.webp');
+}
+.hero-s4 {
+  --hero-mask: url('/images/people/fgc-team-hero-mask.webp');
+}
+/* Glass label naming where the team in the photo competed: right-aligned
+   to the container, on the CTA row on desktop and in the corner of the
+   photo strip below it on phones and tablets. The four labels share one
+   grid cell and crossfade with their slides. */
+.hero-label-row {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 16px;
+  display: grid;
+  justify-items: end;
+}
+.hero-label {
+  grid-area: 1 / 1;
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 8px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: 12px;
+  background: rgba(0, 105, 218, 0.72);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 10px 28px -14px rgba(0, 40, 110, 0.55);
+  color: var(--white);
+  font-size: 0.9375rem;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.hero-content {
+  position: relative;
+}
+.hero-geo {
+  font-size: 1rem;
+  line-height: 1.3;
+}
+.hero h1 {
+  max-width: 13em;
+  margin-top: 28px;
+  font-size: calc(clamp(2.125rem, 1.2rem + 3.6vw, 3.25rem) * var(--hero-h1-k));
+  font-weight: 900;
+  line-height: 1.04;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  /* never split a word mid-way (the global h1 rule allows it) */
+  overflow-wrap: normal;
+  hyphens: manual;
+}
+.hero-text {
+  max-width: 30em;
+  margin-top: 24px;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+/* one sentence per block, each wrapping on its own */
+.hero-text > span {
+  display: block;
+  text-wrap: balance;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 32px;
+}
+.hero-btn {
+  gap: 6px;
+  min-height: 48px;
+  padding: 10px 14px;
+  border-radius: 12px;
+}
+/* the arrow sits inline after the label here, not in its own circle */
+.hero-btn.btn > svg:last-child:not(:first-child) {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  margin: 0;
+  background: none;
+  stroke-width: 2.25;
+}
+.hero-btn-primary {
+  color: var(--blue);
+  background: var(--white);
+}
+.hero-btn-primary:hover {
+  background: var(--tint);
+}
+/* Glass outline: a faint fill and a 1px rim that is brighter at the top-
+   left and bottom-right corners, as in the layout. */
+.hero-btn-ghost {
+  position: relative;
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.06);
+}
+.hero-btn-ghost::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.9),
+    rgba(255, 255, 255, 0.25) 40%,
+    rgba(255, 255, 255, 0.25) 60%,
+    rgba(255, 255, 255, 0.8)
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  pointer-events: none;
+}
+.hero-btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+/* Phones and tablets: the copy on top, the team in a strip reserved below
+   it. The circles are centred near the top-left corner, behind the copy,
+   so their rims sweep down across the strip (the layout's bottom-left
+   centre, mirrored) and the players step out over them. */
+.hero {
+  --hero-media: min(88vw, 420px);
+  --u: calc(100vw / 738);
+  --cx: 6%;
+  --cy: calc(var(--hero-media) + 60vw);
+  --photo-h: auto;
+  padding: 40px 0 var(--hero-media);
+}
+/* Every photo spans the full width and reaches above the outer circle's
+   rim at the right edge, so no photo edge ever shows; the people stay
+   below the buttons. The referee's cut-out ends 82% across its photo, so
+   that edge is kept off-screen. */
+.hero-s1 {
+  --photo-w: 136vw;
+  --photo-x: -27vw;
+  --photo-y: -1.5vw;
+}
+.hero-s2 {
+  --photo-w: 132vw;
+  --photo-x: -8vw;
+  --photo-y: -2vw;
+}
+.hero-s3 {
+  --photo-w: 140vw;
+  --photo-x: -39vw;
+  --photo-y: -2vw;
+}
+.hero-s4 {
+  --photo-w: 145vw;
+  --photo-x: -28vw;
+  --photo-y: -2vw;
+}
+@media (min-width: 768px) {
+  .hero {
+    --hero-media: min(64vw, 580px);
+    --u: calc(100vw / 790);
+    --cx: 4%;
+    --cy: calc(var(--hero-media) + 46vw);
+    padding-top: 64px;
+  }
+  .hero-s1 {
+    --photo-w: 108vw;
+    --photo-x: -6vw;
+    --photo-y: -3vw;
+  }
+  .hero-s2 {
+    --photo-w: 122vw;
+    --photo-x: 0px;
+    --photo-y: -23vw;
+  }
+  .hero-s3 {
+    --photo-w: 104vw;
+    --photo-x: -3vw;
+    --photo-y: -4vw;
+  }
+  .hero-s4 {
+    --photo-w: 140vw;
+    --photo-x: -25vw;
+    --photo-y: -6vw;
+  }
+  .hero-geo {
+    font-size: 1.125rem;
+  }
+  .hero-text {
+    font-size: 1.125rem;
+  }
+  .hero-btn {
+    font-size: 1.0625rem;
+  }
+}
+
+/* Desktop: the 1440 frame. The circles' centre sits 164px right of the
+   container's left edge and 48px above the hero's bottom; the team photo
+   starts 226px right of that centre, its top 13px above the hero and its
+   bottom 22px below it (all × --u; 1140 × 735 at the frame's 700px
+   height). Each photo stays anchored to the circles' centre, so its left
+   edge always lies under them. Its height follows the hero's (a four-line
+   KZ/EN heading scales it up instead of opening a gap above it), and its
+   min-height makes it reach the screen's right edge (ultra-wide screens
+   scale it up instead of pushing it right, which bared its left edge). Type follows the frame: H1 61/64 Black, copy
+   17/22. */
+@media (min-width: 1024px) {
+  .hero {
+    --u: clamp(0.711px, 100vw / 1440, 1.2px);
+    /* The container's left edge, in vw on purpose: some browsers resolve a
+       percentage inside min() here against the wrong box and shifted the
+       circles ~400px left on very wide screens. (With a classic scrollbar
+       this sits half its width right of the container; harmless.) */
+    --edge: calc((100vw - min(var(--container), 100vw - 2 * var(--gutter))) / 2);
+    --cx: calc(var(--edge) + 164 * var(--u));
+    --cy: calc(48 * var(--u));
+    min-height: calc(700 * var(--u));
+    padding: calc(91 * var(--u)) 0 calc(76 * var(--u));
+  }
+  .hero-slide {
+    --photo-w: auto;
+  }
+  .hero-s1 {
+    --photo-h: calc(100% + 35 * var(--u));
+    --photo-min-h: calc((100vw - var(--cx) - 226 * var(--u)) * 0.6445);
+    --photo-x: calc(var(--cx) + 226 * var(--u));
+    --photo-y: calc(-22 * var(--u));
+  }
+  /* Figma 400-1048, second frame: 999 × 799, 412px right of the centre,
+     its top 63px above the hero */
+  .hero-s2 {
+    --photo-h: calc(100% + 99 * var(--u));
+    --photo-min-h: calc((100vw - var(--cx) - 412 * var(--u)) * 0.7993);
+    --photo-x: calc(var(--cx) + 412 * var(--u));
+    --photo-y: calc(-36 * var(--u));
+  }
+  /* FTC: 1241 × 995, 81px right of the centre, top 179px above the hero */
+  .hero-s3 {
+    --photo-h: calc(100% + 295 * var(--u));
+    --photo-min-h: calc((100vw - var(--cx) - 81 * var(--u)) * 0.8016);
+    --photo-x: calc(var(--cx) + 81 * var(--u));
+    --photo-y: calc(-116 * var(--u));
+  }
+  /* FIRST Global: 1526 × 858, 104px right of the centre, top 42px above */
+  .hero-s4 {
+    --photo-h: calc(100% + 158 * var(--u));
+    --photo-min-h: calc((100vw - var(--cx) - 104 * var(--u)) * 0.5623);
+    --photo-x: calc(var(--cx) + 104 * var(--u));
+    --photo-y: calc(-116 * var(--u));
+  }
+  .hero-label-row {
+    bottom: calc(76 * var(--u));
+  }
+  .hero-label {
+    min-height: 48px;
+    padding: 10px 16px;
+    font-size: max(1rem, 17 * var(--u));
+  }
+  .hero-geo {
+    font-size: max(1rem, 17 * var(--u));
+  }
+  /* Both columns stop short of the nearest player (his back is 603px right
+     of the container edge beside the copy): the KZ and EN headings take a
+     fourth line rather than run into him. */
+  .hero h1 {
+    max-width: calc(585 * var(--u));
+    margin-top: calc(78 * var(--u));
+    font-size: calc(61 * var(--u) * var(--hero-h1-k));
+    line-height: 1.05;
+  }
+  .hero-text {
+    /* room for every sentence to balance into two lines (the KZ ones are
+       the longest); RU keeps the layout's breaks, since balance only
+       narrows a block to its line count */
+    max-width: min(max(29em, 520 * var(--u)), 603 * var(--u) - 24px);
+    margin-top: calc(39 * var(--u));
+    font-size: max(1rem, 17 * var(--u));
+    line-height: 1.31;
+  }
+  .hero-actions {
+    gap: 12px calc(33 * var(--u));
+    margin-top: calc(64 * var(--u));
+  }
+}
+
+/* Slides: four photos, each held 5s with a 1s crossfade (a 24s cycle).
+   The cut-outs and labels fade out as the next ones fade in. Photos fade
+   in over the previous one, which only fades out once covered (s2, s3);
+   s4 fades out to reveal s1, which never fades: every photo covers the
+   area outside the circles, so the swap never shows a gap. Reduced motion
+   keeps s1 only. */
+.hero-s2,
+.hero-s3,
+.hero-s4 {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-slide-photo,
+  .hero-slide-cut,
+  .hero-label {
+    animation-name: hero-slide;
+    animation-duration: 24s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+  }
+  .hero-slide-photo.hero-s2,
+  .hero-slide-photo.hero-s3 {
+    animation-name: hero-slide-under;
+  }
+  .hero-slide-photo.hero-s1 {
+    animation: none;
+  }
+  .hero-s1 { animation-delay: -1s; }
+  .hero-s2 { animation-delay: 5s; }
+  .hero-s3 { animation-delay: 11s; }
+  .hero-s4 { animation-delay: 17s; }
+}
+/* in over 1s, held 5s, out over 1s (as the next one comes in) */
+@keyframes hero-slide {
+  0% { opacity: 0; }
+  4.1667%, 25% { opacity: 1; }
+  29.1667%, 100% { opacity: 0; }
+}
+/* a photo stays until the next one is fully in, then leaves in 0.5s */
+@keyframes hero-slide-under {
+  0% { opacity: 0; }
+  4.1667%, 29.1667% { opacity: 1; }
+  31.25%, 100% { opacity: 0; }
+}
+
+/* Entrance: the circles bloom outwards from the centre one after another,
+   the photo steps in (both layers together, so the people never ghost),
+   the copy cascades. Everything rests fully visible; reduced motion skips
+   it. */
+@media (prefers-reduced-motion: no-preference) {
+  /* backwards, not both: once in, nothing keeps the huge circles on
+     their own animated layers (some GPUs drop layers that large) */
+  .hero-ring {
+    animation: hero-bloom 1100ms var(--ease) backwards;
+  }
+  .hero-ring-1 { animation-delay: 0ms; }
+  .hero-ring-2 { animation-delay: 70ms; }
+  .hero-ring-3 { animation-delay: 140ms; }
+  .hero-ring-4 { animation-delay: 210ms; }
+  .hero-photo {
+    animation: hero-step 900ms var(--ease) 160ms backwards;
+  }
+  .hero-content > * {
+    animation: hero-copy 700ms var(--ease) backwards;
+  }
+  .hero-content > :nth-child(2) { animation-delay: 70ms; }
+  .hero-content > :nth-child(3) { animation-delay: 140ms; }
+  .hero-content > :nth-child(4) { animation-delay: 210ms; }
+}
+@keyframes hero-bloom {
+  from { opacity: 0; transform: scale(0.9); }
+}
+@keyframes hero-step {
+  from { opacity: 0; transform: translateY(24px); }
+}
+@keyframes hero-copy {
+  from { opacity: 0; transform: translateY(14px); }
+}
+
+/* ---------- 6.2 Numbers card ----------
+ * White radius-lg card with the diffused blue shadow, right under the hero
+ * (the blue panel keeps its clean bottom edge, as in the layout).
+ * «4×» is filled with the Aral gradient (Sea → Lake, so even its light end
+ * keeps 3:1 on white as large text); the timeline is blue.            */
+.imp-overlap {
+  position: relative;
+  padding-top: clamp(48px, 6vw, 88px);
+}
+.imp-card {
+  position: relative;
+  padding: clamp(28px, 4vw, 56px);
+  border-radius: var(--radius-lg);
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+/* Inner pages (/about, /partners): flat paper card; the H2 sits above it as
+   a regular .section-head. */
+.imp-plain .imp-card {
+  background: var(--paper);
+  box-shadow: none;
+}
+.imp-plain .imp-main {
+  margin-top: 0;
+}
+/* if a page nests the block inside its own container, do not double up */
+.container .imp {
+  padding-block: 0;
+}
+.container .imp > .container {
+  width: 100%;
+}
+/* The H2 keeps the global h2 scale; in the card it is one line on desktop,
+   so the "4× | timeline" row stays inside the first screen. */
+.imp-overlap .imp-title {
+  max-width: 36ch;
+}
+.imp-main {
+  display: grid;
+  gap: 32px;
+  margin-top: clamp(24px, 3vw, 40px);
+}
+/* «4×» above its label on phones and in the desktop column (the label gets
+   the full width, so «FIRST Global Challenge» never splits); side by side
+   at 600–1023px, where the stat spans the whole card. */
+.imp-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px 24px;
+}
+.imp-value {
+  flex: none;
+  /* room for the × so the gradient clip does not shave its right edge */
+  margin-right: -0.06em;
+  padding: 0.04em 0.06em 0.04em 0;
+  font-size: clamp(96px, 10vw, 160px);
+  font-weight: 800;
+  line-height: 0.85;
+  letter-spacing: -0.06em;
+  color: var(--sea);
+  font-variant-numeric: tabular-nums;
+}
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .imp-value {
+    background: linear-gradient(120deg, var(--sea) 18%, var(--lake) 96%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+.imp-label {
+  max-width: 24ch;
+  font-size: clamp(1.25rem, 0.95rem + 0.9vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+@media (min-width: 360px) {
+  .imp-keep {
+    white-space: nowrap;
+  }
+}
+
+/* timeline: vertical on small phones, horizontal from 600px */
+.imp-timeline {
+  position: relative;
+  display: grid;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.imp-timeline::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  left: 6px;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(
+    180deg,
+    var(--sea) 0%,
+    var(--lake) 60%,
+    rgba(82, 189, 234, 0.25) 100%
+  );
+}
+.imp-step {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  padding-left: 32px;
+}
+.imp-step::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 0;
+  box-sizing: border-box;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--sea);
+  border-radius: 50%;
+  background: var(--white);
+}
+.imp-step:last-child::before {
+  background: var(--sea);
+  box-shadow: 0 0 0 6px var(--tint);
+}
+.imp-year {
+  font-size: clamp(1.375rem, 1.2rem + 0.45vw, 1.625rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.imp-step:last-child .imp-year {
+  color: var(--blue);
+}
+.imp-place {
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+.imp-foot {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.imp-note {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.imp-source {
+  position: relative;
+  flex: none;
+}
+.imp-source-btn {
+  min-height: 44px;
+  padding: 8px 18px 8px 14px;
+  gap: 8px;
+  font-size: 0.9375rem;
+}
+.imp-source-btn svg {
+  width: 20px;
+  height: 20px;
+  color: var(--blue);
+}
+.imp-source-btn[aria-expanded='true'] {
+  border-color: var(--blue);
+}
+.imp-pop {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 0;
+  z-index: 5;
+  display: grid;
+  gap: 8px;
+  width: min(340px, calc(100vw - 2 * var(--gutter) - 16px));
+  padding: 20px 22px;
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  box-shadow: var(--shadow), 0 0 0 1px var(--line);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+.imp-pop[hidden] {
+  display: none;
+}
+.imp-pop-label {
+  font-weight: 600;
+  color: var(--ink);
+}
+.imp-pop-date {
+  color: var(--muted);
+}
+.imp-pop .link-arrow {
+  justify-self: start;
+}
+
+/* further verified metrics: compact tiles, each with its own source */
+.imp-more {
+  display: grid;
+  gap: 16px;
+  margin: 32px 0 0;
+  padding: 32px 0 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+.imp-tile {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+.imp-tile p {
+  display: grid;
+  gap: 4px;
+}
+.imp-tile-value {
+  font-size: clamp(2.5rem, 2rem + 1.6vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--sea);
+}
+.imp-tile-label {
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+@media (min-width: 600px) {
+  .imp-timeline {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0 16px;
+  }
+  .imp-timeline::before {
+    top: 6px;
+    bottom: auto;
+    left: 7px;
+    right: 0;
+    width: auto;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      var(--sea) 0%,
+      var(--lake) 55%,
+      rgba(82, 189, 234, 0) 100%
+    );
+  }
+  .imp-step {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 4px;
+    padding: 32px 0 0;
+  }
+  .imp-step::before {
+    top: 0;
+  }
+  .imp-stat {
+    flex-direction: row;
+    align-items: center;
+  }
+  .imp-foot {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 24px;
+  }
+  .imp-pop {
+    left: auto;
+    right: 0;
+  }
+  .imp-more {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+  }
+}
+@media (min-width: 1024px) {
+  .imp-main {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: center;
+    gap: 56px;
+  }
+  .imp-stat {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .imp-label {
+    font-size: clamp(1.125rem, 0.9rem + 0.5vw, 1.375rem);
+  }
+}
+
+/* Homepage entrance (CSS only, so it never waits for JS): the card rises
+   just after the hero copy, then the markers pop in year by year. (The
+   rule itself is not animated: Chrome's full-page capture drops animated
+   pseudo-element layers, which would hide it in review screenshots.) */
+@media (prefers-reduced-motion: no-preference) {
+  .imp-overlap .imp-card {
+    animation: imp-rise 1000ms var(--ease) 380ms both;
+  }
+  .imp-overlap .imp-step::before {
+    animation: imp-pop 600ms var(--ease) both;
+    animation-delay: calc(900ms + var(--i, 0) * 140ms);
+  }
+  .imp-overlap .imp-step > * {
+    animation: imp-fade 700ms var(--ease) both;
+    animation-delay: calc(960ms + var(--i, 0) * 140ms);
+  }
+}
+@keyframes imp-rise {
+  from { opacity: 0; transform: translateY(40px); }
+}
+@keyframes imp-pop {
+  from { opacity: 0; transform: scale(0.3); }
+}
+@keyframes imp-fade {
+  from { opacity: 0; transform: translateY(8px); }
+}
+
+/* ---------- 6.4 Projects ----------
+ * Heading row (title, lead, «Все проекты»), then three equal cards on one
+ * baseline: one column on phones (the full 2:1 artwork), three columns
+ * from 768px (a 3:2 crop — every logo sits inside the middle 60% of its
+ * cover). The artwork is full-bleed in a rounded mask, the label, title,
+ * "go" circle and one line below: the same anatomy as the flagship
+ * competition cards above, so both sections read as one system.        */
+.home-projects-grid {
+  display: grid;
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.home-projects-grid > li {
+  min-width: 0;
+}
+.home-project {
+  height: 100%;
+  overflow: visible;
+  border-radius: 0;
+  background: transparent;
+}
+.home .home-project-media {
+  aspect-ratio: 2 / 1;
+  border-radius: var(--radius);
+  background: var(--paper);
+  isolation: isolate; /* Safari: keep the scaled image inside the radius */
+}
+.home .home-project-media img {
+  transition: transform 700ms var(--ease);
+}
+.home .home-project:hover .home-project-media img {
+  transform: scale(1.04);
+}
+/* chip, title and text on the left; the "go" circle on the right */
+.home .home-project-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 8px 20px;
+  padding-top: 24px;
+}
+.home-project-body > :not(.home-project-go) {
+  grid-column: 1;
+}
+.home-project-body .chip {
+  justify-self: start;
+  margin-bottom: 4px;
+}
+.home-project-body p {
+  max-width: 40ch;
+}
+.home-project-title {
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+.home-project .card-link {
+  transition: color var(--dur) var(--ease);
+}
+.home-project:hover .card-link {
+  color: var(--blue);
+}
+/* The site-wide "go" arrow (same look as .pg-project-arrow on /projects):
+   44px --tint circle beside the title, blue on hover, arrow nudges 3px.
+   The negative margins keep it from making the title row taller. */
+.home-project-go {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: center;
+  margin-block: -8px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--tint);
+  color: var(--blue);
+  transition:
+    background-color 250ms var(--ease),
+    color 250ms var(--ease);
+}
+.home-project-go svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2;
+  transition: transform 250ms var(--ease);
+}
+.home-project:hover .home-project-go {
+  background: var(--blue);
+  color: var(--white);
+}
+.home-project:hover .home-project-go svg {
+  transform: translateX(3px);
+}
+.home-project:hover .home-project-go.is-external svg {
+  transform: translate(2px, -2px);
+}
+.home-project .card-link:focus-visible {
+  outline: none;
+}
+.home-project .card-link:focus-visible::after {
+  outline: 3px solid var(--blue);
+  outline-offset: 6px;
+  border-radius: var(--radius);
+}
+
+@media (min-width: 768px) {
+  .home-projects-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .home .home-project-media {
+    aspect-ratio: 3 / 2;
+  }
+}
+/* 768–1023: narrow columns keep the width for the text; the stretched
+   title link is the target anyway. */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .home-project-go {
+    display: none;
+  }
+}
+@media (min-width: 1024px) {
+  .home-projects-grid {
+    gap: clamp(24px, 2.6vw, 40px);
+  }
+  .home .home-project-media {
+    border-radius: var(--radius-lg);
+  }
+}
+
+/* ---------- 6.5 Trust: President + testimonials ----------
+ * On --paper: the photo in a rounded mask (intrinsic 6676×4684 ratio, never
+ * a fixed-height crop) next to a calm text column; then airy white cards. */
+.home-president {
+  display: grid;
+  gap: 32px;
+}
+.home-president-media {
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--line);
+}
+.home-president-media img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 6676 / 4684;
+  object-fit: cover;
+}
+.home-president-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+.home-president h3 {
+  max-width: 20ch;
+  font-size: clamp(1.5rem, 1.15rem + 1vw, 2.125rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+.home-president-text {
+  max-width: 46ch;
+  font-size: clamp(1.0625rem, 1rem + 0.2vw, 1.125rem);
+  line-height: 1.6;
+  color: var(--muted);
+}
+.home-president-caption {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+.home-president .link-arrow {
+  margin-top: 4px;
+}
+@media (min-width: 1024px) {
+  .home-president {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: center;
+    gap: clamp(48px, 5vw, 88px);
+  }
+}
+
+.tst {
+  margin-top: clamp(64px, 8vw, 112px);
+}
+.tst-track {
+  /* bottom room for the soft card shadow, which overflow would clip */
+  margin-bottom: -32px;
+  padding-bottom: 32px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.tst-track::-webkit-scrollbar {
+  display: none;
+}
+.tst-track:focus-visible {
+  outline-offset: 4px;
+  border-radius: var(--radius);
+}
+.tst-list {
+  display: flex;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tst-item {
+  display: flex;
+  flex: 0 0 88%;
+  scroll-snap-align: start;
+}
+.tst-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  margin: 0;
+  padding: clamp(28px, 3vw, 40px);
+  border-radius: var(--radius);
+  background: var(--white);
+  box-shadow: var(--shadow-soft);
+}
+.tst-mark {
+  /* quote shape (Remix Icon "double-quotes-l", Apache-2.0) as a mask over
+     the Aral gradient */
+  --quote: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 4.8 18 13.7'%3E%3Cpath d='M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z'/%3E%3C/svg%3E");
+  display: block;
+  width: 36px;
+  height: 28px;
+  background: var(--aral);
+  -webkit-mask: var(--quote) left center / contain no-repeat;
+  mask: var(--quote) left center / contain no-repeat;
+}
+.tst-card blockquote {
+  margin: 0;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--ink);
+}
+.tst-person {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+/* The <picture> is the flex item, not the img: it must not shrink when the
+   role text is long, and the img must ignore the global max-width: 100%. */
+.tst-person > picture {
+  display: block;
+  flex: none;
+  width: 48px;
+  height: 48px;
+}
+.tst-photo {
+  display: block;
+  flex: none;
+  width: 48px;
+  height: 48px;
+  max-width: none;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--paper);
+}
+.tst-name {
+  display: block;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.tst-role {
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+.tst-controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 40px;
+}
+.tst-btn {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--ink);
+  transition:
+    background-color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    color var(--dur) var(--ease),
+    opacity var(--dur) var(--ease);
+}
+.tst-btn svg {
+  width: 18px;
+  height: 18px;
+  transition: transform var(--dur) var(--ease);
+}
+.tst-btn:hover:not([aria-disabled='true']) {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: var(--white);
+}
+.tst-btn:hover:not([aria-disabled='true']):last-child svg {
+  transform: translateX(2px);
+}
+.tst-btn:hover:not([aria-disabled='true']):first-child svg {
+  transform: translateX(-2px);
+}
+/* stays focusable at either end (aria-disabled), only looks inactive */
+.tst-btn[aria-disabled='true'] {
+  cursor: default;
+  opacity: 0.4;
+}
+@media (min-width: 768px) {
+  .tst-list {
+    gap: 24px;
+  }
+  .tst-item {
+    flex-basis: calc((100% - 24px) / 2);
+  }
+}
+@media (min-width: 1024px) {
+  .tst-item {
+    flex-basis: calc((100% - 48px) / 3);
+  }
+  .tst-card blockquote {
+    font-size: 1.125rem;
+  }
+}
+
+/* ---------- 6.6 News ----------
+ * Phones: one column. 640–1023: a swipeable row (≈2 cards in view) instead
+ * of a 2+1 grid. ≥1024: three columns. Cards come from news-card.tsx.  */
+.home-news-grid {
+  display: grid;
+  gap: 48px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.home-news-grid > li {
+  display: flex;
+  min-width: 0;
+}
+.home-news-grid > li > * {
+  flex: 1 1 auto;
+}
+@media (min-width: 640px) and (max-width: 1023.98px) {
+  .home-news-grid {
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100vw - 2 * var(--gutter) - 24px) / 2.2);
+    gap: 24px;
+    /* padding keeps the card focus ring inside the scroller; the row
+       bleeds to the right edge of the screen so the next card peeks */
+    margin: -10px calc(-1 * var(--gutter)) -10px -10px;
+    padding: 10px var(--gutter) 20px 10px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 10px var(--gutter);
+    scrollbar-width: thin;
+  }
+  .home-news-grid > li {
+    scroll-snap-align: start;
+  }
+}
+@media (min-width: 1024px) {
+  .home-news-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 32px;
+  }
+}
+
+/* ---------- 6.7 Partners ----------
+ * Figma «Поддержка» card, 1280 × 500: corner radius 34 with 60% corner
+ * smoothing (Squircle clips it to Figma's curve; plain radius before
+ * hydration), a soft neutral shadow. Left: Sea-blue panel over the brand
+ * pattern, copy inset 70px on every side. Right: the Houston photo; the
+ * same photo masked to the tossed boy and the raised hands sits on top, so
+ * he flies out over the blue half. Below 1024px the copy sits on top and
+ * the boy flies up over the top edge of the photo instead.             */
+.home-partners-shadow {
+  filter: drop-shadow(0 6px 14px rgba(15, 23, 42, 0.14));
+}
+.home-partners-card {
+  --squircle-radius: 28px;
+  --squircle-smoothing: 0.6;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  container-type: inline-size;
+  border-radius: var(--squircle-radius);
+  background: #0774f5;
+  color: var(--white);
+}
+.home-partners-card :focus-visible {
+  outline-color: var(--white);
+}
+.home-partners-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* bottom: room for the boy's raised arm, which crosses into the panel */
+  padding: 40px 24px calc(13cqw + 12px);
+  /* as in the owner's Figma: #067AF1 at 60% over the pattern at 100% */
+  background:
+    linear-gradient(rgba(6, 122, 241, 0.6), rgba(6, 122, 241, 0.6)),
+    url('/images/brand/pattern-sea-960.webp') 0 0 / 840px auto repeat,
+    #0774f5;
+}
+.home-partners-copy h2 {
+  max-width: 8.6em;
+  font-size: clamp(2rem, 1.3rem + 2.8vw, 3.4375rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  color: var(--white);
+}
+.home-partners-copy p {
+  max-width: 18em;
+  margin-top: 20px;
+  font-size: clamp(1.0625rem, 0.95rem + 0.45vw, 1.25rem);
+  line-height: 1.15;
+  color: var(--white);
+}
+.home-partners-cta {
+  gap: 8px;
+  min-width: min(260px, 100%);
+  min-height: 48px;
+  margin-top: 28px;
+  padding: 10px 28px;
+  border-radius: 12px;
+  background: var(--white);
+  color: var(--blue);
+  font-size: 1.0625rem;
+}
+.home-partners-cta:hover {
+  background: var(--tint);
+}
+/* the arrow sits inline after the label, not in its own circle */
+.home-partners-cta.btn > svg:last-child:not(:first-child) {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  margin: 0;
+  background: none;
+  stroke-width: 2.25;
+}
+/* The photo panel: the frame crops the photo to the panel; the cut-out
+   copy is not cropped by it (only by the card). Both images share one box,
+   in px of the photo crop (1886 × 1472) scaled by --k. Phones/tablets:
+   the boy and the crowd across the card width, his arm and phone above
+   the panel's top edge. */
+.home-partners-photo {
+  position: relative;
+  height: 67cqw;
+}
+.home-partners-frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.home-partners-img {
+  position: absolute;
+  left: -5cqw;
+  top: -16.8cqw;
+  width: 158.5cqw;
+  max-width: none;
+  height: auto;
+}
+.home-partners-cutout {
+  z-index: 1;
+  -webkit-mask: url('/images/people/houston-toss-mask.webp') 0 0 / 100% 100% no-repeat;
+  mask: url('/images/people/houston-toss-mask.webp') 0 0 / 100% 100% no-repeat;
+  pointer-events: none;
+}
+@media (min-width: 768px) {
+  .home-partners-card {
+    --squircle-radius: 34px;
+  }
+  .home-partners-copy {
+    padding: 56px 56px calc(12cqw + 16px);
+  }
+  /* the same framing, cut just below the raised hands */
+  .home-partners-photo {
+    height: 52cqw;
+  }
+}
+/* Desktop: the Figma frame. Blue panel 705 of 1280 (never under 560px, so
+   the heading keeps clear of the boy's feet), photo 575; the photo is
+   1184px wide, starts 121px left of the panel edge (that part shows only
+   through the cut-out) and 41px above the card. */
+@media (min-width: 1024px) {
+  .home-partners-card {
+    display: grid;
+    grid-template-columns: minmax(560px, 705fr) minmax(0, 575fr);
+    min-height: 500px;
+  }
+  .home-partners-copy {
+    padding: 70px clamp(48px, 5.5vw, 70px);
+  }
+  .home-partners-copy h2 {
+    font-size: clamp(2.75rem, 0.9rem + 3.4vw, 3.4375rem);
+  }
+  .home-partners-copy p {
+    margin-top: 38px;
+  }
+  .home-partners-cta {
+    margin-top: auto;
+  }
+  .home-partners-photo {
+    height: auto;
+  }
+  .home-partners-img {
+    left: -121px;
+    top: -41px;
+    width: 1184px;
+  }
+}
+
+/* ---------- Partner logo band (right above the Partners card) ---------- */
+.home-logos {
+  padding-bottom: 0;
+}
+.home-logos + .home-partners {
+  padding-top: clamp(16px, 2vw, 24px);
+}
+
+/* ---------- Reveals ----------
+ * <Reveal className='home-rv'> arms .will-reveal after mount (never for
+ * reduced motion) and adds .is-visible in view. The wrapper itself stays
+ * put; its `.rv` pieces fade up in a stagger driven by --i.            */
+.home .home-rv.will-reveal {
+  opacity: 1;
+  transform: none;
+}
+.home-rv.will-reveal .rv {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition:
+    opacity 700ms var(--ease),
+    transform 800ms var(--ease);
+  transition-delay: calc(var(--i, 0) * 80ms);
+}
+.home-rv.will-reveal.is-visible .rv {
+  opacity: 1;
+  transform: none;
+}

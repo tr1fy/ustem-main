@@ -1,0 +1,77 @@
+# Builds the static site (`npm run build:static`) on every push to main and
+# commits the contents of out/ to the `deploy` branch.
+#
+# ustem.kz runs on PS.kz Plesk hosting without Node.js, so the server never
+# builds anything: Plesk Git pulls the `deploy` branch of
+# https://github.com/tr1fy/ustem-main.git straight into /httpdocs.
+# Plesk side ("Git" → repository settings):
+#   - branch: deploy; deployment mode: automatic; server path: /httpdocs;
+#     no additional deployment actions;
+#   - the repository's "Webhook URL" is added in GitHub (Settings → Webhooks,
+#     push events), so Plesk pulls as soon as this workflow pushes.
+#
+# The deploy branch keeps a linear history (one commit per build) because
+# Plesk pulls it like any other branch; never force-push it.
+
+name: Deploy static site
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'docs/**'
+      - '**.md'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build out/
+        run: npm run build:static
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
+          # Set as a repository variable to turn GA4 on (cookie-consent.tsx).
+          NEXT_PUBLIC_GOOGLE_ANALYTICS: ${{ vars.NEXT_PUBLIC_GOOGLE_ANALYTICS }}
+
+      - name: Commit out/ to the deploy branch
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          subject="$(git log -1 --format=%s)"
+          remote="https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          site="$RUNNER_TEMP/site"
+          if git ls-remote --exit-code --heads origin deploy > /dev/null; then
+            git clone --quiet --depth 1 --branch deploy "$remote" "$site"
+          else
+            git init --quiet -b deploy "$site"
+            git -C "$site" remote add origin "$remote"
+          fi
+          rsync -a --delete --exclude .git out/ "$site/"
+          cd "$site"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if git diff --cached --quiet; then
+            echo 'out/ is unchanged, nothing to deploy.'
+            exit 0
+          fi
+          git commit --quiet -m "Build ${GITHUB_SHA::7}: $subject"
+          git push --quiet origin deploy

@@ -1,0 +1,688 @@
+/* =========================================================================
+ * Partners, contacts, privacy, 404 (TZ §4, §8.5, §8.6). Prefix: .ct-
+ * Brand guideline: breathing white layouts, photos/cut-outs on partially
+ * cropped Aral circles, thin 2px gradient rules, one flourish per section.
+ * Tokens and primitives live in globals.css. Every animation below rests
+ * fully visible: CSS entrances run without JS, the stagger only hides items
+ * after <Reveal> mounts, and reduced motion skips all of it.
+ * ====================================================================== */
+
+/* ---------- shared ---------- */
+.ct-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+@media (max-width: 479px) {
+  .ct-actions .btn {
+    width: 100%;
+  }
+}
+/* first section right under the page head */
+.section.ct-first {
+  padding-top: clamp(24px, 4vw, 56px);
+}
+
+/* Page-head entrance: breadcrumbs → H1 → lead cascade (CSS only). */
+@media (prefers-reduced-motion: no-preference) {
+  .ct-page > .page-head > *,
+  .ct-phead .page-head > :not(.ct-stage) {
+    animation: ct-copy 760ms var(--ease) both;
+  }
+  .ct-page > .page-head > :nth-child(2),
+  .ct-phead .page-head > :nth-child(2) {
+    animation-delay: 70ms;
+  }
+  .ct-page > .page-head > :nth-child(3),
+  .ct-phead .page-head > :nth-child(3) {
+    animation-delay: 140ms;
+  }
+}
+
+/* Staggered entrance for lists: <Reveal className='ct-rise'> around a list
+   whose items carry .ct-rise-item and style --i (0, 1, 2 …). The group
+   itself does not fade; its items rise one after another. */
+.reveal.ct-rise.will-reveal {
+  opacity: 1;
+  transform: none;
+}
+.reveal.ct-rise.will-reveal .ct-rise-item {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 720ms var(--ease),
+    transform 720ms var(--ease);
+  transition-delay: calc(min(var(--i, 0), 6) * 70ms);
+}
+.reveal.ct-rise.will-reveal.is-visible .ct-rise-item {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes ct-copy {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+@keyframes ct-bloom {
+  from {
+    opacity: 0;
+    transform: scale(0.84);
+  }
+}
+@keyframes ct-step {
+  from {
+    opacity: 0;
+    transform: translateY(36px);
+  }
+}
+@keyframes ct-word {
+  from {
+    opacity: 0;
+    transform: translateY(18%);
+  }
+}
+@keyframes ct-drift {
+  from {
+    transform: translateY(-5%);
+  }
+  to {
+    transform: translateY(7%);
+  }
+}
+
+/* ======================= /partners ======================= */
+
+/* Head: text left, the FTC photo in a rounded mask right (stacked below
+   1024px), one Aral circle peeking out behind its bottom-right corner and
+   cropped by the viewport edge — a vertical mirror of the /about head. */
+.ct-phead {
+  overflow-x: clip;
+}
+.ct-stage {
+  position: relative;
+  isolation: isolate;
+  container-type: inline-size;
+  /* room for the circle's overhang before the next heading */
+  margin: clamp(40px, 6vw, 56px) 0 12cqw;
+}
+.ct-stage-photo {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--paper);
+  aspect-ratio: 4 / 3;
+}
+.ct-stage-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* keeps the USTEM banner on the left in frame */
+  object-position: 14% 50%;
+}
+.ct-stage-orb {
+  position: absolute;
+  z-index: -1;
+  right: -17cqw;
+  bottom: -10cqw;
+  width: 58cqw;
+  aspect-ratio: 1;
+}
+.ct-stage-circle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--aral);
+}
+.ct-stage-circle::after {
+  /* thin inner ring, echoing the logo-mark construction circles */
+  content: '';
+  position: absolute;
+  inset: 9%;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+}
+@media (min-width: 768px) {
+  .ct-stage-photo {
+    border-radius: var(--radius-lg);
+  }
+}
+@media (min-width: 1024px) {
+  .ct-phead .page-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: 1fr auto auto auto 1fr;
+    column-gap: 64px;
+    padding-bottom: clamp(64px, 6vw, 96px);
+  }
+  .ct-phead .page-head > nav {
+    grid-area: 2 / 1;
+  }
+  .ct-phead .page-head > h1 {
+    grid-area: 3 / 1;
+  }
+  .ct-phead .page-head > p {
+    grid-area: 4 / 1;
+  }
+  .ct-phead .page-head > .ct-stage {
+    grid-area: 1 / 2 / -1;
+    margin: 0;
+  }
+}
+@media (min-width: 1200px) {
+  .ct-phead .page-head {
+    column-gap: 96px;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ct-stage-circle {
+    animation: ct-bloom 1100ms var(--ease) 60ms both;
+  }
+  .ct-stage-photo {
+    animation: ct-step 1000ms var(--ease) 120ms both;
+  }
+  .ct-stage-photo img {
+    animation: ct-settle 1600ms var(--ease) 120ms both;
+  }
+  @supports (animation-timeline: view()) {
+    .ct-stage-orb {
+      animation: ct-drift linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
+@keyframes ct-settle {
+  from {
+    transform: scale(1.08);
+  }
+}
+
+/* Partner types: four airy line-topped tiles (as on /about), each with a
+   small blue glyph — no boxes, no icon discs. */
+.ct-audiences {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ct-audiences li {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-block: 28px 32px;
+  border-top: 1px solid var(--line);
+}
+.ct-icon {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--blue);
+}
+.ct-icon svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+.ct-audiences h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.ct-audiences p {
+  max-width: 34ch;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+@media (min-width: 640px) {
+  .ct-audiences {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 40px;
+  }
+}
+@media (min-width: 1200px) {
+  .ct-audiences {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 48px;
+  }
+  .ct-audiences li {
+    padding: 36px 0 0;
+  }
+}
+
+/* Formats: the five TZ names as a clean list under a 2px Aral rule. */
+.ct-split {
+  display: grid;
+  gap: 32px;
+}
+.ct-split h2 {
+  max-width: 14ch;
+}
+.ct-split-head p {
+  margin-top: 20px;
+  max-width: 36ch;
+}
+@media (min-width: 1024px) {
+  .ct-split {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 64px clamp(64px, 7vw, 120px);
+    align-items: start;
+  }
+}
+.ct-formats {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ct-formats::before {
+  content: '';
+  display: block;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--aral);
+}
+.ct-formats li {
+  padding-block: clamp(20px, 2.2vw, 28px);
+  border-bottom: 1px solid var(--line);
+  font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+
+/* Contact band: a calm Aral-soft panel, no pattern (the guideline keeps
+   «узоры» away from text). Light on purpose: the blue footer follows
+   directly below, and two stacked blue blocks read heavy. */
+.ct-cta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  gap: 32px;
+  padding: clamp(36px, 6vw, 88px) clamp(24px, 6vw, 88px);
+  border-radius: var(--radius-lg);
+  background: var(--aral-soft);
+  color: var(--ink);
+}
+.ct-cta h2 {
+  max-width: 14ch;
+  color: var(--ink);
+}
+.ct-cta p {
+  margin-top: 16px;
+  max-width: 44ch;
+  font-size: clamp(1.0625rem, 1rem + 0.25vw, 1.25rem);
+  line-height: 1.55;
+  color: var(--ink);
+}
+.ct-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 32px;
+}
+.ct-cta-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  font-size: 1.1875rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: rgba(27, 31, 36, 0.3);
+  text-underline-offset: 0.25em;
+  transition:
+    color var(--dur) var(--ease),
+    text-decoration-color var(--dur) var(--ease);
+}
+.ct-cta-phone:hover {
+  color: var(--blue);
+  text-decoration-color: currentColor;
+}
+.ct-cta-phone svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  color: var(--blue);
+}
+@media (max-width: 479px) {
+  .ct-cta-actions .btn {
+    width: 100%;
+  }
+}
+@media (min-width: 1024px) {
+  .ct-cta {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 48px;
+  }
+  .ct-cta-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ======================= /contacts ======================= */
+
+/* Channels: large values on hairlines under a 2px Aral rule. Each row is
+   one link with a round arrow that nudges on hover. */
+.ct-channels {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ct-channels::before {
+  content: '';
+  display: block;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--aral);
+}
+.ct-channels > li {
+  border-bottom: 1px solid var(--line);
+}
+.ct-channel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'label go'
+    'value value';
+  align-items: center;
+  gap: 6px 16px;
+  padding-block: 20px 26px;
+}
+.ct-channel-label {
+  grid-area: label;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.ct-channel-value {
+  grid-area: value;
+  font-size: clamp(1.375rem, 0.9rem + 2.6vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  overflow-wrap: anywhere;
+  transition: color 260ms var(--ease);
+}
+.ct-channel-go {
+  grid-area: go;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--ink);
+  transition:
+    background-color 260ms var(--ease),
+    border-color 260ms var(--ease),
+    color 260ms var(--ease),
+    transform 260ms var(--ease);
+}
+.ct-channel-go svg {
+  width: 18px;
+  height: 18px;
+}
+.ct-channel:hover .ct-channel-value {
+  color: var(--blue);
+}
+.ct-channel:hover .ct-channel-go {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: var(--white);
+  transform: translateX(4px);
+}
+.ct-channel:focus-visible {
+  outline-offset: 6px;
+}
+@media (min-width: 1024px) {
+  .ct-channel {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 8fr) auto;
+    grid-template-areas: 'label value go';
+    gap: 24px;
+    padding-block: 36px;
+  }
+  .ct-channel-go {
+    width: 56px;
+    height: 56px;
+  }
+  .ct-channel-go svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Write to us + #media */
+.ct-columns {
+  display: grid;
+  gap: 56px;
+}
+@media (min-width: 1024px) {
+  .ct-columns {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: clamp(64px, 7vw, 120px);
+    align-items: start;
+  }
+}
+.ct-write h2,
+.ct-media h2 {
+  font-size: clamp(1.875rem, 1.4rem + 1.5vw, 2.75rem);
+}
+.ct-write > p,
+.ct-media > p {
+  margin-top: 14px;
+  max-width: 44ch;
+}
+.ct-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.ct-topic {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 12px 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--white);
+  font-weight: 600;
+  line-height: 1.2;
+  transition:
+    border-color 240ms var(--ease),
+    background-color 240ms var(--ease),
+    color 240ms var(--ease),
+    transform 240ms var(--ease);
+}
+.ct-topic:hover {
+  border-color: var(--blue);
+  background: var(--tint);
+  color: var(--blue-hover);
+  transform: translateY(-2px);
+}
+.ct-topic:focus-visible {
+  border-radius: var(--radius-pill);
+}
+.ct-media {
+  padding: clamp(28px, 4vw, 48px);
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+}
+.ct-media > .ct-actions {
+  margin-top: 28px;
+}
+.ct-subtitle {
+  margin-bottom: clamp(32px, 4vw, 48px);
+}
+
+/* ======================= /privacy ======================= */
+.ct-prose {
+  padding-bottom: var(--section);
+}
+.ct-prose > section {
+  max-width: 68ch;
+  padding-block: clamp(32px, 4vw, 48px);
+  border-top: 1px solid var(--line);
+}
+.ct-prose > section:first-child {
+  border-top: 2px solid transparent;
+  border-image: var(--aral) 1;
+}
+.ct-prose h2 {
+  margin-bottom: 16px;
+  font-size: clamp(1.625rem, 1.35rem + 0.8vw, 2rem);
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+.ct-prose p,
+.ct-prose li {
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+.ct-prose ul {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ct-prose li {
+  position: relative;
+  padding-left: 28px;
+}
+.ct-prose li::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 0.72em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--blue);
+}
+.ct-prose a {
+  color: var(--blue);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+.ct-prose a:hover {
+  color: var(--blue-hover);
+  text-decoration-thickness: 2px;
+}
+
+/* ======================= 404 ======================= */
+.ct-404 {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  min-height: max(600px, calc(100svh - var(--header-h)));
+  /* below 1024px the circle sits under the copy, with white below it so
+     it never meets the blue footer */
+  --c404: min(64vw, 400px);
+  padding-block: clamp(128px, 16vw, 160px) calc(var(--c404) + 96px);
+}
+.ct-404-art {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.ct-404-circle {
+  position: absolute;
+  right: calc(var(--c404) * -0.3);
+  bottom: 48px;
+  width: var(--c404);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--aral);
+}
+.ct-404-circle::after {
+  content: '';
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+}
+.ct-404-inner {
+  position: relative;
+}
+.ct-404-word {
+  position: absolute;
+  left: -0.04em;
+  /* only the top line of the H1 touches the numerals */
+  bottom: calc(100% - 0.14em);
+  z-index: -1;
+  font-size: clamp(9rem, 2rem + 34vw, 28rem);
+  font-weight: 800;
+  line-height: 0.78;
+  letter-spacing: -0.07em;
+  color: #e4eefc;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+.ct-404-inner h1 {
+  max-width: 14ch;
+}
+.ct-404-inner .lead {
+  max-width: 44ch;
+  margin-top: 20px;
+}
+.ct-404-inner .ct-actions {
+  margin-top: 36px;
+}
+@media (min-width: 768px) {
+  .ct-404 {
+    --c404: min(50vw, 440px);
+  }
+}
+@media (min-width: 1024px) {
+  .ct-404 {
+    align-items: center;
+    /* white below the circle keeps it off the blue footer */
+    padding-block: clamp(200px, 20vw, 280px) clamp(120px, 10vw, 160px);
+  }
+  .ct-404-circle {
+    /* cropped only by the viewport's right edge */
+    right: -14vw;
+    bottom: 6%;
+    width: min(46vw, 680px);
+  }
+  .ct-404-inner > :not(.ct-404-word) {
+    max-width: 600px;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ct-404-circle {
+    animation: ct-bloom 1100ms var(--ease) both;
+  }
+  .ct-404-word {
+    animation: ct-word 1100ms var(--ease) 120ms both;
+  }
+  .ct-404-inner > :not(.ct-404-word) {
+    animation: ct-copy 760ms var(--ease) both;
+  }
+  .ct-404-inner > :nth-child(2) {
+    animation-delay: 220ms;
+  }
+  .ct-404-inner > :nth-child(3) {
+    animation-delay: 290ms;
+  }
+  .ct-404-inner > :nth-child(4) {
+    animation-delay: 360ms;
+  }
+}

@@ -1,0 +1,739 @@
+/* =========================================================================
+ * Site shell: footer (TZ 5.4), «Көмектесу» window (TZ 5.6),
+ * analytics cookie banner (TZ 10). Tokens live in globals.css.
+ * Prefixes: .ftr- footer · .sup- support window · .ck- cookie banner
+ * Layers: support 40 < cookie 45 < header 50 < mobile menu 60.
+ * ====================================================================== */
+
+/* ---------- footer: the brand's blue moment ----------
+ * Surface: the deep end of the Aral gradient, tuned so that every small
+ * text role stays AA anywhere on it:
+ *   white   on #0055c4…#0062d6 → 6.8–5.6:1
+ *   --ftr-muted (#eaf3ff)      → 6.1–5.0:1, and ≥ 4.68:1 over the
+ *   pattern's lightest tile under the 88% layer (#e1edfd dropped to 4.42)
+ * The two lighter circles sit in the top-right corner and end above the
+ * link columns; all small text (e-mail, phone, Instagram) stays left of
+ * them, so only the large H2 may cross one (white on that blend ≥ 4.0:1).
+ */
+.ftr {
+  --ftr-muted: #eaf3ff; /* = --on-dark-muted */
+  --ftr-line: rgba(255, 255, 255, 0.2);
+  --ftr-gap: 32px;
+  --ftr-ca: 300px; /* circle sizes */
+  --ftr-cb: 160px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-top: clamp(64px, 5vw, 72px);
+  /* Guideline «Узоры»: the Sea-blue pattern may sit behind content only
+     under a 70–90% layer of its own blue — here 88%, which keeps white
+     text ≥ 5.2:1 and --ftr-muted ≥ 4.68:1 even over the pattern's
+     lightest tiles. */
+  background:
+    linear-gradient(160deg, rgba(0, 85, 196, 0.88) 0%, rgba(0, 91, 204, 0.88) 50%, rgba(0, 98, 214, 0.88) 100%),
+    url('/images/brand/pattern-sea-960.webp') center top / 960px auto repeat,
+    #005bcc;
+  color: var(--on-dark);
+}
+@media (min-width: 1200px) {
+  .ftr {
+    background:
+      linear-gradient(160deg, rgba(0, 85, 196, 0.88) 0%, rgba(0, 91, 204, 0.88) 50%, rgba(0, 98, 214, 0.88) 100%),
+      url('/images/brand/pattern-sea-1920.webp') center top / 1920px auto repeat,
+      #005bcc;
+  }
+}
+.ftr a,
+.ftr button {
+  transition:
+    color var(--dur) var(--ease),
+    background-color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    text-decoration-color var(--dur) var(--ease);
+}
+
+/* Circles: shown only partially (guideline «Круги»), cropped by the
+   footer's top and right edges; each ends 0.34 / 0.64 of its size below
+   the footer's top edge. */
+.ftr-art {
+  display: none; /* the brand pattern replaces the circles here */
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.ftr-circle {
+  position: absolute;
+  border-radius: 50%;
+}
+.ftr-circle-a {
+  top: calc(-0.66 * var(--ftr-ca));
+  right: calc(-0.3 * var(--ftr-ca));
+  width: var(--ftr-ca);
+  aspect-ratio: 1;
+  background: linear-gradient(
+    225deg,
+    rgba(82, 189, 234, 0.42) 0%,
+    rgba(24, 156, 217, 0.22) 55%,
+    rgba(24, 156, 217, 0.08) 100%
+  );
+}
+.ftr-circle-b {
+  top: calc(-0.36 * var(--ftr-cb));
+  right: calc(-0.46 * var(--ftr-cb));
+  width: var(--ftr-cb);
+  aspect-ratio: 1;
+  background: linear-gradient(
+    225deg,
+    rgba(82, 189, 234, 0.5) 0%,
+    rgba(82, 189, 234, 0.16) 100%
+  );
+}
+
+/* Contact block: one H2 (never louder than a page H1), then the e-mail,
+   phone and Instagram — stacked on phones, one calm line from 1024px. All
+   of it stays on the left, clear of the circles in the top-right corner. */
+.ftr-contact {
+  display: grid;
+  gap: 20px;
+  padding-bottom: clamp(40px, 3.5vw, 48px);
+}
+.ftr-title {
+  max-width: 18ch;
+  font-size: clamp(2rem, 1.3rem + 2.4vw, 3.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+.ftr-reach {
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+  min-width: 0;
+}
+.ftr-reach-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 32px;
+}
+.ftr-email {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  min-height: 48px;
+  font-size: clamp(1.375rem, 1.15rem + 0.9vw, 2rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: rgba(255, 255, 255, 0.45);
+  text-underline-offset: 0.22em;
+}
+.ftr-email:hover {
+  text-decoration-color: currentColor;
+}
+.ftr-phone {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.25em;
+}
+.ftr-phone:hover {
+  text-decoration-color: currentColor;
+}
+.ftr-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* Icon in a 44px white-outline circle + the visible account handle. */
+.ftr-social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ftr-muted);
+}
+.ftr-social-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  color: var(--white);
+  transition:
+    background-color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    color var(--dur) var(--ease),
+    transform var(--dur) var(--ease);
+}
+.ftr-social-icon svg {
+  width: 20px;
+  height: 20px;
+}
+.ftr-social-link:hover {
+  color: var(--white);
+}
+.ftr-social-link:hover .ftr-social-icon {
+  border-color: var(--white);
+  background: var(--white);
+  color: var(--blue);
+  transform: scale(1.06);
+}
+.ftr-social-link:hover .ftr-social-handle {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+/* Columns: brand · navigation · about the foundation */
+.ftr-grid {
+  display: grid;
+  /* Phones: navigation takes its natural width so the long single words of
+     column 3 («конфиденциальности») still fit at 375px. */
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 48px 32px;
+  padding-block: 48px 56px;
+  border-top: 1px solid var(--ftr-line);
+}
+.ftr-brand {
+  grid-column: 1 / -1;
+  display: grid;
+  justify-items: start;
+  align-content: start;
+  gap: 6px;
+}
+.ftr-logo {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  margin-bottom: 14px;
+  border-radius: 4px;
+}
+.ftr-logo img {
+  width: 152px;
+  height: auto;
+}
+.ftr-about {
+  max-width: 30ch;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--ftr-muted);
+}
+.ftr-geo {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--white);
+}
+.ftr-col h3 {
+  margin-bottom: 12px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ftr-muted);
+}
+.ftr-col ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ftr-col a {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  min-height: 44px;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--ftr-muted);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.3em;
+}
+.ftr-col a:hover {
+  color: var(--white);
+  text-decoration-color: currentColor;
+}
+
+/* Bottom row: © + back to top */
+.ftr-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding-block: 12px calc(12px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--ftr-line);
+  font-size: 0.875rem;
+  color: var(--ftr-muted);
+}
+.ftr-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  margin-right: -4px;
+  padding: 0 4px 0 12px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: none;
+  color: var(--white);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.ftr-top-icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  transition:
+    background-color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    color var(--dur) var(--ease),
+    transform var(--dur) var(--ease);
+}
+.ftr-top-icon svg {
+  width: 16px;
+  height: 16px;
+}
+.ftr-top:hover .ftr-top-icon {
+  border-color: var(--white);
+  background: var(--white);
+  color: var(--blue);
+  transform: translateY(-3px);
+}
+
+/* /contacts: the page already lists the contacts, so the footer starts
+   with its columns; smaller circles stay in the band above them. */
+.ftr.ftr-compact {
+  --ftr-ca: clamp(160px, 26vw, 340px);
+  --ftr-cb: clamp(100px, 14vw, 180px);
+  padding-top: clamp(96px, 10vw, 128px);
+}
+.ftr-compact .ftr-grid {
+  padding-top: 0;
+  border-top: 0;
+}
+
+/* Tablet: brand block stays a full row, the two link columns split evenly
+   so long items («Политика конфиденциальности») never break mid-word. */
+@media (min-width: 768px) {
+  .ftr {
+    --ftr-ca: 560px;
+    --ftr-cb: 300px;
+  }
+  .ftr-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 48px var(--ftr-gap);
+    padding-block: 48px 56px;
+  }
+  .ftr-reach {
+    gap: 8px;
+  }
+  /* the 7 navigation links flow in two short columns */
+  .ftr-col-nav ul {
+    columns: 2;
+    column-gap: var(--ftr-gap);
+  }
+  .ftr-col-nav li {
+    break-inside: avoid;
+  }
+}
+
+/* Desktop: 5 / 4 / 3 columns, the block stays low and airy. */
+@media (min-width: 1024px) {
+  .ftr {
+    --ftr-ca: min(720px, 50vw);
+    --ftr-cb: min(360px, 26vw);
+  }
+  .ftr-grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 4fr) minmax(0, 3fr);
+    padding-block: 40px 44px;
+  }
+  .ftr-brand {
+    grid-column: auto;
+  }
+}
+
+/* Wide: e-mail, phone and Instagram on one line. */
+@media (min-width: 1200px) {
+  .ftr {
+    --ftr-gap: 48px;
+  }
+  .ftr-reach {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 40px;
+  }
+}
+
+/* From 1280px: brand · navigation in three short columns · about, so the
+   block stays three links low (each column fits «USTEM Academy»). */
+@media (min-width: 1280px) {
+  .ftr-grid {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 5fr) minmax(0, 3fr);
+  }
+  .ftr-col-nav ul {
+    columns: 3;
+    column-gap: 24px;
+  }
+}
+
+/* Motion: the circles drift in as the footer enters (scroll-driven, no
+   JS); content cascades in once (JS arms it after mount). Reduced motion:
+   nothing moves and everything is simply there. */
+@media (prefers-reduced-motion: no-preference) {
+  .ftr.is-armed .ftr-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 700ms var(--ease) calc(var(--i, 0) * 80ms),
+      transform 700ms var(--ease) calc(var(--i, 0) * 80ms);
+  }
+  .ftr.is-armed.is-in .ftr-in {
+    opacity: 1;
+    transform: none;
+  }
+  @supports (animation-timeline: view()) {
+    .ftr-circle-a {
+      animation: ftr-drift-a linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+    .ftr-circle-b {
+      animation: ftr-drift-b linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+  }
+}
+@keyframes ftr-drift-a {
+  from {
+    transform: translate(6%, -10%) scale(0.86);
+  }
+}
+@keyframes ftr-drift-b {
+  from {
+    transform: translate(18%, 12%) scale(0.8);
+  }
+}
+
+/* ---------- «Көмектесу» window ----------
+ * Phones, tablets and laptops (< 1280px wide or < 900px tall): a compact
+ * one-row bar (text · round arrow button · ×), about 60px tall — full width
+ * above the bottom safe area on phones, a small corner bar from 768px.
+ * Large screens: a small 300px card (text, blue pill, ×).
+ * From 768px it sits 24px from the bottom-left corner, or bottom-right when
+ * the left spot would cover more important content (data-side, chosen in
+ * support-popup.tsx). It fades out of the way while the footer is under it
+ * (data-tucked), so the footer reserves no room for it.
+ * Focus Not Obscured (WCAG 2.4.11): while it is shown, support-popup.tsx
+ * publishes the band it takes (--sup-space: its height + bottom offset +
+ * 16px) and the page keeps that much scroll padding at the bottom, so
+ * keyboard focus and anchor jumps land above it; if the focus still ends
+ * up under it (e.g. at the very end of the page), it tucks away as well. */
+html[data-support-popup='open'] {
+  scroll-padding-bottom: var(--sup-space, 0px);
+}
+@keyframes sup-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes sup-out {
+  to {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+.sup {
+  position: fixed;
+  z-index: 40;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: calc(12px + env(safe-area-inset-bottom));
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 6px 8px 18px;
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--ink);
+  box-shadow:
+    0 20px 48px -24px rgba(0, 72, 160, 0.34),
+    0 2px 8px rgba(20, 40, 80, 0.06);
+  transition:
+    opacity 300ms var(--ease),
+    transform 300ms var(--ease),
+    visibility 0s linear 0s;
+}
+.sup[data-state='pending'] {
+  visibility: hidden;
+}
+/* backwards fill: once in, the card is back on its own styles, so the
+   tucked state below can transition it. */
+.sup[data-state='open'] {
+  animation: sup-in 400ms var(--ease) backwards;
+}
+.sup[data-state='closing'] {
+  animation: sup-out 220ms var(--ease) both;
+  pointer-events: none;
+}
+/* Tucked = faded and click-through, but NOT visibility: hidden: its
+   controls stay in the tab order (it comes after the footer in the DOM),
+   and focusing one brings the window back (support-popup.tsx). */
+.sup[data-tucked='true'] {
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+  transition:
+    opacity 240ms var(--ease),
+    transform 240ms var(--ease);
+}
+.sup-text {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+/* Bar: the CTA is the round blue arrow button (its label is announced). */
+.sup-cta.btn {
+  width: 44px;
+  min-height: 44px;
+  padding: 0;
+  gap: 0;
+}
+.sup-cta-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+.sup-cta.btn > svg:last-child {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+/* the whole window (except ×) follows the CTA link */
+.sup-cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+}
+.sup-close {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  transition:
+    background-color var(--dur) var(--ease),
+    color var(--dur) var(--ease);
+}
+.sup-close svg {
+  width: 18px;
+  height: 18px;
+}
+.sup-close:hover {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/* From 768px: the same bar, only as wide as its text, in a corner. */
+@media (min-width: 768px) {
+  .sup {
+    left: 24px;
+    right: auto;
+    bottom: calc(24px + env(safe-area-inset-bottom));
+    width: max-content;
+    max-width: min(420px, 100% - 48px);
+  }
+  .sup[data-side='right'] {
+    left: auto;
+    right: 24px;
+  }
+}
+
+/* Large screens: a small card — text and × on top, the blue pill with its
+   arrow circle below. */
+@media (min-width: 1280px) and (min-height: 900px) {
+  .sup {
+    width: 300px;
+    max-width: none;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 12px 4px;
+    padding: 16px 10px 16px 18px;
+  }
+  .sup-text {
+    grid-column: 1;
+    grid-row: 1;
+    padding-top: 2px;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  .sup-close {
+    grid-column: 2;
+    grid-row: 1;
+    margin: -8px -2px -10px 0;
+  }
+  .sup-cta.btn {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-self: start;
+    width: auto;
+    min-height: 44px;
+    padding: 10px 20px;
+    gap: 10px;
+    font-size: 0.9375rem;
+  }
+  .sup-cta-label {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+  }
+  .sup-cta.btn > svg:last-child {
+    box-sizing: content-box;
+    width: 16px;
+    height: 16px;
+    padding: 7px;
+    margin: -6px -12px -6px 2px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+  }
+}
+
+/* ---------- analytics cookie banner ----------
+ * Same language as the support card: white, rounded, soft blue shadow;
+ * Accept and Decline are the same size and weight (filled / outlined). */
+.ck {
+  position: fixed;
+  z-index: 45;
+  left: 12px;
+  right: 12px;
+  bottom: calc(12px + env(safe-area-inset-bottom));
+  display: grid;
+  gap: 16px;
+  padding: 20px;
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--ink);
+  box-shadow:
+    0 24px 56px -24px rgba(0, 72, 160, 0.38),
+    0 2px 8px rgba(20, 40, 80, 0.06);
+  animation: sup-in 400ms var(--ease) both;
+}
+.ck-title {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+.ck-text {
+  margin-top: 6px;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.ck-link {
+  font-weight: 600;
+  color: var(--blue);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+.ck-link:hover {
+  color: var(--blue-hover);
+}
+.ck-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.ck-btn.btn {
+  border-width: 1.5px;
+  min-height: 48px;
+  padding: 10px 16px;
+  font-size: 0.9375rem;
+}
+.ck-decline.btn {
+  border: 1.5px solid var(--blue);
+  background: var(--white);
+  color: var(--blue);
+}
+.ck-decline.btn:hover {
+  background: var(--tint);
+  border-color: var(--blue-hover);
+  color: var(--blue-hover);
+}
+
+@media (min-width: 768px) {
+  .ck {
+    left: auto;
+    right: 24px;
+    bottom: calc(24px + env(safe-area-inset-bottom));
+    width: min(400px, calc(100vw - 48px));
+    gap: 20px;
+    padding: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sup[data-state='open'],
+  .sup[data-state='closing'],
+  .ck {
+    animation: none;
+  }
+  .sup,
+  .sup[data-tucked='true'] {
+    transform: none;
+    transition: none;
+  }
+  .ftr-top:hover .ftr-top-icon,
+  .ftr-social-link:hover .ftr-social-icon {
+    transform: none;
+  }
+}

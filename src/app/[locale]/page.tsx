@@ -1,29 +1,38 @@
-'use client'
+import type { Metadata } from 'next'
+import { localize, site, ui, words } from '@/lib/site-content'
+import { alternatesFor } from '@/lib/seo'
+import Hero from './_components/hero'
+import HomeSections from './_components/home-sections'
 
-import React, { ReactElement } from 'react'
+const description = words(
+  'USTEM Foundation — Қазақстан, Өзбекстан және Қырғызстанда жарыстар ұйымдастыратын, педагогтерді оқытатын және жас инженерлерді қолдайтын инженерлік білім беру қоры.',
+  'USTEM Foundation — фонд развития инженерного образования: соревнования, обучение педагогов и поддержка молодых инженеров в Казахстане, Узбекистане и Кыргызстане.',
+  'USTEM Foundation advances engineering education with competitions, teacher training and support for young engineers in Kazakhstan, Uzbekistan and Kyrgyzstan.'
+)
 
-import withAuth from '@/app/[locale]/components/with-auth'
-import Hero from '@/app/[locale]/_components/hero'
-import Navbar from '@/app/[locale]/components/layout/Navbar'
-import FirstDescription from './_components/first-description'
-import OurResults from './_components/our-results'
-import Values from './_components/values'
-import OurPrograms from './_components/our-programs'
-import Events from './_components/events'
-import Partners from './_components/partners'
-import PublicDiscussion from './_components/public-discussion'
-
-const Home = (): ReactElement => {
-  return (
-    <>
-      <Hero />
-      <FirstDescription />
-      <OurResults />
-      <OurPrograms />
-      <PublicDiscussion />
-      <Events />
-    </>
-  )
+export function generateMetadata({
+  params: { locale }
+}: {
+  params: { locale: string }
+}): Metadata {
+  return {
+    title: {
+      absolute: `${site.name} — ${localize(ui.heroTitle, locale).replace(/\.$/, '')}`
+    },
+    description: localize(description, locale),
+    alternates: alternatesFor(locale, '')
+  }
 }
 
-export default withAuth(Home)
+export default function Home({
+  params: { locale }
+}: {
+  params: { locale: string }
+}) {
+  return (
+    <main id='main-content' className='home'>
+      <Hero locale={locale} />
+      <HomeSections locale={locale} />
+    </main>
+  )
+}

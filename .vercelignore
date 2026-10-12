@@ -1,0 +1,12 @@
+.git
+.next
+node_modules
+output
+tmp
+/docs
+.claude
+.vscode
+.env*
+*.tsbuildinfo
+.DS_Store
+.next-check

@@ -14,7 +14,9 @@
 
 # next.js
 /.next/
+/.next-check/
 /out/
+/ustem-static.zip
 
 # production
 /build
@@ -37,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.env*
+
+# local scratch (contact sheets, print PDFs) and Claude Code settings
+/tmp/
+/output/
+/.claude/

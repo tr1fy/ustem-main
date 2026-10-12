@@ -1,0 +1,1193 @@
+/* =========================================================================
+ * Competitions — TZ §6.3, §7.1–7.4. Prefix: .cmp-
+ * Brand-guideline style (Sailaukan design, 2023): white and airy, photos in
+ * rounded masks with the text below, one flourish per view (a partially
+ * cropped Aral circle or a slim gradient rule), calm transform/opacity
+ * motion that always rests fully visible. Tokens live in globals.css.
+ * Mobile-first: 375 → 480 / 768 / 1024 / 1200.
+ * ====================================================================== */
+
+.cmp-flagships,
+.cmp-tiles,
+.cmp-chips,
+.cmp-detail-links,
+.cmp-steps,
+.cmp-others-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* =========================================================================
+ * Card — photo in a rounded mask, title + one line below, arrow-in-circle.
+ * Grid areas: "media media" / "body go".
+ * ====================================================================== */
+.cmp-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'media media'
+    'body go';
+  gap: 20px 16px;
+  align-items: start;
+  align-content: start; /* equal-height rows never push the text down */
+  height: 100%;
+}
+.cmp-card-media {
+  grid-area: media;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate; /* keeps the radius clip while the photo scales */
+  border-radius: var(--radius);
+  background: var(--paper);
+  aspect-ratio: 4 / 3;
+}
+.cmp-card--flagship .cmp-card-media {
+  aspect-ratio: 2 / 1; /* the covers are 2:1 artwork with centred logos */
+}
+.cmp-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 500ms var(--ease);
+}
+.cmp-card:hover .cmp-card-media img {
+  transform: scale(1.04);
+}
+.cmp-card-body {
+  grid-area: body;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.cmp-card-title {
+  font-size: 1.1875rem;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+.cmp-card--flagship .cmp-card-title {
+  font-size: clamp(1.5rem, 1.25rem + 0.8vw, 2rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+/* The title link covers the whole card. */
+.cmp-card-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: var(--radius);
+}
+.cmp-card-link:focus-visible {
+  outline: none;
+}
+.cmp-card-link:focus-visible::after {
+  outline: 3px solid var(--blue);
+  outline-offset: 4px;
+}
+/* Facts are short taglines (TZ §7.3: up to 90 characters): never clamped. */
+.cmp-card-fact {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+.cmp-card--flagship .cmp-card-fact {
+  max-width: 46ch;
+  font-size: clamp(1.0625rem, 1rem + 0.2vw, 1.125rem);
+}
+.cmp-card-meta {
+  margin-top: 4px;
+  color: var(--ink);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.cmp-card-go {
+  grid-area: go;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--tint);
+  color: var(--blue);
+  transition:
+    background-color 250ms var(--ease),
+    color 250ms var(--ease);
+}
+.cmp-card-go svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2;
+  transition: transform 250ms var(--ease);
+}
+/* optically centred on the first line of the title */
+.cmp-card--flagship .cmp-card-go {
+  margin-top: -6px;
+}
+.cmp-card:hover .cmp-card-go {
+  background: var(--blue);
+  color: var(--white);
+}
+.cmp-card:hover .cmp-card-go svg {
+  transform: translateX(2px);
+}
+.cmp-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.cmp-card .cmp-chips {
+  margin-top: 6px;
+}
+.cmp-chip-key {
+  color: var(--muted);
+}
+.cmp-chip-key::after {
+  content: '·';
+  margin-left: 6px;
+}
+
+/* ---------- flagships: two large cards ---------- */
+.cmp-flagships {
+  display: grid;
+  gap: 48px;
+}
+@media (min-width: 768px) {
+  .cmp-flagships {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+  }
+}
+@media (min-width: 1200px) {
+  .cmp-flagships {
+    gap: 40px;
+  }
+}
+
+/* =========================================================================
+ * Directions: photo tiles with the title ON the photo (home and catalogue).
+ * The photo fills a rounded tile under a deep-blue scrim; title + one line
+ * sit bottom-left, and a white "go" circle shows top-right on hover.
+ * Seven tiles form a bento (.cmp-tiles--bento), read in DOM = TZ order:
+ *   ≥ 1024 — three columns (5 : 4 : 3 from 1200, equal below) × three
+ *            rows: FIRST Robotics tall on the left, WSO tall on the right
+ *            (a vertical rocket shot), Drone League and Future Race
+ *            stacked between them; Battle of Bots · RoboCup · ABU Robocon
+ *            close the grid on the same column lines.
+ *   < 1024 — two columns: FIRST Robotics and ABU Robocon full width,
+ *            WSO tall; on phones the half-width tiles keep the title only
+ *            (the line stays for screen readers and opens in the panel).
+ * Any other count (the age filter) falls back to an even grid; on the
+ * 12-column desktop grid --span from tileSpans() keeps every row full.
+ * ====================================================================== */
+.cmp-tiles {
+  --row: clamp(160px, 46vw, 260px);
+  display: grid;
+  grid-auto-rows: var(--row);
+  gap: 12px;
+}
+.cmp-tiles > li {
+  min-width: 0;
+}
+
+/* ---------- the overlay tile ---------- */
+.cmp-card--tile {
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: minmax(0, 1fr) auto;
+  grid-template-areas:
+    '. go'
+    'body body';
+  gap: 0;
+  align-content: stretch;
+  --tile-radius: var(--radius-sm);
+  padding: 14px;
+  border-radius: var(--tile-radius);
+  isolation: isolate; /* the photo sits at z-index -1 inside the tile */
+  color: var(--white);
+}
+.cmp-card--tile .cmp-card-media {
+  grid-area: auto; /* abs-pos: cover the whole padding box */
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  aspect-ratio: auto;
+  border-radius: inherit;
+  background: #0b1d36;
+}
+/* Deep brand-blue scrim from the bottom: white text keeps ≥ 4.5:1 even
+   over the bright WSO sky and the green RoboCup pitch. */
+.cmp-card--tile .cmp-card-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(3, 20, 48, 0.84) 0%,
+    rgba(3, 20, 48, 0.56) 25%,
+    rgba(3, 20, 48, 0.14) 50%,
+    rgba(3, 20, 48, 0) 64%
+  );
+  transition: opacity 500ms var(--ease);
+}
+.cmp-card--tile .cmp-card-media img {
+  transition: transform 700ms var(--ease);
+}
+.cmp-card--tile:hover .cmp-card-media img {
+  transform: scale(1.05);
+}
+.cmp-card--tile .cmp-card-body {
+  grid-area: body;
+  gap: 4px;
+  text-shadow: 0 1px 16px rgba(3, 20, 48, 0.35);
+}
+.cmp-card--tile .cmp-card-title {
+  color: var(--white);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+.cmp-card--tile .cmp-card-fact {
+  max-width: 34ch;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+.cmp-card--tile .cmp-card-link::after {
+  border-radius: var(--tile-radius);
+}
+/* The tile clips nothing, so the ring sits outside it like on every card;
+   the inset ring is the fallback where :has() is missing. */
+.cmp-card--tile .cmp-card-link:focus-visible::after {
+  outline: none;
+  box-shadow:
+    inset 0 0 0 3px var(--white),
+    inset 0 0 0 6px var(--blue);
+}
+.cmp-card--tile:has(.cmp-card-link:focus-visible) {
+  outline: 3px solid var(--blue);
+  outline-offset: 4px;
+}
+.cmp-card--tile:has(.cmp-card-link:focus-visible) .cmp-card-link::after {
+  box-shadow: none;
+}
+/* catalogue facts (age · format · season) as glass chips on the photo */
+.cmp-card--tile .chip {
+  background: rgba(255, 255, 255, 0.16);
+  color: var(--white);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.cmp-card--tile .cmp-chip-key {
+  color: rgba(255, 255, 255, 0.8);
+}
+/* "go" circle: touch screens rely on the whole tile, pointers get a white
+   circle that slides in on hover / keyboard focus. */
+.cmp-card--tile .cmp-card-go {
+  display: none;
+  grid-area: go;
+  background: var(--white);
+  color: var(--blue);
+  box-shadow: 0 8px 24px -8px rgba(3, 20, 48, 0.45);
+}
+@media (hover: hover) {
+  .cmp-card--tile .cmp-card-go {
+    display: grid;
+    opacity: 0;
+    transform: translate(-6px, 6px) scale(0.85);
+    transition:
+      opacity 300ms var(--ease),
+      transform 400ms var(--ease);
+  }
+  .cmp-card--tile:is(:hover, :focus-within) .cmp-card-go {
+    opacity: 1;
+    transform: none;
+    background: var(--white);
+    color: var(--blue);
+  }
+}
+
+/* ---------- bento of seven ---------- */
+.cmp-tiles--bento {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(5, var(--row));
+  grid-template-areas:
+    'first first'
+    'drone wso'
+    'race wso'
+    'battle robo'
+    'abu abu';
+}
+.cmp-tiles--bento > li:nth-child(1) { grid-area: first; }
+.cmp-tiles--bento > li:nth-child(2) { grid-area: drone; }
+.cmp-tiles--bento > li:nth-child(3) { grid-area: wso; }
+.cmp-tiles--bento > li:nth-child(4) { grid-area: race; }
+.cmp-tiles--bento > li:nth-child(5) { grid-area: battle; }
+.cmp-tiles--bento > li:nth-child(6) { grid-area: robo; }
+.cmp-tiles--bento > li:nth-child(7) { grid-area: abu; }
+/* the full-width and tall tiles carry the larger title */
+.cmp-tiles--bento > li:is(:nth-child(1), :nth-child(3), :nth-child(7))
+  .cmp-card-title {
+  font-size: 1.375rem;
+}
+/* crops tuned per photo for the tall and wide frames */
+.cmp-tiles--bento > li:nth-child(1) img { object-position: 58% 50%; }
+.cmp-tiles--bento > li:nth-child(3) img { object-position: 46% 50%; }
+
+/* fallback for any other count */
+.cmp-tiles:not(.cmp-tiles--bento) > li:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 599px) {
+  /* half-width phone tiles: the title alone, the line for screen readers */
+  .cmp-tiles--bento
+    > li:is(:nth-child(2), :nth-child(4), :nth-child(5), :nth-child(6))
+    .cmp-card-fact {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+  .cmp-tiles:not(.cmp-tiles--bento) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (min-width: 600px) {
+  .cmp-tiles:not(.cmp-tiles--bento) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 768px) {
+  .cmp-tiles {
+    --row: clamp(220px, 28vw, 280px);
+    gap: 16px;
+  }
+  .cmp-card--tile {
+    --tile-radius: var(--radius);
+    padding: 20px;
+  }
+  .cmp-card--tile .cmp-card-body {
+    gap: 6px;
+  }
+  .cmp-card--tile .cmp-card-title {
+    font-size: 1.375rem;
+  }
+  .cmp-card--tile .cmp-card-fact {
+    font-size: 0.9375rem;
+  }
+  .cmp-tiles--bento > li:is(:nth-child(1), :nth-child(3), :nth-child(7))
+    .cmp-card-title {
+    font-size: 1.625rem;
+  }
+}
+@media (min-width: 1024px) {
+  .cmp-tiles {
+    --row: clamp(220px, 19vw, 272px);
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .cmp-tiles:not(.cmp-tiles--bento) > li,
+  .cmp-tiles:not(.cmp-tiles--bento) > li:last-child:nth-child(odd) {
+    grid-column: span var(--span, 3);
+  }
+  .cmp-tiles--bento {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(3, var(--row));
+    grid-template-areas:
+      'first drone wso'
+      'first race wso'
+      'battle robo abu';
+  }
+  .cmp-card--tile {
+    padding: 24px;
+  }
+  .cmp-card--tile .cmp-card-title {
+    font-size: 1.5rem;
+  }
+  .cmp-tiles--bento > li:is(:nth-child(3), :nth-child(7)) .cmp-card-title {
+    font-size: 1.5rem;
+  }
+  /* the lead tile: bigger title, a little more air */
+  .cmp-tiles--bento > li:nth-child(1) .cmp-card--tile {
+    padding: 32px;
+  }
+  .cmp-tiles--bento > li:nth-child(1) .cmp-card-title {
+    font-size: clamp(1.75rem, 1rem + 1.2vw, 2.25rem);
+    letter-spacing: -0.03em;
+  }
+  .cmp-tiles--bento > li:nth-child(1) .cmp-card-fact {
+    font-size: 1.0625rem;
+  }
+}
+@media (min-width: 1200px) {
+  .cmp-tiles--bento {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 4fr) minmax(0, 3fr);
+  }
+}
+
+/* ---------- homepage showcase ---------- */
+.cmp-showcase--home .cmp-tiles {
+  margin-top: 40px;
+}
+@media (min-width: 1024px) {
+  .cmp-showcase--home .cmp-tiles {
+    margin-top: 64px;
+  }
+}
+
+/* ---------- staggered entrance (StaggerReveal) ----------
+ * Only lists that start below the fold get .is-pending, and only on screen
+ * with motion allowed, so content never waits invisible.               */
+@media screen and (prefers-reduced-motion: no-preference) {
+  .cmp-stagger.is-pending > ul > li {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+  .cmp-stagger.is-pending.is-shown > ul > li {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 700ms var(--ease) calc(var(--i, 0) * 70ms),
+      transform 800ms var(--ease) calc(var(--i, 0) * 70ms);
+  }
+}
+
+/* =========================================================================
+ * /competitions — head with the FTC cut-out, then the catalogue.
+ * The cut-out rises out of the head's hairline, which also crops the Aral
+ * circle behind it (same language as the homepage hero). The source photo
+ * ends in a straight crop through a red tablecloth at its left and bottom
+ * edges, so both edges dissolve into the white instead of ending hard.
+ * ====================================================================== */
+.cmp-head .page-head {
+  padding-bottom: 0;
+  border-bottom: 1px solid var(--line);
+}
+.cmp-head-visual {
+  position: relative;
+  isolation: isolate;
+  container-type: inline-size;
+  overflow: hidden;
+  width: min(100%, 480px);
+  margin: 48px auto 0;
+}
+.cmp-head-circle {
+  position: absolute;
+  z-index: -1;
+  /* larger and lower: the hairline (the visual's bottom edge) crops it */
+  left: 0;
+  top: 12cqw;
+  width: 96cqw;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--aral);
+}
+.cmp-head-circle::after {
+  /* thin inner ring, echoing the logo-mark construction circles */
+  content: '';
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+.cmp-head-people {
+  display: block;
+  width: 94%;
+  height: auto;
+  /* The full-width tablecloth band is the bottom ~8% of the photo (its
+     straight left/right crops live there). The hairline hides it:
+     -6.6% of the visual's width ≈ 8% of the photo's height. */
+  margin: 0 0 -6.6% auto;
+  /* What remains dissolves softly into the hairline, and the far-left
+     strip (cloth only, the robot starts at ~10%) fades out. The two mask
+     layers intersect. */
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0, #000 9%),
+    linear-gradient(0deg, transparent 8%, #000 14%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent 0, #000 9%),
+    linear-gradient(0deg, transparent 8%, #000 14%);
+  mask-composite: intersect;
+}
+@media (min-width: 768px) {
+  .cmp-head-visual {
+    width: min(100%, 520px);
+    margin-top: 56px;
+  }
+}
+@media (min-width: 1024px) {
+  .cmp-head .page-head {
+    display: grid;
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    /* Crumbs → H1 → lead stack at the top, exactly as on every other
+       page head; the free height (set by the cut-out) collects in the
+       last row, below the lead, where it reads as breathing room. */
+    grid-template-rows: auto auto auto 1fr;
+    column-gap: 48px;
+  }
+  .cmp-head .page-head > nav {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .cmp-head .page-head > h1 {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .cmp-head .page-head > p {
+    grid-column: 1;
+    grid-row: 3;
+    margin-bottom: 64px;
+  }
+  .cmp-head-visual {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    align-self: end;
+    width: min(100%, 560px);
+    margin: 0 0 0 auto;
+  }
+}
+
+/* Entrance: copy cascades, circle blooms, the team steps up onto the
+   baseline; a gentle circle drift follows the scroll where supported.
+   Individual `scale` / `translate` keep the two animations independent. */
+@media (prefers-reduced-motion: no-preference) {
+  .cmp-head .page-head > :not(.cmp-head-visual) {
+    animation: cmp-copy 700ms var(--ease) both;
+  }
+  .cmp-head .page-head > h1 {
+    animation-delay: 70ms;
+  }
+  .cmp-head .page-head > p {
+    animation-delay: 140ms;
+  }
+  .cmp-head-circle {
+    animation: cmp-bloom 1100ms var(--ease) 60ms both;
+  }
+  .cmp-head-people {
+    animation: cmp-step 1000ms var(--ease) 200ms both;
+  }
+  @supports (animation-timeline: scroll()) {
+    .cmp-head-circle {
+      animation:
+        cmp-bloom 1100ms var(--ease) 60ms both,
+        cmp-drift linear both;
+      animation-timeline: auto, scroll(root);
+      animation-range: normal, 0 70vh;
+    }
+  }
+}
+@keyframes cmp-copy {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+@keyframes cmp-bloom {
+  from {
+    opacity: 0;
+    scale: 0.82;
+  }
+}
+@keyframes cmp-step {
+  from {
+    opacity: 0;
+    translate: 0 48px;
+  }
+}
+@keyframes cmp-drift {
+  to {
+    translate: 0 12%;
+  }
+}
+
+/* ---------- catalogue ---------- */
+.cmp-catalog.section {
+  padding-top: clamp(56px, 7vw, 96px);
+}
+.cmp-group + .cmp-group {
+  margin-top: 96px;
+}
+@media (min-width: 1024px) {
+  .cmp-group + .cmp-group {
+    margin-top: 128px;
+  }
+}
+
+/* Age filter (TZ §7.4) — rendered only once events carry ageRange. */
+.cmp-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 56px;
+}
+.cmp-filter-label {
+  font-weight: 600;
+}
+.cmp-segments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.cmp-segment {
+  min-width: 64px;
+  min-height: 44px;
+  padding: 8px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--white);
+  color: var(--ink);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  transition:
+    background-color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    color var(--dur) var(--ease);
+}
+.cmp-segment:hover {
+  border-color: var(--blue);
+}
+.cmp-segment[aria-pressed='true'] {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: var(--white);
+}
+.cmp-empty {
+  color: var(--muted);
+}
+
+/* =========================================================================
+ * Competition panel (TZ §7.2): white sheet — from the right on ≥768px
+ * (left corners rounded), from the bottom on phones (top corners rounded).
+ * Opening glides in (560ms, var(--ease)); closing is quicker (280ms,
+ * matching DURATION in competition-panel.tsx).
+ * ====================================================================== */
+.cmp-panel-root {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+}
+.cmp-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(17, 25, 40, 0.44);
+  opacity: 0;
+  transition: opacity 280ms var(--ease);
+}
+.cmp-sheet {
+  position: absolute;
+  inset: max(12px, env(safe-area-inset-top)) 0 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background: var(--white);
+  box-shadow: 0 -24px 64px -32px rgba(0, 48, 120, 0.4);
+  transform: translateY(100%);
+  transition: transform 280ms cubic-bezier(0.5, 0, 0.75, 0);
+}
+.cmp-panel-root[data-state='open'] .cmp-overlay {
+  opacity: 1;
+  transition-duration: 400ms;
+}
+.cmp-panel-root[data-state='open'] .cmp-sheet {
+  transform: none;
+  transition: transform 560ms var(--ease);
+}
+.cmp-sheet-bar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 16px 12px 24px;
+  background: rgba(255, 255, 255, 0.94);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+/* the slim Aral-gradient rule, as under the guideline's page headers */
+.cmp-sheet-bar::after {
+  content: '';
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--aral);
+}
+.cmp-sheet-label {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.cmp-close {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink);
+  transition:
+    background-color var(--dur) var(--ease),
+    transform var(--dur) var(--ease);
+}
+.cmp-close:hover {
+  background: var(--line);
+  transform: rotate(90deg);
+}
+.cmp-close svg {
+  width: 22px;
+  height: 22px;
+}
+.cmp-sheet-body {
+  padding: 28px 24px calc(48px + env(safe-area-inset-bottom));
+}
+.cmp-sheet-media {
+  overflow: hidden;
+  margin-bottom: 32px;
+  border-radius: var(--radius);
+  background: var(--paper);
+  aspect-ratio: 16 / 9;
+}
+.cmp-sheet-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@media (min-width: 768px) {
+  .cmp-sheet {
+    inset: 0 0 0 auto;
+    width: clamp(480px, 40vw, 560px);
+    border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+    box-shadow: -32px 0 80px -40px rgba(0, 48, 120, 0.45);
+    transform: translateX(100%);
+  }
+  .cmp-sheet-bar {
+    padding: 20px 24px 16px 40px;
+  }
+  .cmp-sheet-bar::after {
+    left: 40px;
+    right: 40px;
+  }
+  .cmp-sheet-body {
+    padding: 32px 40px 56px;
+  }
+}
+/* the content settles in just after the sheet */
+@media (prefers-reduced-motion: no-preference) {
+  .cmp-panel-root[data-state='open'] .cmp-sheet-body > * {
+    animation: cmp-copy 600ms var(--ease) 140ms both;
+  }
+  .cmp-panel-root[data-state='open'] .cmp-sheet-body > :nth-child(2) {
+    animation-delay: 220ms;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cmp-overlay,
+  .cmp-sheet,
+  .cmp-close {
+    transition: none;
+  }
+}
+
+/* =========================================================================
+ * Competition detail (panel + page)
+ * ====================================================================== */
+.cmp-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.cmp-detail-head {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+/* Page: the global h1 scale. Panel: a dialog title for a 480–560px sheet. */
+.cmp-detail--panel .cmp-detail-title {
+  font-size: clamp(2rem, 1.7rem + 1vw, 2.625rem);
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+}
+.cmp-detail-fact {
+  max-width: 52ch;
+  color: var(--muted);
+  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  line-height: 1.5;
+}
+.cmp-detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+/* «Проходит в рамках: Alem Tech Fest →» — one pill, one link. */
+.cmp-partof {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 6px;
+  min-height: 44px;
+  padding: 8px 16px 8px 20px;
+  border-radius: var(--radius-pill);
+  background: var(--tint);
+  font-size: 0.9375rem;
+  line-height: 1.3;
+  transition: box-shadow var(--dur) var(--ease);
+}
+.cmp-partof-key {
+  color: var(--muted);
+}
+.cmp-partof-name {
+  color: var(--blue);
+  font-weight: 700;
+}
+.cmp-partof svg {
+  width: 16px;
+  height: 16px;
+  color: var(--blue);
+  stroke-width: 2;
+  transition: transform var(--dur) var(--ease);
+}
+.cmp-partof:hover {
+  box-shadow: inset 0 0 0 1px rgba(0, 105, 218, 0.28);
+}
+.cmp-partof:hover svg {
+  transform: translateX(3px);
+}
+.cmp-detail-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+.cmp-detail-text {
+  max-width: 62ch;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+/* TZ §7.2: four lines in the panel; the full text is on the page. */
+.cmp-detail--panel .cmp-detail-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  overflow: hidden;
+}
+
+/* How to take part — a real sequence: blue numbered circles. */
+.cmp-join {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 4px;
+  padding: 28px 24px;
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+.cmp-join-title {
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+.cmp-steps {
+  display: grid;
+  counter-reset: cmp-step;
+}
+.cmp-steps li {
+  position: relative;
+  min-height: 36px;
+  padding: 6px 0 20px 56px;
+  line-height: 1.5;
+  counter-increment: cmp-step;
+}
+.cmp-steps li:last-child {
+  padding-bottom: 0;
+}
+.cmp-steps li::before {
+  content: counter(cmp-step);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: var(--white);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.cmp-join-cta {
+  align-self: stretch;
+  margin-top: 4px;
+}
+.cmp-detail-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 32px;
+}
+@media (min-width: 480px) {
+  .cmp-join-cta {
+    align-self: flex-start;
+  }
+}
+@media (min-width: 768px) {
+  .cmp-join {
+    padding: 36px 40px 40px;
+  }
+  .cmp-detail--panel .cmp-join {
+    padding: 32px;
+  }
+}
+
+/* =========================================================================
+ * /competitions/{slug}: text left, the cover in a rounded mask right
+ * (sticky), an Aral circle peeking out behind it on desktop.
+ * ====================================================================== */
+.cmp-page {
+  padding-block: clamp(40px, 6vw, 88px) clamp(72px, 8vw, 112px);
+}
+.cmp-page-grid {
+  display: grid;
+  /* minmax(0, 1fr): a long nowrap pill/button must not widen the single
+     phone column past the container (it did at 375px in ru). */
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px;
+}
+.cmp-page-media {
+  order: -1;
+  position: relative;
+  isolation: isolate;
+}
+.cmp-page-cover {
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--paper);
+  aspect-ratio: 3 / 2;
+}
+.cmp-page-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cmp-page-circle {
+  display: none;
+}
+.cmp-page-note {
+  margin-top: 32px;
+  color: var(--muted);
+  font-size: 1rem;
+}
+.cmp-page-note a {
+  color: var(--blue);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+.cmp-page-note a:hover {
+  text-decoration-thickness: 2px;
+}
+@media (min-width: 1024px) {
+  .cmp-page-grid {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: 72px;
+    align-items: start;
+  }
+  .cmp-page-media {
+    order: 0;
+    position: sticky;
+    top: calc(var(--header-h) + 40px);
+    margin-bottom: 40px; /* room for the circle below the cover */
+  }
+  .cmp-page-cover {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-lg);
+  }
+  .cmp-page-circle {
+    display: block;
+    position: absolute;
+    z-index: -1;
+    right: -9%;
+    bottom: -13%;
+    width: 52%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--aral);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .cmp-page .breadcrumbs,
+  .cmp-page .cmp-detail > * {
+    animation: cmp-copy 700ms var(--ease) both;
+  }
+  .cmp-page .cmp-detail > :nth-child(2) {
+    animation-delay: 70ms;
+  }
+  .cmp-page .cmp-detail > :nth-child(3) {
+    animation-delay: 130ms;
+  }
+  .cmp-page .cmp-detail > :nth-child(n + 4) {
+    animation-delay: 180ms;
+  }
+  .cmp-page-cover {
+    animation: cmp-copy 900ms var(--ease) 80ms both;
+  }
+  .cmp-page-cover img {
+    animation: cmp-settle 1400ms var(--ease) 80ms both;
+  }
+  .cmp-page-circle {
+    animation: cmp-bloom 1100ms var(--ease) 260ms both;
+  }
+}
+@keyframes cmp-settle {
+  from {
+    transform: scale(1.08);
+  }
+}
+
+/* Related news (TZ §7.3), matched by tag; rendered only when one exists. */
+.cmp-related {
+  padding-bottom: var(--section);
+}
+.cmp-news-grid {
+  display: grid;
+  gap: 40px 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.cmp-news-grid > li {
+  display: flex;
+  min-width: 0;
+}
+.cmp-news-grid > li > * {
+  flex: 1;
+}
+@media (min-width: 768px) {
+  .cmp-news-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .cmp-news-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 56px 32px;
+  }
+}
+
+/* Other competitions: compact rounded tiles (thumbnail + name + arrow),
+   white on the paper section; 8 tiles fill 1 / 2 / 4 columns evenly. */
+.cmp-others-list {
+  display: grid;
+  gap: 12px;
+}
+.cmp-other {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  min-height: 80px;
+  padding: 12px 20px 12px 12px;
+  border-radius: var(--radius);
+  background: var(--white);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  transition:
+    box-shadow 300ms var(--ease),
+    transform 300ms var(--ease);
+}
+.cmp-other-thumb {
+  display: block;
+  overflow: hidden;
+  isolation: isolate;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+}
+.cmp-other-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 500ms var(--ease);
+}
+.cmp-other-go {
+  display: grid;
+  color: var(--muted);
+  transition: color var(--dur) var(--ease);
+}
+.cmp-other-go svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2;
+  transition: transform var(--dur) var(--ease);
+}
+.cmp-other:hover {
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-2px);
+}
+.cmp-other:hover .cmp-other-thumb img {
+  transform: scale(1.06);
+}
+.cmp-other:hover .cmp-other-go {
+  color: var(--blue);
+}
+.cmp-other:hover .cmp-other-go svg {
+  transform: translateX(3px);
+}
+.cmp-other:focus-visible {
+  outline-offset: 4px;
+  border-radius: var(--radius);
+}
+@media (min-width: 600px) {
+  .cmp-others-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+@media (min-width: 1200px) {
+  .cmp-others-list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cmp-card-media img,
+  .cmp-card-go,
+  .cmp-card-go svg,
+  .cmp-other,
+  .cmp-other-thumb img,
+  .cmp-other-go svg,
+  .cmp-partof svg {
+    transition: none;
+  }
+  .cmp-card:hover .cmp-card-media img,
+  .cmp-card:hover .cmp-card-go svg,
+  .cmp-other:hover,
+  .cmp-other:hover .cmp-other-thumb img,
+  .cmp-other:hover .cmp-other-go svg,
+  .cmp-close:hover {
+    transform: none;
+  }
+}

@@ -1,0 +1,17 @@
+/* =========================================================================
+ * The one stylesheet entry (imported by app/[locale]/layout.tsx).
+ * Next 13's production build does not keep the order of several global
+ * CSS imports in a layout: it put globals.css near the end of the bundle,
+ * so its .card / .chip / .section primitives overrode the area files
+ * (clipped news titles, single-column featured news). @import here is
+ * resolved by css-loader into one module, in exactly this order, in dev
+ * and in production alike: tokens + primitives first, areas after.
+ * ====================================================================== */
+@import './globals.css';
+@import './header.css';
+@import './footer.css';
+@import './home.css';
+@import './competitions.css';
+@import './pages.css';
+@import './news.css';
+@import './contact.css';

@@ -1,4 +1,3 @@
-import { nextui } from '@nextui-org/react'
 import defaultTheme from 'tailwindcss/defaultTheme'
 
 /** @type {import('tailwindcss').Config} */
@@ -6,8 +5,7 @@ export default {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-    './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}'
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}'
   ],
 
   fontFamily: {
@@ -49,30 +47,7 @@ export default {
   },
 
   darkMode: 'class',
-  plugins: [
-    nextui({
-      prefix: 'nextui',
-      addCommonColors: false,
-      defaultTheme: 'light',
-      defaultExtendTheme: 'dark',
-      layout: {},
-      themes: {
-        light: {
-          layout: {},
-          colors: {
-            primary: {
-              DEFAULT: '#0085FF',
-              foreground: '#FFFFFF'
-            },
-            focus: '#0085FF',
-            white: '#FFFFFF'
-          }
-        },
-        dark: {
-          layout: {},
-          colors: {}
-        }
-      }
-    })
-  ]
+  // The NextUI theme plugin was removed: no public page uses NextUI and it
+  // added ~200 KB of unused CSS variables to every page.
+  plugins: []
 }

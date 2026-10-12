@@ -1,71 +1,100 @@
-import '@/styles/globals.css'
+// one entry that @imports globals → areas, so production keeps the order
+import '@/styles/index.css'
 import type { Metadata } from 'next'
-import { Roboto, Martian_Mono } from 'next/font/google'
-import { GoogleAnalytics } from '@next/third-parties/google'
+import { Inter } from 'next/font/google'
 import { Toaster } from 'react-hot-toast'
 import { NextIntlClientProvider } from 'next-intl'
-import { getMessages } from 'next-intl/server'
+import { getMessages, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
+import { localize, site, ui, words } from '@/lib/site-content'
+import { alternatesFor, htmlLang, siteUrl } from '@/lib/seo'
 
 import AppShell from '@/app/[locale]/components/layout/AppShell'
-// import { AuthProvider } from '@/lib/Auth';
 
-import { Providers } from './providers'
-
-const roboto = Roboto({
-  subsets: ['latin'],
+// Inter is the brand typeface (USTEM guideline) and covers the full Kazakh
+// Cyrillic set Ә Ғ Қ Ң Ө Ұ Ү Һ І (TZ §9.2).
+const sans = Inter({
+  subsets: ['latin', 'cyrillic', 'cyrillic-ext'],
   display: 'swap',
-  weight: ['400', '500', '700'],
-  variable: '--font-roboto'
+  variable: '--font-sans'
 })
 
-const martianMono = Martian_Mono({
-  subsets: ['latin'],
-  weight: ['500'],
-  display: 'swap',
-  variable: '--font-martian-mono'
-})
+const description = words(
+  'USTEM Foundation — инженерлік білімді дамытатын қор. FIRST бағдарламаларының Қазақстан, Өзбекстан және Қырғызстандағы операторы: жарыстар, педагогтерді оқыту, жас инженерлердің жобалары.',
+  'USTEM Foundation — фонд развития инженерного образования, оператор программ FIRST в Казахстане, Узбекистане и Кыргызстане: соревнования, обучение педагогов, проекты молодых инженеров.',
+  'USTEM Foundation advances engineering education and operates FIRST programs in Kazakhstan, Uzbekistan and Kyrgyzstan: competitions, teacher training and young engineers’ projects.'
+)
 
-export const metadata: Metadata = {
-  title: 'USTEM Foundation',
-  description: 'Ustem Foundation'
+/** Every page exists in the three languages and is rendered at build time. */
+export function generateStaticParams() {
+  return routing.locales.map(locale => ({ locale }))
+}
+
+export function generateMetadata({
+  params: { locale }
+}: {
+  params: { locale: string }
+}): Metadata {
+  const title = `${site.name} — ${localize(ui.heroTitle, locale).replace(/\.$/, '')}`
+  return {
+    metadataBase: new URL(siteUrl),
+    title: { default: title, template: `%s — ${site.name}` },
+    description: localize(description, locale),
+    alternates: alternatesFor(locale, ''),
+    openGraph: {
+      type: 'website',
+      siteName: site.name,
+      title,
+      description: localize(description, locale),
+      locale: htmlLang(locale),
+      images: [{ url: '/images/panama.jpg', width: 1600, height: 900 }]
+    },
+    icons: { icon: '/favicon.ico' }
+  }
+}
+
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: site.name,
+  url: siteUrl,
+  logo: `${siteUrl}/favicon.ico`,
+  email: site.email,
+  telephone: site.phone.display,
+  areaServed: ['Kazakhstan', 'Uzbekistan', 'Kyrgyzstan'],
+  sameAs: [site.instagram.url, site.telegram].filter(Boolean)
 }
 
 export default async function RootLayout({
   children,
   params: { locale }
 }: {
-  children: React.ReactNode;
-  params: { locale: string };
+  children: React.ReactNode
+  params: { locale: string }
 }) {
   if (!routing.locales.includes(locale as any)) {
-    notFound();
+    notFound()
   }
+  // The locale comes from the URL, not from the header middleware.ts sets,
+  // so pages render statically (and in the static build, where there is no
+  // middleware at all).
+  setRequestLocale(locale)
 
-  const messages = await getMessages();
+  const messages = await getMessages()
 
   return (
-    <html
-      lang={locale}
-      suppressHydrationWarning
-      className='scroll-smooth'
-      style={{ overflowX: 'hidden' }}
-    >
-      <body
-        className={`${roboto.variable} ${martianMono.variable}`}
-        style={{ overflowX: 'hidden', width: '100%' }}
-      >
+    <html lang={htmlLang(locale)} suppressHydrationWarning>
+      <body className={sans.variable}>
+        <script
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         <Toaster position='top-center' />
         <NextIntlClientProvider messages={messages}>
-          <Providers>
-            {/*<AuthProvider>*/}
-            <AppShell>{children}</AppShell>
-            {/*</AuthProvider>*/}
-          </Providers>
+          <AppShell>{children}</AppShell>
         </NextIntlClientProvider>
       </body>
-      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS || ''} />
     </html>
   )
 }

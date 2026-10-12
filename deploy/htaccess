@@ -1,0 +1,89 @@
+# Apache rules for the static build on PS.kz Plesk hosting (nginx → Apache).
+# scripts/finish-export.mjs copies this file to out/.htaccess, and
+# .github/workflows/deploy.yml ships out/ to Plesk through the deploy branch.
+# On a Node server the same jobs are done by src/middleware.ts and the
+# redirects()/headers() in next.config.js; keep the two in step.
+#
+# HTTP → HTTPS and ustem.kz → www.ustem.kz are set in Plesk instead
+# (Hosting settings: "Permanent SEO-safe 301 redirect from HTTP to HTTPS",
+# preferred domain www), which knows how nginx forwards the request.
+
+Options -Indexes -MultiViews
+DirectorySlash Off
+DirectoryIndex index.html
+
+RewriteEngine On
+
+# ---- Visitor's language (TZ §5.5): saved choice > browser language > kz ----
+# The language switcher stores a manual choice in NEXT_LOCALE; otherwise the
+# first language in Accept-Language that the site speaks wins
+# ("de,en;q=0.8" → en). Anything else → kz.
+RewriteRule ^ - [E=UL:kz]
+RewriteCond %{HTTP:Accept-Language} ^(?:\s*(?!(?:ru|en|kk|kz)\b)[^,]*,)*\s*ru\b [NC]
+RewriteRule ^ - [E=UL:ru]
+RewriteCond %{HTTP:Accept-Language} ^(?:\s*(?!(?:ru|en|kk|kz)\b)[^,]*,)*\s*en\b [NC]
+RewriteRule ^ - [E=UL:en]
+RewriteCond %{HTTP_COOKIE} (?:^|;\s*)NEXT_LOCALE=(kz|ru|en)(?:;|$)
+RewriteRule ^ - [E=UL:%1]
+
+# '/' and any path without a locale prefix (/about, old or mistyped links)
+# go to the same path under the visitor's language. Files (/images/...,
+# robots.txt, sitemap.xml) and /_next/ are left alone. Temporary and
+# uncached, because the target depends on the cookie and the language.
+RewriteCond %{REQUEST_URI} !^/(?:kz|ru|en)(?:/|\.txt$|$)
+RewriteCond %{REQUEST_URI} !^/_next/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^$ /%{ENV:UL} [R=307,L,E=LOCALE_REDIRECT:1]
+RewriteCond %{REQUEST_URI} !^/(?:kz|ru|en)(?:/|\.txt$|$)
+RewriteCond %{REQUEST_URI} !^/_next/
+RewriteCond %{REQUEST_URI} !\.[^/]+$
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.+)$ /%{ENV:UL}/$1 [R=307,L,E=LOCALE_REDIRECT:1]
+
+# ---- Moved pages (next.config.js redirects) ----
+# Competition pages moved from /projects/{slug} to /competitions/{slug} (TZ §4).
+RewriteRule ^(kz|ru|en)/projects/(almaty-techcup|alem-tech-fest|first-robotics|alem-drone-league|world-space-olympiad|future-race|robot-battle|robocup|abu-robocon)/?$ /$1/competitions/$2 [R=301,L]
+# STEM Hanym has its own website; our site keeps only the card (TZ §8.3).
+RewriteRule ^(kz|ru|en)/projects/stem-hanym/?$ /$1/projects [R=301,L]
+# The personal cabinet is USTEM Connect (TZ §1).
+RewriteRule ^(kz|ru|en)/(login|register)/?$ https://ustem-connect-862m.onrender.com/ [R=307,L]
+
+# ---- Clean URLs: /kz/about is out/kz/about.html ----
+RewriteRule ^(.+)/$ /$1 [R=301,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+)$ $1.html [L]
+
+# ---- Localized 404 (rendered by [locale]/[...rest] as /{locale}/404) ----
+ErrorDocument 404 /kz/404.html
+<If "%{REQUEST_URI} =~ m#^/ru(?:/|$)#">
+  ErrorDocument 404 /ru/404.html
+</If>
+<If "%{REQUEST_URI} =~ m#^/en(?:/|$)#">
+  ErrorDocument 404 /en/404.html
+</If>
+
+# ---- Headers ----
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Vary "Accept-Language, Cookie" env=LOCALE_REDIRECT
+  Header always set Cache-Control "private, no-store" env=LOCALE_REDIRECT
+  # Hashed build assets never change; pages are revalidated on every visit.
+  <If "%{REQUEST_URI} =~ m#^/_next/static/#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+  <ElseIf "%{REQUEST_URI} =~ m#^/(?:_img|images|docs)/#">
+    Header set Cache-Control "public, max-age=604800"
+  </ElseIf>
+  <ElseIf "%{REQUEST_URI} !~ m#\.[a-z0-9]+$#i || %{REQUEST_URI} =~ m#\.(?:html|txt)$#">
+    Header set Cache-Control "no-cache"
+  </ElseIf>
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+  AddType application/manifest+json .webmanifest
+  AddCharset utf-8 .html .txt .xml .js .css .json
+</IfModule>

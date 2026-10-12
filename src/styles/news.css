@@ -1,0 +1,448 @@
+/* =========================================================================
+ * News — /news, /news/[slug], NewsCard (TZ §6.6, §8.4). Prefix: .nws-
+ * Brand guideline: covers in rounded masks, meta + title below the image,
+ * breathing white grid, one flourish per view. Tokens and primitives live
+ * in globals.css; the staggered entrance (.ct-rise) lives in contact.css.
+ * ====================================================================== */
+
+/* ---------- page head entrance (CSS only; rests visible). The cover is
+   the LCP image, so it is not faded. ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .nws-page > .page-head > *,
+  .nws-article .page-head > * {
+    animation: nws-copy 760ms var(--ease) both;
+  }
+  .nws-page > .page-head > :nth-child(2),
+  .nws-article .page-head > :nth-child(2) {
+    animation-delay: 70ms;
+  }
+  .nws-page > .page-head > :nth-child(3),
+  .nws-article .page-head > :nth-child(3) {
+    animation-delay: 140ms;
+  }
+}
+@keyframes nws-copy {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+/* ---------- card ---------- */
+.nws-card {
+  /* the media carries the radius; text sits on the page, no box */
+  overflow: visible;
+  border-radius: 0;
+  background: transparent;
+}
+.nws-card .card-media {
+  border-radius: var(--radius);
+  aspect-ratio: 16 / 10;
+}
+.nws-card .card-media img {
+  transition: transform 500ms var(--ease);
+}
+.nws-card:hover .card-media img {
+  transform: scale(1.04);
+}
+/* small arrow badge in the mask corner (decorative; the title is the link) */
+.nws-card-go {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: 0 8px 20px -10px rgba(0, 40, 100, 0.45);
+  pointer-events: none;
+  transition:
+    background-color 260ms var(--ease),
+    color 260ms var(--ease),
+    transform 260ms var(--ease);
+}
+.nws-card-go svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 260ms var(--ease);
+}
+.nws-card:hover .nws-card-go {
+  background: var(--blue);
+  color: var(--white);
+}
+.nws-card:hover .nws-card-go svg {
+  transform: translateX(2px);
+}
+.nws-card-body {
+  gap: 12px;
+  padding-top: 20px;
+}
+.nws-card-meta,
+.nws-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  font-size: var(--fs-small);
+  line-height: 1.4;
+  color: var(--muted);
+}
+/* category chip: brand tint, blue text (5.8:1) */
+.nws-chip {
+  background: var(--tint);
+  color: var(--blue-hover);
+}
+.nws-card-title {
+  font-size: clamp(1.1875rem, 1.1rem + 0.35vw, 1.375rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+.nws-card-title a {
+  transition: color var(--dur) var(--ease);
+}
+.nws-card:hover .nws-card-title a {
+  color: var(--blue);
+}
+.nws-card-text {
+  display: none;
+}
+@supports selector(:has(*)) {
+  .nws-card .card-link:focus-visible {
+    outline: none;
+  }
+  .nws-card:has(.card-link:focus-visible) {
+    outline: 3px solid var(--blue);
+    outline-offset: 8px;
+    border-radius: var(--radius);
+  }
+}
+
+/* ---------- grid: airy 1 / 2 / 3 ---------- */
+.nws-grid {
+  display: grid;
+  gap: 48px 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.nws-grid > li {
+  display: flex;
+  min-width: 0;
+}
+.nws-grid > li > .nws-card {
+  flex: 1;
+}
+@media (min-width: 768px) {
+  .nws-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 56px 28px;
+  }
+}
+@media (min-width: 1024px) {
+  .nws-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 72px 32px;
+  }
+
+  /* featured (newest) story: one row whose cover keeps the size of a
+     single grid column and whose text spans the other two, so it lines up
+     with the cards below instead of towering over them */
+  .nws-grid > li.is-featured {
+    grid-column: 1 / -1;
+  }
+  .nws-card--featured {
+    display: grid;
+    /* one column of the 3-up grid below (two 32px gaps between three) */
+    grid-template-columns: calc((100% - 64px) / 3) minmax(0, 1fr);
+    align-items: center;
+    column-gap: 32px;
+  }
+  .nws-card--featured .nws-card-body {
+    gap: 14px;
+    padding: 0;
+  }
+  .nws-card--featured .nws-card-title {
+    max-width: 26ch;
+    font-size: clamp(1.5rem, 1.1rem + 0.8vw, 2rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+  }
+  .nws-card--featured .nws-card-text {
+    display: block;
+    max-width: 56ch;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+}
+
+/* ---------- /news ---------- */
+.nws-section {
+  padding-bottom: var(--section);
+}
+/* category tabs: one pill segmented control */
+.nws-tabs {
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  gap: 4px;
+  margin-bottom: clamp(40px, 5vw, 64px);
+  padding: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--paper);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nws-tabs::-webkit-scrollbar {
+  display: none;
+}
+.nws-tab {
+  flex: none;
+  min-height: 44px;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.3;
+  white-space: nowrap;
+  transition:
+    background-color 240ms var(--ease),
+    color 240ms var(--ease),
+    box-shadow 240ms var(--ease);
+}
+.nws-tab:hover {
+  color: var(--ink);
+}
+.nws-tab[aria-selected='true'] {
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: 0 6px 16px -8px rgba(0, 50, 120, 0.3);
+}
+.nws-tab:focus-visible {
+  outline-offset: -3px;
+  border-radius: var(--radius-pill);
+}
+.nws-panel:focus-visible {
+  outline-offset: 12px;
+}
+.nws-more {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(56px, 6vw, 80px);
+}
+
+/* ---------- article ----------
+   One reading measure (≈ 68ch at 18px) for cover, text and share, starting
+   on the container's left edge like every other page. From 1200px the
+   source link, PDFs and share move into a sticky rail on the container's
+   right edge, so the page has two clean edges and no dead strip. */
+.nws-article {
+  --nws-col: 46rem;
+}
+.nws-article .page-head {
+  padding-bottom: clamp(28px, 3vw, 40px);
+}
+.nws-article .page-head h1 {
+  max-width: 22ch;
+  font-size: clamp(2rem, 1.4rem + 2.4vw, 3.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+}
+.nws-article .page-head .nws-meta {
+  margin-top: 24px;
+  font-size: 0.9375rem;
+}
+.nws-layout {
+  padding-bottom: var(--section);
+}
+.nws-main,
+.nws-aside {
+  max-width: var(--nws-col);
+}
+.nws-cover {
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+}
+.nws-cover img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+.nws-body {
+  padding-top: clamp(40px, 5vw, 64px);
+}
+/* archive articles have no cover: the body follows the head directly
+   (and lines up with the top of the rail) */
+.nws-main > .nws-body:first-child {
+  padding-top: 0;
+}
+.nws-body > * + * {
+  margin-top: 24px;
+}
+.nws-body > p {
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+.nws-body > p.nws-standfirst {
+  font-size: clamp(1.1875rem, 1.1rem + 0.4vw, 1.375rem);
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+}
+.nws-body > p.muted {
+  font-size: 1rem;
+}
+.nws-body > .nws-notice {
+  padding: 20px 24px;
+  border-radius: var(--radius-sm);
+  background: var(--tint);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+/* source link / PDFs + share: in flow after the text below 1200px */
+.nws-aside {
+  display: grid;
+  justify-items: start;
+  gap: clamp(36px, 4.5vw, 52px);
+  margin-top: 28px;
+}
+.nws-aside > .nws-share {
+  justify-self: stretch;
+}
+.nws-docs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.nws-aside > .nws-docs {
+  margin-top: 12px;
+}
+@media (min-width: 1200px) {
+  .nws-layout {
+    display: grid;
+    grid-template-columns: minmax(0, var(--nws-col)) minmax(0, 320px);
+    justify-content: space-between;
+    align-items: start;
+    column-gap: 64px;
+  }
+  .nws-aside {
+    position: sticky;
+    top: calc(var(--header-h) + 32px);
+    gap: 28px;
+    margin-top: 0;
+    padding-top: 30px;
+  }
+  /* thin Aral rule on top of the rail, like the guideline's header rule */
+  .nws-aside::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--aral);
+  }
+  .nws-aside > .link-arrow {
+    margin-top: -10px;
+  }
+  .nws-aside > .nws-docs {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 0;
+  }
+  .nws-aside > .nws-share {
+    padding-top: 24px;
+  }
+}
+/* Not scoped to the 1200px query: a width-query toggle would replay it. */
+@media (prefers-reduced-motion: no-preference) {
+  .nws-aside {
+    animation: nws-copy 760ms var(--ease) 260ms both;
+  }
+}
+
+/* share row: three 48px round icon buttons on a hairline */
+.nws-share {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+.nws-share-label {
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+.nws-share-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.nws-share-btn {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--ink);
+  transition:
+    border-color 240ms var(--ease),
+    background-color 240ms var(--ease),
+    color 240ms var(--ease),
+    transform 240ms var(--ease);
+}
+.nws-share-btn svg {
+  width: 20px;
+  height: 20px;
+}
+.nws-share-btn:hover {
+  border-color: var(--blue);
+  background: var(--tint);
+  color: var(--blue);
+  transform: translateY(-2px);
+}
+.nws-share-btn:focus-visible {
+  border-radius: 50%;
+}
+.nws-share-btn.is-done {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: var(--white);
+}
+.nws-share-status {
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--blue-hover);
+}
+.nws-share-status:empty {
+  display: none;
+}
+
+/* more news: white, separated by a hairline */
+.nws-others > .container {
+  padding-top: var(--section);
+  border-top: 1px solid var(--line);
+}
+.section.nws-others {
+  padding-top: 0;
+}
