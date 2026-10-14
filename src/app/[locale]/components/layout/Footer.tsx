@@ -5,7 +5,8 @@
  * block of the homepage. Deep Aral-blue surface with two partially cropped
  * lighter-blue circles in the top-right corner (never behind small text),
  * the white logo (guideline «Logo on blue»), a large H2, e-mail, phone and
- * Instagram, three link columns, © and «Back to top».
+ * Instagram, link columns (navigation, about, social accounts), the legal
+ * line (©, name, BIN, address) and «Back to top».
  * On /contacts the contact block is left out: the page itself lists the same
  * e-mail, phone and Instagram just above.
  * Keeps the class .site-footer: Navbar makes it inert while the mobile menu
@@ -57,6 +58,30 @@ function InstagramIcon() {
       <circle cx='17.3' cy='6.7' r='1.15' fill='currentColor' />
     </svg>
   )
+}
+
+function YouTubeIcon() {
+  return (
+    <svg viewBox='0 0 24 24' aria-hidden='true' focusable='false'>
+      <rect
+        x='2.5'
+        y='5.5'
+        width='19'
+        height='13'
+        rx='4'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth='1.7'
+      />
+      <path fill='currentColor' d='M10 9.2v5.6l4.8-2.8L10 9.2Z' />
+    </svg>
+  )
+}
+
+const socialIcons = {
+  instagram: InstagramIcon,
+  telegram: TelegramIcon,
+  youtube: YouTubeIcon
 }
 
 function TelegramIcon() {
@@ -243,11 +268,44 @@ export default function Footer() {
               ))}
             </ul>
           </nav>
+
+          <nav
+            className='ftr-col ftr-col-social ftr-in'
+            style={order(6)}
+            aria-labelledby='ftr-social-title'
+          >
+            <h3 id='ftr-social-title'>{t(ui.socials)}</h3>
+            <ul>
+              {site.socials.map(item => {
+                const Icon = socialIcons[item.network]
+                return (
+                  <li key={item.key}>
+                    <a href={item.url} target='_blank' rel='noopener noreferrer'>
+                      <Icon />
+                      <span>
+                        {item.network === 'instagram' && (
+                          <span className='visually-hidden'>Instagram </span>
+                        )}
+                        {item.label}
+                      </span>
+                      <span className='visually-hidden'> ({t(text.newTab)})</span>
+                    </a>
+                  </li>
+                )
+              })}
+            </ul>
+          </nav>
         </div>
 
         <div className='ftr-bottom'>
-          <p suppressHydrationWarning>
-            © {new Date().getFullYear()} {site.name}
+          <p className='ftr-legal' suppressHydrationWarning>
+            <span>
+              © {new Date().getFullYear()} {t(site.legalName)}
+            </span>
+            <span>
+              {t(ui.bin)} {site.bin}
+            </span>
+            <span>{t(site.address)}</span>
           </p>
           <button type='button' className='ftr-top' onClick={backToTop}>
             {t(ui.backToTop)}

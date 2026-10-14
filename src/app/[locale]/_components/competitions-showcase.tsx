@@ -45,10 +45,10 @@ const ageBuckets: { id: string; label: string; range: [number, number] }[] = [
 
 type PanelState = { slug: string; origin: HTMLElement | null }
 
-/** The full set of seven directions is laid out as a fixed bento
+/** The full set of eight directions is laid out as a fixed bento
     (competitions.css, .cmp-tiles--bento); any other count — e.g. after the
     age filter — falls back to the even grid below. */
-const BENTO_COUNT = 7
+const BENTO_COUNT = 8
 
 /**
  * Column spans of the fallback tiles on the 12-column desktop grid, so any
@@ -114,7 +114,7 @@ export function StaggerReveal({
 
 /**
  * Competitions showcase (TZ §6.3, §7.2, §7.4).
- *   'home'    — 2 flagship cards + a bento of 7 direction tiles. The heading
+ *   'home'    — 3 flagship cards + a bento of 8 direction tiles. The heading
  *               and its single "All competitions" link belong to the
  *               homepage (TZ §6.3), so nothing here repeats that link.
  *   'catalog' — /competitions: age filter (only once ages exist) and two

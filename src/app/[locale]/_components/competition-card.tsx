@@ -24,7 +24,8 @@ const coverSizes: Record<string, [number, number]> = {
   '/images/competitions/future-race.jpg': [1600, 1066],
   '/images/competitions/battle-of-bots.jpg': [1600, 1066],
   '/images/competitions/robocup.jpg': [1473, 982],
-  '/images/competitions/abu-robocon.jpg': [1614, 982]
+  '/images/competitions/abu-robocon.jpg': [1614, 982],
+  '/images/competitions/digital-bridge-2026.jpg': [1266, 792]
 }
 
 export const coverSize = (src: string): [number, number] =>
@@ -104,9 +105,8 @@ export function CompetitionCard({
     size === 'flagship' ? 'wide' : 'tile',
     size === 'flagship' ? flagshipSizes : tileSizes
   )
-  const facts = eventFacts(event).filter(
-    fact => details || fact.key === 'age'
-  )
+  // Homepage tiles stay at title + one line; ages live in the catalogue.
+  const facts = details ? eventFacts(event) : []
   return (
     <article className={`cmp-card cmp-card--${size}`}>
       <div className='cmp-card-media'>
@@ -135,28 +135,42 @@ export function CompetitionCard({
           </Link>
         </h3>
         <p className='cmp-card-fact'>{localize(event.fact, locale)}</p>
+        {size === 'flagship' && event.next && (
+          <p className='cmp-card-next'>
+            <strong>{localize(ui.nextEdition, locale)}:</strong>{' '}
+            {localize(event.next, locale)}
+          </p>
+        )}
         {details && size === 'flagship' && event.meta && (
           <p className='cmp-card-meta'>{localize(event.meta, locale)}</p>
         )}
-        {facts.length > 0 && (
+        {facts.length > 0 && size === 'flagship' && (
           <ul className='cmp-chips' role='list'>
             {facts.map(fact => (
               <li key={fact.key} className='chip'>
-                {fact.key === 'age' && !details ? (
-                  <span className='visually-hidden'>
-                    {localize(fact.label, locale)}:{' '}
-                  </span>
-                ) : (
-                  <span className='cmp-chip-key'>
-                    {localize(fact.label, locale)}
-                  </span>
-                )}
+                <span className='cmp-chip-key'>
+                  {localize(fact.label, locale)}
+                </span>
                 {localize(fact.value, locale)}
               </li>
             ))}
           </ul>
         )}
       </div>
+      {/* Photo tiles: the facts sit in the top corner, away from the title
+          and line at the bottom, so a long age never covers them. */}
+      {facts.length > 0 && size === 'tile' && (
+        <ul className='cmp-chips cmp-card-tags' role='list'>
+          {facts.map(fact => (
+            <li key={fact.key} className='chip'>
+              <span className='visually-hidden'>
+                {localize(fact.label, locale)}:{' '}
+              </span>
+              {localize(fact.value, locale)}
+            </li>
+          ))}
+        </ul>
+      )}
       {/* Decorative: the stretched title link is the real target. */}
       <span className='cmp-card-go' aria-hidden='true'>
         <ArrowRightIcon />

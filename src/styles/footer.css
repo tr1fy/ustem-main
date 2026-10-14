@@ -199,7 +199,7 @@
   text-underline-offset: 0.25em;
 }
 
-/* Columns: brand · navigation · about the foundation */
+/* Columns: brand · navigation · about the foundation · social accounts */
 .ftr-grid {
   display: grid;
   /* Phones: navigation takes its natural width so the long single words of
@@ -272,8 +272,26 @@
   color: var(--white);
   text-decoration-color: currentColor;
 }
+/* social accounts: a small line icon before each handle */
+.ftr-col-social a {
+  gap: 10px;
+}
+.ftr-col-social svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+}
+/* phones: the accounts take the full row, in two short columns */
+.ftr-col-social {
+  grid-column: 1 / -1;
+}
+.ftr-col-social ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+  column-gap: 24px;
+}
 
-/* Bottom row: © + back to top */
+/* Bottom row: © · legal name · BIN · address, and back to top */
 .ftr-bottom {
   display: flex;
   flex-wrap: wrap;
@@ -284,6 +302,16 @@
   border-top: 1px solid var(--ftr-line);
   font-size: 0.875rem;
   color: var(--ftr-muted);
+}
+.ftr-legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 0;
+  line-height: 1.5;
+}
+.ftr-legal > span + span::before {
+  content: '·';
+  margin-inline: 8px;
 }
 .ftr-top {
   display: inline-flex;
@@ -366,12 +394,16 @@
     --ftr-ca: min(720px, 50vw);
     --ftr-cb: min(360px, 26vw);
   }
+  /* 1024–1279: the brand keeps its own row, three link columns below */
   .ftr-grid {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 4fr) minmax(0, 3fr);
+    grid-template-columns: minmax(0, 5fr) minmax(0, 3fr) minmax(0, 4fr);
     padding-block: 40px 44px;
   }
-  .ftr-brand {
+  .ftr-col-social {
     grid-column: auto;
+  }
+  .ftr-col-social ul {
+    display: block;
   }
 }
 
@@ -388,15 +420,16 @@
   }
 }
 
-/* From 1280px: brand · navigation in three short columns · about, so the
-   block stays three links low (each column fits «USTEM Academy»). */
+/* From 1280px: brand · navigation (two columns) · about · social, all
+   on one row. */
 @media (min-width: 1280px) {
   .ftr-grid {
-    grid-template-columns: minmax(0, 4fr) minmax(0, 5fr) minmax(0, 3fr);
+    grid-template-columns:
+      minmax(0, 4fr) minmax(0, 4fr) minmax(0, 3fr)
+      minmax(0, 3fr);
   }
-  .ftr-col-nav ul {
-    columns: 3;
-    column-gap: 24px;
+  .ftr-brand {
+    grid-column: auto;
   }
 }
 

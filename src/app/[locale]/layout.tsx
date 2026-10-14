@@ -63,7 +63,15 @@ const organizationJsonLd = {
   email: site.email,
   telephone: site.phone.display,
   areaServed: ['Kazakhstan', 'Uzbekistan', 'Kyrgyzstan'],
-  sameAs: [site.instagram.url, site.telegram].filter(Boolean)
+  legalName: site.legalName.ru,
+  taxID: site.bin,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'пр. Достык, 134',
+    addressLocality: 'Алматы',
+    addressCountry: 'KZ'
+  },
+  sameAs: site.socials.map(item => item.url)
 }
 
 export default async function RootLayout({

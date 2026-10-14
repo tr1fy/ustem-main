@@ -94,6 +94,11 @@ export default function CompetitionDetail({
 
       <div className='cmp-detail-copy'>
         <p className='cmp-detail-text'>{t(event.detail)}</p>
+        {event.next && (
+          <p className='cmp-card-next'>
+            <strong>{t(ui.nextEdition)}:</strong> {t(event.next)}
+          </p>
+        )}
         {inPanel && (
           <Link
             className='link-arrow cmp-detail-more'

@@ -47,9 +47,9 @@ const text = {
     'The foundation is the official operator of FIRST programs in Kazakhstan, Uzbekistan and Kyrgyzstan.'
   ),
   competitionsLine: words(
-    'Екі флагман іс-шара және жеті жарыс бағыты.',
-    'Два флагманских события и семь направлений.',
-    'Two flagship events and seven competition tracks.'
+    'Үш флагман іс-шара және сегіз жарыс бағыты.',
+    'Три флагманских события и восемь направлений.',
+    'Three flagship events and eight competition tracks.'
   ),
   teacherTraining: words('Педагогтерді оқыту', 'Обучение педагогов', 'Teacher training'),
   milestones: words(

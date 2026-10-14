@@ -178,6 +178,9 @@ export default function ArticlePage({ params: { locale, slug } }: Params) {
             </figure>
             <div className='nws-body'>
               <p className='nws-standfirst'>{localize(item.text, locale)}</p>
+              {item.body?.map((paragraph, i) => (
+                <p key={i}>{localize(paragraph, locale)}</p>
+              ))}
             </div>
           </div>
           {/* Source + share: after the text on phones, a sticky rail at ≥1200px. */}

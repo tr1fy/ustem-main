@@ -11,11 +11,10 @@ import { Reveal } from '../_components/reveal'
  * hairlines, a 2px Aral rule on top), topic pills and the #media block.
  * The feedback form needs a mail transport / CRM (not available), so each
  * topic opens a pre-addressed e-mail instead; all topics go to the one
- * address until the foundation names per-topic recipients. Instagram is the
- * same account the footer links to (site.instagram; TZ §11 still lists
- * which account is official as an open question). Hidden until provided
- * (TZ §14 items 11–12): Telegram, office address and map, named press
- * contact, press kit and logo rules. */
+ * address until the foundation names per-topic recipients. The channel
+ * list ends with every official account (site.socials, the same list as
+ * the footer). Hidden until provided (TZ §14 items 11–12): office map,
+ * named press contact, press kit and logo rules. */
 
 const title = navItems.find(item => item.key === 'contacts')!.label
 
@@ -97,15 +96,17 @@ export default function ContactsPage({
   }[] = [
     { label: 'E-mail', value: site.email, href: `mailto:${site.email}` },
     { label: t(phoneLabel), value: site.phone.display, href: site.phone.href },
-    {
-      label: 'Instagram',
-      value: site.instagram.handle,
-      href: site.instagram.url,
+    ...site.socials.map(item => ({
+      label:
+        item.network === 'instagram'
+          ? 'Instagram'
+          : item.network === 'telegram'
+            ? 'Telegram'
+            : 'YouTube',
+      value: item.network === 'telegram' ? 'FIRST Central Asia' : item.label,
+      href: item.url,
       external: true
-    },
-    ...(site.telegram
-      ? [{ label: 'Telegram', value: 'Telegram', href: site.telegram, external: true }]
-      : [])
+    }))
   ]
 
   return (
@@ -117,7 +118,7 @@ export default function ContactsPage({
           <ul className='ct-channels'>
             {channels.map((channel, index) => (
               <li
-                key={channel.label}
+                key={channel.href}
                 className='ct-rise-item'
                 style={{ '--i': index } as CSSProperties}
               >

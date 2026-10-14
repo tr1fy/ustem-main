@@ -58,7 +58,7 @@ export function generateMetadata({
 }
 
 /**
- * /competitions — catalogue of 2 flagships + 7 directions (TZ §7.4).
+ * /competitions — catalogue of 3 flagships + 8 directions (TZ §7.4).
  * The head echoes the homepage hero at a smaller scale: the cut-out FIRST
  * Tech Challenge team stands on the head's baseline in front of a partially
  * cropped Aral circle (one flourish; CSS-only entrance and drift).

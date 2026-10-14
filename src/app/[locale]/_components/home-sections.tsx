@@ -1,7 +1,10 @@
 /**
- * Homepage sections after the hero (TZ §6), in this exact order:
- * Numbers → Competitions → Projects → Trust → News → Partners (logo band
- * + card).
+ * Homepage sections after the hero (TZ §6):
+ * Numbers → Audiences → Competitions → Projects → Trust → Partner logos →
+ * News → Partners card.
+ * The partner logo band follows Trust (who stands behind the foundation),
+ * so the page no longer ends on three blue blocks in a row (logo band,
+ * Partners card, footer).
  * The global footer is the contacts section, so there is no contacts block.
  *
  * Motion: each section's content sits in a <Reveal className='home-rv'>;
@@ -13,7 +16,16 @@
 import type { CSSProperties } from 'react'
 import { ArrowRightIcon, ArrowUpRightIcon } from '@heroicons/react/24/outline'
 import { Link } from '@/i18n/routing'
-import { localize, president, projects, ui, words } from '@/lib/site-content'
+import { imageVariant } from '@/lib/image-variant'
+import {
+  audiences,
+  localize,
+  president,
+  projects,
+  trustItems,
+  ui,
+  words
+} from '@/lib/site-content'
 import CompetitionsShowcase from './competitions-showcase'
 import ImpactCard from './impact-card'
 import { NewsCard, latestNews } from './news-card'
@@ -96,6 +108,36 @@ const partnersPhoto = {
   sizes: '(min-width: 1024px) 1184px, 160vw',
   width: 1886,
   height: 1472
+}
+
+/** «Who it is for»: one plain row of five entry points under the numbers —
+    a title, one line and a small arrow each, split by hairlines. No cards
+    and no icons, so it reads as an index rather than another block. */
+function Audiences({ locale }: { locale: string }) {
+  return (
+    <section className='section home-audiences' aria-labelledby='audiences-title'>
+      <div className='container'>
+        <h2 id='audiences-title' className='visually-hidden'>
+          {localize(ui.audiencesTitle, locale)}
+        </h2>
+        <Reveal className='home-rv'>
+          <ul className='aud-list' role='list'>
+            {audiences.map((item, i) => (
+              <li className='rv' style={order(i)} key={item.key}>
+                <Link className='aud-link' href={item.href}>
+                  <span className='aud-title'>
+                    {localize(item.title, locale)}
+                    <ArrowRightIcon aria-hidden='true' />
+                  </span>
+                  <span className='aud-text'>{localize(item.text, locale)}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Reveal>
+      </div>
+    </section>
+  )
 }
 
 function Competitions({ locale }: { locale: string }) {
@@ -276,7 +318,41 @@ function Trust({ locale }: { locale: string }) {
               </ArrowLink>
             </div>
           </article>
-          <div className='rv' style={order(3)}>
+          {/* Two more official mentions as plain rows: a small photo, the
+              source and date, the title and its link. No card boxes. */}
+          <ul className='trust-more' role='list'>
+            {trustItems.map((item, i) => (
+              <li className='trust-item rv' style={order(3 + i)} key={item.key}>
+                <div className='trust-thumb'>
+                  <img
+                    src={item.photo.src}
+                    srcSet={`${imageVariant(item.photo.src, 384)} 384w, ${imageVariant(item.photo.src, 640)} 640w`}
+                    sizes='(min-width: 768px) 176px, 104px'
+                    alt={localize(item.alt, locale)}
+                    width={item.photo.width}
+                    height={item.photo.height}
+                    loading='lazy'
+                    decoding='async'
+                    style={
+                      item.photo.position
+                        ? { objectPosition: item.photo.position }
+                        : undefined
+                    }
+                  />
+                </div>
+                <div className='trust-body'>
+                  <p className='trust-meta'>{localize(item.meta, locale)}</p>
+                  <h3 className='trust-title'>{localize(item.title, locale)}</h3>
+                  <p className='trust-text'>{localize(item.text, locale)}</p>
+                  <ArrowLink href={item.url} external>
+                    {localize(item.link, locale)}
+                    <span className='visually-hidden'> {localize(newTab, locale)}</span>
+                  </ArrowLink>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <div className='rv' style={order(3 + trustItems.length)}>
             <Testimonials />
           </div>
         </Reveal>
@@ -312,8 +388,8 @@ function News({ locale }: { locale: string }) {
   )
 }
 
-/** Partner logo band (TZ §6.7) right above the Partners card: the two blue
-    blocks sit as a pair — who already supports us, then the invitation. */
+/** Partner logo band (TZ §6.7) right after Trust: the President, the
+    testimonials, then the organisations that support the foundation. */
 function PartnerLogoBand({ locale }: { locale: string }) {
   return (
     <section
@@ -379,11 +455,12 @@ export default function HomeSections({ locale }: { locale: string }) {
   return (
     <>
       <ImpactCard variant='overlap' />
+      <Audiences locale={locale} />
       <Competitions locale={locale} />
       <Projects locale={locale} />
       <Trust locale={locale} />
-      <News locale={locale} />
       <PartnerLogoBand locale={locale} />
+      <News locale={locale} />
       <Partners locale={locale} />
     </>
   )

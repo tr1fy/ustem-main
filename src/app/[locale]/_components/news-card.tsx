@@ -41,7 +41,9 @@ const imageSizes: Record<string, [number, number]> = {
   '/images/panama.jpg': [1600, 900],
   '/images/robocon.jpg': [1280, 960],
   '/images/selection.jpg': [1280, 854],
-  '/images/forbes-30-under-30-ermatov.jpg': [1190, 1684]
+  '/images/forbes-30-under-30-ermatov.jpg': [1190, 1684],
+  '/images/fgc-2026-team.jpg': [1360, 768],
+  '/images/competitions/digital-bridge-2026.jpg': [1266, 792]
 }
 /* Widths must be in Next's default device/image sizes, or /_next/image
    answers 400 (480 is not one of them; see lib/image-variant.ts). */

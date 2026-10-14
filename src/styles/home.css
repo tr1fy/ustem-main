@@ -797,6 +797,96 @@
   from { opacity: 0; transform: translateY(8px); }
 }
 
+/* ---------- Audiences: «who it is for» index under the numbers ----------
+ * Five plain entry points split by hairlines: one column of rows on
+ * phones, two columns on tablets, one row of five from 1024px. The title
+ * carries a small arrow that slides on hover; no cards, no icons.     */
+.imp-overlap:has(+ .home-audiences) {
+  padding-bottom: clamp(32px, 4vw, 56px);
+}
+.aud-list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+.aud-list > li {
+  border-bottom: 1px solid var(--line);
+}
+.aud-link {
+  display: grid;
+  gap: 4px;
+  height: 100%;
+  padding: 18px 0;
+  color: inherit;
+  text-decoration: none;
+}
+.aud-title {
+  display: block;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+/* the arrow follows the last word, even when the title wraps */
+.aud-title svg {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-left: 6px;
+  vertical-align: -2px;
+  stroke-width: 2;
+  color: var(--blue);
+  transition: transform var(--dur) var(--ease);
+}
+.aud-text {
+  max-width: 40ch;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+.aud-link:hover .aud-title {
+  color: var(--blue);
+}
+.aud-link:hover .aud-title svg {
+  transform: translateX(4px);
+}
+.aud-link:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+@media (min-width: 640px) {
+  .aud-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 32px;
+  }
+}
+@media (min-width: 1024px) {
+  .aud-list {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    column-gap: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .aud-list > li {
+    border-bottom: 0;
+  }
+  .aud-list > li + li {
+    border-left: 1px solid var(--line);
+  }
+  .aud-link {
+    padding: 24px 24px 26px;
+  }
+  .aud-list > li:first-child .aud-link {
+    padding-left: 0;
+  }
+  .aud-list > li:last-child .aud-link {
+    padding-right: 0;
+  }
+}
+
 /* ---------- 6.4 Projects ----------
  * Heading row (title, lead, «Все проекты»), then three equal cards on one
  * baseline: one column on phones (the full 2:1 artwork), three columns
@@ -982,6 +1072,82 @@
   }
 }
 
+/* Two more official mentions under the President: plain rows (a small
+   rounded photo + text), split by a hairline; side by side from 1024px. */
+.trust-more {
+  display: grid;
+  gap: 0;
+  margin: clamp(40px, 5vw, 64px) 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+.trust-item {
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+  padding-block: 24px;
+}
+.trust-item + .trust-item {
+  border-top: 1px solid var(--line);
+}
+.trust-thumb {
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  background: var(--line);
+  aspect-ratio: 1;
+}
+.trust-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.trust-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  min-width: 0;
+}
+.trust-meta {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--blue);
+}
+.trust-title {
+  font-size: clamp(1.125rem, 1rem + 0.4vw, 1.3125rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+.trust-text {
+  max-width: 52ch;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.trust-body .link-arrow {
+  margin-top: 6px;
+}
+@media (min-width: 768px) {
+  .trust-item {
+    grid-template-columns: 176px minmax(0, 1fr);
+    gap: 28px;
+  }
+  .trust-thumb {
+    aspect-ratio: 4 / 3;
+  }
+}
+@media (min-width: 1024px) {
+  .trust-more {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(40px, 4vw, 64px);
+  }
+  .trust-item + .trust-item {
+    border-top: 0;
+  }
+}
 .tst {
   margin-top: clamp(64px, 8vw, 112px);
 }
@@ -1329,13 +1495,6 @@
   }
 }
 
-/* ---------- Partner logo band (right above the Partners card) ---------- */
-.home-logos {
-  padding-bottom: 0;
-}
-.home-logos + .home-partners {
-  padding-top: clamp(16px, 2vw, 24px);
-}
 
 /* ---------- Reveals ----------
  * <Reveal className='home-rv'> arms .will-reveal after mount (never for

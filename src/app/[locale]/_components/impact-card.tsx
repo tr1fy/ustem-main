@@ -106,13 +106,25 @@ function Label({ text }: { text: string }) {
   )
 }
 
-/** Numeral with an accessible text equivalent (the count-up is decorative). */
-function Value({ metric }: { metric: Metric }) {
-  const text = metric.display ?? `${metric.value ?? ''}${metric.suffix ?? ''}`
+/** Numeral with an accessible text equivalent (the count-up is decorative).
+    Only the lead «4×» counts up; the other figures are printed as they are,
+    so a screenshot or a slow phone never shows a half-counted «18 122+». */
+function Value({
+  metric,
+  locale,
+  count = false
+}: {
+  metric: Metric
+  locale: Locale
+  count?: boolean
+}) {
+  const text = metric.display
+    ? localize(metric.display, locale)
+    : `${metric.value ?? ''}${metric.suffix ?? ''}`
   return (
     <>
       <span aria-hidden='true'>
-        {metric.value !== null ? (
+        {count && metric.value !== null ? (
           <Count value={metric.value} suffix={metric.suffix} />
         ) : (
           text
@@ -169,7 +181,7 @@ export default function ImpactCard({
           <div className='imp-main'>
             <p className='imp-stat'>
               <span className='imp-value'>
-                <Value metric={main} />
+                <Value metric={main} locale={locale} count />
               </span>
               <span className='imp-label'>
                 <Label text={localize(main.label, locale)} />
@@ -208,7 +220,7 @@ export default function ImpactCard({
                 <li className='imp-tile' key={metric.id}>
                   <p>
                     <span className='imp-tile-value'>
-                      <Value metric={metric} />
+                      <Value metric={metric} locale={locale} />
                     </span>
                     <span className='imp-tile-label'>
                       {localize(metric.label, locale)}

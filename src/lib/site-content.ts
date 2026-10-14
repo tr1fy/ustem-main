@@ -7,9 +7,9 @@ export const words = (kz: string, ru: string, en: string): Localized => ({
 })
 export const localize = (value: Localized, locale: string) =>
   value[locale as Locale] || value.kz
-export const instagram = 'https://www.instagram.com/firstroboticskz/'
+export const instagram = 'https://www.instagram.com/ustem_foundation/'
 export const connectUrl = 'https://ustem-connect-862m.onrender.com/'
-export const contactEmail = 'info@ustemfoundation.org'
+export const contactEmail = 'hello@ustemfoundation.org'
 export const presidentSource =
   'https://www.akorda.kz/ru/kasym-zhomart-tokaev-posetil-vystavku-na-mezhdunarodnom-tehnologicheskom-forume-digital-bridge-1291855'
 export const copy = {
@@ -158,8 +158,67 @@ export const news: {
   category: NewsCategory
   title: Localized
   text: Localized
+  /** Optional paragraphs after the standfirst on the article page. */
+  body?: Localized[]
   source: string
 }[] = [
+  {
+    slug: 'fgc-2026-incheon',
+    date: '2026-10-07',
+    image: '/images/fgc-2026-team.jpg',
+    imagePosition: '50% 45%',
+    tag: 'FIRST Global',
+    category: 'foundation',
+    title: words(
+      'FIRST Global Challenge 2026, Инчхон: Қазақстан құрамасының мектептері',
+      'FIRST Global Challenge 2026, Инчхон: школы сборной Казахстана',
+      'FIRST Global Challenge 2026, Incheon: the schools behind Team Kazakhstan'
+    ),
+    text: words(
+      'Инчхонда 7–10 қазанда өтетін олимпиадаға 185 ел қатысады. Қазақстан құрамасы — Алматының бес оқушысы: № 92 мамандандырылған лицейден төртеуі және № 159 гимназиядан біреуі.',
+      'В олимпиаде в Инчхоне 7–10 октября участвуют 185 стран. Сборная Казахстана — пятеро школьников из Алматы: четверо из специализированного лицея № 92 и один из гимназии № 159.',
+      '185 nations take part in the olympiad in Incheon on 7–10 October. Team Kazakhstan is five students from Almaty: four from Specialised Lyceum No. 92 and one from Gymnasium No. 159.'
+    ),
+    body: [
+      words(
+        'Құрама мектептері (FIRST Global ресми бетінен): Алматы қаласының № 92 мамандандырылған лицейі — 4 оқушы; Алматы қаласының № 159 гимназиясы — 1 оқушы.',
+        'Школы сборной (с официальной страницы FIRST Global): специализированный лицей № 92 г. Алматы — 4 ученика; гимназия № 159 г. Алматы — 1 ученик.',
+        'Schools on the team (from the official FIRST Global page): Specialised Lyceum No. 92, Almaty — 4 students; Gymnasium No. 159, Almaty — 1 student.'
+      ),
+      words(
+        'Қазақстан FIRST Global Challenge-ке 2017 жылдан бері қатысады; 2022–2025 жылдары қатарынан төрт рет Grand Challenge Award алтын медалін алды. Құраманы қолдаушылар: USTEM Foundation, «Дарын» РҒПО, Almaty Daryny, OMODA&JAECOO by Astana Motors.',
+        'Казахстан участвует в FIRST Global Challenge с 2017 года; в 2022–2025 годах четыре раза подряд получал золото Grand Challenge Award. Сборную поддерживают USTEM Foundation, РНПЦ «Дарын», Almaty Daryny, OMODA&JAECOO by Astana Motors.',
+        'Kazakhstan has competed in the FIRST Global Challenge since 2017 and won the Grand Challenge Award gold four years running, 2022–2025. The team is supported by USTEM Foundation, RSPC Daryn, Almaty Daryny and OMODA&JAECOO by Astana Motors.'
+      )
+    ],
+    source: 'https://first.global/2026-nations/kazakhstan-2026/'
+  },
+  {
+    slug: 'digital-bridge-2026',
+    date: '2026-10-02',
+    image: '/images/competitions/digital-bridge-2026.jpg',
+    imagePosition: '50% 40%',
+    tag: 'AI & Digital Bridge',
+    category: 'foundation',
+    title: words(
+      'AI & Digital Bridge 2026: USTEM Foundation гуманоидтар мен робот-иттерді көрсетті',
+      'AI & Digital Bridge 2026: USTEM Foundation показал гуманоидов и робособак',
+      'AI & Digital Bridge 2026: USTEM Foundation shows humanoids and robot dogs'
+    ),
+    text: words(
+      'Астанадағы AI & Digital Bridge 2026 форумында қордың инженерлері адам кейпіндегі роботтар мен робот-иттерді таныстырды. Оған дейін, 26 қыркүйекте, AI Month 2026 аясында USTEM Foundation CUP жарысын өткізді.',
+      'На форуме AI & Digital Bridge 2026 в Астане инженеры фонда представили человекоподобных роботов и робособак. Ранее, 26 сентября, в рамках AI Month 2026 USTEM Foundation провёл соревнование CUP.',
+      'At the AI & Digital Bridge 2026 forum in Astana, the foundation’s engineers presented humanoid robots and robot dogs. Earlier, on 26 September, USTEM Foundation held the CUP competition as part of AI Month 2026.'
+    ),
+    body: [
+      words(
+        '26 қыркүйек 2026 — AI Month 2026 аясында USTEM Foundation CUP жарысын өткізді. AI Month бағдарламасына FIRST Tech Challenge және FIRST LEGO League Future Editions бағыттары енген.',
+        '26 сентября 2026 года в рамках AI Month 2026 USTEM Foundation провёл соревнование CUP. В программу AI Month вошли направления FIRST Tech Challenge и FIRST LEGO League Future Editions.',
+        'On 26 September 2026, USTEM Foundation held the CUP competition as part of AI Month 2026. The AI Month programme includes FIRST Tech Challenge and FIRST LEGO League Future Editions.'
+      )
+    ],
+    source: 'https://digitalbridge.ai/'
+  },
   {
     slug: 'ustem-connect',
     date: '2026-09-24',
@@ -498,9 +557,53 @@ export const site = {
   name: 'USTEM Foundation',
   email: contactEmail,
   phone: { display: '+7 (708) 021 0101', href: 'tel:+77080210101' },
-  instagram: { handle: '@firstroboticskz', url: instagram },
-  /** TZ §11: link not provided yet — the icon stays hidden until it is set. */
+  instagram: { handle: '@ustem_foundation', url: instagram },
+  /** Shown in the footer's contact row next to Instagram; hidden while null. */
   telegram: null as string | null,
+  /** Every official account (footer column, /contacts, schema.org sameAs). */
+  socials: [
+    {
+      key: 'instagram-foundation',
+      network: 'instagram',
+      label: '@ustem_foundation',
+      url: instagram
+    },
+    {
+      key: 'instagram-first',
+      network: 'instagram',
+      label: '@firstroboticskz',
+      url: 'https://www.instagram.com/firstroboticskz/'
+    },
+    {
+      key: 'instagram-academy',
+      network: 'instagram',
+      label: '@ustem.academy',
+      url: 'https://www.instagram.com/ustem.academy/'
+    },
+    {
+      key: 'telegram',
+      network: 'telegram',
+      label: 'Telegram · FIRST Central Asia',
+      url: 'https://t.me/firstkazakhstan'
+    },
+    {
+      key: 'youtube',
+      network: 'youtube',
+      label: 'YouTube',
+      url: 'https://www.youtube.com/@ustem_foundation'
+    }
+  ] as const,
+  legalName: words(
+    '«USTEM Foundation» қоғамдық қоры',
+    'Общественный фонд «USTEM Foundation»',
+    'USTEM Foundation, public foundation'
+  ),
+  bin: '200240009795',
+  address: words(
+    'Алматы қ., Достық даңғылы, 134',
+    'г. Алматы, пр. Достык, 134',
+    '134 Dostyk Ave., Almaty'
+  ),
   connectUrl,
   geography: words(
     'Қазақстан · Өзбекстан · Қырғызстан',
@@ -508,6 +611,74 @@ export const site = {
     'Kazakhstan · Uzbekistan · Kyrgyzstan'
   )
 }
+
+/** Homepage «who is it for» index under the numbers: one plain row of
+    entry points, each leading to the page that answers that visitor. */
+export const audiences: {
+  key: string
+  title: Localized
+  text: Localized
+  href: string
+}[] = [
+  {
+    key: 'families',
+    title: words('Ата-аналар мен балаларға', 'Родителям и детям', 'Parents and children'),
+    text: words(
+      '4 жастан бастап жарыстар: жасыңызға сай бағдарламаны таңдаңыз.',
+      'Соревнования с 4 лет: выберите программу по возрасту.',
+      'Competitions from age 4: pick a program that fits your age.'
+    ),
+    href: '/competitions'
+  },
+  {
+    key: 'teams',
+    title: words(
+      'Командалар мен тәлімгерлерге',
+      'Командам и наставникам',
+      'Teams and mentors'
+    ),
+    text: words(
+      'FIRST 2026–2027 маусымы: бағдарламалар, жас топтары, тіркелу.',
+      'Сезон FIRST 2026–2027: программы, возраст, регистрация.',
+      'FIRST 2026–2027 season: programs, age groups, registration.'
+    ),
+    href: '/competitions/first-robotics'
+  },
+  {
+    key: 'teachers',
+    title: words('Педагогтерге', 'Педагогам', 'Teachers'),
+    text: words(
+      'USTEM Academy: Robotics Lab және Space Lab бағдарламалары.',
+      'USTEM Academy: программы Robotics Lab и Space Lab.',
+      'USTEM Academy: the Robotics Lab and Space Lab programs.'
+    ),
+    href: '/academy'
+  },
+  {
+    key: 'partners',
+    title: words(
+      'Серіктестер мен демеушілерге',
+      'Партнёрам и спонсорам',
+      'Partners and sponsors'
+    ),
+    text: words(
+      'Серіктестік форматтары, нәтижелер және байланыс.',
+      'Форматы партнёрства, результаты и контакты.',
+      'Partnership formats, results and contacts.'
+    ),
+    href: '/partners'
+  },
+  {
+    key: 'media',
+    title: words('БАҚ өкілдеріне', 'Журналистам', 'Journalists'),
+    text: words(
+      'Аккредитация, сұхбат, фото және логотиптер — сұрау бойынша.',
+      'Аккредитация, интервью, фото и логотипы — по запросу.',
+      'Accreditation, interviews, photos and logos on request.'
+    ),
+    href: '/contacts#media'
+  }
+]
 
 /** Main menu (TZ §5.1), in this exact order. */
 export const navItems = [
@@ -600,16 +771,17 @@ export const ui = {
     'FIRST Global 2025 winners'
   ),
   numbersTitle: words(
-    'Үлкен идеялар. Нақты нәтижелер.',
-    'Большие идеи. Реальные результаты.',
-    'Big ideas. Real results.'
+    'Нәтижелер сандармен',
+    'Результаты в цифрах',
+    'Results in numbers'
   ),
+  audiencesTitle: words('Кімге', 'Кому', 'Who it is for'),
   source: words('Дереккөз', 'Источник', 'Source'),
   sourceAsOf: words('Дерек күні', 'Актуально на', 'As of'),
   competitionsTitle: words(
-    'Екі флагман іс-шара және жыл бойы жалғасатын жеті бағыттағы жарыс.',
-    'Два флагманских события и семь направлений соревнований круглый год.',
-    'Two flagship events and seven competition tracks all year round.'
+    'Үш флагман іс-шара және жыл бойы жалғасатын сегіз бағыттағы жарыс.',
+    'Три флагманских события и восемь направлений соревнований круглый год.',
+    'Three flagship events and eight competition tracks all year round.'
   ),
   competitionsLead: words(
     'Робототехника, дрондар, ғарыш және жасанды интеллект бойынша жарыстар. Тіркелу — USTEM Connect арқылы.',
@@ -618,6 +790,7 @@ export const ui = {
   ),
   allCompetitions: words('Барлық жарыстар', 'Все соревнования', 'All competitions'),
   flagships: words('Флагман іс-шаралар', 'Флагманские события', 'Flagship events'),
+  nextEdition: words('Келесі', 'Следующее', 'Next'),
   directions: words('Бағыттар', 'Направления', 'Competition tracks'),
   partOf: words('Өтеді:', 'Проходит в рамках:', 'Part of:'),
   officialSite: words('Ресми сайт', 'Официальный сайт', 'Official website'),
@@ -689,6 +862,8 @@ export const ui = {
   ),
   navigation: words('Навигация', 'Навигация', 'Navigation'),
   aboutFund: words('Қор туралы', 'О фонде', 'About the foundation'),
+  socials: words('Әлеуметтік желілер', 'Соцсети', 'Social media'),
+  bin: words('БСН', 'БИН', 'BIN'),
   reports: words('Есептер', 'Отчёты', 'Reports'),
   forMedia: words('БАҚ үшін', 'Для СМИ', 'For media'),
   privacy: words('Құпиялылық саясаты', 'Политика конфиденциальности', 'Privacy policy'),
@@ -708,7 +883,8 @@ export const ui = {
 export const metrics: {
   id: string
   value: number | null
-  display?: string
+  /** Printed as is (thousands separators differ by language). */
+  display?: Localized
   suffix?: string
   label: Localized
   status: VerificationStatus
@@ -748,45 +924,45 @@ export const metrics: {
     )
   },
   {
-    // TZ §11 «Уточнить»: open sources say 20 000+ students; needs the foundation's report.
+    // Confirmed by the foundation on 2026-10-14 (from its draft site).
     id: 'participants',
-    value: 30000,
-    suffix: '+',
+    value: 20000,
+    display: words('20 000+', '20 000+', '20,000+'),
     label: words(
-      'Қазақстан, Өзбекстан және Қырғызстан бойынша жыл сайынғы қатысушылар',
-      'участников ежегодно в Казахстане, Узбекистане и Кыргызстане',
-      'participants every year in Kazakhstan, Uzbekistan and Kyrgyzstan'
+      'Орталық Азиядағы FIRST қатысушысы',
+      'участников FIRST в Центральной Азии',
+      'FIRST participants in Central Asia'
     ),
-    status: 'pending'
+    status: 'verified'
   },
   {
-    // TZ §11 «Уточнить»: period and counting method required.
+    // Confirmed by the foundation on 2026-10-14.
     id: 'events',
-    value: 100,
-    suffix: '+',
+    value: 60,
+    display: words('60+', '60+', '60+'),
     label: words(
-      'жыл сайынғы жарыстар мен іс-шаралар',
-      'соревнований и мероприятий в год',
-      'competitions and events a year'
+      '2026–2027 маусымына жоспарланған іс-шара',
+      'мероприятий запланировано на сезон 2026–2027',
+      'events planned for the 2026–2027 season'
     ),
-    status: 'pending'
+    status: 'verified'
   },
   {
-    // TZ §11 «Юрист»: wording must cite the exact clause of order No. 514.
-    id: 'top-100',
+    // Confirmed by the foundation on 2026-10-14; wording kept as supplied.
+    id: 'order-514',
     value: null,
-    display: 'ТОП-100',
+    display: words('№ 514', '№ 514', 'No. 514'),
     label: words(
-      'ЖОО-ға түсу мүмкіндігі — ҚР № 514 бұйрығы бойынша',
-      'возможность поступления в вузы ТОП-100 по приказу № 514',
-      'admission opportunity to TOP-100 universities under order No. 514'
+      'ҚР Оқу-ағарту министрлігі ұсынатын жарыстар тізімінде (бұйрық)',
+      'в списке соревнований, рекомендуемых Министерством просвещения РК (приказ)',
+      'on the list of competitions recommended by the Ministry of Education of Kazakhstan (order)'
     ),
-    status: 'legal'
+    status: 'verified'
   }
 ]
 export const publishedMetrics = metrics.filter(item => item.status === 'verified')
 
-/** Competitions catalogue (TZ §7.1): 2 flagships + 7 directions, in TZ order. */
+/** Competitions catalogue (TZ §7.1): 3 flagships + 8 directions, in TZ order. */
 export type SiteEvent = {
   slug: string
   title: string
@@ -797,6 +973,8 @@ export type SiteEvent = {
   detail: Localized
   /** Confirmed facts only (TZ §11). */
   meta?: Localized
+  /** Flagships: the next confirmed edition, e.g. «февраль 2027 · …». */
+  next?: Localized
   cover: string
   coverPosition?: string
   officialUrl?: string
@@ -828,6 +1006,11 @@ export const events: SiteEvent[] = [
       '2026 · Almaty Arena · 3000+ участников · 14 дисциплин · 5 стран',
       '2026 · Almaty Arena · 3,000+ participants · 14 disciplines · 5 countries'
     ),
+    next: words(
+      'маусым 2027 · FIRST Tech Challenge Premier Event · 96 команда',
+      'июнь 2027 · FIRST Tech Challenge Premier Event · 96 команд',
+      'June 2027 · FIRST Tech Challenge Premier Event · 96 teams'
+    ),
     cover: '/images/projects/almaty-tech-cup-cover.jpg',
     officialUrl: 'https://www.almaty-tech-cup.kz'
   },
@@ -846,11 +1029,44 @@ export const events: SiteEvent[] = [
       'Held on 11–13 February 2026 at EXPO, Astana, with 5,000+ participants. The programme included the Central Asia FIRST Championship, FIRST LEGO League, FIRST Tech Challenge, RoboCup, drone racing and the Physical AI Championship.'
     ),
     meta: words(
-      '2026 · Астана, EXPO · 5000+ қатысушы',
-      '2026 · Астана, EXPO · 5000+ участников',
-      '2026 · Astana, EXPO · 5,000+ participants'
+      '2026 · Астана, EXPO · 5000+ қатысушы · 7 ел',
+      '2026 · Астана, EXPO · 5000+ участников · 7 стран',
+      '2026 · Astana, EXPO · 5,000+ participants · 7 countries'
+    ),
+    next: words(
+      'ақпан 2027 · Kazakhstan Central Asia FIRST Championship 2027',
+      'февраль 2027 · Kazakhstan Central Asia FIRST Championship 2027',
+      'February 2027 · Kazakhstan Central Asia FIRST Championship 2027'
     ),
     cover: '/images/projects/alem-tech-fest-cover.jpg'
+  },
+  {
+    slug: 'digital-bridge',
+    title: 'AI Digital Bridge',
+    kind: 'flagship',
+    fact: words(
+      'Өңірдегі ең ірі технологиялық форум: USTEM Foundation ұйымдастыратын робототехника аймағы және FIRST жарыстары.',
+      'Крупнейший технологический форум региона: зона робототехники USTEM Foundation и соревнования FIRST.',
+      'The region’s largest technology forum: the USTEM Foundation robotics zone and FIRST competitions.'
+    ),
+    detail: words(
+      'AI & Digital Bridge — өңірдегі ең ірі технологиялық форум. 2026 жылы форум 1–3 қазанда Астанадағы EXPO-да өтті. Оның алдындағы AI Month 2026 бағдарламасына FIRST LEGO League Future Editions және FIRST Tech Challenge бағыттары (Central Asia FIRST Championship құрамында) және Unitree G1 гуманоидты роботындағы хакатон енді. 26 қыркүйекте AI Month аясында USTEM Foundation CUP жарысын өткізді. Форумдағы робототехника аймағын USTEM Foundation ұйымдастырды: қордың инженерлері адам кейпіндегі роботтар мен робот-иттерді көрсетті.',
+      'AI & Digital Bridge — крупнейший технологический форум региона. В 2026 году форум прошёл 1–3 октября в EXPO, Астана. В программу предшествовавшего ему AI Month 2026 вошли направления FIRST LEGO League Future Editions и FIRST Tech Challenge (в составе Central Asia FIRST Championship) и хакатон на гуманоидном роботе Unitree G1. 26 сентября в рамках AI Month USTEM Foundation провёл соревнование CUP. Зону робототехники форума организовал USTEM Foundation: инженеры фонда показали человекоподобных роботов и робособак.',
+      'AI & Digital Bridge is the region’s largest technology forum. In 2026 it took place on 1–3 October at EXPO, Astana. The AI Month 2026 programme that led up to it included FIRST LEGO League Future Editions and FIRST Tech Challenge (as part of the Central Asia FIRST Championship) and a hackathon on the Unitree G1 humanoid robot. On 26 September, USTEM Foundation held the CUP competition as part of AI Month. USTEM Foundation ran the forum’s robotics zone, where the foundation’s engineers showed humanoid robots and robot dogs.'
+    ),
+    meta: words(
+      '2026 · Астана, EXPO · 1–3 қазан',
+      '2026 · Астана, EXPO · 1–3 октября',
+      '2026 · EXPO, Astana · 1–3 October'
+    ),
+    age: words(
+      '10–18 жас · FLL Future Editions және FTC',
+      '10–18 лет · FLL Future Editions и FTC',
+      'Ages 10–18 · FLL Future Editions and FTC'
+    ),
+    cover: '/images/competitions/digital-bridge-2026.jpg',
+    coverPosition: '50% 40%',
+    officialUrl: 'https://digitalbridge.ai/'
   },
   {
     slug: 'first-robotics',
@@ -866,6 +1082,11 @@ export const events: SiteEvent[] = [
       'USTEM Foundation — Қазақстан, Өзбекстан және Қырғызстандағы FIRST бағдарламаларының операторы. Оқушылар робот құрастырып, бағдарламалап, инженерлік ойлау, көшбасшылық және командалық жұмыс дағдыларын дамытады.',
       'USTEM Foundation — оператор программ FIRST в Казахстане, Узбекистане и Кыргызстане. Школьники создают и программируют роботов, развивая инженерное мышление, лидерство и навыки командной работы.',
       'USTEM Foundation is the FIRST program operator in Kazakhstan, Uzbekistan and Kyrgyzstan. Students design and program robots while building engineering, leadership and teamwork skills.'
+    ),
+    age: words(
+      '4–18 жас',
+      '4–18 лет',
+      'Ages 4–18'
     ),
     cover: '/images/competitions/first-robotics.jpg',
     officialUrl: 'https://www.firstrobotics.kz/ru/'
@@ -885,6 +1106,11 @@ export const events: SiteEvent[] = [
       'Соревновательное направление беспилотных технологий. Команды развивают навыки пилотирования, управления и инженерии.',
       'A competition track dedicated to unmanned technology, developing piloting, control and engineering skills.'
     ),
+    age: words(
+      'Junior — 15 жасқа дейін · Senior — 16 жастан',
+      'Junior — до 15 лет · Senior — от 16 лет',
+      'Junior — up to 15 · Senior — 16+'
+    ),
     cover: '/images/competitions/alem-drone-league.jpg'
   },
   {
@@ -900,6 +1126,11 @@ export const events: SiteEvent[] = [
       'Оқушылар CanSat, CubeSat, инженерлік жобалар, роверлер және ғарыштық орта бағыттарында өз шешімдерін жасайды.',
       'Участники создают решения в направлениях CanSat, CubeSat, инженерных проектов, роверов и проектирования космической среды.',
       'Students build solutions across CanSat, CubeSat, engineering projects, rovers and space-environment design.'
+    ),
+    age: words(
+      '5–11 (12) сынып оқушылары',
+      'Школьники 5–11 (12) классов',
+      'School students, grades 5–11 (12)'
     ),
     cover: '/images/competitions/wso.jpg',
     officialUrl: 'https://www.wso.space/ru'
@@ -918,6 +1149,11 @@ export const events: SiteEvent[] = [
       'Направление на пересечении движения, алгоритмов и инженерных решений.',
       'Where motion, algorithms and engineering solutions come together.'
     ),
+    age: words(
+      '16 жастан · студенттер',
+      'От 16 лет · студенты',
+      'Ages 16+ · students'
+    ),
     cover: '/images/competitions/future-race.jpg'
   },
   {
@@ -934,7 +1170,31 @@ export const events: SiteEvent[] = [
       'Команды создают собственных роботов и испытывают их прочность, управление и стратегию на арене.',
       'Teams build robots and put their durability, control and strategy to the test in the arena.'
     ),
+    age: words(
+      '13–21 жас',
+      '13–21 год',
+      'Ages 13–21'
+    ),
     cover: '/images/competitions/battle-of-bots.jpg'
+  },
+  {
+    slug: 'physical-ai',
+    title: 'Physical AI',
+    kind: 'direction',
+    fact: words(
+      'Гуманоидты роботтар және физикалық әлемдегі жасанды интеллект.',
+      'Гуманоидные роботы и искусственный интеллект в физическом мире.',
+      'Humanoid robots and artificial intelligence in the physical world.'
+    ),
+    detail: words(
+      'Physical AI — сенсорлар мен лидарлар арқылы физикалық әлемді «көріп», өзі шешім қабылдайтын жасанды интеллект. Хакатонда командалар гуманоидты роботтарға шешімдер жасайды; Almaty Tech Cup 2026-да Unitree гуманоидты роботтарындағы 48 сағаттық хакатон өтті. Humanoid Robot R&D бағытының мақсаты — Astana Hub-пен бірге Орталық Азияда Physical AI құзырет орталығын құру.',
+      'Physical AI — искусственный интеллект, который «видит» физический мир через сенсоры и лидары и сам принимает решения. На хакатоне команды создают решения для гуманоидных роботов; на Almaty Tech Cup 2026 прошёл 48-часовой хакатон на гуманоидных роботах Unitree. Цель направления Humanoid Robot R&D — вместе с Astana Hub создать центр компетенций по Physical AI в Центральной Азии.',
+      'Physical AI is artificial intelligence that perceives the physical world through sensors and lidars and makes its own decisions. At the hackathon teams build solutions for humanoid robots; Almaty Tech Cup 2026 hosted a 48-hour hackathon on Unitree humanoid robots. The Humanoid Robot R&D track aims, with Astana Hub, to build a Physical AI competence centre in Central Asia.'
+    ),
+    // Same forum photo as AI Digital Bridge, cropped to the left humanoid,
+    // until the foundation supplies a Physical AI hackathon photo.
+    cover: '/images/competitions/digital-bridge-2026.jpg',
+    coverPosition: '18% 45%'
   },
   {
     slug: 'robocup',
@@ -966,6 +1226,11 @@ export const events: SiteEvent[] = [
       'Студенттерге арналған халықаралық робототехника чемпионаты. 2026 жылғы ұлттық іріктеуді USTEM Foundation ұйымдастырды.',
       'Международный чемпионат по робототехнике для студентов. Национальный отбор 2026 года организовал USTEM Foundation.',
       'An international robotics championship for university students. USTEM Foundation organized the 2026 national selection.'
+    ),
+    age: words(
+      'Студенттер — университет, колледж, политехникум',
+      'Студенты университетов, колледжей и политехникумов',
+      'Students of universities, colleges and polytechnics'
     ),
     cover: '/images/competitions/abu-robocon.jpg'
   }
@@ -1131,3 +1396,58 @@ export const president = {
     'The Head of State at the USTEM Foundation stand, Digital Bridge 2023'
   )
 }
+
+/** Trust block (TZ §6.5): two more official mentions under the President's
+    2023 visit, newest first. Confirmed by the foundation on 2026-10-14;
+    the Akorda release lists «ОФ «Ustem Foundation»» among the exhibitors. */
+export const trustItems: {
+  key: string
+  meta: Localized
+  title: Localized
+  text: Localized
+  url: string
+  link: Localized
+  photo: { src: string; width: number; height: number; position?: string }
+  alt: Localized
+}[] = [
+  {
+    key: 'akorda-2025',
+    meta: words('Ақорда · 2025 жылғы 1 қазан', 'Акорда · 1 октября 2025', 'Akorda · 1 October 2025'),
+    title: words(
+      'Мемлекет басшысы USTEM Foundation жобасымен танысты',
+      'Глава государства ознакомился с проектом USTEM Foundation',
+      'The Head of State viewed a USTEM Foundation project'
+    ),
+    text: words(
+      'Жасанды интеллектті дамыту жөніндегі кеңес отырысы аясындағы цифрлық шешімдер көрмесі: ЖИ жобаларын ұсынған ұйымдардың қатарында — USTEM Foundation.',
+      'Выставка цифровых решений на заседании Совета по развитию искусственного интеллекта: USTEM Foundation — среди организаций, представивших свои ИИ-проекты.',
+      'The digital solutions exhibition at the Artificial Intelligence Development Council: USTEM Foundation was among the organisations presenting AI projects.'
+    ),
+    url: 'https://www.akorda.kz/ru/glava-gosudarstva-posetil-vystavku-cifrovyh-resheniy-192814',
+    link: words('Ақорданың ресми хабарламасы', 'Официальное сообщение Акорды', 'Official Akorda release'),
+    photo: { src: '/images/akorda-2025.jpg', width: 1448, height: 938, position: '50% 40%' },
+    alt: words(
+      'Қасым-Жомарт Тоқаев цифрлық шешімдер көрмесінде USTEM Foundation өкілімен сөйлесіп тұр',
+      'Касым-Жомарт Токаев беседует с представителем USTEM Foundation на выставке цифровых решений',
+      'Kassym-Jomart Tokayev talking with a USTEM Foundation representative at the digital solutions exhibition'
+    )
+  },
+  {
+    key: 'forbes-2026',
+    meta: words(
+      'Forbes Kazakhstan · «30 до 30» · 2026',
+      'Forbes Kazakhstan · «30 до 30» · 2026',
+      'Forbes Kazakhstan · 30 Under 30 · 2026'
+    ),
+    title: words('Данияр Ерматов', 'Данияр Ерматов', 'Daniyar Yermatov'),
+    text: words(
+      'FIRST бағдарламаларының Орталық Азиядағы Program Delivery Partner-і, «Басқару» санаты. USTEM Foundation командасында 2023 жылдан бері: FIRST Tech Challenge төрешісінен бағдарлама үйлестірушісіне дейін.',
+      'Program Delivery Partner программ FIRST в Центральной Азии, категория «Управление». В команде USTEM Foundation с 2023 года: от судьи FIRST Tech Challenge до координатора программ.',
+      'Program Delivery Partner for FIRST in Central Asia, Management category. With USTEM Foundation since 2023 — from FIRST Tech Challenge judge to programme coordinator.'
+    ),
+    url: 'https://forbes.kz/articles/forbes-kazakhstan-predstavlyaet-reyting-30-do-30-e11bed',
+    link: words('Forbes рейтингі', 'Рейтинг Forbes', 'Forbes list'),
+    photo: { src: '/images/people/daniyar-ermatov.jpg', width: 868, height: 1022, position: '50% 22%' },
+    alt: words('Данияр Ерматов', 'Данияр Ерматов', 'Daniyar Yermatov')
+  }
+]
