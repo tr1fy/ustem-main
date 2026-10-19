@@ -206,15 +206,15 @@ export const news: {
       'AI & Digital Bridge 2026: USTEM Foundation shows humanoids and robot dogs'
     ),
     text: words(
-      'Астанадағы AI & Digital Bridge 2026 форумында қордың инженерлері адам кейпіндегі роботтар мен робот-иттерді таныстырды. Оған дейін, 26 қыркүйекте, AI Month 2026 аясында USTEM Foundation CUP жарысын өткізді.',
-      'На форуме AI & Digital Bridge 2026 в Астане инженеры фонда представили человекоподобных роботов и робособак. Ранее, 26 сентября, в рамках AI Month 2026 USTEM Foundation провёл соревнование CUP.',
-      'At the AI & Digital Bridge 2026 forum in Astana, the foundation’s engineers presented humanoid robots and robot dogs. Earlier, on 26 September, USTEM Foundation held the CUP competition as part of AI Month 2026.'
+      'Астанадағы AI & Digital Bridge 2026 форумында қордың инженерлері адам кейпіндегі роботтар мен робот-иттерді таныстырды. Оған дейін, 26 қыркүйекте, AI Month 2026 аясында USTEM Foundation AI & Digital Bridge Cup жарысын өткізді.',
+      'На форуме AI & Digital Bridge 2026 в Астане инженеры фонда представили человекоподобных роботов и робособак. Ранее, 26 сентября, в рамках AI Month 2026 USTEM Foundation провёл соревнование AI & Digital Bridge Cup.',
+      'At the AI & Digital Bridge 2026 forum in Astana, the foundation’s engineers presented humanoid robots and robot dogs. Earlier, on 26 September, USTEM Foundation held the AI & Digital Bridge Cup competition as part of AI Month 2026.'
     ),
     body: [
       words(
-        '26 қыркүйек 2026 — AI Month 2026 аясында USTEM Foundation CUP жарысын өткізді. AI Month бағдарламасына FIRST Tech Challenge және FIRST LEGO League Future Editions бағыттары енген.',
-        '26 сентября 2026 года в рамках AI Month 2026 USTEM Foundation провёл соревнование CUP. В программу AI Month вошли направления FIRST Tech Challenge и FIRST LEGO League Future Editions.',
-        'On 26 September 2026, USTEM Foundation held the CUP competition as part of AI Month 2026. The AI Month programme includes FIRST Tech Challenge and FIRST LEGO League Future Editions.'
+        '26 қыркүйек 2026 — AI Month 2026 аясында USTEM Foundation AI & Digital Bridge Cup жарысын өткізді. AI Month бағдарламасына FIRST Tech Challenge және FIRST LEGO League Future Editions бағыттары енген.',
+        '26 сентября 2026 года в рамках AI Month 2026 USTEM Foundation провёл соревнование AI & Digital Bridge Cup. В программу AI Month вошли направления FIRST Tech Challenge и FIRST LEGO League Future Editions.',
+        'On 26 September 2026, USTEM Foundation held the AI & Digital Bridge Cup competition as part of AI Month 2026. The AI Month programme includes FIRST Tech Challenge and FIRST LEGO League Future Editions.'
       )
     ],
     source: 'https://digitalbridge.ai/'
@@ -997,14 +997,14 @@ export const events: SiteEvent[] = [
       'Almaty’s annual championship in robotics, engineering and AI.'
     ),
     detail: words(
-      'USTEM Foundation ұйымдастыратын технология чемпионаты. XII чемпионат «Age of AI» 2026 жылғы 30 маусым – 1 шілдеде Almaty Arena-да өтті: 3000-нан астам қатысушы, 14 пән, 5 ел.',
-      'Технологический чемпионат, который организует USTEM Foundation. XII чемпионат «Age of AI» прошёл 30 июня – 1 июля 2026 года в Almaty Arena: более 3000 участников, 14 дисциплин, 5 стран.',
-      'A technology championship organised by USTEM Foundation. The XII championship “Age of AI” took place on 30 June – 1 July 2026 at Almaty Arena: 3,000+ participants, 14 disciplines, 5 countries.'
+      'USTEM Foundation ұйымдастыратын технология чемпионаты. XII чемпионат «Age of AI» 2026 жылғы 30 маусым – 1 шілдеде Almaty Arena-да өтті: 3000-нан астам қатысушы, 14 жарыс, 5 ел.',
+      'Технологический чемпионат, который организует USTEM Foundation. XII чемпионат «Age of AI» прошёл 30 июня – 1 июля 2026 года в Almaty Arena: более 3000 участников, 14 соревнований, 5 стран.',
+      'A technology championship organised by USTEM Foundation. The XII championship “Age of AI” took place on 30 June – 1 July 2026 at Almaty Arena: 3,000+ participants, 14 competitions, 5 countries.'
     ),
     meta: words(
-      '2026 · Almaty Arena · 3000+ қатысушы · 14 пән · 5 ел',
-      '2026 · Almaty Arena · 3000+ участников · 14 дисциплин · 5 стран',
-      '2026 · Almaty Arena · 3,000+ participants · 14 disciplines · 5 countries'
+      '2026 · Almaty Arena · 3000+ қатысушы · 14 жарыс · 5 ел',
+      '2026 · Almaty Arena · 3000+ участников · 14 соревнований · 5 стран',
+      '2026 · Almaty Arena · 3,000+ participants · 14 competitions · 5 countries'
     ),
     next: words(
       'маусым 2027 · FIRST Tech Challenge Premier Event · 96 команда',
@@ -1038,7 +1038,8 @@ export const events: SiteEvent[] = [
       'февраль 2027 · Kazakhstan Central Asia FIRST Championship 2027',
       'February 2027 · Kazakhstan Central Asia FIRST Championship 2027'
     ),
-    cover: '/images/projects/alem-tech-fest-cover.jpg'
+    cover: '/images/projects/alem-tech-fest-cover.jpg',
+    officialUrl: 'https://alemtechfest.kz'
   },
   {
     slug: 'digital-bridge',
@@ -1050,9 +1051,9 @@ export const events: SiteEvent[] = [
       'The region’s largest technology forum: the USTEM Foundation robotics zone and FIRST competitions.'
     ),
     detail: words(
-      'AI & Digital Bridge — өңірдегі ең ірі технологиялық форум. 2026 жылы форум 1–3 қазанда Астанадағы EXPO-да өтті. Оның алдындағы AI Month 2026 бағдарламасына FIRST LEGO League Future Editions және FIRST Tech Challenge бағыттары (Central Asia FIRST Championship құрамында) және Unitree G1 гуманоидты роботындағы хакатон енді. 26 қыркүйекте AI Month аясында USTEM Foundation CUP жарысын өткізді. Форумдағы робототехника аймағын USTEM Foundation ұйымдастырды: қордың инженерлері адам кейпіндегі роботтар мен робот-иттерді көрсетті.',
-      'AI & Digital Bridge — крупнейший технологический форум региона. В 2026 году форум прошёл 1–3 октября в EXPO, Астана. В программу предшествовавшего ему AI Month 2026 вошли направления FIRST LEGO League Future Editions и FIRST Tech Challenge (в составе Central Asia FIRST Championship) и хакатон на гуманоидном роботе Unitree G1. 26 сентября в рамках AI Month USTEM Foundation провёл соревнование CUP. Зону робототехники форума организовал USTEM Foundation: инженеры фонда показали человекоподобных роботов и робособак.',
-      'AI & Digital Bridge is the region’s largest technology forum. In 2026 it took place on 1–3 October at EXPO, Astana. The AI Month 2026 programme that led up to it included FIRST LEGO League Future Editions and FIRST Tech Challenge (as part of the Central Asia FIRST Championship) and a hackathon on the Unitree G1 humanoid robot. On 26 September, USTEM Foundation held the CUP competition as part of AI Month. USTEM Foundation ran the forum’s robotics zone, where the foundation’s engineers showed humanoid robots and robot dogs.'
+      'AI & Digital Bridge — өңірдегі ең ірі технологиялық форум. 2026 жылы форум 1–3 қазанда Астанадағы EXPO-да өтті. Оның алдындағы AI Month 2026 бағдарламасына FIRST LEGO League Future Editions және FIRST Tech Challenge бағыттары (Central Asia FIRST Championship құрамында) және Unitree G1 гуманоидты роботындағы хакатон енді. 26 қыркүйекте AI Month аясында USTEM Foundation AI & Digital Bridge Cup жарысын өткізді. Форумдағы робототехника аймағын USTEM Foundation ұйымдастырды: қордың инженерлері Kerneu Group-пен бірлесіп адам кейпіндегі роботтарды, робот-иттерді және теннис ойнайтын роботтарды көрсетті.',
+      'AI & Digital Bridge — крупнейший технологический форум региона. В 2026 году форум прошёл 1–3 октября в EXPO, Астана. В программу предшествовавшего ему AI Month 2026 вошли направления FIRST LEGO League Future Editions и FIRST Tech Challenge (в составе Central Asia FIRST Championship) и хакатон на гуманоидном роботе Unitree G1. 26 сентября в рамках AI Month USTEM Foundation провёл соревнование AI & Digital Bridge Cup. Зону робототехники форума организовал USTEM Foundation: вместе с Kerneu Group инженеры фонда показали человекоподобных роботов, робособак и роботов, играющих в теннис.',
+      'AI & Digital Bridge is the region’s largest technology forum. In 2026 it took place on 1–3 October at EXPO, Astana. The AI Month 2026 programme that led up to it included FIRST LEGO League Future Editions and FIRST Tech Challenge (as part of the Central Asia FIRST Championship) and a hackathon on the Unitree G1 humanoid robot. On 26 September, USTEM Foundation held the AI & Digital Bridge Cup competition as part of AI Month. USTEM Foundation ran the forum’s robotics zone, where the foundation’s engineers, together with Kerneu Group, showed humanoid robots, robot dogs and tennis-playing robots.'
     ),
     meta: words(
       '2026 · Астана, EXPO · 1–3 қазан',
