@@ -9,6 +9,7 @@ import {
 import { Link } from '@/i18n/routing'
 import { track } from '@/lib/analytics'
 import {
+  connectEnabled,
   eventBySlug,
   localize,
   site,
@@ -111,30 +112,32 @@ export default function CompetitionDetail({
         )}
       </div>
 
-      <section className='cmp-join' aria-labelledby={joinId}>
-        <Subtitle id={joinId} className='cmp-join-title'>
-          {t(ui.howToJoin)}
-        </Subtitle>
-        <ol className='cmp-steps'>
-          {ui.joinSteps.map((step, index) => (
-            <li key={index}>{t(step)}</li>
-          ))}
-        </ol>
-        <a
-          className='btn btn-primary cmp-join-cta'
-          href={site.connectUrl}
-          target='_blank'
-          rel='noreferrer'
-          onClick={() =>
-            track('connect_click', { place: 'competition', slug: event.slug })
-          }
-        >
-          {t(ui.joinInConnect)}
-          <span className='visually-hidden'> {t(text.newTab)}</span>
-          {/* last child: rendered in its own circle by .btn */}
-          <ArrowUpRightIcon aria-hidden='true' />
-        </a>
-      </section>
+      {connectEnabled && (
+        <section className='cmp-join' aria-labelledby={joinId}>
+          <Subtitle id={joinId} className='cmp-join-title'>
+            {t(ui.howToJoin)}
+          </Subtitle>
+          <ol className='cmp-steps'>
+            {ui.joinSteps.map((step, index) => (
+              <li key={index}>{t(step)}</li>
+            ))}
+          </ol>
+          <a
+            className='btn btn-primary cmp-join-cta'
+            href={site.connectUrl}
+            target='_blank'
+            rel='noreferrer'
+            onClick={() =>
+              track('connect_click', { place: 'competition', slug: event.slug })
+            }
+          >
+            {t(ui.joinInConnect)}
+            <span className='visually-hidden'> {t(text.newTab)}</span>
+            {/* last child: rendered in its own circle by .btn */}
+            <ArrowUpRightIcon aria-hidden='true' />
+          </a>
+        </section>
+      )}
 
       {(event.officialUrl || event.rulesPdf) && (
         <ul className='cmp-detail-links' role='list'>

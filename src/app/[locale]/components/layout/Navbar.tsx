@@ -32,6 +32,7 @@ import { useLocale } from 'next-intl'
 import { Link, usePathname, useRouter } from '@/i18n/routing'
 import { track } from '@/lib/analytics'
 import {
+  connectEnabled,
   directionEvents,
   flagshipEvents,
   languages,
@@ -544,17 +545,19 @@ export default function Navbar() {
         </nav>
 
         <div className='hdr-actions'>
-          <a
-            className='btn btn-primary hdr-connect'
-            href={site.connectUrl}
-            target='_blank'
-            rel='noreferrer'
-            onClick={onConnectClick('header')}
-          >
-            USTEM Connect
-            <span className='visually-hidden'> ({t(text.newTab)})</span>
-            <ArrowUpRightIcon aria-hidden='true' />
-          </a>
+          {connectEnabled && (
+            <a
+              className='btn btn-primary hdr-connect'
+              href={site.connectUrl}
+              target='_blank'
+              rel='noreferrer'
+              onClick={onConnectClick('header')}
+            >
+              USTEM Connect
+              <span className='visually-hidden'> ({t(text.newTab)})</span>
+              <ArrowUpRightIcon aria-hidden='true' />
+            </a>
+          )}
 
           {/* ---------- §5.5 language dropdown ---------- */}
           <div ref={langBoxRef} className='hdr-lang' onBlur={onLangBlur}>
@@ -730,19 +733,21 @@ export default function Navbar() {
           </nav>
 
           <div className='hdr-m-footer' style={row(navItems.length)}>
-            <a
-              className='btn btn-primary btn-block hdr-m-connect'
-              href={site.connectUrl}
-              target='_blank'
-              rel='noreferrer'
-              onClick={onConnectClick('mobile_menu')}
-            >
-              <span>
-                USTEM Connect
-                <span className='visually-hidden'> ({t(text.newTab)})</span>
-              </span>
-              <ArrowUpRightIcon aria-hidden='true' />
-            </a>
+            {connectEnabled && (
+              <a
+                className='btn btn-primary btn-block hdr-m-connect'
+                href={site.connectUrl}
+                target='_blank'
+                rel='noreferrer'
+                onClick={onConnectClick('mobile_menu')}
+              >
+                <span>
+                  USTEM Connect
+                  <span className='visually-hidden'> ({t(text.newTab)})</span>
+                </span>
+                <ArrowUpRightIcon aria-hidden='true' />
+              </a>
+            )}
             <div
               className='hdr-m-langs'
               role='group'

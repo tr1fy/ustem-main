@@ -1,5 +1,12 @@
 import type { Metadata } from 'next'
-import { localize, site, ui, words, type Localized } from '@/lib/site-content'
+import {
+  connectEnabled,
+  localize,
+  site,
+  ui,
+  words,
+  type Localized
+} from '@/lib/site-content'
 import { alternatesFor, htmlLang } from '@/lib/seo'
 import { PageHead } from '../_components/ui'
 
@@ -80,11 +87,17 @@ const blocks: Block[] = [
   },
   {
     title: words('Сыртқы сайттар', 'Внешние сайты', 'External websites'),
-    text: words(
-      'Instagram, USTEM Connect және жарыстардың ресми сайттары өз ережелерімен жұмыс істейді.',
-      'Instagram, USTEM Connect и официальные сайты соревнований работают по своим правилам.',
-      'Instagram, USTEM Connect and the official competition websites follow their own policies.'
-    )
+    text: connectEnabled
+      ? words(
+          'Instagram, USTEM Connect және жарыстардың ресми сайттары өз ережелерімен жұмыс істейді.',
+          'Instagram, USTEM Connect и официальные сайты соревнований работают по своим правилам.',
+          'Instagram, USTEM Connect and the official competition websites follow their own policies.'
+        )
+      : words(
+          'Instagram және жарыстардың ресми сайттары өз ережелерімен жұмыс істейді.',
+          'Instagram и официальные сайты соревнований работают по своим правилам.',
+          'Instagram and the official competition websites follow their own policies.'
+        )
   },
   {
     title: words('Өзгерістер', 'Изменения', 'Changes'),

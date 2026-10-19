@@ -9,6 +9,9 @@ export const localize = (value: Localized, locale: string) =>
   value[locale as Locale] || value.kz
 export const instagram = 'https://www.instagram.com/ustem_foundation/'
 export const connectUrl = 'https://ustem-connect-862m.onrender.com/'
+/** USTEM Connect is hidden for now (header, mobile menu, «how to take part»,
+    competitions intro, news item). Set to true to bring it all back. */
+export const connectEnabled = false
 export const contactEmail = 'hello@ustemfoundation.org'
 export const presidentSource =
   'https://www.akorda.kz/ru/kasym-zhomart-tokaev-posetil-vystavku-na-mezhdunarodnom-tehnologicheskom-forume-digital-bridge-1291855'
@@ -148,7 +151,7 @@ export const testimonials = [
 
 export type NewsCategory = 'foundation' | 'media' | 'press-release'
 
-export const news: {
+const allNews: {
   slug: string
   date: string
   image: string
@@ -315,6 +318,10 @@ export const news: {
       'https://www.gov.kz/memleket/entities/edu/press/news/details/1097414?lang=ru'
   }
 ]
+
+export const news = allNews.filter(
+  item => connectEnabled || item.source !== connectUrl
+)
 
 export const tournaments = [
   {
@@ -783,11 +790,17 @@ export const ui = {
     'Три флагманских события и восемь направлений соревнований круглый год.',
     'Three flagship events and eight competition tracks all year round.'
   ),
-  competitionsLead: words(
-    'Робототехника, дрондар, ғарыш және жасанды интеллект бойынша жарыстар. Тіркелу — USTEM Connect арқылы.',
-    'Соревнования по робототехнике, дронам, космосу и искусственному интеллекту. Регистрация — через USTEM Connect.',
-    'Competitions in robotics, drones, space and artificial intelligence. Registration is through USTEM Connect.'
-  ),
+  competitionsLead: connectEnabled
+    ? words(
+        'Робототехника, дрондар, ғарыш және жасанды интеллект бойынша жарыстар. Тіркелу — USTEM Connect арқылы.',
+        'Соревнования по робототехнике, дронам, космосу и искусственному интеллекту. Регистрация — через USTEM Connect.',
+        'Competitions in robotics, drones, space and artificial intelligence. Registration is through USTEM Connect.'
+      )
+    : words(
+        'Робототехника, дрондар, ғарыш және жасанды интеллект бойынша жарыстар.',
+        'Соревнования по робототехнике, дронам, космосу и искусственному интеллекту.',
+        'Competitions in robotics, drones, space and artificial intelligence.'
+      ),
   allCompetitions: words('Барлық жарыстар', 'Все соревнования', 'All competitions'),
   flagships: words('Флагман іс-шаралар', 'Флагманские события', 'Flagship events'),
   nextEdition: words('Келесі', 'Следующее', 'Next'),
