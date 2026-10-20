@@ -8,10 +8,10 @@ export const words = (kz: string, ru: string, en: string): Localized => ({
 export const localize = (value: Localized, locale: string) =>
   value[locale as Locale] || value.kz
 export const instagram = 'https://www.instagram.com/ustem_foundation/'
-export const connectUrl = 'https://ustem-connect-862m.onrender.com/'
-/** USTEM Connect is hidden for now (header, mobile menu, «how to take part»,
-    competitions intro, news item). Set to true to bring it all back. */
-export const connectEnabled = false
+export const connectUrl = 'https://connect.ustem.kz/'
+/** Switches USTEM Connect on or off everywhere (header, mobile menu,
+    «how to take part», competitions intro, privacy, news item). */
+export const connectEnabled = true
 export const contactEmail = 'hello@ustemfoundation.org'
 export const presidentSource =
   'https://www.akorda.kz/ru/kasym-zhomart-tokaev-posetil-vystavku-na-mezhdunarodnom-tehnologicheskom-forume-digital-bridge-1291855'

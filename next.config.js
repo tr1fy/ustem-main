@@ -31,7 +31,7 @@ const nextConfig = {
       // the old template /login and /register pages send people there.
       {
         source: '/:locale(kz|ru|en)/:page(login|register)',
-        destination: 'https://ustem-connect-862m.onrender.com/',
+        destination: 'https://connect.ustem.kz/',
         permanent: false
       },
       // STEM Hanym has its own website; our site keeps only the card (TZ §8.3).
