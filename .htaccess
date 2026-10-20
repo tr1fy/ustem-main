@@ -46,7 +46,7 @@ RewriteRule ^(kz|ru|en)/projects/(almaty-techcup|alem-tech-fest|first-robotics|a
 # STEM Hanym has its own website; our site keeps only the card (TZ §8.3).
 RewriteRule ^(kz|ru|en)/projects/stem-hanym/?$ /$1/projects [R=301,L]
 # The personal cabinet is USTEM Connect (TZ §1).
-RewriteRule ^(kz|ru|en)/(login|register)/?$ https://ustem-connect-862m.onrender.com/ [R=307,L]
+RewriteRule ^(kz|ru|en)/(login|register)/?$ https://connect.ustem.kz/ [R=307,L]
 
 # ---- Clean URLs: /kz/about is out/kz/about.html ----
 RewriteRule ^(.+)/$ /$1 [R=301,L]
