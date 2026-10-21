@@ -1078,8 +1078,8 @@ export const events: SiteEvent[] = [
       '10–18 лет · FLL Future Editions и FTC',
       'Ages 10–18 · FLL Future Editions and FTC'
     ),
-    cover: '/images/competitions/digital-bridge-2026.jpg',
-    coverPosition: '50% 40%',
+    cover: '/images/competitions/digital-bridge-2026-poster.jpg',
+    coverPosition: '50% 50%',
     officialUrl: 'https://digitalbridge.ai/'
   },
   {

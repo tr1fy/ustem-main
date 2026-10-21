@@ -25,7 +25,8 @@ const coverSizes: Record<string, [number, number]> = {
   '/images/competitions/battle-of-bots.jpg': [1600, 1066],
   '/images/competitions/robocup.jpg': [1473, 982],
   '/images/competitions/abu-robocon.jpg': [1614, 982],
-  '/images/competitions/digital-bridge-2026.jpg': [1266, 792]
+  '/images/competitions/digital-bridge-2026.jpg': [1266, 792],
+  '/images/competitions/digital-bridge-2026-poster.jpg': [1200, 675]
 }
 
 export const coverSize = (src: string): [number, number] =>
