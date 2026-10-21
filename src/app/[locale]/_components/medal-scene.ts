@@ -308,17 +308,27 @@ function bakeRibbon() {
   g.fillRect(w - 12, 0, 3, h)
   g.fillStyle = 'rgba(255,255,255,0.05)'
   for (let y = 0; y < h; y += 3) g.fillRect(0, y, w, 1)
+  // «FIRST GLOBAL» centred along the tile, so each repeat has a blank
+  // stretch around v = 0; updateStrip puts that stretch at the jump ring
   g.save()
   g.translate(w / 2, h / 2)
   g.rotate(Math.PI / 2)
   g.fillStyle = '#ffffff'
-  g.textAlign = 'center'
+  g.textAlign = 'left'
   g.textBaseline = 'middle'
   const family = getComputedStyle(document.body).fontFamily || 'sans-serif'
-  g.font = `italic 800 50px ${family}`
-  g.fillText('FIRST', -128, 2)
-  g.font = `800 50px ${family}`
-  g.fillText('GLOBAL', 72, 2)
+  const first = `italic 800 46px ${family}`
+  const global = `800 46px ${family}`
+  g.font = first
+  const firstW = g.measureText('FIRST').width
+  g.font = global
+  const globalW = g.measureText('GLOBAL').width
+  const gap = 24
+  const start = -(firstW + gap + globalW) / 2
+  g.font = first
+  g.fillText('FIRST', start, 2)
+  g.font = global
+  g.fillText('GLOBAL', start + firstW + gap, 2)
   g.restore()
   const texture = new CanvasTexture(canvas)
   texture.colorSpace = SRGBColorSpace
@@ -492,6 +502,7 @@ export function createMedalScene(
 
   /* ribbons */
   const ribbonTexture = bakeRibbon()
+  ribbonTexture.anisotropy = anisotropy
   textures.push(ribbonTexture)
   const ribbonMaterial = new MeshPhysicalMaterial({
     map: ribbonTexture,
@@ -708,27 +719,35 @@ export function createMedalScene(
     samples[k].copy(nodes[SEGMENTS].p)
   }
 
+  const lengths = new Float32Array(SAMPLES)
+
   function updateStrip(mesh: Mesh, nodes: Particle[], s: number) {
     sample(nodes)
     const geometry = mesh.geometry as BufferGeometry
     const pos = geometry.getAttribute('position') as BufferAttribute
     const nor = geometry.getAttribute('normal') as BufferAttribute
     const tex = geometry.getAttribute('uv') as BufferAttribute
-    const half = RIBBON_W / 2
     const repeat = RIBBON_W * 4
-    let along = 0
     const sign = s === 0 ? 1 : -1
+    lengths[0] = 0
+    for (let i = 1; i < SAMPLES; i += 1)
+      lengths[i] = lengths[i - 1] + samples[i].distanceTo(samples[i - 1])
+    const total = lengths[SAMPLES - 1]
     for (let i = 0; i < SAMPLES; i += 1) {
       const a = samples[Math.max(0, i - 1)]
       const b = samples[Math.min(SAMPLES - 1, i + 1)]
       tangent.subVectors(b, a).normalize()
       side.crossVectors(tangent, view).normalize()
-      // near the ring the satin turns edge-on as it threads through it
-      const t = i / (SAMPLES - 1)
-      const turn = smooth(0.8, 1, t) * 1.05 * sign
-      side.applyAxisAngle(tangent, turn)
+      // Over the last ~half radius the satin narrows and turns a little, as
+      // if folding into the jump ring. It never goes edge-on: a squeezed
+      // strip turned the white lettering into ragged slivers.
+      const fold = 1 - smooth(0, 0.5, total - lengths[i])
+      side.applyAxisAngle(tangent, fold * 0.45 * sign)
       normal.crossVectors(side, tangent).normalize()
-      if (i > 0) along += samples[i].distanceTo(samples[i - 1])
+      const half = (RIBBON_W / 2) * (1 - fold * 0.32)
+      // anchored at the ring end, so the blank stretch of the tile (v = 0)
+      // always sits there and no letters reach the fold
+      const along = lengths[i] - total
       const p = samples[i]
       // tuck the end into the jump ring
       const tuck = i === SAMPLES - 1 ? 0.05 : 0

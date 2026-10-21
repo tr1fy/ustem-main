@@ -569,9 +569,22 @@
    bottom edge of the hero (homepage) or the card top (inner pages) and
    28px below the slot (BELOW_PX in medal-scene.ts), so the lanyard runs
    out from under the hero, behind the heading. */
+/* A white outline cut around each letter keeps the heading readable where
+   the blue lanyard passes behind it (text-shadow draws under the glyphs,
+   so the ink itself is untouched). */
 .imp-overlap .imp-title {
   position: relative;
   z-index: 2;
+  text-shadow:
+    3px 0 0 var(--white),
+    -3px 0 0 var(--white),
+    0 3px 0 var(--white),
+    0 -3px 0 var(--white),
+    2.2px 2.2px 0 var(--white),
+    -2.2px 2.2px 0 var(--white),
+    2.2px -2.2px 0 var(--white),
+    -2.2px -2.2px 0 var(--white),
+    0 0 12px rgba(255, 255, 255, 0.9);
 }
 .imp-medal {
   position: absolute;
