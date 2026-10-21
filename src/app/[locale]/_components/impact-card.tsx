@@ -9,10 +9,11 @@
  *                       as a regular section head above a flat card
  * Brand guideline: a white radius-lg card, the "4×" numeral filled with the
  * Aral gradient, a blue timeline. Next to «4×» a 3D FIRST Global medal
- * falls in on its lanyard (./impact-medal, three.js loaded lazily); each
- * title on the timeline is a vector season medal (./season-medal) whose
- * year and city show on hover/focus, or under it on touch screens. The
- * further metrics line up with the stat | medal | timeline columns.
+ * falls in on a lanyard that runs from under the hero (./impact-medal,
+ * three.js loaded lazily); each title on the timeline is a two-sided
+ * season medal (./season-medal): the official season logo in front, the
+ * year and city on the back, turned by hover, focus or a tap. The further
+ * metrics line up with the stat | medal | timeline columns.
  * Server component: only the count-up (./reveal), the source popover
  * (./impact-source) and the 3D medal run on the client.
  */
@@ -207,8 +208,8 @@ export default function ImpactCard({
                   style={{ '--n': timeline.length } as CSSProperties}
                 >
                   {timeline.map((step, i) => (
-                    // Focusable so the year/city label shows on keyboard
-                    // focus too, not only on hover (WCAG 1.4.13).
+                    // Focusable so the medal also turns to its back (year
+                    // and city) on keyboard focus, not only on hover.
                     // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
                     <li
                       className='imp-step'
@@ -216,21 +217,12 @@ export default function ImpactCard({
                       style={{ '--i': i } as CSSProperties}
                       tabIndex={0}
                     >
-                      {/* .imp-pend drops in, .imp-sway swings on hover */}
-                      <span className='imp-pend' aria-hidden='true'>
-                        <span className='imp-sway'>
-                          <span className='imp-ribbon' />
-                          <span className='imp-coin'>
-                            <SeasonMedal year={step.year} />
-                          </span>
-                        </span>
-                      </span>
-                      <span className='imp-tip'>
+                      <SeasonMedal year={step.year}>
                         <span className='imp-year'>{step.year}</span>
                         <span className='imp-place'>
                           {localize(step.place, locale)}
                         </span>
-                      </span>
+                      </SeasonMedal>
                     </li>
                   ))}
                 </ol>

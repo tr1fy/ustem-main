@@ -565,26 +565,30 @@
   }
 }
 
-/* the 3D medal slot */
+/* the 3D medal slot. impact-medal.tsx stretches its canvas up to the
+   bottom edge of the hero (homepage) or the card top (inner pages) and
+   28px below the slot (BELOW_PX in medal-scene.ts), so the lanyard runs
+   out from under the hero, behind the heading. */
+.imp-overlap .imp-title {
+  position: relative;
+  z-index: 2;
+}
 .imp-medal {
   position: absolute;
-  top: calc(-1 * var(--lift));
+  top: 0;
   right: 0;
+  z-index: 1;
   width: min(220px, calc(100% - 1.3 * var(--vfs)));
-  height: calc(var(--lift) + 0.93 * var(--vfs) + 14px);
+  height: calc(0.93 * var(--vfs) + 14px);
 }
-/* 28px taller than the slot (BELOW_PX in medal-scene.ts): room for the
-   bounce when the lanyard catches the medal */
 .imp-medal-canvas {
   position: absolute;
   top: 0;
-  left: -16px;
+  left: -24px;
   display: block;
-  width: calc(100% + 32px);
+  width: calc(100% + 48px);
   height: calc(100% + 28px);
   touch-action: pan-y;
-  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 min(28px, 16%));
-  mask-image: linear-gradient(180deg, transparent 0, #000 min(28px, 16%));
 }
 .imp-medal-canvas[hidden] {
   display: none;
@@ -619,11 +623,11 @@
   mask: url('/images/brand/first-global-logo.png') center / contain no-repeat;
 }
 
-/* Timeline of the four titles: a blue rule with one hanging medal per
-   season (season-medal.tsx). With a mouse the year and city show in a
-   label on hover or focus; on touch screens they sit under each medal. */
+/* Timeline of the four titles: a blue rule through one two-sided medal
+   per season (season-medal.tsx): the official season logo in front, the
+   year and city on the back. Hover, keyboard focus or a tap turns it. */
 .imp-timeline {
-  --sm-size: clamp(46px, 4.4vw, 64px);
+  --sm-size: min(64px, 21vw);
   position: relative;
   display: grid;
   grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr));
@@ -634,7 +638,7 @@
 .imp-timeline::before {
   content: '';
   position: absolute;
-  top: 6px;
+  top: calc(var(--sm-size) / 2 - 1px);
   left: calc(50% / var(--n, 4));
   right: 0;
   height: 2px;
@@ -649,177 +653,120 @@
 .imp-step {
   position: relative;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 14px;
-  border-radius: 16px;
+  justify-content: center;
   outline: none;
+  perspective: 700px;
+  cursor: default;
+  -webkit-tap-highlight-color: transparent;
 }
-.imp-step:focus-visible {
-  outline: 2px solid var(--blue);
-  outline-offset: 4px;
-}
-.imp-step::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  z-index: 1;
-  box-sizing: border-box;
-  width: 14px;
-  height: 14px;
-  margin-left: -7px;
-  border: 2px solid var(--sea);
-  border-radius: 50%;
-  background: var(--white);
-}
-.imp-step:last-child::before {
-  background: var(--sea);
-  box-shadow: 0 0 0 6px var(--tint);
-}
-/* the ribbon tucks under the marker; both swing from its centre */
-.imp-pend,
-.imp-sway {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transform-origin: 50% 0;
-}
-.imp-pend {
-  margin-top: -6px;
-}
-.imp-ribbon {
-  width: max(8px, calc(var(--sm-size) * 0.17));
-  height: calc(var(--sm-size) * 0.34);
-  border-radius: 1px;
-  background: linear-gradient(
-    90deg,
-    #123f9f 0%,
-    #2a66e0 28%,
-    #5a90f2 50%,
-    #1f55cc 72%,
-    #123f9f 100%
-  );
-}
-.imp-coin {
+.sm {
   position: relative;
   display: block;
-  width: var(--sm-size);
-  margin-top: calc(var(--sm-size) * -0.04);
+  width: min(var(--sm-size), 100%);
+  aspect-ratio: 1;
+  transform-style: preserve-3d;
+  transition: translate var(--dur) var(--ease);
 }
-.imp-coin .sm {
+.sm-flip {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 850ms cubic-bezier(0.3, 1.35, 0.5, 1);
+}
+.sm-face,
+.sm-edge {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+/* five gold discs between the faces: the coin's edge when it turns */
+.sm-edge {
+  background: linear-gradient(90deg, #8f5f14, #d9a540 45%, #f7d77e 55%, #a8761f);
+  transform: translateZ(calc(var(--z) * 0.9px));
+}
+.sm-face {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  box-shadow: 0 10px 16px -10px rgba(0, 50, 120, 0.45);
+}
+.sm-front {
+  transform: translateZ(2.4px);
+}
+.sm-back {
+  transform: rotateY(180deg) translateZ(2.4px);
+}
+.sm-face svg {
   display: block;
   width: 100%;
-  height: auto;
-  overflow: visible;
-  filter: drop-shadow(0 6px 7px rgba(0, 50, 120, 0.2));
+  height: 100%;
 }
-/* a sweep of light across the disc on hover */
-.imp-coin::after {
+.sm-logo {
+  position: absolute;
+  top: 19%;
+  left: 19%;
+  width: 62%;
+  height: 62%;
+  object-fit: contain;
+}
+/* enamel gloss */
+.sm-front::after {
   content: '';
   position: absolute;
-  top: 12.5%;
-  left: 2%;
-  width: 96%;
-  aspect-ratio: 1;
+  inset: 7.5%;
   border-radius: 50%;
-  background: linear-gradient(
-      115deg,
-      transparent 38%,
-      rgba(255, 255, 255, 0.75) 50%,
-      transparent 62%
-    )
-    130% 0 / 260% 100% no-repeat;
-  opacity: 0;
+  background: radial-gradient(
+    120% 80% at 30% 12%,
+    rgba(255, 255, 255, 0.55) 0,
+    rgba(255, 255, 255, 0) 45%
+  );
   pointer-events: none;
 }
-.sm-color {
-  opacity: 0;
-  transition: opacity 420ms var(--ease);
-}
-.imp-tip {
+.sm-info {
+  position: absolute;
+  inset: 0;
   display: grid;
+  place-content: center;
   justify-items: center;
-  gap: 2px;
-  margin-top: 10px;
+  gap: 3px;
   text-align: center;
+  color: #553806;
+  text-shadow: 0 1px 0 rgba(255, 244, 204, 0.7);
 }
 .imp-year {
-  font-size: clamp(1rem, 0.9rem + 0.3vw, 1.125rem);
-  font-weight: 700;
-  line-height: 1.1;
+  font-size: calc(var(--sm-size) * 0.25);
+  font-weight: 800;
+  line-height: 1;
   letter-spacing: -0.02em;
-  color: var(--ink);
   font-variant-numeric: tabular-nums;
 }
-.imp-step:last-child .imp-year {
-  color: var(--blue);
-}
 .imp-place {
-  font-size: 0.8125rem;
-  line-height: 1.35;
-  color: var(--muted);
+  max-width: 7.5em;
+  font-size: max(10px, calc(var(--sm-size) * 0.125));
+  font-weight: 600;
+  line-height: 1.15;
+}
+/* the latest title keeps the soft highlight ring the marker had */
+.imp-step:last-child .sm-face {
+  box-shadow:
+    0 0 0 5px var(--tint),
+    0 10px 16px -10px rgba(0, 50, 120, 0.45);
+}
+.imp-step:focus-visible .sm-face {
+  box-shadow:
+    0 0 0 3px var(--white),
+    0 0 0 5px var(--blue);
 }
 @media (hover: hover) {
-  .imp-tip {
-    position: absolute;
-    top: calc(100% + 10px);
-    left: 50%;
-    z-index: 6;
-    margin: 0;
-    padding: 9px 14px 10px;
-    border-radius: 12px;
-    background: var(--white);
-    box-shadow: var(--shadow-soft), 0 0 0 1px var(--line);
-    white-space: nowrap;
-    opacity: 0;
-    transform: translate(-50%, 6px);
-    transition:
-      opacity var(--dur) var(--ease),
-      transform var(--dur) var(--ease);
-    pointer-events: none;
+  .imp-step:hover .sm {
+    translate: 0 -4px;
   }
-  .imp-tip::before {
-    content: '';
-    position: absolute;
-    top: -5px;
-    left: 50%;
-    width: 10px;
-    height: 10px;
-    margin-left: -5px;
-    border-radius: 2px 0 0;
-    background: var(--white);
-    box-shadow: -1px -1px 0 var(--line);
-    transform: rotate(45deg);
-  }
-  .imp-step:hover .imp-tip,
-  .imp-step:focus-visible .imp-tip {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-  .imp-step:hover .sm-color,
-  .imp-step:focus-visible .sm-color {
-    opacity: 1;
-  }
-  .imp-step:hover .imp-coin::after {
-    opacity: 1;
-    background-position: -30% 0;
-    transition:
-      background-position 900ms var(--ease),
-      opacity 160ms;
+  .imp-step:hover .sm-flip {
+    transform: rotateY(180deg);
   }
 }
-@media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .imp-step:hover .imp-sway,
-  .imp-step:focus-visible .imp-sway {
-    animation: imp-swing 1500ms var(--ease) both;
-  }
-}
-@keyframes imp-swing {
-  18% { transform: rotate(7deg); }
-  40% { transform: rotate(-4.5deg); }
-  60% { transform: rotate(2.5deg); }
-  80% { transform: rotate(-1deg); }
+.imp-step:focus-visible .sm-flip,
+.imp-step.is-flipped .sm-flip {
+  transform: rotateY(180deg);
 }
 
 .imp-foot {
@@ -927,7 +874,7 @@
 
 @media (min-width: 600px) {
   .imp-main {
-    grid-template-columns: minmax(0, 1fr) clamp(170px, 38%, 300px);
+    grid-template-columns: minmax(0, 1fr) clamp(190px, 40%, 320px);
     grid-template-areas:
       'stat medal'
       'side side';
@@ -943,11 +890,13 @@
     right: auto;
     width: auto;
     height: auto;
-    min-height: 210px;
-    margin-top: calc(-1 * var(--lift));
+    min-height: 230px;
   }
   .imp-side {
     grid-area: side;
+  }
+  .imp-timeline {
+    --sm-size: clamp(76px, 10vw, 100px);
   }
   .imp-foot {
     flex-direction: row;
@@ -974,7 +923,7 @@
 @media (min-width: 1024px) {
   .imp-main,
   .imp-more {
-    grid-template-columns: minmax(0, 4fr) minmax(0, 3fr) minmax(0, 5fr);
+    grid-template-columns: minmax(0, 3.3fr) minmax(0, 2.7fr) minmax(0, 6fr);
     column-gap: clamp(28px, 3vw, 48px);
   }
   .imp-main {
@@ -983,59 +932,59 @@
   }
   .imp-medal {
     align-self: stretch;
-    min-height: 240px;
+    min-height: clamp(230px, 19vw, 280px);
+  }
+  .imp-timeline {
+    --sm-size: clamp(64px, 6.4vw, 96px);
   }
   .imp-label {
     max-width: 24ch;
     font-size: clamp(1.125rem, 0.9rem + 0.5vw, 1.375rem);
   }
 }
+@media (min-width: 1280px) {
+  .imp-main,
+  .imp-more {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2.8fr) minmax(0, 6.2fr);
+  }
+}
 
 /* Entrances. The card rises with the hero copy (CSS only, so it never
-   waits for JS). The timeline waits for impact-medal.tsx: .imp-wait hides
-   the markers and medals until the card is in view, then .imp-in drops
-   the medals in one by one while the 3D medal falls on its lanyard.
+   waits for JS). The season medals wait for impact-medal.tsx: .imp-wait
+   hides them until the card is in view, then .imp-in spins them in one
+   by one while the 3D medal falls on its lanyard. On touch screens each
+   medal then shows its back once, so people learn they can turn it.
    (The rule itself is not animated: Chrome's full-page capture drops
    animated pseudo-element layers.) */
 @media (prefers-reduced-motion: no-preference) {
   .imp-overlap .imp-card {
     animation: imp-rise 1000ms var(--ease) 380ms both;
   }
-  .imp-wait .imp-step::before,
-  .imp-wait .imp-pend {
+  .imp-wait .sm {
     opacity: 0;
   }
-  .imp-in .imp-step::before {
-    animation: imp-pop 600ms var(--ease) both;
-    animation-delay: calc(500ms + var(--i, 0) * 140ms);
+  .imp-in .sm {
+    animation: sm-in 1100ms var(--ease) both;
+    animation-delay: calc(650ms + var(--i, 0) * 150ms);
   }
-  .imp-in .imp-pend {
-    animation: imp-drop 1300ms linear both;
-    animation-delay: calc(560ms + var(--i, 0) * 140ms);
+}
+@media (hover: none) and (prefers-reduced-motion: no-preference) {
+  .imp-in .sm-flip {
+    animation: sm-peek 2400ms var(--ease);
+    animation-delay: calc(2300ms + var(--i, 0) * 300ms);
   }
 }
 @keyframes imp-rise {
   from { opacity: 0; transform: translateY(40px); }
 }
-@keyframes imp-pop {
-  from { opacity: 0; transform: scale(0.3); }
-}
-/* a short pendulum: falls in on the ribbon, overshoots, settles */
-@keyframes imp-drop {
-  0% {
-    opacity: 0;
-    transform: translateY(-30px) rotate(-12deg);
-    animation-timing-function: cubic-bezier(0.55, 0, 0.9, 0.55);
-  }
-  26% {
-    opacity: 1;
-    transform: translateY(2px) rotate(8deg);
-    animation-timing-function: ease-in-out;
-  }
-  46% { transform: translateY(-1px) rotate(-4.5deg); animation-timing-function: ease-in-out; }
-  66% { transform: rotate(2.2deg); animation-timing-function: ease-in-out; }
-  84% { transform: rotate(-0.8deg); animation-timing-function: ease-in-out; }
+@keyframes sm-in {
+  0% { opacity: 0; transform: translateY(-18px) rotateY(-200deg) scale(0.6); }
+  40% { opacity: 1; }
   100% { transform: none; }
+}
+@keyframes sm-peek {
+  0%, 100% { transform: none; }
+  25%, 65% { transform: rotateY(180deg); }
 }
 
 /* ---------- Audiences: «who it is for» index under the numbers ----------

@@ -51,7 +51,8 @@ export type MedalScene = {
   /** Shows the medal hanging still, without any motion (reduced motion). */
   still: () => void
   setVisible: (visible: boolean) => void
-  resize: (width: number, height: number) => void
+  /** Canvas size in CSS px and the medal radius in CSS px. */
+  resize: (width: number, height: number, radius: number) => void
   dispose: () => void
 }
 
@@ -61,11 +62,12 @@ const BEVEL = 0.045
 /** Medal centre → top of the jump ring, where both straps meet. */
 const RING = 1.22
 const RIBBON_W = 0.46
-const SEGMENTS = 12
-/** Anchors sit this far above the canvas top, so the straps run out of view. */
+const SEGMENTS = 18
+/** Anchors sit this far above the canvas top, so the straps run out of view
+    (on the homepage the canvas top is the bottom edge of the hero). */
 const ANCHOR_LIFT = 1.9
-/** Half the distance between the two strap anchors. */
-const SPREAD = 0.82
+/** Half the distance between the two strap anchors: a long, narrow V. */
+const SPREAD = 0.5
 /** Rest twist: a slight turn shows the edge and catches the light. */
 const YAW_REST = -0.2
 
@@ -86,9 +88,9 @@ const particle = (x = 0, y = 0, z = 0, w = 1): Particle => ({
 /** The canvas runs this far below its slot (home.css), room for the bounce. */
 const BELOW_PX = 28
 
-/** Medal size (CSS px per unit) and rest pose for a canvas box. */
-function layout(width: number, height: number) {
-  const px = Math.max(24, Math.min(width * 0.3, (height - BELOW_PX) / 3.25))
+/** Rest pose for a canvas box; `radius` is the medal radius in CSS px. */
+function layout(width: number, height: number, radius: number) {
+  const px = Math.max(24, radius)
   const worldW = width / px
   const worldH = height / px
   const centre = new Vector3(0, -worldH / 2 + BELOW_PX / px + 1 + 0.1, 0)
@@ -314,9 +316,9 @@ function bakeRibbon() {
   g.textBaseline = 'middle'
   const family = getComputedStyle(document.body).fontFamily || 'sans-serif'
   g.font = `italic 800 50px ${family}`
-  g.fillText('FIRST', -112, 2)
+  g.fillText('FIRST', -128, 2)
   g.font = `800 50px ${family}`
-  g.fillText('GLOBAL', 62, 2)
+  g.fillText('GLOBAL', 72, 2)
   g.restore()
   const texture = new CanvasTexture(canvas)
   texture.colorSpace = SRGBColorSpace
@@ -510,7 +512,7 @@ export function createMedalScene(
   })
 
   /* physics state */
-  let box = layout(1, 1)
+  let box = layout(1, 1, 24)
   const centre = particle(0, 0, 0, 0.14)
   const ring = particle(0, 0, 0, 2)
   const straps: Particle[][] = [0, 1].map(() =>
@@ -893,9 +895,9 @@ export function createMedalScene(
   canvas.addEventListener('pointercancel', onUp)
   canvas.addEventListener('pointerleave', onLeave)
 
-  function resize(width: number, height: number) {
+  function resize(width: number, height: number, radius: number) {
     if (width < 2 || height < 2) return
-    box = layout(width, height)
+    box = layout(width, height, radius)
     renderer.setSize(width, height, false)
     camera.aspect = width / height
     camera.position.set(
