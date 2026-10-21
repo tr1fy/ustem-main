@@ -8,10 +8,13 @@
  *   variant 'plain'   — /partners and /about (TZ §8.5: same component), H2
  *                       as a regular section head above a flat card
  * Brand guideline: a white radius-lg card, the "4×" numeral filled with the
- * Aral gradient, a blue timeline. On the homepage the card, the timeline
- * rule and its markers draw in with a CSS-only entrance (home.css, 6.2).
- * Server component: only the count-up (./reveal) and the source popover
- * (./impact-source) run on the client.
+ * Aral gradient, a blue timeline. Next to «4×» a 3D FIRST Global medal
+ * falls in on its lanyard (./impact-medal, three.js loaded lazily); each
+ * title on the timeline is a vector season medal (./season-medal) whose
+ * year and city show on hover/focus, or under it on touch screens. The
+ * further metrics line up with the stat | medal | timeline columns.
+ * Server component: only the count-up (./reveal), the source popover
+ * (./impact-source) and the 3D medal run on the client.
  */
 import type { CSSProperties } from 'react'
 import { useLocale } from 'next-intl'
@@ -22,8 +25,10 @@ import {
   words,
   type Locale
 } from '@/lib/site-content'
+import ImpactMedal from './impact-medal'
 import ImpactSource from './impact-source'
 import { Count } from './reveal'
+import SeasonMedal from './season-medal'
 
 type Metric = (typeof publishedMetrics)[number]
 
@@ -86,8 +91,10 @@ const hostOf = (url: string) => {
 }
 
 /** Pieces of a label that must never split across lines: the programme
-    name and a year range such as «(2022–2025)» (browsers break after «–»). */
-const keepTogether = /(FIRST Global Challenge|\(?\d{4}–\d{4}\)?)/
+    name, a year range such as «(2022–2025)» (browsers break after «–») and
+    hyphenated words such as «іс-шара» or «Оқу-ағарту». */
+const keepTogether =
+  /(FIRST Global Challenge|\(?\d{4}–\d{4}\)?|[^\s–-]+-[^\s–-]+)/
 
 /** Wraps each `keepTogether` match in a no-wrap span (.imp-keep). */
 function Label({ text }: { text: string }) {
@@ -142,7 +149,10 @@ function Source({ metric, locale }: { metric: Metric; locale: Locale }) {
     <ImpactSource
       button={localize(ui.source, locale)}
       label={localize(source.label, locale)}
-      asOf={`${localize(ui.sourceAsOf, locale)}: ${monthYear(source.asOf, locale)}`}
+      asOf={`${localize(ui.sourceAsOf, locale)}: ${monthYear(
+        source.asOf,
+        locale
+      )}`}
       url={source.url}
       host={hostOf(source.url)}
       newTab={localize(newTab, locale)}
@@ -188,18 +198,38 @@ export default function ImpactCard({
               </span>
             </p>
 
+            <ImpactMedal />
+
             <div className='imp-side'>
               {timeline.length > 0 && (
-                <ol className='imp-timeline'>
+                <ol
+                  className='imp-timeline'
+                  style={{ '--n': timeline.length } as CSSProperties}
+                >
                   {timeline.map((step, i) => (
+                    // Focusable so the year/city label shows on keyboard
+                    // focus too, not only on hover (WCAG 1.4.13).
+                    // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
                     <li
                       className='imp-step'
                       key={step.year}
                       style={{ '--i': i } as CSSProperties}
+                      tabIndex={0}
                     >
-                      <span className='imp-year'>{step.year}</span>
-                      <span className='imp-place'>
-                        {localize(step.place, locale)}
+                      {/* .imp-pend drops in, .imp-sway swings on hover */}
+                      <span className='imp-pend' aria-hidden='true'>
+                        <span className='imp-sway'>
+                          <span className='imp-ribbon' />
+                          <span className='imp-coin'>
+                            <SeasonMedal year={step.year} />
+                          </span>
+                        </span>
+                      </span>
+                      <span className='imp-tip'>
+                        <span className='imp-year'>{step.year}</span>
+                        <span className='imp-place'>
+                          {localize(step.place, locale)}
+                        </span>
                       </span>
                     </li>
                   ))}
@@ -223,7 +253,7 @@ export default function ImpactCard({
                       <Value metric={metric} locale={locale} />
                     </span>
                     <span className='imp-tile-label'>
-                      {localize(metric.label, locale)}
+                      <Label text={localize(metric.label, locale)} />
                     </span>
                   </p>
                   <Source metric={metric} locale={locale} />

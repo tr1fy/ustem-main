@@ -503,26 +503,39 @@
 .imp-overlap .imp-title {
   max-width: 36ch;
 }
+/* Layout of the lead row, three pieces: «4×» with its label, the hanging
+   3D medal (impact-medal.tsx, decorative) and the timeline of titles.
+   Phones: the medal hangs right of «4×»; 600–1023: stat | medal, the
+   timeline below; ≥1024: stat | medal | timeline in one row. The medal
+   box reaches --lift above the row, so its lanyard runs up out of view
+   under the heading (the canvas fades out at the top). */
+.imp-card {
+  --lift: clamp(24px, 3vw, 40px);
+}
+.imp-plain .imp-card {
+  --lift: clamp(24px, 3.4vw, 48px);
+}
 .imp-main {
+  --vfs: clamp(96px, 10vw, 160px);
+  position: relative;
   display: grid;
   gap: 32px;
   margin-top: clamp(24px, 3vw, 40px);
 }
-/* «4×» above its label on phones and in the desktop column (the label gets
-   the full width, so «FIRST Global Challenge» never splits); side by side
-   at 600–1023px, where the stat spans the whole card. */
+/* «4×» above its label at every width (the label gets the full column,
+   so «FIRST Global Challenge» never splits). */
 .imp-stat {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px 24px;
+  gap: 16px;
 }
 .imp-value {
   flex: none;
   /* room for the × so the gradient clip does not shave its right edge */
   margin-right: -0.06em;
   padding: 0.04em 0.06em 0.04em 0;
-  font-size: clamp(96px, 10vw, 160px);
+  font-size: var(--vfs);
   font-weight: 800;
   line-height: 0.85;
   letter-spacing: -0.06em;
@@ -538,7 +551,7 @@
   }
 }
 .imp-label {
-  max-width: 24ch;
+  max-width: 22ch;
   font-size: clamp(1.25rem, 0.95rem + 0.9vw, 1.75rem);
   font-weight: 700;
   line-height: 1.2;
@@ -552,11 +565,68 @@
   }
 }
 
-/* timeline: vertical on small phones, horizontal from 600px */
+/* the 3D medal slot */
+.imp-medal {
+  position: absolute;
+  top: calc(-1 * var(--lift));
+  right: 0;
+  width: min(220px, calc(100% - 1.3 * var(--vfs)));
+  height: calc(var(--lift) + 0.93 * var(--vfs) + 14px);
+}
+/* 28px taller than the slot (BELOW_PX in medal-scene.ts): room for the
+   bounce when the lanyard catches the medal */
+.imp-medal-canvas {
+  position: absolute;
+  top: 0;
+  left: -16px;
+  display: block;
+  width: calc(100% + 32px);
+  height: calc(100% + 28px);
+  touch-action: pan-y;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 min(28px, 16%));
+  mask-image: linear-gradient(180deg, transparent 0, #000 min(28px, 16%));
+}
+.imp-medal-canvas[hidden] {
+  display: none;
+}
+/* no WebGL: a flat gold medal with the logo struck in */
+.imp-medal-flat {
+  position: absolute;
+  bottom: 6%;
+  left: 50%;
+  height: min(64%, 180px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    circle at 36% 30%,
+    #fff1b8 0,
+    #efc35a 38%,
+    #c48a28 74%,
+    #8f5f14 100%
+  );
+  box-shadow:
+    inset 0 0 0 5px rgba(255, 240, 190, 0.45),
+    0 18px 30px -18px rgba(0, 50, 120, 0.45);
+}
+.imp-medal-flat::after {
+  content: '';
+  position: absolute;
+  inset: 26% 18%;
+  background: #8a5e17;
+  opacity: 0.75;
+  -webkit-mask: url('/images/brand/first-global-logo.png') center / contain no-repeat;
+  mask: url('/images/brand/first-global-logo.png') center / contain no-repeat;
+}
+
+/* Timeline of the four titles: a blue rule with one hanging medal per
+   season (season-medal.tsx). With a mouse the year and city show in a
+   label on hover or focus; on touch screens they sit under each medal. */
 .imp-timeline {
+  --sm-size: clamp(46px, 4.4vw, 64px);
   position: relative;
   display: grid;
-  gap: 18px;
+  grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr));
   margin: 0;
   padding: 0;
   list-style: none;
@@ -564,34 +634,41 @@
 .imp-timeline::before {
   content: '';
   position: absolute;
-  top: 12px;
-  bottom: 12px;
-  left: 6px;
-  width: 2px;
+  top: 6px;
+  left: calc(50% / var(--n, 4));
+  right: 0;
+  height: 2px;
   border-radius: 2px;
   background: linear-gradient(
-    180deg,
+    90deg,
     var(--sea) 0%,
-    var(--lake) 60%,
-    rgba(82, 189, 234, 0.25) 100%
+    var(--lake) 55%,
+    rgba(82, 189, 234, 0) 100%
   );
 }
 .imp-step {
   position: relative;
   display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 4px 12px;
-  padding-left: 32px;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 14px;
+  border-radius: 16px;
+  outline: none;
+}
+.imp-step:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 4px;
 }
 .imp-step::before {
   content: '';
   position: absolute;
-  top: 6px;
-  left: 0;
+  top: 0;
+  left: 50%;
+  z-index: 1;
   box-sizing: border-box;
   width: 14px;
   height: 14px;
+  margin-left: -7px;
   border: 2px solid var(--sea);
   border-radius: 50%;
   background: var(--white);
@@ -600,11 +677,78 @@
   background: var(--sea);
   box-shadow: 0 0 0 6px var(--tint);
 }
+/* the ribbon tucks under the marker; both swing from its centre */
+.imp-pend,
+.imp-sway {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform-origin: 50% 0;
+}
+.imp-pend {
+  margin-top: -6px;
+}
+.imp-ribbon {
+  width: max(8px, calc(var(--sm-size) * 0.17));
+  height: calc(var(--sm-size) * 0.34);
+  border-radius: 1px;
+  background: linear-gradient(
+    90deg,
+    #123f9f 0%,
+    #2a66e0 28%,
+    #5a90f2 50%,
+    #1f55cc 72%,
+    #123f9f 100%
+  );
+}
+.imp-coin {
+  position: relative;
+  display: block;
+  width: var(--sm-size);
+  margin-top: calc(var(--sm-size) * -0.04);
+}
+.imp-coin .sm {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 6px 7px rgba(0, 50, 120, 0.2));
+}
+/* a sweep of light across the disc on hover */
+.imp-coin::after {
+  content: '';
+  position: absolute;
+  top: 12.5%;
+  left: 2%;
+  width: 96%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: linear-gradient(
+      115deg,
+      transparent 38%,
+      rgba(255, 255, 255, 0.75) 50%,
+      transparent 62%
+    )
+    130% 0 / 260% 100% no-repeat;
+  opacity: 0;
+  pointer-events: none;
+}
+.sm-color {
+  opacity: 0;
+  transition: opacity 420ms var(--ease);
+}
+.imp-tip {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  margin-top: 10px;
+  text-align: center;
+}
 .imp-year {
-  font-size: clamp(1.375rem, 1.2rem + 0.45vw, 1.625rem);
+  font-size: clamp(1rem, 0.9rem + 0.3vw, 1.125rem);
   font-weight: 700;
   line-height: 1.1;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   color: var(--ink);
   font-variant-numeric: tabular-nums;
 }
@@ -612,17 +756,79 @@
   color: var(--blue);
 }
 .imp-place {
-  font-size: 0.9375rem;
-  line-height: 1.4;
+  font-size: 0.8125rem;
+  line-height: 1.35;
   color: var(--muted);
 }
+@media (hover: hover) {
+  .imp-tip {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    z-index: 6;
+    margin: 0;
+    padding: 9px 14px 10px;
+    border-radius: 12px;
+    background: var(--white);
+    box-shadow: var(--shadow-soft), 0 0 0 1px var(--line);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translate(-50%, 6px);
+    transition:
+      opacity var(--dur) var(--ease),
+      transform var(--dur) var(--ease);
+    pointer-events: none;
+  }
+  .imp-tip::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    margin-left: -5px;
+    border-radius: 2px 0 0;
+    background: var(--white);
+    box-shadow: -1px -1px 0 var(--line);
+    transform: rotate(45deg);
+  }
+  .imp-step:hover .imp-tip,
+  .imp-step:focus-visible .imp-tip {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  .imp-step:hover .sm-color,
+  .imp-step:focus-visible .sm-color {
+    opacity: 1;
+  }
+  .imp-step:hover .imp-coin::after {
+    opacity: 1;
+    background-position: -30% 0;
+    transition:
+      background-position 900ms var(--ease),
+      opacity 160ms;
+  }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .imp-step:hover .imp-sway,
+  .imp-step:focus-visible .imp-sway {
+    animation: imp-swing 1500ms var(--ease) both;
+  }
+}
+@keyframes imp-swing {
+  18% { transform: rotate(7deg); }
+  40% { transform: rotate(-4.5deg); }
+  60% { transform: rotate(2.5deg); }
+  80% { transform: rotate(-1deg); }
+}
+
 .imp-foot {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 16px;
-  margin-top: 32px;
-  padding-top: 24px;
+  margin-top: 28px;
+  padding-top: 20px;
   border-top: 1px solid var(--line);
 }
 .imp-note {
@@ -630,6 +836,7 @@
   line-height: 1.5;
   color: var(--muted);
 }
+
 .imp-source {
   position: relative;
   flex: none;
@@ -677,12 +884,13 @@
   justify-self: start;
 }
 
-/* further verified metrics: compact tiles, each with its own source */
+/* Further verified metrics: one quiet row under a hairline. Stacked on
+   phones, three columns from 600px; from 1024px the columns line up with
+   the stat | medal | timeline row above, so the card reads as one grid. */
 .imp-more {
   display: grid;
-  gap: 16px;
-  margin: 32px 0 0;
-  padding: 32px 0 0;
+  margin: clamp(28px, 3vw, 40px) 0 0;
+  padding: 0;
   border-top: 1px solid var(--line);
   list-style: none;
 }
@@ -690,54 +898,56 @@
   display: grid;
   gap: 12px;
   align-content: start;
+  padding: 20px 0;
+}
+.imp-tile + .imp-tile {
+  border-top: 1px solid var(--line);
 }
 .imp-tile p {
   display: grid;
-  gap: 4px;
+  gap: 8px;
 }
 .imp-tile-value {
-  font-size: clamp(2.5rem, 2rem + 1.6vw, 3.5rem);
+  font-size: clamp(2.25rem, 1.8rem + 1.2vw, 3rem);
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.04em;
   color: var(--sea);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 .imp-tile-label {
-  font-weight: 600;
-  line-height: 1.35;
+  max-width: 30ch;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--muted);
+  text-wrap: balance;
 }
 
 @media (min-width: 600px) {
-  .imp-timeline {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0 16px;
-  }
-  .imp-timeline::before {
-    top: 6px;
-    bottom: auto;
-    left: 7px;
-    right: 0;
-    width: auto;
-    height: 2px;
-    background: linear-gradient(
-      90deg,
-      var(--sea) 0%,
-      var(--lake) 55%,
-      rgba(82, 189, 234, 0) 100%
-    );
-  }
-  .imp-step {
-    flex-direction: column;
-    flex-wrap: nowrap;
-    gap: 4px;
-    padding: 32px 0 0;
-  }
-  .imp-step::before {
-    top: 0;
+  .imp-main {
+    grid-template-columns: minmax(0, 1fr) clamp(170px, 38%, 300px);
+    grid-template-areas:
+      'stat medal'
+      'side side';
+    column-gap: 24px;
   }
   .imp-stat {
-    flex-direction: row;
-    align-items: center;
+    grid-area: stat;
+  }
+  .imp-medal {
+    grid-area: medal;
+    position: relative;
+    top: auto;
+    right: auto;
+    width: auto;
+    height: auto;
+    min-height: 210px;
+    margin-top: calc(-1 * var(--lift));
+  }
+  .imp-side {
+    grid-area: side;
   }
   .imp-foot {
     flex-direction: row;
@@ -750,41 +960,58 @@
     right: 0;
   }
   .imp-more {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: clamp(20px, 3vw, 40px);
+    padding-top: clamp(24px, 3vw, 36px);
+  }
+  .imp-tile {
+    padding: 0;
+  }
+  .imp-tile + .imp-tile {
+    border-top: 0;
   }
 }
 @media (min-width: 1024px) {
-  .imp-main {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    align-items: center;
-    gap: 56px;
+  .imp-main,
+  .imp-more {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 3fr) minmax(0, 5fr);
+    column-gap: clamp(28px, 3vw, 48px);
   }
-  .imp-stat {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
+  .imp-main {
+    grid-template-areas: 'stat medal side';
+    align-items: center;
+  }
+  .imp-medal {
+    align-self: stretch;
+    min-height: 240px;
   }
   .imp-label {
+    max-width: 24ch;
     font-size: clamp(1.125rem, 0.9rem + 0.5vw, 1.375rem);
   }
 }
 
-/* Homepage entrance (CSS only, so it never waits for JS): the card rises
-   just after the hero copy, then the markers pop in year by year. (The
-   rule itself is not animated: Chrome's full-page capture drops animated
-   pseudo-element layers, which would hide it in review screenshots.) */
+/* Entrances. The card rises with the hero copy (CSS only, so it never
+   waits for JS). The timeline waits for impact-medal.tsx: .imp-wait hides
+   the markers and medals until the card is in view, then .imp-in drops
+   the medals in one by one while the 3D medal falls on its lanyard.
+   (The rule itself is not animated: Chrome's full-page capture drops
+   animated pseudo-element layers.) */
 @media (prefers-reduced-motion: no-preference) {
   .imp-overlap .imp-card {
     animation: imp-rise 1000ms var(--ease) 380ms both;
   }
-  .imp-overlap .imp-step::before {
-    animation: imp-pop 600ms var(--ease) both;
-    animation-delay: calc(900ms + var(--i, 0) * 140ms);
+  .imp-wait .imp-step::before,
+  .imp-wait .imp-pend {
+    opacity: 0;
   }
-  .imp-overlap .imp-step > * {
-    animation: imp-fade 700ms var(--ease) both;
-    animation-delay: calc(960ms + var(--i, 0) * 140ms);
+  .imp-in .imp-step::before {
+    animation: imp-pop 600ms var(--ease) both;
+    animation-delay: calc(500ms + var(--i, 0) * 140ms);
+  }
+  .imp-in .imp-pend {
+    animation: imp-drop 1300ms linear both;
+    animation-delay: calc(560ms + var(--i, 0) * 140ms);
   }
 }
 @keyframes imp-rise {
@@ -793,8 +1020,22 @@
 @keyframes imp-pop {
   from { opacity: 0; transform: scale(0.3); }
 }
-@keyframes imp-fade {
-  from { opacity: 0; transform: translateY(8px); }
+/* a short pendulum: falls in on the ribbon, overshoots, settles */
+@keyframes imp-drop {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px) rotate(-12deg);
+    animation-timing-function: cubic-bezier(0.55, 0, 0.9, 0.55);
+  }
+  26% {
+    opacity: 1;
+    transform: translateY(2px) rotate(8deg);
+    animation-timing-function: ease-in-out;
+  }
+  46% { transform: translateY(-1px) rotate(-4.5deg); animation-timing-function: ease-in-out; }
+  66% { transform: rotate(2.2deg); animation-timing-function: ease-in-out; }
+  84% { transform: rotate(-0.8deg); animation-timing-function: ease-in-out; }
+  100% { transform: none; }
 }
 
 /* ---------- Audiences: «who it is for» index under the numbers ----------
