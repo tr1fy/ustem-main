@@ -10,10 +10,10 @@
  * Brand guideline: a white radius-lg card, the "4×" numeral filled with the
  * Aral gradient, a blue timeline. Next to «4×» a 3D FIRST Global medal
  * falls in on a lanyard that runs from under the hero (./impact-medal,
- * three.js loaded lazily); each title on the timeline is a two-sided
- * season medal (./season-medal): the official season logo in front, the
- * year and city on the back, turned by hover, focus or a tap. The further
- * metrics line up with the stat | medal | timeline columns.
+ * three.js loaded lazily); each title on the timeline is a gold coin
+ * (./season-medal) with the season logo in relief and the year and city
+ * printed under it; hover or a tap turns it to the logo in colour. The
+ * further metrics line up with the stat | medal | timeline columns.
  * Server component: only the count-up (./reveal), the source popover
  * (./impact-source) and the 3D medal run on the client.
  */
@@ -208,21 +208,18 @@ export default function ImpactCard({
                   style={{ '--n': timeline.length } as CSSProperties}
                 >
                   {timeline.map((step, i) => (
-                    // Focusable so the medal also turns to its back (year
-                    // and city) on keyboard focus, not only on hover.
-                    // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
                     <li
                       className='imp-step'
                       key={step.year}
                       style={{ '--i': i } as CSSProperties}
-                      tabIndex={0}
                     >
-                      <SeasonMedal year={step.year}>
+                      <SeasonMedal year={step.year} />
+                      <span className='imp-when'>
                         <span className='imp-year'>{step.year}</span>
                         <span className='imp-place'>
                           {localize(step.place, locale)}
                         </span>
-                      </SeasonMedal>
+                      </span>
                     </li>
                   ))}
                 </ol>

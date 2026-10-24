@@ -636,11 +636,12 @@
   mask: url('/images/brand/first-global-logo.png') center / contain no-repeat;
 }
 
-/* Timeline of the four titles: a blue rule through one two-sided medal
-   per season (season-medal.tsx): the official season logo in front, the
-   year and city on the back. Hover, keyboard focus or a tap turns it. */
+/* Timeline of the four titles: a blue rule through one gold coin per
+   season (season-medal.tsx), in the same gold as the 3D medal, with the
+   season logo struck in relief; the year and city sit under each coin.
+   Hover (or a tap on touch screens) turns the coin to the logo in colour. */
 .imp-timeline {
-  --sm-size: min(64px, 21vw);
+  --sm-size: min(56px, 18vw);
   position: relative;
   display: grid;
   grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr));
@@ -666,10 +667,9 @@
 .imp-step {
   position: relative;
   display: flex;
-  justify-content: center;
-  outline: none;
+  flex-direction: column;
+  align-items: center;
   perspective: 700px;
-  cursor: default;
   -webkit-tap-highlight-color: transparent;
 }
 .sm {
@@ -679,6 +679,12 @@
   aspect-ratio: 1;
   transform-style: preserve-3d;
   transition: translate var(--dur) var(--ease);
+}
+.sm-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
 }
 .sm-flip {
   position: absolute;
@@ -713,6 +719,28 @@
   width: 100%;
   height: 100%;
 }
+/* the logo struck in gold: a gradient cut to the logo's shape; the light
+   edge above and the shadow below sit on the wrapper, outside the mask */
+.sm-relief {
+  position: absolute;
+  inset: 21%;
+  filter: drop-shadow(-0.6px -0.7px 0 rgba(255, 247, 214, 0.95))
+    drop-shadow(0.8px 1px 0 rgba(96, 62, 8, 0.5));
+}
+.sm-relief-ink {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    145deg,
+    #fff2c2 0%,
+    #eec463 34%,
+    #c99232 68%,
+    #93611a 100%
+  );
+  -webkit-mask: var(--logo) center / contain no-repeat;
+  mask: var(--logo) center / contain no-repeat;
+}
+/* the back: the season logo in colour on white enamel, with a gloss */
 .sm-logo {
   position: absolute;
   top: 19%;
@@ -721,8 +749,7 @@
   height: 62%;
   object-fit: contain;
 }
-/* enamel gloss */
-.sm-front::after {
+.sm-back::after {
   content: '';
   position: absolute;
   inset: 7.5%;
@@ -734,40 +761,28 @@
   );
   pointer-events: none;
 }
-.sm-info {
-  position: absolute;
-  inset: 0;
+.imp-when {
   display: grid;
-  place-content: center;
   justify-items: center;
-  gap: 3px;
+  gap: 2px;
+  margin-top: 12px;
   text-align: center;
-  color: #553806;
-  text-shadow: 0 1px 0 rgba(255, 244, 204, 0.7);
 }
 .imp-year {
-  font-size: calc(var(--sm-size) * 0.25);
-  font-weight: 800;
-  line-height: 1;
+  font-size: clamp(1rem, 0.9rem + 0.3vw, 1.125rem);
+  font-weight: 700;
+  line-height: 1.1;
   letter-spacing: -0.02em;
+  color: var(--ink);
   font-variant-numeric: tabular-nums;
 }
+.imp-step:last-child .imp-year {
+  color: var(--blue);
+}
 .imp-place {
-  max-width: 7.5em;
-  font-size: max(10px, calc(var(--sm-size) * 0.125));
-  font-weight: 600;
-  line-height: 1.15;
-}
-/* the latest title keeps the soft highlight ring the marker had */
-.imp-step:last-child .sm-face {
-  box-shadow:
-    0 0 0 5px var(--tint),
-    0 10px 16px -10px rgba(0, 50, 120, 0.45);
-}
-.imp-step:focus-visible .sm-face {
-  box-shadow:
-    0 0 0 3px var(--white),
-    0 0 0 5px var(--blue);
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--muted);
 }
 @media (hover: hover) {
   .imp-step:hover .sm {
@@ -777,7 +792,6 @@
     transform: rotateY(180deg);
   }
 }
-.imp-step:focus-visible .sm-flip,
 .imp-step.is-flipped .sm-flip {
   transform: rotateY(180deg);
 }
@@ -909,7 +923,7 @@
     grid-area: side;
   }
   .imp-timeline {
-    --sm-size: clamp(76px, 10vw, 100px);
+    --sm-size: clamp(68px, 9vw, 88px);
   }
   .imp-foot {
     flex-direction: row;
@@ -948,7 +962,7 @@
     min-height: clamp(230px, 19vw, 280px);
   }
   .imp-timeline {
-    --sm-size: clamp(64px, 6.4vw, 96px);
+    --sm-size: clamp(64px, 5.6vw, 84px);
   }
   .imp-label {
     max-width: 24ch;
@@ -973,12 +987,17 @@
   .imp-overlap .imp-card {
     animation: imp-rise 1000ms var(--ease) 380ms both;
   }
-  .imp-wait .sm {
+  .imp-wait .sm,
+  .imp-wait .imp-when {
     opacity: 0;
   }
   .imp-in .sm {
     animation: sm-in 1100ms var(--ease) both;
     animation-delay: calc(650ms + var(--i, 0) * 150ms);
+  }
+  .imp-in .imp-when {
+    animation: imp-fade 700ms var(--ease) both;
+    animation-delay: calc(900ms + var(--i, 0) * 150ms);
   }
 }
 @media (hover: none) and (prefers-reduced-motion: no-preference) {
@@ -989,6 +1008,9 @@
 }
 @keyframes imp-rise {
   from { opacity: 0; transform: translateY(40px); }
+}
+@keyframes imp-fade {
+  from { opacity: 0; transform: translateY(8px); }
 }
 @keyframes sm-in {
   0% { opacity: 0; transform: translateY(-18px) rotateY(-200deg) scale(0.6); }
