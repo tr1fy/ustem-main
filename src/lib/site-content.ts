@@ -742,9 +742,9 @@ export const ui = {
   // Wording chosen by the foundation on 2026-10-29 (homepage TZ, items 3
   // and 4): no full stop after the heading, one sentence of description.
   heroTitle: words(
-    'Инженерлік білімді дамытатын қор',
-    'Фонд развития инженерного образования',
-    'The foundation advancing engineering education'
+    'Инженерлік білімді дамытатын қор.',
+    'Фонд развития инженерного образования.',
+    'The foundation advancing engineering education.'
   ),
   heroText: words(
     'USTEM Foundation балаларды, педагогтерді және серіктестерді ғылым мен технология төңірегінде біріктіреді: жарыстар өткізеді, педагогтерді оқытады және жас инженерлерді қолдайды.',
