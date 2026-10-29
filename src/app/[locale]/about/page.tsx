@@ -79,7 +79,6 @@ const text = {
   ),
   facts: [
     { value: '2020', label: words('10 ақпанда Алматыда құрылды', 'основан 10 февраля в Алматы', 'founded on 10 February in Almaty') },
-    { value: '30+', label: words('инженер, педагог, жаттықтырушы', 'инженеров, педагогов, тренеров', 'engineers, educators and coaches') },
     { value: '1 000+', label: words('өңірлік жарыс өткізілді', 'региональных соревнований', 'regional competitions held') },
     { value: '3', label: words('ел: Қазақстан, Өзбекстан, Қырғызстан', 'страны: Казахстан, Узбекистан, Кыргызстан', 'countries: Kazakhstan, Uzbekistan, Kyrgyzstan') }
   ],

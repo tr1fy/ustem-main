@@ -1274,6 +1274,11 @@
   padding: 0;
   border: 0;
 }
+@media (min-width: 1024px) {
+  .pg-v2-band .pg-facts {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
 .pg-v2-band .pg-fact dt {
   color: var(--white);
 }
