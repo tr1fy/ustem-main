@@ -1,0 +1,26 @@
+name: Probe live site
+on:
+  workflow_dispatch:
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Headers of the live site for different browser languages
+        run: |
+          set +e
+          probe() {
+            echo; echo "=== $1 ==="; shift
+            curl -sS -o /dev/null -D - --max-time 20 "$@"
+          }
+          probe "/ Accept-Language ru"   -H "Accept-Language: ru-RU,ru;q=0.9"            "https://www.ustem.kz/?p=$RANDOM"
+          probe "/ Accept-Language kk"   -H "Accept-Language: kk-KZ,kk;q=0.9,ru;q=0.8"  "https://www.ustem.kz/?p=$RANDOM"
+          probe "/ Accept-Language en"   -H "Accept-Language: en-US,en;q=0.9"            "https://www.ustem.kz/?p=$RANDOM"
+          probe "/ no Accept-Language"                                                   "https://www.ustem.kz/?p=$RANDOM"
+          probe "/ cookie NEXT_LOCALE=ru" -H "Cookie: NEXT_LOCALE=ru"                    "https://www.ustem.kz/?p=$RANDOM"
+          probe "/about Accept-Language ru" -H "Accept-Language: ru-RU,ru;q=0.9"         "https://www.ustem.kz/about?p=$RANDOM"
+          probe "non-www / Accept-Language ru" -H "Accept-Language: ru-RU,ru;q=0.9"      "https://ustem.kz/?p=$RANDOM"
+          probe "/kz/does-not-exist"                                                      "https://www.ustem.kz/kz/does-not-exist-xyz"
+          echo; echo "=== live build id ==="
+          curl -sS --max-time 20 "https://www.ustem.kz/kz?p=$RANDOM" | grep -o '_next/static/[^/"]*/_buildManifest.js' | head -1
+          echo; echo "=== deploy branch build id ==="
+          curl -sS --max-time 20 "https://raw.githubusercontent.com/tr1fy/ustem-main/deploy/kz.html" | grep -o '_next/static/[^/"]*/_buildManifest.js' | head -1
