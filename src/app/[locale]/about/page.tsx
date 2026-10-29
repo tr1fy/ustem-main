@@ -51,10 +51,26 @@ const text = {
     'Ключевые вехи 2022–2025',
     'Milestones 2022–2025'
   ),
+  reports: [
+    {
+      file: '/docs/public-report-alem-techfest-2026.pdf',
+      meta: words(
+        'Alem TechFest 2026 · КҚ «Samruk-Kazyna Trust»',
+        'Alem TechFest 2026 · КФ «Samruk-Kazyna Trust»',
+        'Alem TechFest 2026 · Samruk-Kazyna Trust'
+      ),
+      title: words(
+        'Қайырымдылық көмегі қаражатының пайдаланылуы туралы жария есеп',
+        'Публичный отчёт об использовании средств благотворительной помощи',
+        'Public report on the use of charitable funds'
+      ),
+      note: words('PDF · 1,4 МБ · орыс тілінде', 'PDF · 1,4 МБ', 'PDF · 1.4 MB · in Russian')
+    }
+  ],
   reportsText: words(
-    'Қордың есептері мен құжаттары сұрау бойынша беріледі — бізге хат жазыңыз.',
-    'Отчёты и документы фонда предоставляются по запросу — напишите нам.',
-    'The foundation’s reports and documents are available on request — write to us.'
+    'Басқа есептер мен құжаттар сұрау бойынша беріледі — бізге хат жазыңыз.',
+    'Другие отчёты и документы предоставляются по запросу — напишите нам.',
+    'Other reports and documents are available on request — write to us.'
   ),
   since: words(
     '2020 жылдан бері · More than robots',
@@ -113,12 +129,6 @@ const text = {
   ),
   ctaTitle: words('Бізге қосылыңыз', 'Присоединяйтесь', 'Join us'),
   ctaRegister: words('Команда тіркеу', 'Зарегистрировать команду', 'Register a team'),
-  where: words('Қайда жұмыс істейміз', 'Где мы работаем', 'Where we work'),
-  countryLines: {
-    kz: words('Бас кеңсе — Алматы. FIRST маусымдары, флагман іс-шаралар, USTEM Academy.', 'Головной офис — Алматы. Сезоны FIRST, флагманские события, USTEM Academy.', 'Head office in Almaty. FIRST seasons, flagship events, USTEM Academy.'),
-    uz: words('Uzbekistan FIRST Championship — Ташкент, 2027 жылғы ақпан–наурыз.', 'Uzbekistan FIRST Championship — Ташкент, февраль–март 2027.', 'Uzbekistan FIRST Championship — Tashkent, February–March 2027.'),
-    kg: words('Scrimmage, Regional және Kyrgyzstan FIRST Championship — Бішкек, 2027 жылғы ақпан.', 'Scrimmage, Regional и Kyrgyzstan FIRST Championship — Бишкек, февраль 2027.', 'Scrimmage, Regional and Kyrgyzstan FIRST Championship — Bishkek, February 2027.')
-  } as Record<string, Localized>,
   recognition: words('Ресми мәртебе және мойындау', 'Официальный статус и признание', 'Official status and recognition'),
   orders: [
     {
@@ -381,6 +391,18 @@ export default function AboutPage({
         <Reveal className='container pg-reports-inner'>
           <h2 id='pg-reports-title'>{t(ui.reports)}</h2>
           <div className='pg-reports-body'>
+            <ul className='pg-reports-list'>
+              {text.reports.map(report => (
+                <li key={report.file}>
+                  <span className='pg-recog-meta'>{t(report.meta)}</span>
+                  <a className='link-arrow' href={report.file} target='_blank' rel='noreferrer'>
+                    {t(report.title)}
+                    <ArrowUpRightIcon aria-hidden='true' />
+                  </a>
+                  <span className='pg-reports-note'>{t(report.note)}</span>
+                </li>
+              ))}
+            </ul>
             <p>{t(text.reportsText)}</p>
             <a
               className='link-arrow'
