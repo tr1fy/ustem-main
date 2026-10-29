@@ -8,8 +8,8 @@ export const routing = defineRouting({
   // Used when no locale matches
   defaultLocale: 'kz',
   // next-intl's own middleware is not used: src/middleware.ts redirects '/'
-  // by the NEXT_LOCALE cookie (manual choice) or, on a first visit, by
-  // Accept-Language (TZ §5.5).
+  // to the NEXT_LOCALE cookie (manual choice) or else to kz — the browser
+  // language is ignored, the site opens in Kazakh for everyone.
   localeDetection: false,
   localeCookie: { maxAge: 60 * 60 * 24 * 365, partitioned: false }
 })
