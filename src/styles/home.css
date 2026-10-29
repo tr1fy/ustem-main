@@ -133,33 +133,9 @@
 .hero-content {
   position: relative;
 }
-/* The three countries with their flags: each name with its flag is one
-   unit, the «·» between them is drawn by CSS (as in the footer line). */
 .hero-geo {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  row-gap: 4px;
   font-size: 1rem;
   line-height: 1.3;
-}
-.hero-geo-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5em;
-}
-/* the «·» trails each name, so a wrapped line never starts with it */
-.hero-geo-item:not(:last-child)::after {
-  content: '·';
-  margin: 0 0.6em 0 0.1em;
-  opacity: 0.75;
-}
-.hero-flag {
-  flex: none;
-  width: auto;
-  height: 1em;
-  border-radius: 2px;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28);
 }
 .hero h1 {
   max-width: 13em;

@@ -239,7 +239,26 @@ export default function Footer() {
               />
             </Link>
             <p className='ftr-about'>{t(ui.footerDescription)}</p>
-            <p className='ftr-geo'>{t(site.geography)}</p>
+            {/* The three countries with their flags. The visible «·» between
+                them is CSS; a hidden «, » keeps the names apart for screen
+                readers. */}
+            <p className='ftr-geo'>
+              {site.countries.map((country, i) => (
+                <span className='ftr-geo-item' key={country.code}>
+                  {i > 0 && <span className='visually-hidden'>, </span>}
+                  <img
+                    className='ftr-flag'
+                    src={country.flag}
+                    alt=''
+                    width={country.width}
+                    height={country.height}
+                    loading='lazy'
+                    decoding='async'
+                  />
+                  {t(country.name)}
+                </span>
+              ))}
+            </p>
           </div>
 
           <nav
