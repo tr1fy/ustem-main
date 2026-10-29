@@ -18,15 +18,17 @@ import { PageHead, SectionHead } from '../_components/ui'
 import { Reveal } from '../_components/reveal'
 
 /*
- * Біз туралы / О нас — TZ §8.1, brand-guideline layout:
- *   head       — mission beside the Team Kazakhstan photo (rounded mask) with
- *                one partially covered Aral circle behind it
- *   directions — three airy tiles (icon in a tint circle, arrow)
- *   milestones — 2022–2025 timeline from the verified metric + note + source
- *                (not the full ImpactCard: it already lives on / and /partners)
- *   #reports   — reports and documents on request (the footer link target)
- * Not rendered until the foundation supplies the data (TZ §14 item 9):
- * leadership message, team grid and the yearly report PDFs.
+ * Біз туралы / О нас — the site's own style, structured like a large
+ * company's About page (owner's brief of 2026-10-29):
+ *   intro       — title and the mission as a short statement
+ *   facts band  — four figures on the Aral gradient
+ *   directions  — three numbered rows with links
+ *   path        — 2020 → 2022–2025 → 2026
+ *   leadership  — the two co-founders
+ *   team        — photo and a short text
+ *   recognition — Akorda mentions (trustItems) and the ministry orders
+ *   join        — USTEM Connect and the partners page
+ * Reports live at the bottom of the home page (#reports).
  */
 const text = {
   description: words(
@@ -50,27 +52,6 @@ const text = {
     'Негізгі белестер 2022–2025',
     'Ключевые вехи 2022–2025',
     'Milestones 2022–2025'
-  ),
-  reports: [
-    {
-      file: '/docs/public-report-alem-techfest-2026.pdf',
-      meta: words(
-        'Alem TechFest 2026 · КҚ «Samruk-Kazyna Trust»',
-        'Alem TechFest 2026 · КФ «Samruk-Kazyna Trust»',
-        'Alem TechFest 2026 · Samruk-Kazyna Trust'
-      ),
-      title: words(
-        'Қайырымдылық көмегі қаражатының пайдаланылуы туралы жария есеп',
-        'Публичный отчёт об использовании средств благотворительной помощи',
-        'Public report on the use of charitable funds'
-      ),
-      note: words('PDF · 1,4 МБ · орыс тілінде', 'PDF · 1,4 МБ', 'PDF · 1.4 MB · in Russian')
-    }
-  ],
-  reportsText: words(
-    'Басқа есептер мен құжаттар сұрау бойынша беріледі — бізге хат жазыңыз.',
-    'Другие отчёты и документы предоставляются по запросу — напишите нам.',
-    'Other reports and documents are available on request — write to us.'
   ),
   since: words(
     '2020 жылдан бері · More than robots',
@@ -387,33 +368,6 @@ export default function AboutPage({
         </div>
       </section>
 
-      <section id='reports' className='section pg-reports' aria-labelledby='pg-reports-title'>
-        <Reveal className='container pg-reports-inner'>
-          <h2 id='pg-reports-title'>{t(ui.reports)}</h2>
-          <div className='pg-reports-body'>
-            <ul className='pg-reports-list'>
-              {text.reports.map(report => (
-                <li key={report.file}>
-                  <span className='pg-recog-meta'>{t(report.meta)}</span>
-                  <a className='link-arrow' href={report.file} target='_blank' rel='noreferrer'>
-                    {t(report.title)}
-                    <ArrowUpRightIcon aria-hidden='true' />
-                  </a>
-                  <span className='pg-reports-note'>{t(report.note)}</span>
-                </li>
-              ))}
-            </ul>
-            <p>{t(text.reportsText)}</p>
-            <a
-              className='link-arrow'
-              href={`mailto:${site.email}?subject=${encodeURIComponent(t(ui.reports))}`}
-            >
-              {site.email}
-              <ArrowRightIcon aria-hidden='true' />
-            </a>
-          </div>
-        </Reveal>
-      </section>
     </main>
   )
 }
