@@ -216,11 +216,11 @@ export default function AboutPage({
 
   return (
     <main id='main-content' className='pg-main'>
-      <div className='pg-intro pg-intro-plain pg-v2-intro pg-v2-intro-b'>
+      <div className='pg-intro pg-intro-plain pg-v2-intro'>
         <PageHead locale={locale} title={t(navLabel('about'))}>
           <p className='pg-v2-statement'>{t(copy.aboutText)}</p>
           <p className='pg-v2-sub'>{t(text.operator)}</p>
-          <p className='pg-since pg-v2-intro-since'>{t(text.since)}</p>
+          <p className='pg-since'>{t(text.since)}</p>
         </PageHead>
       </div>
 
