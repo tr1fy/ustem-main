@@ -293,12 +293,8 @@ export default function AboutPage({
               </li>
             ))}
           </ul>
-        </div>
-      </section>
-
-      <section className='section pg-v2-team' aria-labelledby='pg-team-title'>
-        <div className='container'>
-          <div className='pg-v2-team-media'>
+          <div className='pg-v2-team'>
+            <div className='pg-v2-team-media'>
             <img
               src='/images/people/team-staff-1132.jpg'
               alt={t(text.teamAlt)}
@@ -308,9 +304,10 @@ export default function AboutPage({
               decoding='async'
             />
           </div>
-          <div className='pg-v2-team-body'>
-            <h2 id='pg-team-title'>{t(text.team)}</h2>
-            <p>{t(text.teamText)}</p>
+            <div className='pg-v2-team-body'>
+              <h2 id='pg-team-title'>{t(text.team)}</h2>
+              <p>{t(text.teamText)}</p>
+            </div>
           </div>
         </div>
       </section>
