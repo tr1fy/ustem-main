@@ -32,8 +32,6 @@ All photography is documentary; no AI-generated or stock photographs.
 
 - `public/images/panama.jpg`: Kazakhstan team at FIRST Global Challenge 2025.
   https://www.gov.kz/memleket/entities/edu/press/news/details/1097414?lang=ru
-- `public/images/geneva.jpg`: FIRST Global Challenge 2022.
-  https://www.gov.kz/memleket/entities/mfa-bern/press/news/details/442667?lang=ru
 - `public/images/president.jpg`: original 6676 × 4684 Akorda photograph, USTEM
   stand at Digital Bridge 2023.
   https://www.akorda.kz/assets/media/uploadMedia/1697099485_KZ1_5184_2.jpg

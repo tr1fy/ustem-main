@@ -2,7 +2,6 @@
 import '@/styles/index.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { Toaster } from 'react-hot-toast'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
@@ -98,7 +97,6 @@ export default async function RootLayout({
           type='application/ld+json'
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
-        <Toaster position='top-center' />
         <NextIntlClientProvider messages={messages}>
           <AppShell>{children}</AppShell>
         </NextIntlClientProvider>

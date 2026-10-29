@@ -1,36 +1,31 @@
-## USTEM Foundation
+# USTEM Foundation — ustem.kz
 
-First, run the development server:
+Next.js 13 + next-intl site in three languages (kz is the default, ru, en).
+
+## Local development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm ci
+npm run dev          # http://localhost:3000
+npm run build:static # the same static build that goes to the hosting (out/)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Where things are
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `src/lib/site-content.ts` — most of the site text (`words(kz, ru, en)`),
+  news, competitions, partners, metrics.
+- `messages/{kz,ru}.json` — small next-intl strings.
+- `src/app/[locale]/` — pages; shared blocks are in `_components/`, header and
+  footer in `components/layout/`.
+- `src/styles/` — CSS, imported once through `index.css`.
+- `docs/redesign.md` — design notes and photo sources.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Deploy
 
-## Learn More
+Every push to `main` runs `.github/workflows/deploy.yml`: it builds the static
+site and commits `out/` to the `deploy` branch, which Plesk (PS.kz) pulls into
+`/httpdocs`. On the static hosting `deploy/htaccess` does the job of
+`src/middleware.ts` and the redirects in `next.config.js`; keep them in step.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-Шахназар привет, как дела?
+Sign-in and registration live in USTEM Connect (https://connect.ustem.kz);
+`/login` and `/register` redirect there.
