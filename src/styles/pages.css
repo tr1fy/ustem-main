@@ -1247,18 +1247,22 @@
 
 /* ---------- About v2: editorial layout ---------- */
 .pg-v2-intro .page-head {
-  padding-bottom: clamp(32px, 4vw, 56px);
+  padding-bottom: clamp(32px, 4vw, 48px);
 }
 .pg-v2-statement {
-  max-width: 24ch !important;
-  font-size: clamp(1.5rem, 1.1rem + 1.8vw, 2.75rem) !important;
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.03em;
+  max-width: 58ch !important;
+  font-size: clamp(1.1875rem, 1.05rem + 0.6vw, 1.5rem) !important;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
   color: var(--ink) !important;
 }
 .pg-v2-sub {
-  max-width: 52ch !important;
+  margin-top: 12px !important;
+  max-width: 58ch !important;
+}
+.pg-v2-intro .pg-since {
+  margin-top: 24px;
 }
 .pg-v2-band {
   margin-top: 0;
@@ -1479,4 +1483,36 @@
 .pg-reports-note {
   font-size: var(--fs-small);
   color: var(--muted);
+}
+/* About intro, variant B: title left, mission text right (from 1024px) */
+@media (min-width: 1024px) {
+  .pg-v2-intro-b .page-head {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    column-gap: 64px;
+    align-items: start;
+  }
+  .pg-v2-intro-b .page-head nav {
+    grid-column: 1 / -1;
+  }
+  .pg-v2-intro-b .page-head h1 {
+    grid-column: 1;
+    grid-row: 2 / span 3;
+  }
+  .pg-v2-intro-b .pg-v2-statement {
+    grid-column: 2;
+    grid-row: 2;
+    margin-top: 12px !important;
+    max-width: 44ch !important;
+    font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.875rem) !important;
+    line-height: 1.35;
+  }
+  .pg-v2-intro-b .pg-v2-sub {
+    grid-column: 2;
+    grid-row: 3;
+  }
+  .pg-v2-intro-b .pg-v2-intro-since {
+    grid-column: 2;
+    grid-row: 4;
+  }
 }
