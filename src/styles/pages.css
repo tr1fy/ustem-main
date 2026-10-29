@@ -1163,3 +1163,149 @@
     animation: pg-photo 1000ms var(--ease) 120ms both;
   }
 }
+
+/* ---------- About: since line, facts strip, people, countries, recognition ---------- */
+.pg-since {
+  margin-top: 20px;
+  font-size: var(--fs-small);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+.pg-facts-wrap {
+  padding-block: 8px 0;
+}
+.pg-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin: 0;
+  padding-block: 32px;
+  border-block: 1px solid var(--line);
+}
+.pg-fact dt {
+  font-size: clamp(2rem, 1.5rem + 2vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+}
+.pg-fact dd {
+  margin: 8px 0 0;
+  max-width: 22ch;
+  color: var(--muted);
+}
+.pg-step-title {
+  font-size: var(--fs-h3);
+  color: var(--ink);
+}
+.pg-people,
+.pg-countries,
+.pg-recog {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pg-person {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--white);
+}
+.pg-person-photo {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  background: var(--aral-soft);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--blue);
+}
+.pg-person h3 {
+  font-size: var(--fs-h3);
+}
+.pg-person-role {
+  margin: 4px 0 8px;
+  font-weight: 600;
+  color: var(--blue);
+}
+.pg-person p:last-child {
+  color: var(--muted);
+}
+.pg-country {
+  display: grid;
+  gap: 10px;
+  padding: 28px 24px;
+  border-radius: var(--radius-lg);
+  background: var(--white);
+}
+.pg-country img {
+  width: 48px;
+  height: 24px;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px var(--line);
+}
+.pg-country p {
+  color: var(--muted);
+}
+.pg-recog li {
+  display: grid;
+  gap: 6px;
+  padding-block: 20px;
+  border-top: 1px solid var(--line);
+}
+.pg-recog-meta {
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--muted);
+}
+.pg-recog a,
+.pg-recog li > span:last-child {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.pg-recog a svg {
+  display: inline;
+  width: 16px;
+  height: 16px;
+  margin-left: 6px;
+  color: var(--blue);
+  vertical-align: -2px;
+}
+.pg-recog a:hover {
+  color: var(--blue);
+}
+@media (min-width: 1024px) {
+  .pg-facts {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    padding-block: 40px;
+  }
+  .pg-people {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .pg-countries {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .pg-recog li {
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 32px;
+    align-items: baseline;
+  }
+}
+.pg-path .pg-step-year {
+  font-size: clamp(2.25rem, 1.6rem + 2.2vw, 3.5rem);
+  white-space: nowrap;
+}

@@ -13,8 +13,8 @@ import {
   localize,
   navItems,
   projects,
-  publishedMetrics,
   site,
+  trustItems,
   ui,
   words,
   type Localized
@@ -62,6 +62,67 @@ const text = {
     'Отчёты и документы фонда предоставляются по запросу — напишите нам.',
     'The foundation’s reports and documents are available on request — write to us.'
   ),
+  since: words(
+    '2020 жылдан бері · More than robots',
+    'С 2020 года · More than robots',
+    'Since 2020 · More than robots'
+  ),
+  facts: [
+    { value: '2020', label: words('10 ақпанда Алматыда құрылды', 'основан 10 февраля в Алматы', 'founded on 10 February in Almaty') },
+    { value: '30+', label: words('инженер, педагог, жаттықтырушы', 'инженеров, педагогов, тренеров', 'engineers, educators and coaches') },
+    { value: '1 000+', label: words('өңірлік жарыс өткізілді', 'региональных соревнований', 'regional competitions held') },
+    { value: '3', label: words('ел: Қазақстан, Өзбекстан, Қырғызстан', 'страны: Казахстан, Узбекистан, Кыргызстан', 'countries: Kazakhstan, Uzbekistan, Kyrgyzstan') }
+  ],
+  path: words('Біздің жол', 'Наш путь', 'Our path'),
+  pathSteps: [
+    {
+      year: '2020',
+      title: words('Алғашқы чемпионат', 'Первый чемпионат', 'First championship'),
+      line: words('3 өңірден 150 команда.', '150 команд из 3 регионов.', '150 teams from 3 regions.')
+    },
+    {
+      year: '2022–2025',
+      title: words('FIRST Global Challenge', 'FIRST Global Challenge', 'FIRST Global Challenge'),
+      line: words('Қазақстан құрамасы — қатарынан 4 рет әлем чемпионы.', 'Сборная Казахстана — 4 раза подряд чемпион мира.', 'Team Kazakhstan — world champion 4 years in a row.')
+    },
+    {
+      year: '2026',
+      title: words('Alem Tech Fest', 'Alem Tech Fest', 'Alem Tech Fest'),
+      line: words('Астана, EXPO: 5 000+ қатысушы, 7 ел.', 'Астана, EXPO: 5 000+ участников, 7 стран.', 'Astana, EXPO: 5,000+ participants, 7 countries.')
+    }
+  ],
+  leadership: words('Басшылық', 'Руководство', 'Leadership'),
+  leaders: [
+    {
+      name: words('Асылбек Мырзахметов', 'Асылбек Мырзахметов', 'Asylbek Myrzakhmetov'),
+      role: words('Тең құрылтайшы, қор басшысы', 'Сооснователь, руководитель фонда', 'Co-founder, head of the foundation'),
+      line: words('FIRST Program Delivery Partner · ҚР робототехника құрамасының жаттықтырушысы', 'FIRST Program Delivery Partner · тренер сборной РК по робототехнике', 'FIRST Program Delivery Partner · coach of the national robotics team')
+    },
+    {
+      name: words('Нұрдәулет Досмағамбет', 'Нурдаулет Досмагамбет', 'Nurdaulet Dosmagambet'),
+      role: words('Тең құрылтайшы', 'Сооснователь', 'Co-founder'),
+      line: words('FIRST Program Delivery Partner · ҚР робототехника құрамасының жаттықтырушысы', 'FIRST Program Delivery Partner · тренер сборной РК по робототехнике', 'FIRST Program Delivery Partner · coach of the national robotics team')
+    }
+  ],
+  where: words('Қайда жұмыс істейміз', 'Где мы работаем', 'Where we work'),
+  countryLines: {
+    kz: words('Бас кеңсе — Алматы. FIRST маусымдары, флагман іс-шаралар, USTEM Academy.', 'Головной офис — Алматы. Сезоны FIRST, флагманские события, USTEM Academy.', 'Head office in Almaty. FIRST seasons, flagship events, USTEM Academy.'),
+    uz: words('Uzbekistan FIRST Championship — Ташкент, 2027 жылғы ақпан–наурыз.', 'Uzbekistan FIRST Championship — Ташкент, февраль–март 2027.', 'Uzbekistan FIRST Championship — Tashkent, February–March 2027.'),
+    kg: words('Scrimmage, Regional және Kyrgyzstan FIRST Championship — Бішкек, 2027 жылғы ақпан.', 'Scrimmage, Regional и Kyrgyzstan FIRST Championship — Бишкек, февраль 2027.', 'Scrimmage, Regional and Kyrgyzstan FIRST Championship — Bishkek, February 2027.')
+  } as Record<string, Localized>,
+  recognition: words('Ресми мәртебе және мойындау', 'Официальный статус и признание', 'Official status and recognition'),
+  orders: [
+    {
+      meta: words('№ 514 бұйрық · 07.12.2011', 'Приказ № 514 · 07.12.2011', 'Order No. 514 · 07.12.2011'),
+      title: words('FIRST Robotics — министрлік ұсынатын олимпиадалар мен жарыстар тізімінде (1–11 сынып).', 'FIRST Robotics — в перечне олимпиад и конкурсов, рекомендованных министерством (1–11 классы).', 'FIRST Robotics is on the ministry’s list of recommended competitions (grades 1–11).'),
+      url: 'https://adilet.zan.kz/kaz/docs/V1100007355'
+    },
+    {
+      meta: words('№ 70 бұйрық · 22.01.2016', 'Приказ № 70 · 22.01.2016', 'Order No. 70 · 22.01.2016'),
+      title: words('Робототехника және бағдарламалау жинақтары мектеп жабдықтарының нормаларына енгізілген.', 'Наборы по робототехнике и программированию включены в нормы оснащения школ.', 'Robotics and programming kits are included in school equipment standards.'),
+      url: ''
+    }
+  ],
   newTab: words(
     '(жаңа бетте ашылады)',
     '(откроется в новой вкладке)',
@@ -81,16 +142,6 @@ const photo = {
 
 const navLabel = (key: (typeof navItems)[number]['key']) =>
   navItems.find(item => item.key === key)!.label
-
-const hostOf = (url: string) => {
-  try {
-    return new URL(url).hostname.replace(/^www\./, '')
-  } catch {
-    return url
-  }
-}
-
-const capitalize = (value: string) => value.charAt(0).toUpperCase() + value.slice(1)
 
 /** Stagger index for the reveal cascade (pages.css, `.pg-item`). */
 const stagger = (index: number) => ({ '--i': index }) as CSSProperties
@@ -145,9 +196,6 @@ export default function AboutPage({
       line: t(ui.projectsLead)
     }
   ]
-  const champions = publishedMetrics.find(item => item.id === 'world-champions')
-  const timeline = champions?.timeline ?? []
-  const source = champions?.source
 
   return (
     <main id='main-content' className='pg-main'>
@@ -157,7 +205,9 @@ export default function AboutPage({
             locale={locale}
             title={t(navLabel('about'))}
             lead={`${t(copy.aboutText)} ${t(text.operator)}`}
-          />
+          >
+            <p className='pg-since'>{t(text.since)}</p>
+          </PageHead>
           <figure className='pg-intro-media'>
             <div className='pg-orb' aria-hidden='true'>
               <div className='pg-circle' />
@@ -179,6 +229,18 @@ export default function AboutPage({
           </figure>
         </div>
       </div>
+
+
+      <section className='pg-facts-wrap' aria-label={t(text.since)}>
+        <div className='container'><dl className='pg-facts'>
+          {text.facts.map(fact => (
+            <div className='pg-fact' key={fact.value}>
+              <dt>{fact.value}</dt>
+              <dd>{t(fact.label)}</dd>
+            </div>
+          ))}
+        </dl></div>
+      </section>
 
       <section className='section' aria-labelledby='pg-directions-title'>
         <div className='container'>
@@ -206,43 +268,89 @@ export default function AboutPage({
         </div>
       </section>
 
-      {champions && timeline.length > 0 && (
-        <section
-          className='section section-paper pg-milestones'
-          aria-labelledby='pg-milestones-title'
-        >
-          <div className='container'>
-            <SectionHead
-              id='pg-milestones-title'
-              title={t(text.milestones)}
-              lead={capitalize(t(champions.label))}
-            />
-            <Reveal className='pg-stagger'>
-              <ol className='pg-timeline'>
-                {timeline.map((step, index) => (
-                  <li className='pg-step pg-item' key={step.year} style={stagger(index)}>
-                    <span className='pg-step-year'>{step.year}</span>
-                    <span className='pg-step-place'>{t(step.place)}</span>
-                  </li>
-                ))}
-              </ol>
-            </Reveal>
-            <div className='pg-milestones-foot'>
-              {champions.note && <p className='pg-note'>{t(champions.note)}</p>}
-              {source && (
-                <p className='pg-source'>
-                  {t(ui.source)}: {t(source.label)} ·{' '}
-                  <a href={source.url} target='_blank' rel='noreferrer'>
-                    {hostOf(source.url)}
+      <section className='section section-paper pg-milestones pg-path' aria-labelledby='pg-path-title'>
+        <div className='container'>
+          <SectionHead id='pg-path-title' title={t(text.path)} />
+          <Reveal className='pg-stagger'>
+            <ol className='pg-timeline'>
+              {text.pathSteps.map((step, index) => (
+                <li className='pg-step pg-item' key={step.year} style={stagger(index)}>
+                  <span className='pg-step-year'>{step.year}</span>
+                  <strong className='pg-step-title'>{t(step.title)}</strong>
+                  <span className='pg-step-place'>{t(step.line)}</span>
+                </li>
+              ))}
+            </ol>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className='section' aria-labelledby='pg-leaders-title'>
+        <div className='container'>
+          <SectionHead id='pg-leaders-title' title={t(text.leadership)} />
+          <ul className='pg-people'>
+            {text.leaders.map(person => (
+              <li className='pg-person' key={person.name.en}>
+                <div className='pg-person-photo' aria-hidden='true'>
+                  {t(person.name).split(' ').map(part => part[0]).join('')}
+                </div>
+                <div className='pg-person-body'>
+                  <h3>{t(person.name)}</h3>
+                  <p className='pg-person-role'>{t(person.role)}</p>
+                  <p>{t(person.line)}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className='section section-paper' aria-labelledby='pg-where-title'>
+        <div className='container'>
+          <SectionHead id='pg-where-title' title={t(text.where)} />
+          <ul className='pg-countries'>
+            {site.countries.map(country => (
+              <li className='pg-country' key={country.code}>
+                <img src={country.flag} alt='' width={48} height={24} />
+                <h3>{t(country.name)}</h3>
+                <p>{t(text.countryLines[country.code])}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className='section' aria-labelledby='pg-recog-title'>
+        <div className='container'>
+          <SectionHead id='pg-recog-title' title={t(text.recognition)} />
+          <ul className='pg-recog'>
+            {trustItems
+              .filter(item => item.key.startsWith('akorda'))
+              .map(item => (
+                <li key={item.key}>
+                  <span className='pg-recog-meta'>{t(item.meta)}</span>
+                  <a href={item.url} target='_blank' rel='noreferrer'>
+                    {t(item.title)}
                     <ArrowUpRightIcon aria-hidden='true' />
-                    <span className='visually-hidden'> {t(text.newTab)}</span>
                   </a>
-                </p>
-              )}
-            </div>
-          </div>
-        </section>
-      )}
+                </li>
+              ))}
+            {text.orders.map(order => (
+              <li key={order.meta.en}>
+                <span className='pg-recog-meta'>{t(order.meta)}</span>
+                {order.url ? (
+                  <a href={order.url} target='_blank' rel='noreferrer'>
+                    {t(order.title)}
+                    <ArrowUpRightIcon aria-hidden='true' />
+                  </a>
+                ) : (
+                  <span>{t(order.title)}</span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
       <section id='reports' className='section pg-reports' aria-labelledby='pg-reports-title'>
         <Reveal className='container pg-reports-inner'>
