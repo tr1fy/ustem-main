@@ -656,11 +656,15 @@ export const audiences: {
 }[] = [
   {
     key: 'families',
-    title: words('Ата-аналар мен балаларға', 'Родителям и детям', 'Parents and children'),
+    title: words(
+      'Ата-аналар, балалар мен тәлімгерлерге',
+      'Родителям, детям и наставникам',
+      'Parents, children and mentors'
+    ),
     text: words(
-      '4 жастан бастап жарыстар: жасыңызға сай бағдарламаны таңдаңыз.',
+      '4 жастан бастап жарыстар: жасқа сай бағдарламаны таңдаңыз.',
       'Соревнования с 4 лет: выберите программу по возрасту.',
-      'Competitions from age 4: pick a program that fits your age.'
+      'Competitions from age 4: pick the program for the right age group.'
     ),
     href: '/competitions'
   },
