@@ -141,7 +141,7 @@
   max-width: 13em;
   margin-top: 28px;
   font-size: calc(clamp(2.125rem, 1.2rem + 3.6vw, 3.25rem) * var(--hero-h1-k));
-  font-weight: 700;
+  font-weight: 900;
   line-height: 1.04;
   letter-spacing: -0.005em;
   text-transform: uppercase;
