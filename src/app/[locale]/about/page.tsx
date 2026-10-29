@@ -1,12 +1,6 @@
 import type { CSSProperties } from 'react'
 import type { Metadata } from 'next'
-import {
-  AcademicCapIcon,
-  ArrowRightIcon,
-  ArrowUpRightIcon,
-  LightBulbIcon,
-  TrophyIcon
-} from '@heroicons/react/24/outline'
+import { ArrowRightIcon, ArrowUpRightIcon } from '@heroicons/react/24/outline'
 import { Link } from '@/i18n/routing'
 import {
   copy,
@@ -123,6 +117,11 @@ const text = {
       url: ''
     }
   ],
+  heroCaption: words(
+    'FIRST Global Challenge 2025 · Панама · Қазақстан құрамасы',
+    'FIRST Global Challenge 2025 · Панама · сборная Казахстана',
+    'FIRST Global Challenge 2025 · Panama · Team Kazakhstan'
+  ),
   newTab: words(
     '(жаңа бетте ашылады)',
     '(откроется в новой вкладке)',
@@ -175,23 +174,21 @@ export default function AboutPage({
   params: { locale: string }
 }) {
   const t = (value: Localized) => localize(value, locale)
+  const feature = trustItems.find(item => item.key === 'akorda-2025')
   const academy = projects.find(item => item.slug === 'academy')!
   const directions = [
     {
       href: '/competitions',
-      icon: TrophyIcon,
       title: t(navLabel('competitions')),
       line: t(text.competitionsLine)
     },
     {
       href: '/academy',
-      icon: AcademicCapIcon,
       title: t(text.teacherTraining),
       line: t(academy.fact)
     },
     {
       href: '/projects',
-      icon: LightBulbIcon,
       title: t(navLabel('projects')),
       line: t(ui.projectsLead)
     }
@@ -199,39 +196,32 @@ export default function AboutPage({
 
   return (
     <main id='main-content' className='pg-main'>
-      <div className='pg-intro pg-intro-about'>
-        <div className='container pg-intro-grid'>
-          <PageHead
-            locale={locale}
-            title={t(navLabel('about'))}
-            lead={`${t(copy.aboutText)} ${t(text.operator)}`}
-          >
-            <p className='pg-since'>{t(text.since)}</p>
-          </PageHead>
-          <figure className='pg-intro-media'>
-            <div className='pg-orb' aria-hidden='true'>
-              <div className='pg-circle' />
-            </div>
-            <div className='pg-photo pg-photo-wide'>
-              <img
-                src={photo.src}
-                srcSet={photo.srcSet}
-                sizes='(min-width: 1280px) 620px, (min-width: 1024px) 48vw, 100vw'
-                alt={t(ui.heroPhotoAlt)}
-                width={photo.width}
-                height={photo.height}
-                loading='eager'
-                decoding='async'
-                fetchPriority='high'
-              />
-            </div>
-            <figcaption className='pg-caption'>{t(ui.heroCaption)}</figcaption>
-          </figure>
-        </div>
+      <div className='pg-intro pg-intro-plain pg-v2-intro'>
+        <PageHead locale={locale} title={t(navLabel('about'))}>
+          <p className='pg-v2-statement'>{t(copy.aboutText)}</p>
+          <p className='pg-v2-sub'>{t(text.operator)}</p>
+          <p className='pg-since'>{t(text.since)}</p>
+        </PageHead>
       </div>
 
+      <figure className='container pg-v2-hero'>
+        <div className='pg-v2-hero-media'>
+          <img
+            src='/images/people/fgc-team-hero-2000.webp'
+            srcSet='/images/people/fgc-team-hero-1200.webp 1200w, /images/people/fgc-team-hero-2000.webp 2000w, /images/people/fgc-team-hero-3000.webp 3000w'
+            sizes='(min-width: 1280px) 1248px, 100vw'
+            alt={t(ui.heroPhoto4Alt)}
+            width={2000}
+            height={1125}
+            loading='eager'
+            decoding='async'
+            fetchPriority='high'
+          />
+        </div>
+        <figcaption className='pg-caption'>{t(text.heroCaption)}</figcaption>
+      </figure>
 
-      <section className='pg-facts-wrap' aria-label={t(text.since)}>
+      <section className='pg-v2-band' aria-label={t(text.since)}>
         <div className='container'><dl className='pg-facts'>
           {text.facts.map(fact => (
             <div className='pg-fact' key={fact.value}>
@@ -243,41 +233,41 @@ export default function AboutPage({
       </section>
 
       <section className='section' aria-labelledby='pg-directions-title'>
-        <div className='container'>
-          <SectionHead id='pg-directions-title' title={t(copy.directions)} />
-          <Reveal className='pg-stagger'>
-            <ul className='pg-tiles'>
-              {directions.map(({ icon: Icon, ...item }, index) => (
-                <li className='pg-tile pg-item' key={item.href} style={stagger(index)}>
-                  <span className='pg-tile-icon' aria-hidden='true'>
-                    <Icon />
-                  </span>
+        <div className='container pg-v2-split'>
+          <div className='pg-v2-split-head'>
+            <h2 id='pg-directions-title'>{t(copy.directions)}</h2>
+          </div>
+          <ol className='pg-v2-rows'>
+            {directions.map((item, index) => (
+              <li className='pg-v2-row' key={item.href}>
+                <span className='pg-v2-num'>0{index + 1}</span>
+                <div>
                   <h3>
                     <Link className='card-link' href={item.href}>
                       {item.title}
                     </Link>
                   </h3>
                   <p>{item.line}</p>
-                  <span className='pg-tile-arrow' aria-hidden='true'>
-                    <ArrowRightIcon />
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
+                </div>
+                <span className='pg-tile-arrow' aria-hidden='true'>
+                  <ArrowRightIcon />
+                </span>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
-      <section className='section section-paper pg-milestones pg-path' aria-labelledby='pg-path-title'>
+      <section className='section section-paper pg-v2-path' aria-labelledby='pg-path-title'>
         <div className='container'>
           <SectionHead id='pg-path-title' title={t(text.path)} />
           <Reveal className='pg-stagger'>
-            <ol className='pg-timeline'>
+            <ol className='pg-v2-steps'>
               {text.pathSteps.map((step, index) => (
-                <li className='pg-step pg-item' key={step.year} style={stagger(index)}>
-                  <span className='pg-step-year'>{step.year}</span>
-                  <strong className='pg-step-title'>{t(step.title)}</strong>
-                  <span className='pg-step-place'>{t(step.line)}</span>
+                <li className='pg-v2-step pg-item' key={step.year} style={stagger(index)}>
+                  <span className='pg-v2-year'>{step.year}</span>
+                  <strong>{t(step.title)}</strong>
+                  <span>{t(step.line)}</span>
                 </li>
               ))}
             </ol>
@@ -288,44 +278,70 @@ export default function AboutPage({
       <section className='section' aria-labelledby='pg-leaders-title'>
         <div className='container'>
           <SectionHead id='pg-leaders-title' title={t(text.leadership)} />
-          <ul className='pg-people'>
+          <ul className='pg-v2-people'>
             {text.leaders.map(person => (
-              <li className='pg-person' key={person.name.en}>
-                <div className='pg-person-photo' aria-hidden='true'>
-                  {t(person.name).split(' ').map(part => part[0]).join('')}
+              <li className='pg-v2-person' key={person.name.en}>
+                <div className='pg-v2-portrait' aria-hidden='true'>
+                  <span>{t(person.name).split(' ').map(part => part[0]).join('')}</span>
                 </div>
-                <div className='pg-person-body'>
-                  <h3>{t(person.name)}</h3>
-                  <p className='pg-person-role'>{t(person.role)}</p>
-                  <p>{t(person.line)}</p>
-                </div>
+                <h3>{t(person.name)}</h3>
+                <p className='pg-person-role'>{t(person.role)}</p>
+                <p>{t(person.line)}</p>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      <section className='section section-paper' aria-labelledby='pg-where-title'>
-        <div className='container'>
-          <SectionHead id='pg-where-title' title={t(text.where)} />
-          <ul className='pg-countries'>
+      <section className='section' aria-labelledby='pg-where-title'>
+        <div className='container pg-v2-split'>
+          <div className='pg-v2-split-head'>
+            <h2 id='pg-where-title'>{t(text.where)}</h2>
+          </div>
+          <ul className='pg-v2-rows pg-v2-geo'>
             {site.countries.map(country => (
-              <li className='pg-country' key={country.code}>
-                <img src={country.flag} alt='' width={48} height={24} />
-                <h3>{t(country.name)}</h3>
-                <p>{t(text.countryLines[country.code])}</p>
+              <li className='pg-v2-row' key={country.code}>
+                <img src={country.flag} alt='' width={40} height={20} />
+                <div>
+                  <h3>{t(country.name)}</h3>
+                  <p>{t(text.countryLines[country.code])}</p>
+                </div>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      <section className='section' aria-labelledby='pg-recog-title'>
+      <section className='section section-paper' aria-labelledby='pg-recog-title'>
         <div className='container'>
           <SectionHead id='pg-recog-title' title={t(text.recognition)} />
+          {feature && (
+            <article className='home-president pg-v2-feature'>
+              <div className='home-president-media'>
+                <img
+                  src={feature.photo.src}
+                  alt={t(feature.alt)}
+                  width={feature.photo.width}
+                  height={feature.photo.height}
+                  loading='lazy'
+                  decoding='async'
+                  style={feature.photo.position ? { objectPosition: feature.photo.position } : undefined}
+                />
+              </div>
+              <div className='home-president-body'>
+                <p className='home-president-meta'>{t(feature.meta)}</p>
+                <h3>{t(feature.title)}</h3>
+                <p className='home-president-text'>{t(feature.text)}</p>
+                <a className='link-arrow' href={feature.url} target='_blank' rel='noreferrer'>
+                  {t(feature.link)}
+                  <ArrowUpRightIcon aria-hidden='true' />
+                </a>
+              </div>
+            </article>
+          )}
           <ul className='pg-recog'>
             {trustItems
-              .filter(item => item.key.startsWith('akorda'))
+              .filter(item => item.key === 'akorda-2023')
               .map(item => (
                 <li key={item.key}>
                   <span className='pg-recog-meta'>{t(item.meta)}</span>
