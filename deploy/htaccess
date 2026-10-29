@@ -14,22 +14,18 @@ DirectoryIndex index.html
 
 RewriteEngine On
 
-# ---- Visitor's language (TZ §5.5): saved choice > browser language > kz ----
-# The language switcher stores a manual choice in NEXT_LOCALE; otherwise the
-# first language in Accept-Language that the site speaks wins
-# ("de,en;q=0.8" → en). Anything else → kz.
+# ---- Visitor's language: saved choice > kz ----
+# The site opens in Kazakh for everyone; the browser language (Accept-Language)
+# is ignored (owner's decision, 2026-10-29). Only a manual choice stored in
+# NEXT_LOCALE by the language switcher takes precedence.
 RewriteRule ^ - [E=UL:kz]
-RewriteCond %{HTTP:Accept-Language} ^(?:\s*(?!(?:ru|en|kk|kz)\b)[^,]*,)*\s*ru\b [NC]
-RewriteRule ^ - [E=UL:ru]
-RewriteCond %{HTTP:Accept-Language} ^(?:\s*(?!(?:ru|en|kk|kz)\b)[^,]*,)*\s*en\b [NC]
-RewriteRule ^ - [E=UL:en]
 RewriteCond %{HTTP_COOKIE} (?:^|;\s*)NEXT_LOCALE=(kz|ru|en)(?:;|$)
 RewriteRule ^ - [E=UL:%1]
 
 # '/' and any path without a locale prefix (/about, old or mistyped links)
 # go to the same path under the visitor's language. Files (/images/...,
 # robots.txt, sitemap.xml) and /_next/ are left alone. Temporary and
-# uncached, because the target depends on the cookie and the language.
+# uncached, because the target depends on the cookie.
 RewriteCond %{REQUEST_URI} !^/(?:kz|ru|en)(?:/|\.txt$|$)
 RewriteCond %{REQUEST_URI} !^/_next/
 RewriteCond %{REQUEST_FILENAME} !-f
@@ -68,7 +64,7 @@ ErrorDocument 404 /kz/404.html
   Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
   Header always set X-Content-Type-Options "nosniff"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
-  Header always set Vary "Accept-Language, Cookie" env=LOCALE_REDIRECT
+  Header always set Vary "Cookie" env=LOCALE_REDIRECT
   Header always set Cache-Control "private, no-store" env=LOCALE_REDIRECT
   # Hashed build assets never change; pages are revalidated on every visit.
   <If "%{REQUEST_URI} =~ m#^/_next/static/#">
