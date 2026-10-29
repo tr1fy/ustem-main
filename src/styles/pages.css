@@ -1343,7 +1343,7 @@
   object-fit: cover;
 }
 .pg-v2-band {
-  margin-top: clamp(40px, 5vw, 72px);
+  margin-top: 0;
   padding-block: clamp(32px, 4vw, 56px);
   background: var(--aral-deep);
   color: var(--on-dark);

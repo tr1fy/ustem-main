@@ -117,11 +117,6 @@ const text = {
       url: ''
     }
   ],
-  heroCaption: words(
-    'FIRST Global Challenge 2025 · Панама · Қазақстан құрамасы',
-    'FIRST Global Challenge 2025 · Панама · сборная Казахстана',
-    'FIRST Global Challenge 2025 · Panama · Team Kazakhstan'
-  ),
   newTab: words(
     '(жаңа бетте ашылады)',
     '(откроется в новой вкладке)',
@@ -203,23 +198,6 @@ export default function AboutPage({
           <p className='pg-since'>{t(text.since)}</p>
         </PageHead>
       </div>
-
-      <figure className='container pg-v2-hero'>
-        <div className='pg-v2-hero-media'>
-          <img
-            src='/images/people/fgc-team-hero-2000.webp'
-            srcSet='/images/people/fgc-team-hero-1200.webp 1200w, /images/people/fgc-team-hero-2000.webp 2000w, /images/people/fgc-team-hero-3000.webp 3000w'
-            sizes='(min-width: 1280px) 1248px, 100vw'
-            alt={t(ui.heroPhoto4Alt)}
-            width={2000}
-            height={1125}
-            loading='eager'
-            decoding='async'
-            fetchPriority='high'
-          />
-        </div>
-        <figcaption className='pg-caption'>{t(text.heroCaption)}</figcaption>
-      </figure>
 
       <section className='pg-v2-band' aria-label={t(text.since)}>
         <div className='container'><dl className='pg-facts'>
