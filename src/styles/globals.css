@@ -63,13 +63,13 @@
 @media (min-width: 768px) {
   :root {
     --gutter: 32px;
-    --section: 112px;
+    --section: 96px;
   }
 }
 @media (min-width: 1200px) {
   :root {
     --gutter: 48px;
-    --section: 144px;
+    --section: 120px;
     --header-h: 76px;
   }
 }
@@ -189,12 +189,25 @@ p {
 .section + .section {
   padding-top: 0;
 }
+/* A paper band between white sections: the white section before it keeps
+   half a gap, the band carries three quarters of a gap on each side and
+   the white section after it starts half a gap below — one and a quarter
+   gaps from content to heading instead of two (the owner's remark of
+   2026-10-29 about the empty field above «Сенім мен мойындау»). */
 .section-paper {
   background: var(--paper);
 }
-.section-paper + .section,
 .section + .section-paper {
-  padding-top: var(--section);
+  padding-top: calc(var(--section) * 0.75);
+}
+.section-paper.section {
+  padding-bottom: calc(var(--section) * 0.75);
+}
+.section:has(+ .section-paper) {
+  padding-bottom: calc(var(--section) * 0.5);
+}
+.section-paper + .section {
+  padding-top: calc(var(--section) * 0.5);
 }
 .stack > * + * {
   margin-top: 16px;
