@@ -1496,20 +1496,19 @@ export const trustItems: {
       'Акорда · 12 октября 2023',
       'Akorda · 12 October 2023'
     ),
-    // No year and a different verb from the 2025 card above it: the date
-    // line already says 2023, and the two titles read as one otherwise
-    // (the owner's remark of 2026-10-29).
+    // Wording chosen by the owner on 2026-10-29: no year (the date line
+    // already says 2023) and nothing beyond what the Akorda article states.
     title: words(
-      'Президент Digital Bridge көрмесінде USTEM Foundation стендіне барды',
-      'Президент посетил стенд USTEM Foundation на выставке Digital Bridge',
-      'The President visited the USTEM Foundation stand at the Digital Bridge exhibition'
+      'Digital Bridge: Президентке USTEM Foundation робототехника жобалары көрсетілді',
+      'Digital Bridge: Президенту показали робототехнические проекты USTEM Foundation',
+      'Digital Bridge: USTEM Foundation robotics projects were shown to the President'
     ),
-    // The date is already on the line above, so the text starts with the
-    // event itself.
+    // The one sentence of the Akorda article (12 October 2023) that names
+    // the foundation, translated as it stands; the date is on the line above.
     text: words(
-      'Digital Bridge форумының көрмесінде Президентке робототехника аймағындағы USTEM Foundation жобалары таныстырылды.',
-      'На выставке форума Digital Bridge Президенту представили проекты USTEM Foundation в зоне робототехники.',
-      'At the Digital Bridge forum exhibition the President was shown USTEM Foundation projects in the robotics zone.'
+      'Digital Bridge форумының көрмесінде, робототехника аймағында Мемлекет басшысы Қазақстанның робототехника құрамасының мүшелерімен әңгімелесіп, USTEM Foundation, Alem School және MakerSpace жобаларымен танысты.',
+      'На выставке форума Digital Bridge в зоне робототехники Глава государства побеседовал с членами сборной Казахстана по робототехнике и ознакомился с проектами USTEM Foundation, Alem School и MakerSpace.',
+      'At the Digital Bridge forum exhibition, in the robotics zone, the Head of State talked with members of Kazakhstan’s national robotics team and was introduced to the projects of USTEM Foundation, Alem School and MakerSpace.'
     ),
     url: presidentSource,
     link: words(
