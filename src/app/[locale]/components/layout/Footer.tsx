@@ -134,7 +134,7 @@ export default function Footer() {
   const compact = usePathname() === '/contacts'
 
   const aboutLinks = [
-    { href: '/about#reports', label: ui.reports },
+    { href: '/#reports', label: ui.reports },
     { href: '/contacts#media', label: ui.forMedia },
     { href: '/privacy', label: ui.privacy }
   ]

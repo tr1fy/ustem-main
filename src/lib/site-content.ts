@@ -738,13 +738,43 @@ export const languages = [
 ] as const
 
 /** Text used by the TZ v1.0 layout. Exact wording comes from the TZ. */
+/** Public reports listed in the «Есептер» section near the bottom of the
+    home page (moved there from the About page on 2026-10-29). */
+export const publicReports: {
+  file: string
+  meta: Localized
+  title: Localized
+  note: Localized
+}[] = [
+  {
+    file: '/docs/public-report-alem-techfest-2026.pdf',
+    meta: words(
+      'Alem TechFest 2026 · КҚ «Samruk-Kazyna Trust»',
+      'Alem TechFest 2026 · КФ «Samruk-Kazyna Trust»',
+      'Alem TechFest 2026 · Samruk-Kazyna Trust'
+    ),
+    title: words(
+      'Қайырымдылық көмегі қаражатының пайдаланылуы туралы жария есеп',
+      'Публичный отчёт об использовании средств благотворительной помощи',
+      'Public report on the use of charitable funds'
+    ),
+    note: words('PDF · 1,4 МБ · орыс тілінде', 'PDF · 1,4 МБ', 'PDF · 1.4 MB · in Russian')
+  }
+]
+
+export const reportsText = words(
+  'Басқа есептер мен құжаттар сұрау бойынша беріледі — бізге хат жазыңыз.',
+  'Другие отчёты и документы предоставляются по запросу — напишите нам.',
+  'Other reports and documents are available on request — write to us.'
+)
+
 export const ui = {
   // Wording chosen by the foundation on 2026-10-29 (homepage TZ, items 3
   // and 4): no full stop after the heading, one sentence of description.
   heroTitle: words(
-    'Инженерлік білімді дамытатын қор.',
-    'Фонд развития инженерного образования.',
-    'The foundation advancing engineering education.'
+    'Инженерлік білімді дамытатын қор',
+    'Фонд развития инженерного образования',
+    'The foundation advancing engineering education'
   ),
   heroText: words(
     'USTEM Foundation балаларды, педагогтерді және серіктестерді ғылым мен технология төңірегінде біріктіреді: жарыстар өткізеді, педагогтерді оқытады және жас инженерлерді қолдайды.',
