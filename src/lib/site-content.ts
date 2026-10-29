@@ -617,8 +617,8 @@ export const site = {
     'Казахстан · Узбекистан · Кыргызстан',
     'Kazakhstan · Uzbekistan · Kyrgyzstan'
   ),
-  /** The same three countries with their flags (the hero line). The SVGs
-      in /public/images/flags keep the official proportions. */
+  /** The same three countries with their flags (the footer line). The
+      SVGs in /public/images/flags keep the official proportions. */
   countries: [
     {
       code: 'kz',
@@ -777,10 +777,12 @@ export const ui = {
     'Team Kazakhstan with the flag and their medals at FIRST Global Challenge 2025 in Panama'
   ),
   /** Glass labels on the hero slides: where the team in the photo competed. */
+  // The event is FIRST Championship (Houston), not «FLL Worlds»: the
+  // owner's correction of 2026-10-29.
   heroLabelFll: words(
-    'FLL WORLDS 2026 қатысушылары',
-    'Участники FLL WORLDS 2026',
-    'FLL WORLDS 2026 participants'
+    'FIRST Championship 2026 қатысушылары',
+    'Участники FIRST Championship 2026',
+    'FIRST Championship 2026 participants'
   ),
   heroLabelFtc: words(
     'FTC WORLDS 2026 қатысушылары',

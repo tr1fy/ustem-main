@@ -241,10 +241,34 @@
   line-height: 1.55;
   color: var(--ftr-muted);
 }
+/* The three countries with their flags: each name with its flag is one
+   unit, the «·» between them is drawn by CSS. */
 .ftr-geo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  row-gap: 4px;
   font-size: 0.9375rem;
   font-weight: 600;
   color: var(--white);
+}
+.ftr-geo-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+}
+/* the «·» trails each name, so a wrapped line never starts with it */
+.ftr-geo-item:not(:last-child)::after {
+  content: '·';
+  margin: 0 0.6em 0 0.1em;
+  opacity: 0.75;
+}
+.ftr-flag {
+  flex: none;
+  width: auto;
+  height: 1em;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.22);
 }
 .ftr-col h3 {
   margin-bottom: 12px;
