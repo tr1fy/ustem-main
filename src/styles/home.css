@@ -133,9 +133,33 @@
 .hero-content {
   position: relative;
 }
+/* The three countries with their flags: each name with its flag is one
+   unit, the «·» between them is drawn by CSS (as in the footer line). */
 .hero-geo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  row-gap: 4px;
   font-size: 1rem;
   line-height: 1.3;
+}
+.hero-geo-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+}
+/* the «·» trails each name, so a wrapped line never starts with it */
+.hero-geo-item:not(:last-child)::after {
+  content: '·';
+  margin: 0 0.6em 0 0.1em;
+  opacity: 0.75;
+}
+.hero-flag {
+  flex: none;
+  width: auto;
+  height: 1em;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28);
 }
 .hero h1 {
   max-width: 13em;
@@ -477,7 +501,7 @@
 }
 .imp-card {
   position: relative;
-  padding: clamp(28px, 4vw, 56px);
+  padding: clamp(24px, 3vw, 40px);
   border-radius: var(--radius-lg);
   background: var(--white);
   box-shadow: var(--shadow);
@@ -516,11 +540,11 @@
   --lift: clamp(24px, 3.4vw, 48px);
 }
 .imp-main {
-  --vfs: clamp(96px, 10vw, 160px);
+  --vfs: clamp(72px, 7.5vw, 112px);
   position: relative;
   display: grid;
-  gap: 32px;
-  margin-top: clamp(24px, 3vw, 40px);
+  gap: 24px;
+  margin-top: clamp(20px, 2.5vw, 32px);
 }
 /* «4×» above its label at every width (the label gets the full column,
    so «FIRST Global Challenge» never splits). */
@@ -552,7 +576,7 @@
 }
 .imp-label {
   max-width: 22ch;
-  font-size: clamp(1.25rem, 0.95rem + 0.9vw, 1.75rem);
+  font-size: clamp(1.125rem, 0.95rem + 0.6vw, 1.5rem);
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.025em;
@@ -641,7 +665,7 @@
    season logo struck in relief; the year and city sit under each coin.
    Hover (or a tap on touch screens) turns the coin to the logo in colour. */
 .imp-timeline {
-  --sm-size: min(56px, 18vw);
+  --sm-size: min(48px, 15vw);
   position: relative;
   display: grid;
   grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr));
@@ -800,13 +824,13 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
-  margin-top: 28px;
-  padding-top: 20px;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 16px;
   border-top: 1px solid var(--line);
 }
 .imp-note {
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   line-height: 1.5;
   color: var(--muted);
 }
@@ -815,19 +839,25 @@
   position: relative;
   flex: none;
 }
+/* a quiet text link (ⓘ + «Source»), not a boxed button */
 .imp-source-btn {
-  min-height: 44px;
-  padding: 8px 18px 8px 14px;
-  gap: 8px;
-  font-size: 0.9375rem;
+  min-height: 36px;
+  padding: 4px 0;
+  gap: 6px;
+  border-color: transparent;
+  background: none;
+  font-size: 0.875rem;
+  color: var(--muted);
 }
 .imp-source-btn svg {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   color: var(--blue);
 }
+.imp-source-btn:hover,
 .imp-source-btn[aria-expanded='true'] {
-  border-color: var(--blue);
+  border-color: transparent;
+  color: var(--blue);
 }
 .imp-pop {
   position: absolute;
@@ -863,26 +893,29 @@
    the stat | medal | timeline row above, so the card reads as one grid. */
 .imp-more {
   display: grid;
-  margin: clamp(28px, 3vw, 40px) 0 0;
+  margin: clamp(20px, 2.5vw, 32px) 0 0;
   padding: 0;
   border-top: 1px solid var(--line);
   list-style: none;
 }
 .imp-tile {
   display: grid;
-  gap: 12px;
+  gap: 10px;
   align-content: start;
-  padding: 20px 0;
+  padding: 14px 0;
 }
 .imp-tile + .imp-tile {
   border-top: 1px solid var(--line);
 }
+/* phones: the figure left, its label right, on one baseline */
 .imp-tile p {
   display: grid;
-  gap: 8px;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 4px 14px;
+  align-items: baseline;
 }
 .imp-tile-value {
-  font-size: clamp(2.25rem, 1.8rem + 1.2vw, 3rem);
+  font-size: clamp(1.75rem, 1.4rem + 1vw, 2.5rem);
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.04em;
@@ -892,11 +925,36 @@
 }
 .imp-tile-label {
   max-width: 30ch;
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   font-weight: 500;
   line-height: 1.45;
   color: var(--muted);
   text-wrap: balance;
+}
+/* a figure that is itself a link to its document (№ 514 → the order) */
+.imp-tile-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.1em;
+  color: inherit;
+  transition: color var(--dur) var(--ease);
+}
+.imp-tile-link svg {
+  align-self: center;
+  width: 0.5em;
+  height: 0.5em;
+  stroke-width: 2.5;
+  color: var(--blue);
+  transition: transform var(--dur) var(--ease);
+}
+.imp-tile-link:hover {
+  color: var(--blue);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.12em;
+}
+.imp-tile-link:hover svg {
+  transform: translate(2px, -2px);
 }
 
 @media (min-width: 600px) {
@@ -917,13 +975,13 @@
     right: auto;
     width: auto;
     height: auto;
-    min-height: 230px;
+    min-height: 184px;
   }
   .imp-side {
     grid-area: side;
   }
   .imp-timeline {
-    --sm-size: clamp(68px, 9vw, 88px);
+    --sm-size: clamp(60px, 8vw, 76px);
   }
   .imp-foot {
     flex-direction: row;
@@ -938,10 +996,14 @@
   .imp-more {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     column-gap: clamp(20px, 3vw, 40px);
-    padding-top: clamp(24px, 3vw, 36px);
+    padding-top: clamp(20px, 2.5vw, 28px);
   }
   .imp-tile {
     padding: 0;
+  }
+  .imp-tile p {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
   }
   .imp-tile + .imp-tile {
     border-top: 0;
@@ -959,14 +1021,14 @@
   }
   .imp-medal {
     align-self: stretch;
-    min-height: clamp(230px, 19vw, 280px);
+    min-height: clamp(184px, 15vw, 224px);
   }
   .imp-timeline {
-    --sm-size: clamp(64px, 5.6vw, 84px);
+    --sm-size: clamp(56px, 5vw, 72px);
   }
   .imp-label {
     max-width: 24ch;
-    font-size: clamp(1.125rem, 0.9rem + 0.5vw, 1.375rem);
+    font-size: clamp(1.0625rem, 0.9rem + 0.35vw, 1.25rem);
   }
 }
 @media (min-width: 1280px) {
@@ -1023,8 +1085,8 @@
 }
 
 /* ---------- Audiences: «who it is for» index under the numbers ----------
- * Five plain entry points split by hairlines: one column of rows on
- * phones, two columns on tablets, one row of five from 1024px. The title
+ * Four plain entry points split by hairlines: one column of rows on
+ * phones, two columns on tablets, one row of four from 1024px. The title
  * carries a small arrow that slides on hover; no cards, no icons.     */
 .imp-overlap:has(+ .home-audiences) {
   padding-bottom: clamp(32px, 4vw, 56px);
@@ -1091,7 +1153,7 @@
 }
 @media (min-width: 1024px) {
   .aud-list {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     column-gap: 0;
     border-bottom: 1px solid var(--line);
   }
@@ -1112,11 +1174,97 @@
   }
 }
 
+/* ---------- USTEM Academy ----------
+ * Its own block between Competitions and Projects: the artwork in a rounded
+ * mask beside the two programs as plain rows (name with an arrow, one line,
+ * hours · modules) split by hairlines; the whole row is the link. Stacked
+ * up to 1023px (a 2:1 crop of the artwork), artwork | rows from 1024px.  */
+.home-academy-grid {
+  display: grid;
+  gap: 32px;
+}
+.home-academy-media {
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--paper);
+  aspect-ratio: 2 / 1;
+  isolation: isolate;
+}
+.home-academy-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.home-academy-list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+.home-academy-item {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+}
+.home-academy-title {
+  font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.home-academy-title a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color var(--dur) var(--ease);
+}
+.home-academy-title svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2;
+  color: var(--blue);
+  transition: transform var(--dur) var(--ease);
+}
+.home-academy-item:hover .home-academy-title a {
+  color: var(--blue);
+}
+.home-academy-item:hover .home-academy-title svg {
+  transform: translateX(4px);
+}
+.home-academy-text {
+  max-width: 52ch;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.home-academy-meta {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--blue);
+}
+@media (min-width: 1024px) {
+  .home-academy-grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: start;
+    gap: clamp(40px, 5vw, 80px);
+  }
+  .home-academy-media {
+    border-radius: var(--radius-lg);
+    aspect-ratio: 800 / 540;
+  }
+  .home-academy-item {
+    padding: 24px 0;
+  }
+}
+
 /* ---------- 6.4 Projects ----------
- * Heading row (title, lead, «Все проекты»), then three equal cards on one
- * baseline: one column on phones (the full 2:1 artwork), three columns
- * from 768px (a 3:2 crop — every logo sits inside the middle 60% of its
- * cover). The artwork is full-bleed in a rounded mask, the label, title,
+ * Heading row (title, lead, «Все проекты»), then two equal cards on one
+ * baseline: one column on phones, two columns from 768px, the full 2:1
+ * artwork at every width (USTEM Academy has its own block above).
+ * The artwork is full-bleed in a rounded mask, the label, title,
  * "go" circle and one line below: the same anatomy as the flagship
  * competition cards above, so both sections read as one system.        */
 .home-projects-grid {
@@ -1222,11 +1370,8 @@
 
 @media (min-width: 768px) {
   .home-projects-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 20px;
-  }
-  .home .home-project-media {
-    aspect-ratio: 3 / 2;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
   }
 }
 /* 768–1023: narrow columns keep the width for the text; the stretched
@@ -1245,9 +1390,10 @@
   }
 }
 
-/* ---------- 6.5 Trust: President + testimonials ----------
- * On --paper: the photo in a rounded mask (intrinsic 6676×4684 ratio, never
- * a fixed-height crop) next to a calm text column; then airy white cards. */
+/* ---------- 6.5 Trust: official mentions + testimonials ----------
+ * On --paper: the newest official mention as the large card — the photo in
+ * a rounded mask at its own ratio (never a fixed-height crop) next to a calm
+ * text column — the older mentions as rows, then airy white cards.      */
 .home-president {
   display: grid;
   gap: 32px;
@@ -1258,10 +1404,9 @@
   background: var(--line);
 }
 .home-president-media img {
+  /* its own ratio, from the width/height attributes */
   width: 100%;
   height: auto;
-  aspect-ratio: 6676 / 4684;
-  object-fit: cover;
 }
 .home-president-body {
   display: flex;
@@ -1282,9 +1427,13 @@
   line-height: 1.6;
   color: var(--muted);
 }
-.home-president-caption {
+.home-president-meta {
   font-size: 0.875rem;
-  color: var(--muted);
+  font-weight: 600;
+  color: var(--blue);
+}
+.home-president-meta + h3 {
+  margin-top: -6px;
 }
 .home-president .link-arrow {
   margin-top: 4px;
@@ -1297,7 +1446,7 @@
   }
 }
 
-/* Two more official mentions under the President: plain rows (a small
+/* The older official mentions under the large card: plain rows (a small
    rounded photo + text), split by a hairline; side by side from 1024px. */
 .trust-more {
   display: grid;

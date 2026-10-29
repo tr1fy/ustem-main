@@ -10,6 +10,7 @@
  * masked to the people's silhouettes → circles 2 and 1 → labels → copy. A
  * photo and its silhouette share one src, so each is downloaded and decoded
  * once; the masks are the alpha of each cut-out on its photo's own canvas.
+ * The line above the heading names the three countries with their flags.
  * Server component — the entrance and the crossfade are pure CSS.
  */
 import { ArrowRightIcon } from '@heroicons/react/24/outline'
@@ -100,7 +101,23 @@ export default function Hero({ locale }: { locale: string }) {
   return (
     <section className='hero' aria-labelledby='hero-title'>
       <div className='container hero-content'>
-        <p className='hero-geo'>{t(site.geography)}</p>
+        {/* The three countries with their flags; the «·» separators are
+            CSS, so the line still reads as plain text. */}
+        <p className='hero-geo'>
+          {site.countries.map(country => (
+            <span className='hero-geo-item' key={country.code}>
+              <img
+                className='hero-flag'
+                src={country.flag}
+                alt=''
+                width={country.width}
+                height={country.height}
+                decoding='async'
+              />
+              {t(country.name)}
+            </span>
+          ))}
+        </p>
         <h1 id='hero-title'>{t(ui.heroTitle)}</h1>
         <p className='hero-text'>
           {sentences.map(sentence => (

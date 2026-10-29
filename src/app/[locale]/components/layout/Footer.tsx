@@ -162,15 +162,18 @@ export default function Footer() {
             <h2 className='ftr-title ftr-in' style={order(0)}>
               {t(ui.footerTitle)}
             </h2>
+            <p className='ftr-lead ftr-in' style={order(1)}>
+              {t(ui.footerLead)}
+            </p>
             <div className='ftr-reach'>
               <a
                 className='ftr-email ftr-in'
-                style={order(1)}
+                style={order(2)}
                 href={`mailto:${site.email}`}
               >
                 {site.email}
               </a>
-              <div className='ftr-reach-row ftr-in' style={order(2)}>
+              <div className='ftr-reach-row ftr-in' style={order(3)}>
                 <a className='ftr-phone' href={site.phone.href}>
                   {site.phone.display}
                 </a>
@@ -221,7 +224,7 @@ export default function Footer() {
         )}
 
         <div className='ftr-grid'>
-          <div className='ftr-brand ftr-in' style={order(3)}>
+          <div className='ftr-brand ftr-in' style={order(4)}>
             <Link href='/' className='ftr-logo' aria-label={site.name}>
               {/* Official white logo (guideline «Logo on blue»). */}
               <img
@@ -241,7 +244,7 @@ export default function Footer() {
 
           <nav
             className='ftr-col ftr-col-nav ftr-in'
-            style={order(4)}
+            style={order(5)}
             aria-labelledby='ftr-nav-title'
           >
             <h3 id='ftr-nav-title'>{t(ui.navigation)}</h3>
@@ -256,7 +259,7 @@ export default function Footer() {
 
           <nav
             className='ftr-col ftr-in'
-            style={order(5)}
+            style={order(6)}
             aria-labelledby='ftr-about-title'
           >
             <h3 id='ftr-about-title'>{t(ui.aboutFund)}</h3>
@@ -271,7 +274,7 @@ export default function Footer() {
 
           <nav
             className='ftr-col ftr-col-social ftr-in'
-            style={order(6)}
+            style={order(7)}
             aria-labelledby='ftr-social-title'
           >
             <h3 id='ftr-social-title'>{t(ui.socials)}</h3>
