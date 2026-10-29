@@ -1,7 +1,7 @@
 /**
- * Homepage sections after the hero (TZ §6):
- * Numbers → Audiences → Competitions → Projects → Trust → Partner logos →
- * News → Partners card.
+ * Homepage sections after the hero (TZ §6; order revised 2026-10-29):
+ * Numbers → Audiences → Competitions → Academy → Projects → Trust →
+ * Partner logos → News → Partners card.
  * The partner logo band follows Trust (who stands behind the foundation),
  * so the page no longer ends on three blue blocks in a row (logo band,
  * Partners card, footer).
@@ -18,9 +18,9 @@ import { ArrowRightIcon, ArrowUpRightIcon } from '@heroicons/react/24/outline'
 import { Link } from '@/i18n/routing'
 import { imageVariant } from '@/lib/image-variant'
 import {
+  academyPrograms,
   audiences,
   localize,
-  president,
   projects,
   trustItems,
   ui,
@@ -41,13 +41,6 @@ const newTab = words(
   '(жаңа бетте ашылады)',
   '(откроется в новой вкладке)',
   '(opens in a new tab)'
-)
-
-/** Same caption in every language; only the source name is transliterated. */
-const presidentCaption = words(
-  'Digital Bridge · 2023 · © Ақорда',
-  'Digital Bridge · 2023 · © Акорда',
-  'Digital Bridge · 2023 · © Akorda'
 )
 
 /** The Partners card photo: Team Kazakhstan tossing a teammate at the
@@ -110,7 +103,7 @@ const partnersPhoto = {
   height: 1472
 }
 
-/** «Who it is for»: one plain row of five entry points under the numbers —
+/** «Who it is for»: one plain row of four entry points under the numbers —
     a title, one line and a small arrow each, split by hairlines. No cards
     and no icons, so it reads as an index rather than another block. */
 function Audiences({ locale }: { locale: string }) {
@@ -195,7 +188,7 @@ function ProjectCard({
           <img
             src={project.cover}
             srcSet={cover?.srcSet}
-            sizes='(min-width: 1280px) 400px, (min-width: 768px) 32vw, 92vw'
+            sizes='(min-width: 1280px) 600px, (min-width: 768px) 48vw, 92vw'
             alt=''
             width={cover?.width ?? 1800}
             height={cover?.height ?? 900}
@@ -235,6 +228,81 @@ function ProjectCard({
   )
 }
 
+/** USTEM Academy as its own block between Competitions and Projects (the
+    order chosen on 2026-10-29): the artwork beside the two programs as
+    plain rows — the name with an arrow, one line and the scope — each
+    leading to that program on /academy. */
+function Academy({ locale }: { locale: string }) {
+  const academy = projects.find(project => project.slug === 'academy')
+  const cover = projectCovers.academy
+  if (!academy) return null
+  return (
+    <section
+      id='academy'
+      className='section home-academy'
+      aria-labelledby='academy-title'
+    >
+      <div className='container'>
+        <Reveal className='home-rv'>
+          <div className='rv' style={order(0)}>
+            <SectionHead
+              id='academy-title'
+              title={academy.title}
+              lead={localize(academy.fact, locale)}
+              action={
+                <ArrowLink href='/academy'>
+                  {localize(ui.moreDetails, locale)}
+                </ArrowLink>
+              }
+            />
+          </div>
+          <div className='home-academy-grid'>
+            <div className='home-academy-media rv' style={order(1)}>
+              <img
+                src={academy.cover}
+                srcSet={cover.srcSet}
+                sizes='(min-width: 1280px) 480px, (min-width: 1024px) 40vw, 92vw'
+                alt=''
+                width={cover.width}
+                height={cover.height}
+                loading='lazy'
+                decoding='async'
+              />
+            </div>
+            <ul className='home-academy-list' role='list'>
+              {academyPrograms.map((program, i) => (
+                <li
+                  className='home-academy-item rv'
+                  style={order(2 + i)}
+                  key={program.slug}
+                >
+                  <h3 className='home-academy-title'>
+                    {/* stretched over the whole row (.card-link) */}
+                    <Link
+                      className='card-link'
+                      href={`/academy#pg-${program.slug}`}
+                    >
+                      {program.title}
+                      <ArrowRightIcon aria-hidden='true' />
+                    </Link>
+                  </h3>
+                  <p className='home-academy-text'>
+                    {localize(program.text, locale)}
+                  </p>
+                  {/* keep «80» and «академиялық» on one line */}
+                  <p className='home-academy-meta'>
+                    {localize(program.meta, locale).replace(/(\d) /g, '$1\u00a0')}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  )
+}
+
 function Projects({ locale }: { locale: string }) {
   return (
     <section
@@ -243,8 +311,9 @@ function Projects({ locale }: { locale: string }) {
       aria-labelledby='projects-title'
     >
       <div className='container'>
-        {/* Heading row like Competitions, then three equal cards on one
-            baseline: every artwork the same size, text always below. */}
+        {/* Heading row like Competitions, then two equal cards on one
+            baseline: every artwork the same size, text always below.
+            USTEM Academy has its own block above (Academy). */}
         <Reveal className='home-rv'>
           <div className='rv' style={order(0)}>
             <SectionHead
@@ -259,11 +328,13 @@ function Projects({ locale }: { locale: string }) {
             />
           </div>
           <ul className='home-projects-grid' role='list'>
-            {projects.map((project, i) => (
-              <li className='rv' style={order(i + 1)} key={project.slug}>
-                <ProjectCard project={project} locale={locale} />
-              </li>
-            ))}
+            {projects
+              .filter(project => project.slug !== 'academy')
+              .map((project, i) => (
+                <li className='rv' style={order(i + 1)} key={project.slug}>
+                  <ProjectCard project={project} locale={locale} />
+                </li>
+              ))}
           </ul>
         </Reveal>
         {/* Supporter logos (TZ §6.4) appear here once written consent exists. */}
@@ -273,6 +344,8 @@ function Projects({ locale }: { locale: string }) {
 }
 
 function Trust({ locale }: { locale: string }) {
+  // The newest official mention is the large card, the rest are rows.
+  const [feature, ...rest] = trustItems
   return (
     <section
       id='trust'
@@ -284,44 +357,46 @@ function Trust({ locale }: { locale: string }) {
           <div className='rv' style={order(0)}>
             <SectionHead id='trust-title' title={localize(ui.trustTitle, locale)} />
           </div>
-          <article className='home-president' aria-labelledby='president-title'>
+          <article
+            className='home-president'
+            aria-labelledby='trust-feature-title'
+          >
+            {/* the photo at its own ratio in a rounded mask (never a
+                fixed-height crop); WebP sizes from image-variant */}
             <div className='home-president-media rv' style={order(1)}>
-              <picture>
-                <source
-                  type='image/webp'
-                  srcSet={[800, 1200, 1600]
-                    .map(w => `/images/home/president-${w}.webp ${w}w`)
-                    .join(', ')}
-                  sizes='(min-width: 1440px) 750px, (min-width: 1024px) 56vw, 100vw'
-                />
-                <img
-                  src={president.photo}
-                  alt={localize(president.alt, locale)}
-                  width={6676}
-                  height={4684}
-                  loading='lazy'
-                  decoding='async'
-                />
-              </picture>
+              <img
+                src={feature.photo.src}
+                srcSet={[640, 828, 1080, 1200]
+                  .map(w => `${imageVariant(feature.photo.src, w)} ${w}w`)
+                  .join(', ')}
+                sizes='(min-width: 1440px) 750px, (min-width: 1024px) 56vw, 100vw'
+                alt={localize(feature.alt, locale)}
+                width={feature.photo.width}
+                height={feature.photo.height}
+                loading='lazy'
+                decoding='async'
+              />
             </div>
             <div className='home-president-body rv' style={order(2)}>
-              <h3 id='president-title'>{localize(president.title, locale)}</h3>
+              <p className='home-president-meta'>
+                {localize(feature.meta, locale)}
+              </p>
+              <h3 id='trust-feature-title'>
+                {localize(feature.title, locale)}
+              </h3>
               <p className='home-president-text'>
-                {localize(president.text, locale)}
+                {localize(feature.text, locale)}
               </p>
-              <p className='home-president-caption'>
-                {localize(presidentCaption, locale)}
-              </p>
-              <ArrowLink href={president.url} external>
-                {localize(president.link, locale)}
+              <ArrowLink href={feature.url} external>
+                {localize(feature.link, locale)}
                 <span className='visually-hidden'> {localize(newTab, locale)}</span>
               </ArrowLink>
             </div>
           </article>
-          {/* Two more official mentions as plain rows: a small photo, the
+          {/* The older official mentions as plain rows: a small photo, the
               source and date, the title and its link. No card boxes. */}
           <ul className='trust-more' role='list'>
-            {trustItems.map((item, i) => (
+            {rest.map((item, i) => (
               <li className='trust-item rv' style={order(3 + i)} key={item.key}>
                 <div className='trust-thumb'>
                   <img
@@ -352,7 +427,7 @@ function Trust({ locale }: { locale: string }) {
               </li>
             ))}
           </ul>
-          <div className='rv' style={order(3 + trustItems.length)}>
+          <div className='rv' style={order(3 + rest.length)}>
             <Testimonials />
           </div>
         </Reveal>
@@ -457,6 +532,7 @@ export default function HomeSections({ locale }: { locale: string }) {
       <ImpactCard variant='overlap' />
       <Audiences locale={locale} />
       <Competitions locale={locale} />
+      <Academy locale={locale} />
       <Projects locale={locale} />
       <Trust locale={locale} />
       <PartnerLogoBand locale={locale} />

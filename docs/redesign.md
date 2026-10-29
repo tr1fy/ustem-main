@@ -37,6 +37,9 @@ All photography is documentary; no AI-generated or stock photographs.
 - `public/images/president.jpg`: original 6676 × 4684 Akorda photograph, USTEM
   stand at Digital Bridge 2023.
   https://www.akorda.kz/assets/media/uploadMedia/1697099485_KZ1_5184_2.jpg
+- `public/images/flags/{kz,uz,kg}.svg`: national flags from the
+  `svg-country-flags` npm package (1.2.10, public domain; the drawings are
+  Wikimedia Commons files), official proportions, unchanged.
 - President story:
   https://www.akorda.kz/ru/kasym-zhomart-tokaev-posetil-vystavku-na-mezhdunarodnom-tehnologicheskom-forume-digital-bridge-1291855
 - `public/images/selection.jpg`: FIRST Global Central Asia, August 2026.
@@ -44,9 +47,11 @@ All photography is documentary; no AI-generated or stock photographs.
 - `public/images/robocon.jpg`: ABU Robocon, August 2026.
   https://www.gov.kz/memleket/entities/sci/press/news/details/1279661?lang=ru
 
-The President image uses intrinsic dimensions, width 100%, height auto and
-object-fit contain. Keep this behavior at every breakpoint. Do not use a
-background image or fixed-height crop for it.
+The large card of the trust block shows its photo at intrinsic dimensions,
+width 100%, height auto. Keep this behavior at every breakpoint. Do not use a
+background image or fixed-height crop for it. Since 2026-10-29 the large card
+is the 2025 Akorda photo (`public/images/akorda-2025.jpg`); the 2023 photo is
+a row thumbnail, cropped with object-position like the other rows.
 
 ## Basic-stage boundaries
 

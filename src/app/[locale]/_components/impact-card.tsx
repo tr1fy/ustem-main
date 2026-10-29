@@ -13,11 +13,13 @@
  * three.js loaded lazily); each title on the timeline is a gold coin
  * (./season-medal) with the season logo in relief and the year and city
  * printed under it; hover or a tap turns it to the logo in colour. The
- * further metrics line up with the stat | medal | timeline columns.
+ * further metrics line up with the stat | medal | timeline columns; a
+ * metric with `href` (№ 514) prints its figure as a link to the document.
  * Server component: only the count-up (./reveal), the source popover
  * (./impact-source) and the 3D medal run on the client.
  */
 import type { CSSProperties } from 'react'
+import { ArrowUpRightIcon } from '@heroicons/react/24/outline'
 import { useLocale } from 'next-intl'
 import {
   localize,
@@ -239,7 +241,23 @@ export default function ImpactCard({
                 <li className='imp-tile' key={metric.id}>
                   <p>
                     <span className='imp-tile-value'>
-                      <Value metric={metric} locale={locale} />
+                      {metric.href ? (
+                        <a
+                          className='imp-tile-link'
+                          href={localize(metric.href, locale)}
+                          target='_blank'
+                          rel='noreferrer'
+                        >
+                          <Value metric={metric} locale={locale} />
+                          <ArrowUpRightIcon aria-hidden='true' />
+                          <span className='visually-hidden'>
+                            {' '}
+                            {localize(newTab, locale)}
+                          </span>
+                        </a>
+                      ) : (
+                        <Value metric={metric} locale={locale} />
+                      )}
                     </span>
                     <span className='imp-tile-label'>
                       <Label text={localize(metric.label, locale)} />

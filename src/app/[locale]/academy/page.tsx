@@ -1,7 +1,13 @@
 import type { CSSProperties } from 'react'
 import type { Metadata } from 'next'
 import { ArrowDownIcon, ArrowRightIcon } from '@heroicons/react/24/outline'
-import { copy, localize, site, words, type Localized } from '@/lib/site-content'
+import {
+  academyPrograms,
+  localize,
+  site,
+  words,
+  type Localized
+} from '@/lib/site-content'
 import { alternatesFor, htmlLang } from '@/lib/seo'
 import { PageHead, SectionHead } from '../_components/ui'
 import { Reveal } from '../_components/reveal'
@@ -65,26 +71,6 @@ const photo = {
   width: 1085,
   height: 1628
 }
-
-const programs: {
-  slug: string
-  title: string
-  text: Localized
-  meta: Localized
-}[] = [
-  {
-    slug: 'robotics-lab',
-    title: 'Robotics Lab',
-    text: copy.roboticsLabText,
-    meta: copy.roboticsLabMeta
-  },
-  {
-    slug: 'space-lab',
-    title: 'Space Lab',
-    text: copy.spaceLabText,
-    meta: copy.spaceLabMeta
-  }
-]
 
 export function generateMetadata({
   params: { locale }
@@ -155,7 +141,7 @@ export default function AcademyPage({
           <SectionHead id='pg-programs-title' title={t(text.programs)} />
           <Reveal className='pg-stagger'>
             <div className='pg-programs'>
-              {programs.map((program, index) => (
+              {academyPrograms.map((program, index) => (
                 <article
                   className='pg-program pg-item'
                   key={program.slug}

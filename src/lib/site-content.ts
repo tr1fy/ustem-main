@@ -616,11 +616,38 @@ export const site = {
     'Қазақстан · Өзбекстан · Қырғызстан',
     'Казахстан · Узбекистан · Кыргызстан',
     'Kazakhstan · Uzbekistan · Kyrgyzstan'
-  )
+  ),
+  /** The same three countries with their flags (the hero line). The SVGs
+      in /public/images/flags keep the official proportions. */
+  countries: [
+    {
+      code: 'kz',
+      name: words('Қазақстан', 'Казахстан', 'Kazakhstan'),
+      flag: '/images/flags/kz.svg',
+      width: 2000,
+      height: 1000
+    },
+    {
+      code: 'uz',
+      name: words('Өзбекстан', 'Узбекистан', 'Uzbekistan'),
+      flag: '/images/flags/uz.svg',
+      width: 500,
+      height: 250
+    },
+    {
+      code: 'kg',
+      name: words('Қырғызстан', 'Кыргызстан', 'Kyrgyzstan'),
+      flag: '/images/flags/kg.svg',
+      width: 1000,
+      height: 600
+    }
+  ]
 }
 
 /** Homepage «who is it for» index under the numbers: one plain row of
-    entry points, each leading to the page that answers that visitor. */
+    four entry points, each leading to the page that answers that visitor.
+    (The FIRST «teams and mentors» row was dropped on 2026-10-29: the
+    competitions row already covers it.) */
 export const audiences: {
   key: string
   title: Localized
@@ -638,26 +665,12 @@ export const audiences: {
     href: '/competitions'
   },
   {
-    key: 'teams',
-    title: words(
-      'Командалар мен тәлімгерлерге',
-      'Командам и наставникам',
-      'Teams and mentors'
-    ),
-    text: words(
-      'FIRST 2026–2027 маусымы: бағдарламалар, жас топтары, тіркелу.',
-      'Сезон FIRST 2026–2027: программы, возраст, регистрация.',
-      'FIRST 2026–2027 season: programs, age groups, registration.'
-    ),
-    href: '/competitions/first-robotics'
-  },
-  {
     key: 'teachers',
     title: words('Педагогтерге', 'Педагогам', 'Teachers'),
     text: words(
-      'USTEM Academy: Robotics Lab және Space Lab бағдарламалары.',
-      'USTEM Academy: программы Robotics Lab и Space Lab.',
-      'USTEM Academy: the Robotics Lab and Space Lab programs.'
+      'USTEM Academy: робототехника мен ғарыш бойынша біліктілікті арттыру бағдарламалары.',
+      'USTEM Academy: программы повышения квалификации по робототехнике и космосу.',
+      'USTEM Academy: professional development programs in robotics and space.'
     ),
     href: '/academy'
   },
@@ -722,15 +735,17 @@ export const languages = [
 
 /** Text used by the TZ v1.0 layout. Exact wording comes from the TZ. */
 export const ui = {
+  // Wording chosen by the foundation on 2026-10-29 (homepage TZ, items 3
+  // and 4): no full stop after the heading, one sentence of description.
   heroTitle: words(
-    'Инженерлік білімді дамытатын қор.',
-    'Фонд развития инженерного образования.',
-    'The foundation advancing engineering education.'
+    'Инженерлік білімді дамытатын қор',
+    'Фонд развития инженерного образования',
+    'The foundation advancing engineering education'
   ),
   heroText: words(
-    'USTEM Foundation балаларды, педагогтерді және серіктестерді ғылым мен технология төңірегінде біріктіреді. Жарыстар ұйымдастырамыз, мұғалімдерді оқытамыз және жас инженерлердің бастамаларын қолдаймыз.',
-    'USTEM Foundation объединяет детей, педагогов и партнёров вокруг науки и технологий. Проводим соревнования, обучаем учителей и поддерживаем инициативы молодых инженеров.',
-    'USTEM Foundation brings students, educators and partners together around science and technology. We run competitions, train teachers and support young engineers’ initiatives.'
+    'USTEM Foundation балаларды, педагогтерді және серіктестерді ғылым мен технология төңірегінде біріктіреді: жарыстар өткізеді, педагогтерді оқытады және жас инженерлерді қолдайды.',
+    'USTEM Foundation объединяет детей, педагогов и партнёров вокруг науки и технологий: проводит соревнования, обучает педагогов и поддерживает молодых инженеров.',
+    'USTEM Foundation brings students, teachers and partners together around science and technology: it runs competitions, trains teachers and supports young engineers.'
   ),
   heroCta: words('Жарыстарды көру', 'Смотреть соревнования', 'Explore competitions'),
   heroAbout: words('Біз туралы', 'О нас', 'About us'),
@@ -786,9 +801,9 @@ export const ui = {
   source: words('Дереккөз', 'Источник', 'Source'),
   sourceAsOf: words('Дерек күні', 'Актуально на', 'As of'),
   competitionsTitle: words(
-    'Үш флагман іс-шара және жыл бойы жалғасатын сегіз бағыттағы жарыс.',
-    'Три флагманских события и восемь направлений соревнований круглый год.',
-    'Three flagship events and eight competition tracks all year round.'
+    'Үш флагман іс-шара және жыл бойы — сегіз бағыт бойынша жарыстар',
+    'Три флагманских события и круглый год — соревнования по восьми направлениям',
+    'Three flagship events and, all year round, competitions in eight tracks'
   ),
   competitionsLead: connectEnabled
     ? words(
@@ -840,7 +855,11 @@ export const ui = {
     'Образовательные, общественные и технологические проекты.',
     'Education, community and technology projects.'
   ),
-  trustTitle: words('Бізге сенеді.', 'Нам доверяют.', 'They trust us.'),
+  trustTitle: words(
+    'Сенім мен мойындау',
+    'Доверие и признание',
+    'Trust and recognition'
+  ),
   newsTitle: words('Жаңалықтар', 'Новости', 'News'),
   allNews: words('Барлық жаңалықтар', 'Все новости', 'All news'),
   newsAll: words('Барлығы', 'Все', 'All'),
@@ -867,7 +886,17 @@ export const ui = {
     'Поддержите первый шаг юных инженеров.',
     'Support young engineers’ first step.'
   ),
-  footerTitle: words('Байланыста болайық.', 'Давайте на связи.', 'Get in touch.'),
+  footerTitle: words(
+    'Ынтымақтастыққа ашықпыз',
+    'Открыты к сотрудничеству',
+    'Open to collaboration'
+  ),
+  /** One line under the footer heading, addressed to every audience. */
+  footerLead: words(
+    'Бағдарламалар, жарыстар немесе бірлескен жобалар туралы сұрағыңыз болса, жазыңыз.',
+    'Если у вас есть вопрос о программах, соревнованиях или совместных проектах — напишите нам.',
+    'Have a question about our programs, competitions or joint projects? Write to us.'
+  ),
   footerDescription: words(
     'Инженерлік білімді дамытатын қор.',
     'Фонд развития инженерного образования.',
@@ -901,6 +930,8 @@ export const metrics: {
   suffix?: string
   label: Localized
   status: VerificationStatus
+  /** The figure itself links here (the document it refers to). */
+  href?: Localized
   source?: { label: Localized; url: string; asOf: string }
   timeline?: { year: number; place: Localized }[]
   note?: Localized
@@ -961,14 +992,23 @@ export const metrics: {
     status: 'verified'
   },
   {
-    // Confirmed by the foundation on 2026-10-14; wording kept as supplied.
+    // Confirmed by the foundation on 2026-10-14; wording kept as supplied
+    // (the «(order)» tail dropped on 2026-10-29, since the figure now links
+    // to the order itself). The link is the Ministry of Education and
+    // Science order of 7 December 2011 No. 514 on adilet.zan.kz; the
+    // foundation has not yet confirmed that this is the order meant.
     id: 'order-514',
     value: null,
     display: words('№ 514', '№ 514', 'No. 514'),
     label: words(
-      'ҚР Оқу-ағарту министрлігі ұсынатын жарыстар тізімінде (бұйрық)',
-      'в списке соревнований, рекомендуемых Министерством просвещения РК (приказ)',
-      'on the list of competitions recommended by the Ministry of Education of Kazakhstan (order)'
+      'ҚР Оқу-ағарту министрлігі ұсынатын жарыстар тізімінде',
+      'в списке соревнований, рекомендуемых Министерством просвещения РК',
+      'on the list of competitions recommended by the Ministry of Education of Kazakhstan'
+    ),
+    href: words(
+      'https://adilet.zan.kz/kaz/docs/V1100007355',
+      'https://adilet.zan.kz/rus/docs/V1100007355',
+      'https://adilet.zan.kz/rus/docs/V1100007355'
     ),
     status: 'verified'
   }
@@ -1388,32 +1428,32 @@ export const partnerLogos: {
   { slug: 'dmu-kazakhstan', name: 'De Montfort University Kazakhstan', w: 101, h: 43 }
 ]
 
-/** President card (TZ §6.5): a verified visit fact, never a quote. */
-export const president = {
-  title: words(
-    'Президент USTEM стендіне барды',
-    'Президент посетил стенд USTEM',
-    'The President visited the USTEM stand'
-  ),
-  text: words(
-    '2023 жылғы 12 қазанда Мемлекет басшысы Digital Bridge форумының көрмесіне барып, робототехника аймағында USTEM Foundation жобаларымен танысты.',
-    '12 октября 2023 года Глава государства посетил выставку форума Digital Bridge и в зоне робототехники ознакомился с проектами USTEM Foundation.',
-    'On 12 October 2023 the Head of State visited the Digital Bridge forum exhibition and was introduced to USTEM Foundation projects in the robotics zone.'
-  ),
-  caption: 'Digital Bridge · 2023 · © Ақорда',
-  link: words('Ақорда материалын оқу', 'Читать материал Акорды', 'Read the Akorda article'),
-  url: presidentSource,
-  photo: '/images/president.jpg',
-  alt: words(
-    'Мемлекет басшысы Digital Bridge 2023 көрмесіндегі USTEM Foundation стендінде',
-    'Глава государства у стенда USTEM Foundation на выставке Digital Bridge 2023',
-    'The Head of State at the USTEM Foundation stand, Digital Bridge 2023'
-  )
-}
+/** USTEM Academy programs (TZ §8.2), shown on /academy and in the homepage
+    Academy block. The names are never translated (TZ §5.1). */
+export const academyPrograms: {
+  slug: string
+  title: string
+  text: Localized
+  meta: Localized
+}[] = [
+  {
+    slug: 'robotics-lab',
+    title: 'Robotics Lab',
+    text: copy.roboticsLabText,
+    meta: copy.roboticsLabMeta
+  },
+  {
+    slug: 'space-lab',
+    title: 'Space Lab',
+    text: copy.spaceLabText,
+    meta: copy.spaceLabMeta
+  }
+]
 
-/** Trust block (TZ §6.5): two more official mentions under the President's
-    2023 visit, newest first. Confirmed by the foundation on 2026-10-14;
-    the Akorda release lists «ОФ «Ustem Foundation»» among the exhibitors. */
+/** Trust block (TZ §6.5): official mentions, newest first — the homepage
+    shows the first as the large card and the rest as rows. Verified visit
+    facts, never quotes. Confirmed by the foundation on 2026-10-14; the 2025
+    Akorda release lists «ОФ «Ustem Foundation»» among the exhibitors. */
 export const trustItems: {
   key: string
   meta: Localized
@@ -1444,6 +1484,43 @@ export const trustItems: {
       'Қасым-Жомарт Тоқаев цифрлық шешімдер көрмесінде USTEM Foundation өкілімен сөйлесіп тұр',
       'Касым-Жомарт Токаев беседует с представителем USTEM Foundation на выставке цифровых решений',
       'Kassym-Jomart Tokayev talking with a USTEM Foundation representative at the digital solutions exhibition'
+    )
+  },
+  {
+    key: 'akorda-2023',
+    meta: words(
+      'Ақорда · 2023 жылғы 12 қазан',
+      'Акорда · 12 октября 2023',
+      'Akorda · 12 October 2023'
+    ),
+    title: words(
+      'Мемлекет басшысы Digital Bridge 2023 көрмесінде USTEM Foundation жобаларымен танысты',
+      'Глава государства ознакомился с проектами USTEM Foundation на выставке Digital Bridge 2023',
+      'The Head of State viewed USTEM Foundation projects at the Digital Bridge 2023 exhibition'
+    ),
+    text: words(
+      '2023 жылғы 12 қазанда Мемлекет басшысы Digital Bridge форумының көрмесіне барып, робототехника аймағында USTEM Foundation жобаларымен танысты.',
+      '12 октября 2023 года Глава государства посетил выставку форума Digital Bridge и в зоне робототехники ознакомился с проектами USTEM Foundation.',
+      'On 12 October 2023 the Head of State visited the Digital Bridge forum exhibition and was introduced to USTEM Foundation projects in the robotics zone.'
+    ),
+    url: presidentSource,
+    link: words(
+      'Ақорда материалын оқу',
+      'Читать материал Акорды',
+      'Read the Akorda article'
+    ),
+    // The original 6676×4684 Akorda photograph; the row thumbnail crops it
+    // around the President and the USTEM stand.
+    photo: {
+      src: '/images/president.jpg',
+      width: 6676,
+      height: 4684,
+      position: '55% 45%'
+    },
+    alt: words(
+      'Мемлекет басшысы Digital Bridge 2023 көрмесіндегі USTEM Foundation стендінде',
+      'Глава государства у стенда USTEM Foundation на выставке Digital Bridge 2023',
+      'The Head of State at the USTEM Foundation stand, Digital Bridge 2023'
     )
   },
   {
