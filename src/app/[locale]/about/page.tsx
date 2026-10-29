@@ -88,16 +88,31 @@ const text = {
   leadership: words('Басшылық', 'Руководство', 'Leadership'),
   leaders: [
     {
+      photo: '/images/people/founder-asylbek-640.jpg',
       name: words('Асылбек Мырзахметов', 'Асылбек Мырзахметов', 'Asylbek Myrzakhmetov'),
       role: words('Тең құрылтайшы, қор басшысы', 'Сооснователь, руководитель фонда', 'Co-founder, head of the foundation'),
       line: words('FIRST Program Delivery Partner · ҚР робототехника құрамасының жаттықтырушысы', 'FIRST Program Delivery Partner · тренер сборной РК по робототехнике', 'FIRST Program Delivery Partner · coach of the national robotics team')
     },
     {
+      photo: '/images/people/founder-nurdaulet-640.jpg',
       name: words('Нұрдәулет Досмағамбет', 'Нурдаулет Досмагамбет', 'Nurdaulet Dosmagambet'),
       role: words('Тең құрылтайшы', 'Сооснователь', 'Co-founder'),
       line: words('FIRST Program Delivery Partner · ҚР робототехника құрамасының жаттықтырушысы', 'FIRST Program Delivery Partner · тренер сборной РК по робототехнике', 'FIRST Program Delivery Partner · coach of the national robotics team')
     }
   ],
+  team: words('Команда', 'Команда', 'Team'),
+  teamText: words(
+    'Инженерлер, педагогтер, іс-шара менеджерлері және жаттықтырушылар — 30-дан астам маман. Жарыстарды, оқытуды және жобаларды Қазақстанда, Өзбекстанда және Қырғызстанда осы команда жүргізеді.',
+    'Инженеры, педагоги, менеджеры мероприятий и тренеры — более 30 специалистов. Соревнования, обучение и проекты в Казахстане, Узбекистане и Кыргызстане ведёт эта команда.',
+    'Engineers, educators, event managers and coaches: more than 30 specialists. This team runs the competitions, training and projects in Kazakhstan, Uzbekistan and Kyrgyzstan.'
+  ),
+  teamAlt: words(
+    'USTEM Foundation командасы жарыс алаңында',
+    'Команда USTEM Foundation на площадке соревнований',
+    'The USTEM Foundation team at a competition venue'
+  ),
+  ctaTitle: words('Бізге қосылыңыз', 'Присоединяйтесь', 'Join us'),
+  ctaRegister: words('Команда тіркеу', 'Зарегистрировать команду', 'Register a team'),
   where: words('Қайда жұмыс істейміз', 'Где мы работаем', 'Where we work'),
   countryLines: {
     kz: words('Бас кеңсе — Алматы. FIRST маусымдары, флагман іс-шаралар, USTEM Academy.', 'Головной офис — Алматы. Сезоны FIRST, флагманские события, USTEM Academy.', 'Head office in Almaty. FIRST seasons, flagship events, USTEM Academy.'),
@@ -259,8 +274,8 @@ export default function AboutPage({
           <ul className='pg-v2-people'>
             {text.leaders.map(person => (
               <li className='pg-v2-person' key={person.name.en}>
-                <div className='pg-v2-portrait' aria-hidden='true'>
-                  <span>{t(person.name).split(' ').map(part => part[0]).join('')}</span>
+                <div className='pg-v2-portrait'>
+                  <img src={person.photo} alt={t(person.name)} width={640} height={640} loading='lazy' decoding='async' />
                 </div>
                 <h3>{t(person.name)}</h3>
                 <p className='pg-person-role'>{t(person.role)}</p>
@@ -271,22 +286,22 @@ export default function AboutPage({
         </div>
       </section>
 
-      <section className='section' aria-labelledby='pg-where-title'>
-        <div className='container pg-v2-split'>
-          <div className='pg-v2-split-head'>
-            <h2 id='pg-where-title'>{t(text.where)}</h2>
+      <section className='section pg-v2-team' aria-labelledby='pg-team-title'>
+        <div className='container'>
+          <div className='pg-v2-team-media'>
+            <img
+              src='/images/people/team-staff-1132.jpg'
+              alt={t(text.teamAlt)}
+              width={1132}
+              height={794}
+              loading='lazy'
+              decoding='async'
+            />
           </div>
-          <ul className='pg-v2-rows pg-v2-geo'>
-            {site.countries.map(country => (
-              <li className='pg-v2-row' key={country.code}>
-                <img src={country.flag} alt='' width={40} height={20} />
-                <div>
-                  <h3>{t(country.name)}</h3>
-                  <p>{t(text.countryLines[country.code])}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
+          <div className='pg-v2-team-body'>
+            <h2 id='pg-team-title'>{t(text.team)}</h2>
+            <p>{t(text.teamText)}</p>
+          </div>
         </div>
       </section>
 
@@ -343,6 +358,22 @@ export default function AboutPage({
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      <section className='section pg-v2-cta' aria-labelledby='pg-cta-title'>
+        <div className='container pg-v2-cta-inner'>
+          <h2 id='pg-cta-title'>{t(text.ctaTitle)}</h2>
+          <div className='pg-v2-cta-actions'>
+            <a className='btn btn-primary' href={site.connectUrl} target='_blank' rel='noreferrer'>
+              {t(text.ctaRegister)}
+              <ArrowUpRightIcon aria-hidden='true' />
+            </a>
+            <Link className='btn btn-secondary' href='/partners'>
+              {t(ui.becomePartner)}
+              <ArrowRightIcon aria-hidden='true' />
+            </Link>
+          </div>
         </div>
       </section>
 
