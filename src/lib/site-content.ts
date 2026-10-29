@@ -1496,15 +1496,20 @@ export const trustItems: {
       'Акорда · 12 октября 2023',
       'Akorda · 12 October 2023'
     ),
+    // No year and a different verb from the 2025 card above it: the date
+    // line already says 2023, and the two titles read as one otherwise
+    // (the owner's remark of 2026-10-29).
     title: words(
-      'Мемлекет басшысы Digital Bridge 2023 көрмесінде USTEM Foundation жобаларымен танысты',
-      'Глава государства ознакомился с проектами USTEM Foundation на выставке Digital Bridge 2023',
-      'The Head of State viewed USTEM Foundation projects at the Digital Bridge 2023 exhibition'
+      'Президент Digital Bridge көрмесінде USTEM Foundation стендіне барды',
+      'Президент посетил стенд USTEM Foundation на выставке Digital Bridge',
+      'The President visited the USTEM Foundation stand at the Digital Bridge exhibition'
     ),
+    // The date is already on the line above, so the text starts with the
+    // event itself.
     text: words(
-      '2023 жылғы 12 қазанда Мемлекет басшысы Digital Bridge форумының көрмесіне барып, робототехника аймағында USTEM Foundation жобаларымен танысты.',
-      '12 октября 2023 года Глава государства посетил выставку форума Digital Bridge и в зоне робототехники ознакомился с проектами USTEM Foundation.',
-      'On 12 October 2023 the Head of State visited the Digital Bridge forum exhibition and was introduced to USTEM Foundation projects in the robotics zone.'
+      'Digital Bridge форумының көрмесінде Президентке робототехника аймағындағы USTEM Foundation жобалары таныстырылды.',
+      'На выставке форума Digital Bridge Президенту представили проекты USTEM Foundation в зоне робототехники.',
+      'At the Digital Bridge forum exhibition the President was shown USTEM Foundation projects in the robotics zone.'
     ),
     url: presidentSource,
     link: words(
