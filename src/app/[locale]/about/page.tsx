@@ -88,13 +88,13 @@ const text = {
   leadership: words('Басшылық', 'Руководство', 'Leadership'),
   leaders: [
     {
-      photo: '/images/people/founder-asylbek-640.jpg',
+      photo: '/images/people/founder-asylbek-512.jpg',
       name: words('Асылбек Мырзахметов', 'Асылбек Мырзахметов', 'Asylbek Myrzakhmetov'),
       role: words('Тең құрылтайшы, қор басшысы', 'Сооснователь, руководитель фонда', 'Co-founder, head of the foundation'),
       line: words('FIRST Program Delivery Partner · ҚР робототехника құрамасының жаттықтырушысы', 'FIRST Program Delivery Partner · тренер сборной РК по робототехнике', 'FIRST Program Delivery Partner · coach of the national robotics team')
     },
     {
-      photo: '/images/people/founder-nurdaulet-640.jpg',
+      photo: '/images/people/founder-nurdaulet-512.jpg',
       name: words('Нұрдәулет Досмағамбет', 'Нурдаулет Досмагамбет', 'Nurdaulet Dosmagambet'),
       role: words('Тең құрылтайшы', 'Сооснователь', 'Co-founder'),
       line: words('FIRST Program Delivery Partner · ҚР робототехника құрамасының жаттықтырушысы', 'FIRST Program Delivery Partner · тренер сборной РК по робототехнике', 'FIRST Program Delivery Partner · coach of the national robotics team')
@@ -275,7 +275,7 @@ export default function AboutPage({
             {text.leaders.map(person => (
               <li className='pg-v2-person' key={person.name.en}>
                 <div className='pg-v2-portrait'>
-                  <img src={person.photo} alt={t(person.name)} width={640} height={640} loading='lazy' decoding='async' />
+                  <img src={person.photo} alt={t(person.name)} width={512} height={512} loading='lazy' decoding='async' />
                 </div>
                 <h3>{t(person.name)}</h3>
                 <p className='pg-person-role'>{t(person.role)}</p>
