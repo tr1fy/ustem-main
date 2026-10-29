@@ -22,6 +22,9 @@ import {
   audiences,
   localize,
   projects,
+  publicReports,
+  reportsText,
+  site,
   trustItems,
   ui,
   words
@@ -483,6 +486,50 @@ function PartnerLogoBand({ locale }: { locale: string }) {
   )
 }
 
+/** Public reports (moved here from the About page on 2026-10-29): the
+    published PDFs and how to ask for the rest. The last content block
+    before the partners call to action; the footer «Есептер» link lands here. */
+function Reports({ locale }: { locale: string }) {
+  return (
+    <section id='reports' className='section home-reports' aria-labelledby='reports-title'>
+      <div className='container'>
+        <Reveal className='home-rv home-reports-inner'>
+          <div className='rv' style={order(0)}>
+            <SectionHead id='reports-title' title={localize(ui.reports, locale)} />
+          </div>
+          <div className='rv home-reports-body' style={order(1)}>
+            <ul className='home-reports-list'>
+              {publicReports.map(report => (
+                <li key={report.file}>
+                  <span className='home-reports-meta'>{localize(report.meta, locale)}</span>
+                  <a
+                    className='link-arrow is-external'
+                    href={report.file}
+                    target='_blank'
+                    rel='noreferrer'
+                  >
+                    {localize(report.title, locale)}
+                    <ArrowUpRightIcon aria-hidden='true' />
+                  </a>
+                  <span className='home-reports-note'>{localize(report.note, locale)}</span>
+                </li>
+              ))}
+            </ul>
+            <p className='home-reports-text'>{localize(reportsText, locale)}</p>
+            <a
+              className='link-arrow'
+              href={`mailto:${site.email}?subject=${encodeURIComponent(localize(ui.reports, locale))}`}
+            >
+              {site.email}
+              <ArrowRightIcon aria-hidden='true' />
+            </a>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  )
+}
+
 function Partners({ locale }: { locale: string }) {
   const photo = (cutout: boolean) => (
     <img
@@ -537,6 +584,7 @@ export default function HomeSections({ locale }: { locale: string }) {
       <Trust locale={locale} />
       <PartnerLogoBand locale={locale} />
       <News locale={locale} />
+      <Reports locale={locale} />
       <Partners locale={locale} />
     </>
   )
