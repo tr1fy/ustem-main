@@ -1328,14 +1328,23 @@
 }
 .pg-v2-people {
   display: grid;
-  gap: 32px;
+  gap: 16px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 .pg-v2-person {
   display: grid;
-  gap: 6px;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 2px 20px;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--white);
+}
+.pg-v2-person > .pg-v2-portrait {
+  grid-row: 1 / span 3;
 }
 .pg-v2-person h3 {
   font-size: var(--fs-h3);
@@ -1347,8 +1356,13 @@
   margin-bottom: clamp(32px, 4vw, 56px);
 }
 @media (min-width: 768px) {
-  .pg-v2-people {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .pg-v2-person {
+    grid-template-columns: 128px minmax(0, 1fr);
+    gap: 4px 28px;
+    padding: 28px;
+  }
+  .pg-v2-portrait {
+    width: 128px;
   }
   .pg-v2-steps {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1362,15 +1376,13 @@
   }
   .pg-v2-people {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 48px;
-    max-width: 860px;
+    gap: 24px;
   }
 }
 .pg-v2-portrait {
   overflow: hidden;
+  width: 96px;
   aspect-ratio: 1;
-  max-width: 256px;
-  margin-bottom: 14px;
   border-radius: 50%;
   background: var(--line);
 }
@@ -1380,9 +1392,10 @@
   height: 100%;
   object-fit: cover;
 }
-.pg-v2-team .container {
+.pg-v2-team {
   display: grid;
   gap: 32px;
+  margin-top: clamp(40px, 5vw, 64px);
 }
 .pg-v2-team-media {
   overflow: hidden;
@@ -1421,7 +1434,7 @@
   gap: 12px;
 }
 @media (min-width: 1024px) {
-  .pg-v2-team .container {
+  .pg-v2-team {
     grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
     align-items: center;
     gap: clamp(48px, 5vw, 88px);
