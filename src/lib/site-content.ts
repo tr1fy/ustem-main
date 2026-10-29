@@ -980,10 +980,11 @@ export const metrics: {
     status: 'verified'
   },
   {
-    // Confirmed by the foundation on 2026-10-14.
+    // 60+ confirmed by the foundation on 2026-10-14; raised to 80+ by the
+    // owner on 2026-10-29.
     id: 'events',
-    value: 60,
-    display: words('60+', '60+', '60+'),
+    value: 80,
+    display: words('80+', '80+', '80+'),
     label: words(
       '2026–2027 маусымына жоспарланған іс-шара',
       'мероприятий запланировано на сезон 2026–2027',
@@ -995,8 +996,8 @@ export const metrics: {
     // Confirmed by the foundation on 2026-10-14; wording kept as supplied
     // (the «(order)» tail dropped on 2026-10-29, since the figure now links
     // to the order itself). The link is the Ministry of Education and
-    // Science order of 7 December 2011 No. 514 on adilet.zan.kz; the
-    // foundation has not yet confirmed that this is the order meant.
+    // Science order of 7 December 2011 No. 514 on adilet.zan.kz, confirmed
+    // by the owner on 2026-10-29.
     id: 'order-514',
     value: null,
     display: words('№ 514', '№ 514', 'No. 514'),

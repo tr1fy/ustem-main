@@ -124,13 +124,15 @@ export default function Hero({ locale }: { locale: string }) {
             <span key={sentence}>{sentence} </span>
           ))}
         </p>
+        {/* «Біз туралы» first (the owner's choice, 2026-10-29); the
+            competitions button keeps the primary (white) style. */}
         <div className='hero-actions'>
+          <Link className='btn hero-btn hero-btn-ghost' href='/about'>
+            {t(ui.heroAbout)}
+          </Link>
           <Link className='btn hero-btn hero-btn-primary' href='/competitions'>
             {t(ui.heroCta)}
             <ArrowRightIcon aria-hidden='true' />
-          </Link>
-          <Link className='btn hero-btn hero-btn-ghost' href='/about'>
-            {t(ui.heroAbout)}
           </Link>
         </div>
       </div>
