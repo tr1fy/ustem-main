@@ -704,8 +704,9 @@ export const audiences: {
   }
 ]
 
-/** Main menu: five items (2026-11-05), in this exact order. */
+/** Main menu (TZ §5.1), in this exact order. */
 export const navItems = [
+  { key: 'about', href: '/about', label: words('Біз туралы', 'О нас', 'About us') },
   {
     key: 'competitions',
     href: '/competitions',
@@ -716,21 +717,19 @@ export const navItems = [
     href: '/academy',
     label: words('USTEM Academy', 'USTEM Academy', 'USTEM Academy')
   },
-  { key: 'about', href: '/about', label: words('Біз туралы', 'О нас', 'About us') },
+  { key: 'projects', href: '/projects', label: words('Жобалар', 'Проекты', 'Projects') },
   { key: 'news', href: '/news', label: words('Жаңалықтар', 'Новости', 'News') },
   {
     key: 'partners',
     href: '/partners',
     label: words('Серіктестерге', 'Партнёрам', 'For Partners')
+  },
+  {
+    key: 'contacts',
+    href: '/contacts',
+    label: words('Контактілер', 'Контакты', 'Contacts')
   }
 ] as const
-
-/** Pages that left the main menu (2026-11-05): still reachable from About
-    (projects) and the footer (contacts), old URLs keep working. */
-export const subPages = {
-  projects: { href: '/projects', label: words('Жобалар', 'Проекты', 'Projects') },
-  contacts: { href: '/contacts', label: words('Контактілер', 'Контакты', 'Contacts') }
-} as const
 
 export const languages = [
   { code: 'kz', short: 'KK', name: 'Қазақша', lang: 'kk' },
@@ -929,11 +928,8 @@ export const ui = {
     'Поддержите первый шаг юных инженеров.',
     'Support young engineers’ first step.'
   ),
-  footerTitle: words(
-    'Ынтымақтастыққа ашықпыз',
-    'Открыты к сотрудничеству',
-    'Open to collaboration'
-  ),
+  footerTitle: words('Ынтымақтастық', 'Сотрудничество', 'Collaboration'),
+  footerCta: words('Пікір қалдыру', 'Оставить заявку', 'Leave a message'),
   /** One line under the footer heading, addressed to every audience. */
   footerLead: words(
     'Бағдарламалар, жарыстар немесе бірлескен жобалар туралы сұрағыңыз болса, жазыңыз.',
@@ -1444,6 +1440,8 @@ export const events: SiteEvent[] = [
           'The date will be announced on the official website'
         )
       },
+      // Official site linked directly, no «site being updated» notice
+      // (user, 2026-11-05).
       rules: [
         { label: 'Instagram @digitalbridge.ai', url: 'https://www.instagram.com/digitalbridge.ai/' },
         { label: 'Telegram @firstroboticskz', url: 'https://t.me/firstroboticskz' }
@@ -1452,18 +1450,6 @@ export const events: SiteEvent[] = [
         email: 'hello@ustemfoundation.org',
         instagram: { handle: '@digitalbridge.ai', url: 'https://www.instagram.com/digitalbridge.ai/' },
         telegram: { handle: 't.me/firstroboticskz', url: 'https://t.me/firstroboticskz' }
-      },
-      siteNotice: {
-        title: words(
-          'Ресми сайт жаңартылу үстінде',
-          'Официальный сайт обновляется',
-          'The official website is being updated'
-        ),
-        text: words(
-          'AI & Digital Bridge ресми сайты 2027 жылғы форумға дайындалуда. Бағдарлама мен тіркеу жарияланған сәтте сайтқа қолжетімділік ашылады. Хабарландыруларды ресми Instagram парақшасынан немесе Telegram-каналдан бақылаңыз.',
-          'Официальный сайт AI & Digital Bridge готовится к форуму 2027 года. Доступ к сайту откроется, как только будут опубликованы программа и регистрация. Следите за объявлениями в официальном Instagram или Telegram-канале.',
-          'The official AI & Digital Bridge website is being prepared for the 2027 forum. Access opens as soon as the program and registration are published. Follow the announcements on the official Instagram page or Telegram channel.'
-        )
       }
     }
   },

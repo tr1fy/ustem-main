@@ -20,10 +20,12 @@ import { Count } from './reveal'
  * Full flagship page (owner's brief of 2026-11-05, mockup approved the same
  * day): name + one-sentence description with a six-photo mosaic, last
  * year's numbers counting up from zero, mission, the six tracks in one
- * divided rectangle, the next edition, two steps to take part, contacts.
- * Nothing else: cost, deadlines, rules, partners and reports live on the
- * event's own site. «Official website» opens a small notice first, because
- * that site still shows last season until the new rules are published.
+ * divided rectangle, the next edition, one «how to take part» card
+ * (registration for every USTEM competition goes through USTEM Connect;
+ * no rules step, user 2026-11-05), contacts. Nothing else: cost, deadlines,
+ * rules, partners and reports live on the event's own site. «Official
+ * website» opens a small notice first only where `siteNotice` is set
+ * (Almaty Tech Cup, whose site still shows last season).
  */
 
 const text = {
@@ -46,20 +48,10 @@ const text = {
   ),
   nextEvent: words('Келесі жарыс', 'Следующее соревнование', 'Next event'),
   join: words('Қатысу', 'Участие', 'Take part'),
-  step1: words(
-    'Жарыс ережесімен танысыңыз',
-    'Ознакомьтесь с правилами соревнования',
-    'Read the competition rules'
-  ),
-  step1note: words(
-    'Жарыс ережесі ресми арналарда жарияланады.',
-    'Правила публикуются в официальных каналах.',
-    'The rules are published on the official channels.'
-  ),
-  step2: words(
-    'USTEM Connect арқылы тіркеліңіз',
-    'Зарегистрируйтесь через USTEM Connect',
-    'Register via USTEM Connect'
+  connectOnly: words(
+    'Біздің барлық жарысқа тіркелу USTEM Connect арқылы өтеді',
+    'Регистрация на все наши соревнования проходит через USTEM Connect',
+    'Registration for all our competitions goes through USTEM Connect'
   ),
   goConnect: words(
     'USTEM Connect-ке өту',
@@ -478,7 +470,7 @@ export default function FlagshipPage({
         </div>
       </section>
 
-      {/* 5. Two steps to take part */}
+      {/* 5. How to take part: one line, registration via USTEM Connect */}
       <section
         id='fp-join'
         className='fp-section'
@@ -488,67 +480,25 @@ export default function FlagshipPage({
           <h2 id='fp-join-title' className='fp-h2'>
             {t(text.join)}
           </h2>
-          <ol className='fp-steps' role='list'>
-            <li>
-              <span className='fp-step-n' aria-hidden='true'>
-                1
-              </span>
-              <div className='fp-step-body'>
-                <span className='fp-step-title'>{t(text.step1)}</span>
-                <span className='fp-step-note'>{t(text.step1note)}</span>
-                <ul className='fp-links' role='list'>
-                  {page.rules.map(channel => (
-                    <li key={channel.url}>
-                      <a
-                        className='fp-pill'
-                        href={channel.url}
-                        target='_blank'
-                        rel='noreferrer'
-                        onClick={() =>
-                          track('rules_channel_click', {
-                            slug: event.slug,
-                            channel: channel.label
-                          })
-                        }
-                      >
-                        {channel.label}
-                        <span className='visually-hidden'>
-                          {' '}
-                          {t(text.newTab)}
-                        </span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </li>
-            <li>
-              <span className='fp-step-n' aria-hidden='true'>
-                2
-              </span>
-              <div className='fp-step-body'>
-                <span className='fp-step-title'>{t(text.step2)}</span>
-                <div>
-                  <a
-                    className='btn btn-primary fp-step-cta'
-                    href={site.connectUrl}
-                    target='_blank'
-                    rel='noreferrer'
-                    onClick={() =>
-                      track('connect_click', {
-                        place: 'competition',
-                        slug: event.slug
-                      })
-                    }
-                  >
-                    {t(text.goConnect)}
-                    <span className='visually-hidden'> {t(text.newTab)}</span>
-                    <ArrowUpRightIcon aria-hidden='true' />
-                  </a>
-                </div>
-              </div>
-            </li>
-          </ol>
+          <div className='fp-join-card'>
+            <p className='fp-step-title'>{t(text.connectOnly)}</p>
+            <a
+              className='btn btn-primary fp-step-cta'
+              href={site.connectUrl}
+              target='_blank'
+              rel='noreferrer'
+              onClick={() =>
+                track('connect_click', {
+                  place: 'competition',
+                  slug: event.slug
+                })
+              }
+            >
+              {t(text.goConnect)}
+              <span className='visually-hidden'> {t(text.newTab)}</span>
+              <ArrowUpRightIcon aria-hidden='true' />
+            </a>
+          </div>
         </div>
       </section>
 
