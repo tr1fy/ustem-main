@@ -1072,6 +1072,9 @@ export type FlagshipTrackIcon =
   | 'rocket'
   | 'shield'
   | 'chip'
+  | 'blocks'
+  | 'humanoid'
+  | 'zone'
 export type FlagshipPage = {
   /** Pill next to «Flagship»: the next edition in a few words. */
   nextShort: Localized
@@ -1085,14 +1088,26 @@ export type FlagshipPage = {
   trackStyle?: 'icons' | 'photos'
   /** Last edition in numbers; `note` names the edition. */
   stats: { note: Localized; items: { value: number; suffix?: string; label: Localized }[] }
-  mission: { lead: Localized; text: Localized }
+  /** Hidden while the official sources give no mission. */
+  mission?: { lead: Localized; text: Localized }
+  /** Heading above the tracks; defaults to «Чемпионат жарыс бағыттары». */
+  tracksTitle?: Localized
   tracks: { icon: FlagshipTrackIcon; name: Localized }[]
   next: { title: string; line: Localized }
   /** Where the rules are announced, in the order they should be shown. */
   rules: { label: string; url: string }[]
-  contacts: { email: string; instagram: { handle: string; url: string }; telegram: { handle: string; url: string } }
-  /** The official site still shows last season: say so before leaving. */
-  siteNotice: { title: Localized; text: Localized }
+  contacts: {
+    email: string
+    instagram: { handle: string; url: string }
+    telegram?: { handle: string; url: string }
+    /** Shown in place of Telegram when the event lists a phone instead. */
+    phone?: string
+  }
+  /**
+   * The official site still shows last season: say so before leaving.
+   * Without it, «Official website» links straight to the site.
+   */
+  siteNotice?: { title: Localized; text: Localized }
 }
 
 /** Competitions catalogue (TZ §7.1): 3 flagships + 8 directions, in TZ order. */
@@ -1276,7 +1291,89 @@ export const events: SiteEvent[] = [
       '18–21 February 2027 · Astana · Central Asia FIRST Championship 2027'
     ),
     cover: '/images/projects/alem-tech-fest-cover.jpg',
-    officialUrl: 'https://alemtechfest.kz'
+    officialUrl: 'https://alemtechfest.kz',
+    // Copy, numbers and photos: alemtechfest.kz (checked 2026-11-05).
+    page: {
+      heroStyle: 'cover',
+      trackStyle: 'photos',
+      nextShort: words(
+        'Келесі: 18–21 ақпан 2027 · Астана',
+        'Следующий: 18–21 февраля 2027 · Астана',
+        'Next: 18–21 February 2027 · Astana'
+      ),
+      description: words(
+        'Астанадағы технология фестивалі: FIRST, RoboCup, дрон жарыстары және Physical AI.',
+        'Технологический фестиваль в Астане: FIRST, RoboCup, гонки дронов и Physical AI.',
+        'A technology festival in Astana: FIRST, RoboCup, drone racing and Physical AI.'
+      ),
+      photos: [
+        {
+          src: '/images/competitions/atf-robotics.jpg',
+          alt: words('Робототехника', 'Робототехника', 'Robotics')
+        },
+        {
+          src: '/images/competitions/atf-drones-space.jpg',
+          alt: words('Дрондар мен ғарыш', 'Дроны и космос', 'Drones & space')
+        },
+        {
+          src: '/images/competitions/atf-ai-cyber.jpg',
+          alt: words('ЖИ және кибер', 'ИИ и кибер', 'AI & cyber')
+        },
+        {
+          src: '/images/competitions/atf-engineering.jpg',
+          alt: words('Инженерия', 'Инженерия', 'Engineering')
+        }
+      ],
+      stats: {
+        note: words(
+          'Өткен жылғы қорытынды · Alem Tech Fest 2026',
+          'Итоги прошлого года · Alem Tech Fest 2026',
+          'Last year’s results · Alem Tech Fest 2026'
+        ),
+        items: [
+          { value: 5000, suffix: '+', label: words('қатысушы', 'участников', 'participants') },
+          { value: 10000, suffix: '+', label: words('қонақ', 'гостей', 'guests') },
+          { value: 500, suffix: '+', label: words('команда', 'команд', 'teams') },
+          { value: 7, label: words('ел', 'стран', 'countries') }
+        ]
+      },
+      mission: {
+        lead: words(
+          'Жастарды STEM-ге тарту арқылы адами капиталды арттыру.',
+          'Повысить человеческий капитал, вовлекая молодёжь в STEM.',
+          'Grow human capital by bringing young people into STEM.'
+        ),
+        text: words(
+          '4 жастан 25 жасқа дейінгі және одан үлкен командалар роботтарын, дрондарын, спутниктері мен кодын әкеледі. Нәтижелер ұлттық рейтингке және халықаралық чемпионаттарға іріктеуге есептеледі.',
+          'Команды от 4 до 25 лет и старше привозят роботов, дроны, спутники и код. Результаты идут в национальный рейтинг и в отбор на международные чемпионаты.',
+          'Teams aged 4 to 25 and older bring robots, drones, satellites and code. Results count toward national rankings and qualification to international championships.'
+        )
+      },
+      tracksTitle: words('Фестиваль бағыттары', 'Направления фестиваля', 'Festival tracks'),
+      tracks: [
+        { icon: 'robot', name: words('Робототехника', 'Робототехника', 'Robotics') },
+        { icon: 'drone', name: words('Дрондар мен ғарыш', 'Дроны и космос', 'Drones & space') },
+        { icon: 'shield', name: words('ЖИ және кибер', 'ИИ и кибер', 'AI & cyber') },
+        { icon: 'wrench', name: words('Инженерия', 'Инженерия', 'Engineering') }
+      ],
+      next: {
+        title: 'Central Asia FIRST Championship 2027',
+        line: words(
+          '18–21 ақпан 2027 · Астана, Қазақ ұлттық спорт университеті (KNUS)',
+          '18–21 февраля 2027 · Астана, Казахский национальный университет спорта (KNUS)',
+          '18–21 February 2027 · Astana, Kazakh National University of Sports (KNUS)'
+        )
+      },
+      rules: [
+        { label: 'Instagram @alemtechfest', url: 'https://www.instagram.com/alemtechfest/' },
+        { label: 'Telegram @firstroboticskz', url: 'https://t.me/firstroboticskz' }
+      ],
+      contacts: {
+        email: 'hello@ustemfoundation.org',
+        instagram: { handle: '@alemtechfest', url: 'https://www.instagram.com/alemtechfest/' },
+        phone: '+7 700 444 60 00'
+      }
+    }
   },
   {
     slug: 'digital-bridge',
