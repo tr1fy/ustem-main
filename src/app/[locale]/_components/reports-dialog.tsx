@@ -2,8 +2,8 @@
 
 /**
  * «Барлық есептер»: the arrow link in the Reports section head and the
- * plain list dialog it opens. Same dialog shell as the flagship page's
- * site notice (.fp-backdrop / .fp-dialog): closes on Escape and on the
+ * plain list dialog it opens. The dialog shell lives in flagship.css
+ * (.fp-backdrop / .fp-dialog): closes on Escape and on the
  * backdrop, returns focus to the link. Rendered through a portal: the
  * section head sits inside a transformed Reveal, which would otherwise
  * anchor the fixed backdrop to it.

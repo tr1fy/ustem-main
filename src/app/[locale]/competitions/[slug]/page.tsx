@@ -122,10 +122,13 @@ export default function CompetitionPage({ params: { locale, slug } }: Params) {
     'wide',
     '(min-width: 1024px) 40vw, 100vw'
   )
-  // TZ §7.3: related news are matched automatically by their tag.
-  const related = latestNews()
-    .filter(item => item.tag === event.title)
-    .slice(0, 3)
+  // TZ §7.3: related news are matched automatically by their tag. Flagship
+  // pages end on their contacts (fixed order, user 2026-11-05), so none there.
+  const related = event.page
+    ? []
+    : latestNews()
+        .filter(item => item.tag === event.title)
+        .slice(0, 3)
   const others = events.filter(item => item.slug !== event.slug)
   const jsonLd = eventJsonLd(event, locale)
   return (

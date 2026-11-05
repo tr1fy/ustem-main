@@ -1661,16 +1661,11 @@
   border-radius: 2px;
   background: var(--aral);
 }
-/* One light-blue block; each report is a white row inside it. A new report
-   is one more row. */
-.home-reports-block {
-  padding: 8px;
-  border-radius: var(--radius);
-  background: var(--tint);
-}
+/* Plain rows on hairlines, like the other lists on the site; no tinted
+   block (white sections only, user 2026-11-05). A new report is one more
+   row. */
 .home-reports-list {
   display: grid;
-  gap: 8px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -1678,9 +1673,8 @@
 .home-reports-row {
   display: grid;
   gap: 10px;
-  padding: 20px;
-  border-radius: 18px;
-  background: var(--white);
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
   color: var(--ink);
   text-decoration: none;
 }
@@ -1689,7 +1683,8 @@
 }
 .home-reports-row:focus-visible {
   outline: 2px solid var(--blue);
-  outline-offset: 2px;
+  outline-offset: 4px;
+  border-radius: 4px;
 }
 .home-reports-date {
   font-size: var(--fs-small);
@@ -1737,7 +1732,7 @@
 }
 .home-reports-text {
   margin: 0;
-  padding: 16px 20px 12px;
+  padding: 16px 0 0;
   font-size: var(--fs-small);
   color: var(--muted);
 }
@@ -1747,14 +1742,11 @@
   overflow-wrap: anywhere;
 }
 @media (min-width: 768px) {
-  .home-reports-block {
-    padding: 12px;
-  }
   .home-reports-row {
     grid-template-columns: 160px minmax(0, 1fr) auto;
     gap: 28px;
     align-items: center;
-    padding: 24px 28px;
+    padding: 24px 0;
   }
   .home-reports-date {
     font-size: 1rem;
@@ -1764,7 +1756,7 @@
     margin-top: 0;
   }
   .home-reports-text {
-    padding: 18px 28px 14px;
+    padding: 18px 0 0;
   }
 }
 /* «Барлық есептер»: the link is a button styled as .link-arrow; the dialog

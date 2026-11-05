@@ -2,11 +2,9 @@ import type { Metadata } from 'next'
 import type { CSSProperties } from 'react'
 import {
   AcademicCapIcon,
-  ArrowRightIcon,
   BriefcaseIcon,
   BuildingLibraryIcon,
-  NewspaperIcon,
-  PhoneIcon
+  NewspaperIcon
 } from '@heroicons/react/24/outline'
 import { localize, navItems, site, words, type Localized } from '@/lib/site-content'
 import { alternatesFor, htmlLang } from '@/lib/seo'
@@ -15,11 +13,10 @@ import PartnerLogos from '../_components/partner-logos'
 import { Reveal } from '../_components/reveal'
 
 /* TZ §8.5 in the brand style: head with the FTC photo in a rounded mask
- * over a cropped Aral circle → partner types → the shared numbers block →
- * the partner logo wall → the five formats → contact band. The
- * presentation PDF and the partner form (no mail transport / CRM yet) are
- * not rendered (TZ §14 items 5, 10); the band's mailto with a preset
- * subject stands in for the form. */
+ * over a cropped Aral circle → partner types → the partner logo wall. The
+ * presentation PDF, the partner form and the format packages are not
+ * published yet (TZ §14 items 5, 10): the lead says they come on request,
+ * and the footer's «Пікір қалдыру» mailto is the one call to action. */
 
 const title = navItems.find(item => item.key === 'partners')!.label
 
@@ -73,39 +70,13 @@ const audiences = [
   }
 ]
 
-const formatsTitle = words(
-  'Серіктестік форматтары',
-  'Форматы партнёрства',
-  'Partnership formats'
-)
-/* TZ §8.5 names the five formats; what each includes is defined by the
- * foundation's packages, which are provided on request (TZ §14 item 10). */
-const formats = [
-  words('Бас серіктес', 'Генеральный партнёр', 'General partner'),
-  words('Жарыс серіктесі', 'Партнёр соревнования', 'Competition partner'),
-  words('Жоба серіктесі', 'Партнёр проекта', 'Project partner'),
-  words('Білім беру серіктесі', 'Образовательный партнёр', 'Education partner'),
-  words('Заттай қолдау', 'Поддержка в натуральной форме', 'In-kind support')
-]
-const formatsNote = words(
+/* The packages behind the formats are provided on request (TZ §14 item
+ * 10), so the lead says that instead of listing bare format names. */
+const packagesNote = words(
   'Серіктестік пакеттері мен шарттарын сұрау бойынша ұсынамыз.',
   'Пакеты и условия партнёрства предоставляем по запросу.',
   'Partnership packages and terms are available on request.'
 )
-
-const contactTitle = words('Серіктес болыңыз', 'Станьте партнёром', 'Become a partner')
-const contactText = words(
-  'Жазыңыз немесе қоңырау шалыңыз — ұйымыңызға қай формат лайық екенін бірге талқылаймыз.',
-  'Напишите или позвоните — вместе обсудим, какой формат подойдёт вашей организации.',
-  'Write or call us and we will work out together which format suits your organization.'
-)
-const contactAction = words(
-  'Серіктестікті талқылау',
-  'Обсудить партнёрство',
-  'Discuss a partnership'
-)
-const mailSubject = words('Серіктестік', 'Партнёрство', 'Partnership')
-const callLabel = words('Қоңырау шалу', 'Позвонить', 'Call')
 
 /* Full photo for the page head (its USTEM banner suits the partners page;
  * /competitions uses the cut-out of the same shot). Alt describes only
@@ -155,7 +126,7 @@ export default function PartnersPage({
   return (
     <main id='main-content' className='ct-page'>
       <div className='ct-phead'>
-        <PageHead locale={locale} title={t(title)} lead={t(lead)}>
+        <PageHead locale={locale} title={t(title)} lead={`${t(lead)} ${t(packagesNote)}`}>
           <figure className='ct-stage'>
             <div className='ct-stage-orb' aria-hidden='true'>
               <div className='ct-stage-circle' />
@@ -206,54 +177,6 @@ export default function PartnersPage({
         </div>
       </section>
 
-      <section className='section' aria-labelledby='partners-formats'>
-        <div className='container ct-split'>
-          <div className='ct-split-head'>
-            <h2 id='partners-formats'>{t(formatsTitle)}</h2>
-            <p className='muted'>{t(formatsNote)}</p>
-          </div>
-          <Reveal className='ct-rise'>
-            <ul className='ct-formats'>
-              {formats.map((format, index) => (
-                <li
-                  key={format.en}
-                  className='ct-rise-item'
-                  style={{ '--i': index } as CSSProperties}
-                >
-                  {t(format)}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        </div>
-      </section>
-
-      <section className='section ct-band-section' aria-labelledby='partners-contact'>
-        <div className='container'>
-          <Reveal>
-            <div className='ct-cta'>
-              <div className='ct-cta-copy'>
-                <h2 id='partners-contact'>{t(contactTitle)}</h2>
-                <p>{t(contactText)}</p>
-              </div>
-              <div className='ct-cta-actions'>
-                <a
-                  className='btn btn-primary'
-                  href={`mailto:${site.email}?subject=${encodeURIComponent(t(mailSubject))}`}
-                >
-                  {t(contactAction)}
-                  <ArrowRightIcon aria-hidden='true' />
-                </a>
-                <a className='ct-cta-phone' href={site.phone.href}>
-                  <PhoneIcon aria-hidden='true' />
-                  <span className='visually-hidden'>{t(callLabel)}: </span>
-                  {site.phone.display}
-                </a>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
     </main>
   )
 }
