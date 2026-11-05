@@ -365,7 +365,7 @@ export default function FlagshipPage({
 
       {/* 2. Last year's numbers, counting up from zero */}
       <section
-        className='fp-section fp-section--paper'
+        className='fp-section fp-section--numbers'
         aria-labelledby={statsId}
       >
         <div className='container'>
@@ -393,27 +393,24 @@ export default function FlagshipPage({
 
       {/* 3. Mission */}
       {page.mission && (
-      <section className='fp-section' aria-labelledby={missionId}>
-        <div className='fp-mission container'>
-          <div className='fp-mission-key'>
-            <span id={missionId} className='label fp-label'>
-              {t(text.mission)}
-            </span>
-            <span className='fp-rule' aria-hidden='true' />
+        <section className='fp-section' aria-labelledby={missionId}>
+          <div className='fp-mission container'>
+            <div className='fp-mission-key'>
+              <span id={missionId} className='label fp-label'>
+                {t(text.mission)}
+              </span>
+              <span className='fp-rule' aria-hidden='true' />
+            </div>
+            <div className='fp-mission-body'>
+              <p className='fp-mission-lead'>{t(page.mission.lead)}</p>
+              <p className='fp-mission-text'>{t(page.mission.text)}</p>
+            </div>
           </div>
-          <div className='fp-mission-body'>
-            <p className='fp-mission-lead'>{t(page.mission.lead)}</p>
-            <p className='fp-mission-text'>{t(page.mission.text)}</p>
-          </div>
-        </div>
-      </section>
+        </section>
       )}
 
       {/* 4. Tracks: one rectangle divided into six */}
-      <section
-        className='fp-section fp-section--paper'
-        aria-labelledby={tracksId}
-      >
+      <section className='fp-section' aria-labelledby={tracksId}>
         <div className='container'>
           <h2 id={tracksId} className='fp-h2'>
             {t(page.tracksTitle ?? text.tracks)}
@@ -484,7 +481,7 @@ export default function FlagshipPage({
       {/* 5. Two steps to take part */}
       <section
         id='fp-join'
-        className='fp-section fp-section--paper'
+        className='fp-section'
         aria-labelledby='fp-join-title'
       >
         <div className='container'>
@@ -627,7 +624,9 @@ export default function FlagshipPage({
                   href={`tel:${page.contacts.phone.replace(/[^+\d]/g, '')}`}
                 >
                   <span className='fp-contact-key'>{t(text.phone)}</span>
-                  <span className='fp-contact-value'>{page.contacts.phone}</span>
+                  <span className='fp-contact-value'>
+                    {page.contacts.phone}
+                  </span>
                 </a>
               </li>
             ) : null}
