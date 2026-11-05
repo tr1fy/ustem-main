@@ -185,14 +185,11 @@
   font-size: 0.9375rem;
   color: var(--muted);
 }
-/* one light-blue block, four plain numbers inside, no lines */
+/* four plain blue numbers on white, no box, no lines */
 .fp .fp-stats {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 28px 24px;
-  padding: 28px 24px;
-  border-radius: var(--radius);
-  background: var(--tint);
 }
 .fp-stats li {
   display: flex;
@@ -217,7 +214,6 @@
   .fp .fp-stats {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 32px;
-    padding: 36px 40px;
   }
 }
 
