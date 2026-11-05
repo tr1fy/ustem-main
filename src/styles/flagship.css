@@ -40,6 +40,20 @@
   position: relative;
   min-width: 0;
 }
+/* Variant: the event cover alone, in the same rounded frame. */
+.fp-cover {
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--paper);
+  box-shadow: var(--shadow-soft);
+}
+.fp-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
 .fp-hero-circle {
   position: absolute;
   z-index: 0;
@@ -124,6 +138,13 @@
   }
   .fp-hero-copy {
     max-width: 560px;
+  }
+  .fp-cover {
+    position: absolute;
+    inset: 0;
+  }
+  .fp-cover img {
+    aspect-ratio: auto;
   }
   .fp-mosaic {
     position: absolute;
@@ -289,6 +310,37 @@
   font-weight: 600;
   color: var(--muted);
 }
+/* Variant: each track's photo above its name; two per row on phones so
+   the block stays short. */
+.fp-tracks--photos {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.fp-tracks--photos li {
+  gap: 14px;
+  padding: 12px 12px 18px;
+  border-top: 0;
+}
+.fp-tracks--photos .fp-track-name {
+  font-size: 1.0625rem;
+}
+.fp-track-photo {
+  display: block;
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--paper);
+}
+.fp-track-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+.fp-tracks--photos .fp-track-name {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding-inline: 8px;
+}
 .fp-track-name {
   font-size: 1.375rem;
   font-weight: 600;
@@ -316,6 +368,13 @@
   .fp-tracks li {
     gap: 28px;
     padding: 32px 32px 30px;
+  }
+  .fp-tracks--photos li {
+    gap: 18px;
+    padding: 16px 16px 24px;
+  }
+  .fp-tracks--photos .fp-track-name {
+    font-size: 1.25rem;
   }
   .fp-tracks li:nth-child(-n + 3) {
     border-top: 0;

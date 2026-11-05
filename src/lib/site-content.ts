@@ -1072,6 +1072,10 @@ export type FlagshipPage = {
   description: Localized
   /** Hero mosaic: six photos, one per track, in track order. */
   photos: { src: string; alt: Localized }[]
+  /** 'cover' shows the event cover alone instead of the mosaic. */
+  heroStyle?: 'mosaic' | 'cover'
+  /** 'photos' shows each track's photo (from `photos`) instead of an icon. */
+  trackStyle?: 'icons' | 'photos'
   /** Last edition in numbers; `note` names the edition. */
   stats: { note: Localized; items: { value: number; suffix?: string; label: Localized }[] }
   mission: { lead: Localized; text: Localized }
@@ -1138,6 +1142,8 @@ export const events: SiteEvent[] = [
     cover: '/images/projects/almaty-tech-cup-cover.jpg',
     officialUrl: 'https://www.almaty-tech-cup.kz',
     page: {
+      heroStyle: 'cover',
+      trackStyle: 'photos',
       nextShort: words(
         'Келесі: маусым 2027 · Алматы',
         'Следующий: июнь 2027 · Алматы',
