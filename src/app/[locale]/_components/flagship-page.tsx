@@ -33,7 +33,11 @@ const text = {
     'Как принять участие',
     'How to take part'
   ),
-  stats: words('Статистика', 'Статистика', 'In numbers'),
+  stats: words(
+    'Өткен жыл сандармен',
+    'Прошлый год в цифрах',
+    'Last year in numbers'
+  ),
   mission: words('Мақсаты', 'Миссия', 'Mission'),
   tracks: words(
     'Чемпионат жарыс бағыттары',
@@ -324,8 +328,31 @@ export default function FlagshipPage({
         </div>
       </section>
 
-      {/* 2. Mission */}
-      <section className='fp-section' aria-labelledby={missionId}>
+      {/* 2. Last year's numbers, counting up from zero */}
+      <section className='fp-section' aria-labelledby={statsId}>
+        <div className='container'>
+          <div className='fp-head'>
+            <h2 id={statsId}>{t(text.stats)}</h2>
+            <p className='fp-head-note'>{t(page.stats.note)}</p>
+          </div>
+          <ul className='fp-stats' role='list'>
+            {page.stats.items.map(item => (
+              <li key={t(item.label)}>
+                <span className='fp-stat-value'>
+                  <Count value={item.value} suffix={item.suffix} />
+                </span>
+                <span className='fp-stat-label'>{t(item.label)}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* 3. Mission */}
+      <section
+        className='fp-section fp-section--paper'
+        aria-labelledby={missionId}
+      >
         <div className='fp-mission container'>
           <div className='fp-mission-key'>
             <span id={missionId} className='label fp-label'>
@@ -340,11 +367,8 @@ export default function FlagshipPage({
         </div>
       </section>
 
-      {/* 3. Tracks: one rectangle divided into six */}
-      <section
-        className='fp-section fp-section--paper'
-        aria-labelledby={tracksId}
-      >
+      {/* 4. Tracks: one rectangle divided into six */}
+      <section className='fp-section' aria-labelledby={tracksId}>
         <div className='container'>
           <h2 id={tracksId} className='fp-h2'>
             {t(text.tracks)}
@@ -395,44 +419,27 @@ export default function FlagshipPage({
         </div>
       </section>
 
-      {/* 4. Last year's numbers, counting up from zero */}
-      <section className='fp-section' aria-labelledby={statsId}>
-        <div className='container'>
-          <div className='fp-head'>
-            <h2 id={statsId}>{t(text.stats)}</h2>
-            <p className='fp-head-note'>{t(page.stats.note)}</p>
-          </div>
-          <ul className='fp-stats' role='list'>
-            {page.stats.items.map(item => (
-              <li key={t(item.label)}>
-                <span className='fp-stat-value'>
-                  <Count value={item.value} suffix={item.suffix} />
-                </span>
-                <span className='fp-stat-label'>{t(item.label)}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* 5. Next edition */}
+      {/* 4. Next edition + last year's numbers */}
       <section
         className='fp-section fp-section--paper'
         aria-labelledby={nextId}
       >
         <div className='container'>
+          {/* One banner: the next edition left, its date and size right */}
           <div className='fp-next on-dark'>
             <span className='fp-next-circle' aria-hidden='true' />
-            <span className='label fp-label-dark'>{t(text.nextEvent)}</span>
-            <h2 id={nextId} className='fp-next-title'>
-              {page.next.title}
-            </h2>
+            <div className='fp-next-main'>
+              <span className='label fp-label-dark'>{t(text.nextEvent)}</span>
+              <h2 id={nextId} className='fp-next-title'>
+                {page.next.title}
+              </h2>
+            </div>
             <p className='fp-next-line'>{t(page.next.line)}</p>
           </div>
         </div>
       </section>
 
-      {/* 6. Two steps to take part */}
+      {/* 5. Two steps to take part */}
       <section
         id='fp-join'
         className='fp-section'
@@ -506,7 +513,7 @@ export default function FlagshipPage({
         </div>
       </section>
 
-      {/* 7. Contacts */}
+      {/* 6. Contacts */}
       <section
         className='fp-section fp-section--paper fp-section--last'
         aria-labelledby={contactsId}

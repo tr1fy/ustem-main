@@ -35,6 +35,7 @@
   position: relative;
   overflow: hidden;
   padding-top: clamp(24px, 4vw, 48px);
+  padding-bottom: clamp(40px, 5vw, 72px);
 }
 .fp-hero-media {
   position: relative;
@@ -184,14 +185,11 @@
   font-size: 0.9375rem;
   color: var(--muted);
 }
-/* one light-blue block, four plain numbers inside, no lines */
+/* four plain blue numbers on white, no box, no lines */
 .fp .fp-stats {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 28px 24px;
-  padding: 28px 24px;
-  border-radius: var(--radius);
-  background: var(--tint);
 }
 .fp-stats li {
   display: flex;
@@ -216,7 +214,6 @@
   .fp .fp-stats {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 32px;
-    padding: 36px 40px;
   }
 }
 
@@ -392,13 +389,45 @@
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+  display: grid;
+  gap: 20px;
   padding: clamp(32px, 5vw, 56px);
   border-radius: var(--radius-lg);
   background: var(--aral-deep);
   color: var(--white);
+}
+.fp-next-main {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.fp-next-line {
+  max-width: 48ch;
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+  line-height: 1.5;
+  color: var(--on-dark-muted);
+}
+@media (min-width: 1024px) {
+  .fp-next {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 48px;
+    align-items: end;
+  }
+  .fp-next-line {
+    max-width: 26ch;
+    text-align: right;
+    padding-bottom: 6px;
+  }
+}
+@media (min-width: 1200px) {
+  .fp-next {
+    align-items: center;
+  }
+  .fp-next-line {
+    max-width: none;
+    white-space: nowrap;
+    padding-bottom: 0;
+  }
 }
 .fp-next-circle {
   position: absolute;
@@ -420,12 +449,6 @@
   line-height: 1.05;
   letter-spacing: -0.035em;
   color: var(--white);
-}
-.fp-next-line {
-  max-width: 48ch;
-  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
-  line-height: 1.5;
-  color: var(--on-dark-muted);
 }
 
 /* ---------- 6. two steps ---------- */
@@ -488,7 +511,8 @@
   color: var(--blue);
   font-size: 0.9375rem;
   font-weight: 600;
-  transition: background-color var(--dur) var(--ease),
+  transition:
+    background-color var(--dur) var(--ease),
     color var(--dur) var(--ease);
 }
 .fp-pill:hover {
