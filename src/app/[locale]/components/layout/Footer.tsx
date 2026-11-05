@@ -18,7 +18,7 @@ import type { CSSProperties } from 'react'
 import { useLocale } from 'next-intl'
 import { ArrowUpIcon } from '@heroicons/react/24/outline'
 import { Link, usePathname } from '@/i18n/routing'
-import { localize, navItems, site, ui, words } from '@/lib/site-content'
+import { events, localize, navItems, site, ui, words } from '@/lib/site-content'
 
 /** Focus target rendered first in AppShell ("Back to top" moves focus here). */
 const PAGE_TOP_ID = 'page-top'
@@ -131,7 +131,12 @@ export default function Footer() {
   const locale = useLocale()
   const t = (value: Parameters<typeof localize>[0]) => localize(value, locale)
   const ref = useFooterEntrance()
-  const compact = usePathname() === '/contacts'
+  const pathname = usePathname()
+  // No «open to collaboration» band where the page already ends with its own
+  // contacts: the contacts page and the full flagship competition pages.
+  const compact =
+    pathname === '/contacts' ||
+    events.some(e => e.page && pathname === `/competitions/${e.slug}`)
 
   const aboutLinks = [
     { href: '/#reports', label: ui.reports },
