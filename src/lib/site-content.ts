@@ -783,9 +783,9 @@ export const ui = {
     'The foundation advancing engineering education'
   ),
   heroText: words(
-    'USTEM Foundation Орталық Азиядағы балаларды, педагогтерді және серіктестерді ғылым мен технология төңірегінде біріктіреді: жарыстар өткізеді, педагогтерді оқытады және жас инженерлерді қолдайды.',
-    'USTEM Foundation объединяет детей, педагогов и партнёров Центральной Азии вокруг науки и технологий: проводит соревнования, обучает педагогов и поддерживает молодых инженеров.',
-    'USTEM Foundation brings students, teachers and partners across Central Asia together around science and technology: it runs competitions, trains teachers and supports young engineers.'
+    'USTEM Foundation балаларды, педагогтерді және серіктестерді ғылым мен технология төңірегінде біріктіреді: жарыстар өткізеді, педагогтерді оқытады және жас инженерлерді қолдайды.',
+    'USTEM Foundation объединяет детей, педагогов и партнёров вокруг науки и технологий: проводит соревнования, обучает педагогов и поддерживает молодых инженеров.',
+    'USTEM Foundation brings students, teachers and partners together around science and technology: it runs competitions, trains teachers and supports young engineers.'
   ),
   heroCta: words('Жарыстарды көру', 'Смотреть соревнования', 'Explore competitions'),
   heroAbout: words('Біз туралы', 'О нас', 'About us'),
