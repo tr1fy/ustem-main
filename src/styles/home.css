@@ -1870,8 +1870,6 @@
 /* ---------- Reports: the public PDFs, moved here from the About page ---------- */
 .home-reports-inner {
   position: relative;
-  display: grid;
-  gap: 20px 64px;
   padding-top: 40px;
 }
 .home-reports-inner::before {
@@ -1884,46 +1882,202 @@
   border-radius: 2px;
   background: var(--aral);
 }
+/* One light-blue block; each report is a white row inside it. A new report
+   is one more row. */
+.home-reports-block {
+  padding: 8px;
+  border-radius: var(--radius);
+  background: var(--tint);
+}
 .home-reports-list {
   display: grid;
-  gap: 20px;
-  margin: 0 0 24px;
+  gap: 8px;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
-.home-reports-list li {
+.home-reports-row {
   display: grid;
-  gap: 6px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--line);
+  gap: 10px;
+  padding: 20px;
+  border-radius: 18px;
+  background: var(--white);
+  color: var(--ink);
+  text-decoration: none;
 }
-.home-reports-list .link-arrow {
+.home-reports-row:hover .home-reports-title {
+  color: var(--blue);
+}
+.home-reports-row:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+.home-reports-date {
+  font-size: var(--fs-small);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.home-reports-main {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.home-reports-title {
   font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.35;
   overflow-wrap: anywhere;
+  transition: color var(--dur) var(--ease);
 }
 .home-reports-meta {
   font-size: var(--fs-small);
-  font-weight: 600;
   color: var(--muted);
 }
-.home-reports-note {
+.home-reports-file {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  color: var(--blue);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  white-space: nowrap;
+  transition: border-color var(--dur) var(--ease);
+}
+.home-reports-row:hover .home-reports-file {
+  border-color: var(--blue);
+}
+.home-reports-file svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+}
+.home-reports-text {
+  margin: 0;
+  padding: 16px 20px 12px;
   font-size: var(--fs-small);
   color: var(--muted);
 }
-.home-reports-text {
-  max-width: 48ch;
-  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+.home-reports-text a {
+  color: var(--blue);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+@media (min-width: 768px) {
+  .home-reports-block {
+    padding: 12px;
+  }
+  .home-reports-row {
+    grid-template-columns: 160px minmax(0, 1fr) auto;
+    gap: 28px;
+    align-items: center;
+    padding: 24px 28px;
+  }
+  .home-reports-date {
+    font-size: 1rem;
+    color: var(--ink);
+  }
+  .home-reports-file {
+    margin-top: 0;
+  }
+  .home-reports-text {
+    padding: 18px 28px 14px;
+  }
+}
+/* «Барлық есептер»: the link is a button styled as .link-arrow; the dialog
+   is a plain list with hairlines (shell shared with .fp-dialog). */
+.home-reports-all {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
+.fp-dialog.home-reports-dialog {
+  max-width: 680px;
+  max-height: calc(100dvh - 48px);
+  gap: 8px;
+  overflow-y: auto;
+}
+.home-reports-dlist {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+.home-reports-dlist > li {
+  border-bottom: 1px solid var(--line);
+}
+.home-reports-drow {
+  display: grid;
+  gap: 6px;
+  padding: 18px 0;
+  color: var(--ink);
+  text-decoration: none;
+}
+.home-reports-drow:hover .home-reports-dtitle {
+  color: var(--blue);
+}
+.home-reports-ddate {
+  font-size: var(--fs-small);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.home-reports-dbody {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.home-reports-dtitle {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.35;
+  transition: color var(--dur) var(--ease);
+}
+.home-reports-dmeta {
+  font-size: var(--fs-small);
   color: var(--muted);
 }
-.home-reports-body > .link-arrow {
-  margin-top: 12px;
-  font-size: 1.125rem;
+.home-reports-dfile {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--blue);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.home-reports-dfile svg {
+  width: 14px;
+  height: 14px;
+}
+.home-reports-dtext {
+  margin: 16px 0 0;
+  font-size: var(--fs-small);
+  color: var(--muted);
+}
+.home-reports-dtext a {
+  color: var(--blue);
+  font-weight: 600;
   overflow-wrap: anywhere;
+}
+@media (min-width: 640px) {
+  .home-reports-drow {
+    grid-template-columns: 150px minmax(0, 1fr) auto;
+    gap: 20px;
+    align-items: center;
+  }
+  .home-reports-ddate {
+    font-size: 0.9375rem;
+    color: var(--ink);
+  }
 }
 @media (min-width: 1024px) {
   .home-reports-inner {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    align-items: start;
     padding-top: 56px;
   }
 }
