@@ -22,6 +22,7 @@ import {
   audiences,
   localize,
   projects,
+  homeReportsLimit,
   publicReports,
   reportsText,
   site,
@@ -33,6 +34,7 @@ import CompetitionsShowcase from './competitions-showcase'
 import ImpactCard from './impact-card'
 import { NewsCard, latestNews } from './news-card'
 import PartnerLogos from './partner-logos'
+import ReportsDialog from './reports-dialog'
 import { Reveal } from './reveal'
 import Squircle from './squircle'
 import Testimonials from './testimonials'
@@ -486,20 +488,25 @@ function PartnerLogoBand({ locale }: { locale: string }) {
   )
 }
 
-/** Public reports: one card, one row per report (date · title · PDF), and
-    a line below on how to ask for the rest. The footer «Есептер» link lands
-    here. To add a report, add an object to `publicReports`. */
+/** Public reports: one light-blue block, one white row per report
+    (date · title and project · PDF), and a line below on how to ask for
+    the rest. Shows the latest `homeReportsLimit`; «Барлық есептер» opens
+    the full list. The footer «Есептер» link lands here. */
 function Reports({ locale }: { locale: string }) {
   return (
     <section id='reports' className='section home-reports' aria-labelledby='reports-title'>
       <div className='container'>
         <Reveal className='home-rv home-reports-inner'>
           <div className='rv' style={order(0)}>
-            <SectionHead id='reports-title' title={localize(ui.reports, locale)} />
+            <SectionHead
+              id='reports-title'
+              title={localize(ui.reports, locale)}
+              action={<ReportsDialog locale={locale} />}
+            />
           </div>
-          <div className='rv' style={order(1)}>
-            <ul className='home-reports-card'>
-              {publicReports.map(report => (
+          <div className='rv home-reports-block' style={order(1)}>
+            <ul className='home-reports-list'>
+              {publicReports.slice(0, homeReportsLimit).map(report => (
                 <li key={report.file}>
                   <a
                     className='home-reports-row'
@@ -509,8 +516,8 @@ function Reports({ locale }: { locale: string }) {
                   >
                     <span className='home-reports-date'>{localize(report.date, locale)}</span>
                     <span className='home-reports-main'>
-                      <span className='home-reports-meta'>{localize(report.meta, locale)}</span>
                       <span className='home-reports-title'>{localize(report.title, locale)}</span>
+                      <span className='home-reports-meta'>{localize(report.meta, locale)}</span>
                     </span>
                     <span className='home-reports-file'>
                       {localize(report.note, locale)}

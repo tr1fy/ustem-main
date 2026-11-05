@@ -738,8 +738,10 @@ export const languages = [
 ] as const
 
 /** Text used by the TZ v1.0 layout. Exact wording comes from the TZ. */
-/** Public reports listed in the «Есептер» card near the bottom of the home
-    page. One object = one row (date · title · PDF); add a new report on top. */
+/** Public reports in the «Есептер» block near the bottom of the home page.
+    One object = one row (date · title · PDF); add a new report on top. The
+    block shows the latest `homeReportsLimit`, the «Барлық есептер» dialog
+    shows all. */
 export const publicReports: {
   file: string
   date: Localized
@@ -751,18 +753,20 @@ export const publicReports: {
     file: '/docs/public-report-alem-techfest-2026.pdf',
     date: words('2026 ж. 10 сәуір', '10 апреля 2026', 'April 10, 2026'),
     meta: words(
-      'Alem TechFest 2026 · КҚ «Samruk-Kazyna Trust»',
+      'Alem TechFest 2026 · КҚ «Samruk-Kazyna Trust» · орыс тілінде',
       'Alem TechFest 2026 · КФ «Samruk-Kazyna Trust»',
-      'Alem TechFest 2026 · Samruk-Kazyna Trust'
+      'Alem TechFest 2026 · Samruk-Kazyna Trust · in Russian'
     ),
     title: words(
       'Қайырымдылық көмегі қаражатының пайдаланылуы туралы жария есеп',
       'Публичный отчёт об использовании средств благотворительной помощи',
       'Public report on the use of charitable funds'
     ),
-    note: words('PDF · 1,4 МБ · орыс тілінде', 'PDF · 1,4 МБ', 'PDF · 1.4 MB · in Russian')
+    note: words('PDF · 1,4 МБ', 'PDF · 1,4 МБ', 'PDF · 1.4 MB')
   }
 ]
+
+export const homeReportsLimit = 2
 
 export const reportsText = words(
   'Басқа есептер мен құжаттар сұрау бойынша беріледі:',
@@ -945,6 +949,7 @@ export const ui = {
   socials: words('Әлеуметтік желілер', 'Соцсети', 'Social media'),
   bin: words('БСН', 'БИН', 'BIN'),
   reports: words('Есептер', 'Отчёты', 'Reports'),
+  allReports: words('Барлық есептер', 'Все отчёты', 'All reports'),
   forMedia: words('БАҚ үшін', 'Для СМИ', 'For media'),
   privacy: words('Құпиялылық саясаты', 'Политика конфиденциальности', 'Privacy policy'),
   backToTop: words('Жоғарыға', 'Наверх', 'Back to top'),
