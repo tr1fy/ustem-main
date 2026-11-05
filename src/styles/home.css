@@ -133,10 +133,6 @@
 .hero-content {
   position: relative;
 }
-.hero-geo {
-  font-size: 1rem;
-  line-height: 1.3;
-}
 .hero h1 {
   max-width: 13em;
   margin-top: 28px;
@@ -286,10 +282,7 @@
     --photo-x: -25vw;
     --photo-y: -6vw;
   }
-  .hero-geo {
-    font-size: 1.125rem;
-  }
-  .hero-text {
+.hero-text {
     font-size: 1.125rem;
   }
   .hero-btn {
@@ -357,9 +350,6 @@
   .hero-label {
     min-height: 48px;
     padding: 10px 16px;
-    font-size: max(1rem, 17 * var(--u));
-  }
-  .hero-geo {
     font-size: max(1rem, 17 * var(--u));
   }
   /* Both columns stop short of the nearest player (his back is 603px right
@@ -1067,88 +1057,7 @@
 .imp-overlap:has(+ .home-audiences) {
   padding-bottom: clamp(32px, 4vw, 56px);
 }
-.aud-list {
-  display: grid;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  border-top: 1px solid var(--line);
-}
-.aud-list > li {
-  border-bottom: 1px solid var(--line);
-}
-.aud-link {
-  display: grid;
-  gap: 4px;
-  height: 100%;
-  padding: 18px 0;
-  color: inherit;
-  text-decoration: none;
-}
-.aud-title {
-  display: block;
-  font-size: 1.0625rem;
-  font-weight: 600;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-}
 /* the arrow follows the last word, even when the title wraps */
-.aud-title svg {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  margin-left: 6px;
-  vertical-align: -2px;
-  stroke-width: 2;
-  color: var(--blue);
-  transition: transform var(--dur) var(--ease);
-}
-.aud-text {
-  max-width: 40ch;
-  font-size: 0.9375rem;
-  line-height: 1.45;
-  color: var(--muted);
-}
-.aud-link:hover .aud-title {
-  color: var(--blue);
-}
-.aud-link:hover .aud-title svg {
-  transform: translateX(4px);
-}
-.aud-link:focus-visible {
-  outline: 3px solid var(--blue);
-  outline-offset: 4px;
-  border-radius: 4px;
-}
-@media (min-width: 640px) {
-  .aud-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 32px;
-  }
-}
-@media (min-width: 1024px) {
-  .aud-list {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    column-gap: 0;
-    border-bottom: 1px solid var(--line);
-  }
-  .aud-list > li {
-    border-bottom: 0;
-  }
-  .aud-list > li + li {
-    border-left: 1px solid var(--line);
-  }
-  .aud-link {
-    padding: 24px 24px 26px;
-  }
-  .aud-list > li:first-child .aud-link {
-    padding-left: 0;
-  }
-  .aud-list > li:last-child .aud-link {
-    padding-right: 0;
-  }
-}
 
 /* ---------- USTEM Academy ----------
  * Its own block between Competitions and Projects: the artwork in a rounded
@@ -1704,147 +1613,17 @@
  * same photo masked to the tossed boy and the raised hands sits on top, so
  * he flies out over the blue half. Below 1024px the copy sits on top and
  * the boy flies up over the top edge of the photo instead.             */
-.home-partners-shadow {
-  filter: drop-shadow(0 6px 14px rgba(15, 23, 42, 0.14));
-}
-.home-partners-card {
-  --squircle-radius: 28px;
-  --squircle-smoothing: 0.6;
-  position: relative;
-  isolation: isolate;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  container-type: inline-size;
-  border-radius: var(--squircle-radius);
-  background: #0774f5;
-  color: var(--white);
-}
-.home-partners-card :focus-visible {
-  outline-color: var(--white);
-}
-.home-partners-copy {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  /* bottom: room for the boy's raised arm, which crosses into the panel */
-  padding: 40px 24px calc(13cqw + 12px);
-  /* as in the owner's Figma: #067AF1 at 60% over the pattern at 100% */
-  background:
-    linear-gradient(rgba(6, 122, 241, 0.6), rgba(6, 122, 241, 0.6)),
-    url('/images/brand/pattern-sea-960.webp') 0 0 / 840px auto repeat,
-    #0774f5;
-}
-.home-partners-copy h2 {
-  max-width: 8.6em;
-  font-size: clamp(2rem, 1.3rem + 2.8vw, 3.4375rem);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  text-wrap: balance;
-  color: var(--white);
-}
-.home-partners-copy p {
-  max-width: 18em;
-  margin-top: 20px;
-  font-size: clamp(1.0625rem, 0.95rem + 0.45vw, 1.25rem);
-  line-height: 1.15;
-  color: var(--white);
-}
-.home-partners-cta {
-  gap: 8px;
-  min-width: min(260px, 100%);
-  min-height: 48px;
-  margin-top: 28px;
-  padding: 10px 28px;
-  border-radius: 12px;
-  background: var(--white);
-  color: var(--blue);
-  font-size: 1.0625rem;
-}
-.home-partners-cta:hover {
-  background: var(--tint);
-}
 /* the arrow sits inline after the label, not in its own circle */
-.home-partners-cta.btn > svg:last-child:not(:first-child) {
-  width: 18px;
-  height: 18px;
-  padding: 0;
-  margin: 0;
-  background: none;
-  stroke-width: 2.25;
-}
 /* The photo panel: the frame crops the photo to the panel; the cut-out
    copy is not cropped by it (only by the card). Both images share one box,
    in px of the photo crop (1886 × 1472) scaled by --k. Phones/tablets:
    the boy and the crowd across the card width, his arm and phone above
    the panel's top edge. */
-.home-partners-photo {
-  position: relative;
-  height: 67cqw;
-}
-.home-partners-frame {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-}
-.home-partners-img {
-  position: absolute;
-  left: -5cqw;
-  top: -16.8cqw;
-  width: 158.5cqw;
-  max-width: none;
-  height: auto;
-}
-.home-partners-cutout {
-  z-index: 1;
-  -webkit-mask: url('/images/people/houston-toss-mask.webp') 0 0 / 100% 100% no-repeat;
-  mask: url('/images/people/houston-toss-mask.webp') 0 0 / 100% 100% no-repeat;
-  pointer-events: none;
-}
-@media (min-width: 768px) {
-  .home-partners-card {
-    --squircle-radius: 34px;
-  }
-  .home-partners-copy {
-    padding: 56px 56px calc(12cqw + 16px);
-  }
-  /* the same framing, cut just below the raised hands */
-  .home-partners-photo {
-    height: 52cqw;
-  }
-}
+
 /* Desktop: the Figma frame. Blue panel 705 of 1280 (never under 560px, so
    the heading keeps clear of the boy's feet), photo 575; the photo is
    1184px wide, starts 121px left of the panel edge (that part shows only
    through the cut-out) and 41px above the card. */
-@media (min-width: 1024px) {
-  .home-partners-card {
-    display: grid;
-    grid-template-columns: minmax(560px, 705fr) minmax(0, 575fr);
-    min-height: 500px;
-  }
-  .home-partners-copy {
-    padding: 70px clamp(48px, 5.5vw, 70px);
-  }
-  .home-partners-copy h2 {
-    font-size: clamp(2.75rem, 0.9rem + 3.4vw, 3.4375rem);
-  }
-  .home-partners-copy p {
-    margin-top: 38px;
-  }
-  .home-partners-cta {
-    margin-top: auto;
-  }
-  .home-partners-photo {
-    height: auto;
-  }
-  .home-partners-img {
-    left: -121px;
-    top: -41px;
-    width: 1184px;
-  }
-}
-
 
 /* ---------- Reveals ----------
  * <Reveal className='home-rv'> arms .will-reveal after mount (never for
