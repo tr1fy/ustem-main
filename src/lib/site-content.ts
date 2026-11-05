@@ -80,75 +80,6 @@ export const copy = {
   )
 }
 
-export const testimonials = [
-  {
-    name: words('Бауыржан Оспанов', 'Бауыржан Оспанов', 'Baurzhan Ospanov'),
-    role: words(
-      'Меценат, кәсіпкер',
-      'Меценат, предприниматель',
-      'Philanthropist and entrepreneur'
-    ),
-    photo: '/feedback-photos/baurzhan.jpg',
-    quote: words(
-      'Бізге ақылды мамандар, инженерлер қажет, сондықтан STEM саласын дәл қазір дамытуға ерекше көңіл бөлу маңызды. Кейде балаларды шетелдегі мықты университетте оқытсақ, мықты маман аламыз деп ойлаймыз. Мен бизнес саласында шамамен 35 жыл жүрмін және баланың болашағының 80 пайызы мектеп қабырғасынан басталады деп сенімді айта аламын.',
-      'Нам нужны умные специалисты, инженеры, поэтому важно уделить должное внимание развитию STEM уже сейчас. Иногда нам кажется, что, обучив детей в сильном вузе за рубежом, мы получим сильных специалистов. Я в бизнесе около 35 лет и могу уверенно сказать: 80% будущего ребёнка начинается со школьной скамьи.',
-      'We need capable specialists and engineers, so it is important to pay special attention to STEM right now. We sometimes think that if our children study at a strong university abroad, we will get strong specialists. I have been in business for about 35 years, and I can say with confidence that 80% of a child’s future begins at school.'
-    )
-  },
-  {
-    name: words('Бағдат Мусин', 'Багдат Мусин', 'Bagdat Mussin'),
-    role: words('Kazakhtelecom CEO', 'CEO Kazakhtelecom', 'CEO, Kazakhtelecom'),
-    photo: '/feedback-photos/bagdat.jpg',
-    quote: words(
-      'Экономикамызда инженерлердің тапшылығы айқын сезіледі. Инженерлік ойлау барлық жерде және әрдайым болуы керек, ол инновациялық өнімдер тудырады. Менің ойымша, прогресс USTEM Foundation командасы ұйымдастыратын осындай чемпионаттардан басталады: жұмыс істей алған шағын идеялардан, тіпті олар әзірге шағын көлемде болса да.',
-      'В нашей экономике чувствуется острый дефицит инженеров. Инженерная мысль должна присутствовать везде и всегда, создавая инновационные продукты. На мой взгляд, прогресс начинается с чемпионатов, которые организует команда USTEM Foundation, — с небольших идей, которые удалось заставить работать, пусть пока и в микромасштабе.',
-      'Our economy faces an acute shortage of engineers. Engineering thinking should be present everywhere and always: it creates innovative products. In my view, progress begins at championships like those organized by the USTEM Foundation team — with small ideas that have been made to work, even if only on a small scale for now.'
-    )
-  },
-  {
-    name: words('Сардар Қоңырбаев', 'Сардар Конурбаев', 'Sardar Konurbayev'),
-    role: words(
-      'Purdue University студенті',
-      'Студент Purdue University',
-      'Purdue University student'
-    ),
-    photo: '/feedback-photos/sardar.jpg',
-    quote: words(
-      'FIRST чемпионаттарына қатысу менің техникалық дағдыларымды ғана емес, командада жұмыс істеу, шектеулі уақыт ішінде шешім қабылдау және стандарттан тыс идеялар ұсыну қабілетімді де дамытты. Жаңа технологияларға тез бейімделуім және FIRST-ке дайындық кезінде қалыптасқан жүйелі ойлауым Delta Airlines, Rivian және Apple компанияларындағы сұхбаттарда жоғары бағаланды.',
-      'Участие в чемпионатах FIRST не только улучшило мои технические навыки, но и развило умение работать в команде, принимать решения в условиях ограниченного времени и предлагать нестандартные идеи. Умение быстро адаптироваться к новым технологиям и системное мышление, сформированное при подготовке к FIRST, высоко оценили на собеседованиях в Delta Airlines, Rivian и Apple.',
-      'FIRST strengthened not only my technical skills but also my ability to work in a team, make decisions under time pressure and offer unconventional ideas. My ability to adapt quickly to new technology and the systematic thinking I developed preparing for FIRST were highly valued in interviews with Delta Airlines, Rivian and Apple.'
-    )
-  },
-  {
-    name: words('Эльнур Халметов', 'Эльнур Халметов', 'Elnur Khalmetov'),
-    role: words(
-      'Kyoto University of Advanced Science студенті',
-      'Студент Kyoto University of Advanced Science',
-      'Kyoto University of Advanced Science student'
-    ),
-    photo: '/feedback-photos/elnur.jpg',
-    quote: words(
-      'FIRST жобасы менің инженер ретінде қалыптасуыма үлкен әсер етті. Ол CAD бағдарламаларымен, 3D-принтерлермен және лазерлік станоктармен жұмыс істеу сияқты практикалық дағдылар беріп қана қоймай, ұмытылмас естеліктер сыйлады. Командамен бірге өткізген ұйқысыз түндердің өзі қазір жылы әрі шабытты сәттер болып көрінеді.',
-      'Проект FIRST сыграл важную роль в моём становлении как инженера. Он дал мне практические навыки работы с CAD-программами, 3D-принтерами и лазерными станками и подарил незабываемые воспоминания. Даже бессонные ночи с командой теперь кажутся тёплыми и вдохновляющими моментами.',
-      'FIRST played an important role in my development as an engineer. It gave me practical experience with CAD, 3D printers and laser cutters, as well as unforgettable memories. Even the sleepless nights with the team now feel warm and inspiring.'
-    )
-  },
-  {
-    name: words('Амира Махмеджан', 'Амира Махмеджан', 'Amira Makhmedzhan'),
-    role: words(
-      'Stanford University студенті',
-      'Студентка Stanford University',
-      'Stanford University student'
-    ),
-    photo: '/feedback-photos/amira.jpg',
-    quote: words(
-      'FTC маған командалық жұмысты үйретті. Робот біреу, ал біз көп болғандықтан, әр адамның мықты тұстарын ескеру маңызды екенін түсіндік. Дайындық бізді жақындатып, нағыз командаға айналдырды. Бағдарламалаумен айналыссам да, роботты құрастырудан шет қалмадым. Кодымның инженериямен қалай байланысатынын көру өте қызықты болды.',
-      'FTC научил меня командной работе. Мы понимали, что робот один, а нас много, поэтому важно учитывать сильные стороны каждого. Подготовка сблизила нас, и мы стали настоящей командой. Даже занимаясь программированием, я не оставалась в стороне от сборки робота. Было очень интересно видеть, как мой код связан с инженерной частью.',
-      'FTC taught me teamwork. With one robot and many people, we learned to use everyone’s strengths. Preparation brought us together as a real team. Even as a programmer, I stayed involved in the build — seeing how my code connected with the engineering was exciting.'
-    )
-  }
-]
-
 export type NewsCategory = 'foundation' | 'media' | 'press-release'
 
 const allNews: {
@@ -323,205 +254,6 @@ export const news = allNews.filter(
   item => connectEnabled || item.source !== connectUrl
 )
 
-export const tournaments = [
-  {
-    slug: 'alem-drone-league',
-    title: 'Alem Drone League',
-    code: '02 / DRONES',
-    type: 'drone',
-    fact: words(
-      'Дрон технологиялары және ұшу шеберлігі',
-      'Дрон-технологии и мастерство пилотирования',
-      'Drone technology and precision flying'
-    ),
-    detail: words(
-      'Ұшқышсыз технологияларға арналған жарыс бағыты. Командалар ұшу, басқару және инженерлік дағдыларын дамытады.',
-      'Соревновательное направление беспилотных технологий. Команды развивают навыки пилотирования, управления и инженерии.',
-      'A competition track dedicated to unmanned technology, developing piloting, control and engineering skills.'
-    )
-  },
-  {
-    slug: 'future-race',
-    title: 'Future Race',
-    code: '04 / AUTONOMY',
-    type: 'race',
-    fact: words(
-      'Автономды қозғалыс және инженерия',
-      'Автономное движение и инженерия',
-      'Autonomous mobility and engineering'
-    ),
-    detail: words(
-      'Қозғалыс, алгоритмдер және инженерлік шешімдер бір алаңда тоғысады.',
-      'Направление на пересечении движения, алгоритмов и инженерных решений.',
-      'Where motion, algorithms and engineering solutions come together.'
-    )
-  },
-  {
-    slug: 'robot-battle',
-    title: 'Battle of Bots',
-    code: '05 / ENGINEERING',
-    type: 'battle',
-    fact: words(
-      'Роботтар шайқасы',
-      'Битва роботов',
-      'Robot battles'
-    ),
-    detail: words(
-      'Командалар өз роботтарын жасап, беріктігін, басқаруын және стратегиясын аренада сынайды.',
-      'Команды создают собственных роботов и испытывают их прочность, управление и стратегию на арене.',
-      'Teams build robots and put their durability, control and strategy to the test in the arena.'
-    )
-  },
-  {
-    slug: 'robocup',
-    title: 'RoboCup',
-    code: '06 / ROBOTICS',
-    type: 'football',
-    fact: words(
-      'Автономды футбол және құтқару роботтары',
-      'Автономный футбол и спасательные роботы',
-      'Autonomous soccer and rescue robotics'
-    ),
-    detail: words(
-      'RoboCup Soccer және RoboCup Rescue бағыттары бағдарламалау мен автономды роботтарды басқаруды біріктіреді.',
-      'Направления RoboCup Soccer и RoboCup Rescue объединяют программирование и управление автономными роботами.',
-      'RoboCup Soccer and RoboCup Rescue bring together programming and autonomous robot control.'
-    )
-  },
-  {
-    slug: 'abu-robocon',
-    title: 'ABU Robocon',
-    code: '07 / INTERNATIONAL',
-    type: 'robot',
-    fact: words(
-      'Халықаралық студенттік робототехника',
-      'Международная студенческая робототехника',
-      'International student robotics'
-    ),
-    detail: words(
-      'Студенттерге арналған халықаралық робототехника чемпионаты. 2026 жылғы ұлттық іріктеуді USTEM Foundation ұйымдастырды.',
-      'Международный чемпионат по робототехнике для студентов. Национальный отбор 2026 года организовал USTEM Foundation.',
-      'An international robotics championship for university students. USTEM Foundation organized the 2026 national selection.'
-    )
-  },
-  {
-    slug: 'almaty-techcup',
-    title: 'Almaty Tech Cup',
-    code: '04 / TECHNOLOGY',
-    type: 'cup',
-    fact: words(
-      'Робототехника, инженерия және ЖИ',
-      'Робототехника, инженерия и ИИ',
-      'Robotics, engineering and AI'
-    ),
-    detail: words(
-      'Алматыдағы жыл сайынғы технология чемпионаты. FIRST, RoboCup, ABU Robocon және роботтар шайқасы бір алаңда.',
-      'Ежегодный технологический чемпионат в Алматы. FIRST, RoboCup, ABU Robocon и битвы роботов на одной площадке.',
-      'Almaty’s annual technology championship. FIRST, RoboCup, ABU Robocon and robot battles share one arena.'
-    ),
-    externalUrl: words(
-      'https://www.almaty-tech-cup.kz',
-      'https://www.almaty-tech-cup.kz',
-      'https://www.almaty-tech-cup.kz'
-    )
-  },
-  {
-    slug: 'alem-tech-fest',
-    title: 'Alem Tech Fest',
-    code: '03 / FESTIVAL',
-    type: 'festival',
-    fact: words(
-      'Технология, ғылым және жаңа идеялар фестивалі',
-      'Фестиваль технологий, науки и новых идей',
-      'A festival of technology, science and new ideas'
-    ),
-    detail: words(
-      'Жас инженерлер, командалар және технологиялық қауымдастық тәжірибе алмасып, жобаларын таныстыратын ашық алаң.',
-      'Открытая площадка, где юные инженеры, команды и технологическое сообщество обмениваются опытом и представляют свои проекты.',
-      'An open platform where young engineers, teams and the technology community share experience and present their projects.'
-    )
-  },
-  {
-    slug: 'first-robotics',
-    title: 'FIRST Robotics',
-    code: '01 / FIRST',
-    type: 'first',
-    fact: words(
-      'Командалық робототехника және әлемдік FIRST қауымдастығы',
-      'Командная робототехника и мировое сообщество FIRST',
-      'Team robotics and the global FIRST community'
-    ),
-    detail: words(
-      'Оқушылар робот құрастырып, бағдарламалап, инженерлік ойлау, көшбасшылық және командалық жұмыс дағдыларын дамытады.',
-      'Школьники создают и программируют роботов, развивая инженерное мышление, лидерство и навыки командной работы.',
-      'Students design and program robots while building engineering, leadership and teamwork skills.'
-    ),
-    externalUrl: words(
-      'https://www.firstrobotics.kz/ru/',
-      'https://www.firstrobotics.kz/ru/',
-      'https://www.firstrobotics.kz/ru/'
-    )
-  },
-  {
-    slug: 'world-space-olympiad',
-    title: 'WSO',
-    code: '03 / SPACE',
-    type: 'space',
-    fact: words(
-      'World Space Olympiad — ғарыштық инженерия жарысы',
-      'World Space Olympiad — соревнование по космической инженерии',
-      'World Space Olympiad — a space engineering competition'
-    ),
-    detail: words(
-      'Оқушылар CanSat, CubeSat, инженерлік жобалар, роверлер және ғарыштық орта бағыттарында өз шешімдерін жасайды.',
-      'Школьники создают решения в направлениях CanSat, CubeSat, инженерных проектов, роверов и проектирования космической среды.',
-      'Students build solutions across CanSat, CubeSat, engineering projects, rovers and space-environment design.'
-    ),
-    externalUrl: words(
-      'https://www.wso.space/ru',
-      'https://www.wso.space/ru',
-      'https://www.wso.space/ru'
-    )
-  },
-  {
-    slug: 'stem-hanym',
-    title: 'STEM Hanym',
-    code: '01 / STEM',
-    type: 'hanym',
-    fact: words(
-      'Қыздарға арналған STEM қауымдастығы',
-      'STEM-сообщество для девушек',
-      'A STEM community for girls'
-    ),
-    detail: words(
-      'Қыздардың ғылымға, технологияға және инженерияға қызығушылығын қолдайтын білім беру және менторлық жоба.',
-      'Образовательный и менторский проект, который поддерживает интерес девушек к науке, технологиям и инженерии.',
-      'An education and mentoring project supporting girls who are interested in science, technology and engineering.'
-    ),
-    externalUrl: words(
-      'https://stemhanym.kz',
-      'https://stemhanym.kz',
-      'https://stemhanym.kz'
-    )
-  },
-  {
-    slug: 'jasampaz-urpaq',
-    title: 'Jasampaz Urpaq',
-    code: '02 / MAKER',
-    type: 'maker',
-    fact: words(
-      'Жасампаз ойлау және инженерлік шығармашылық',
-      'Созидательное мышление и инженерное творчество',
-      'Creative thinking and hands-on engineering'
-    ),
-    detail: words(
-      'Балалар мен жасөспірімдер идеяларын нақты прототиптерге айналдырып, жобалық және инженерлік дағдыларын дамытады.',
-      'Дети и подростки превращают идеи в реальные прототипы и развивают проектные и инженерные навыки.',
-      'Children and teenagers turn ideas into working prototypes while developing project and engineering skills.'
-    )
-  }
-]
-
 export function formatDate(date: string, locale: string) {
   // Some browsers lack Kazakh month names in Intl; keep SSR and client text identical.
   if (locale === 'kz') {
@@ -644,66 +376,6 @@ export const site = {
   ]
 }
 
-/** Homepage «who is it for» index under the numbers: one plain row of
-    four entry points, each leading to the page that answers that visitor.
-    (The FIRST «teams and mentors» row was dropped on 2026-10-29: the
-    competitions row already covers it.) */
-export const audiences: {
-  key: string
-  title: Localized
-  text: Localized
-  href: string
-}[] = [
-  {
-    key: 'families',
-    title: words(
-      'Ата-аналар, балалар мен тәлімгерлерге',
-      'Родителям, детям и наставникам',
-      'Parents, children and mentors'
-    ),
-    text: words(
-      '4 жастан бастап жарыстар: жасқа сай бағдарламаны таңдаңыз.',
-      'Соревнования с 4 лет: выберите программу по возрасту.',
-      'Competitions from age 4: pick the program for the right age group.'
-    ),
-    href: '/competitions'
-  },
-  {
-    key: 'teachers',
-    title: words('Педагогтерге', 'Педагогам', 'Teachers'),
-    text: words(
-      'USTEM Academy: робототехника мен ғарыш бойынша біліктілікті арттыру бағдарламалары.',
-      'USTEM Academy: программы повышения квалификации по робототехнике и космосу.',
-      'USTEM Academy: professional development programs in robotics and space.'
-    ),
-    href: '/academy'
-  },
-  {
-    key: 'partners',
-    title: words(
-      'Серіктестер мен демеушілерге',
-      'Партнёрам и спонсорам',
-      'Partners and sponsors'
-    ),
-    text: words(
-      'Серіктестік форматтары, нәтижелер және байланыс.',
-      'Форматы партнёрства, результаты и контакты.',
-      'Partnership formats, results and contacts.'
-    ),
-    href: '/partners'
-  },
-  {
-    key: 'media',
-    title: words('БАҚ өкілдеріне', 'Журналистам', 'Journalists'),
-    text: words(
-      'Аккредитация, сұхбат, фото және логотиптер — сұрау бойынша.',
-      'Аккредитация, интервью, фото и логотипы — по запросу.',
-      'Accreditation, interviews, photos and logos on request.'
-    ),
-    href: '/contacts#media'
-  }
-]
-
 /** Main menu (TZ §5.1), in this exact order. */
 export const navItems = [
   { key: 'about', href: '/about', label: words('Біз туралы', 'О нас', 'About us') },
@@ -791,11 +463,6 @@ export const ui = {
   heroAbout: words('Біз туралы', 'О нас', 'About us'),
   // Photo supplied by the foundation; event and year confirmed by the
   // owner on 2026-10-01 (TZ §6.1: the caption must match the frame).
-  heroCaption: words(
-    'FIRST LEGO League · Хьюстон, 2026 · Қазақстан командасы',
-    'FIRST LEGO League · Хьюстон, 2026 · команда Казахстана',
-    'FIRST LEGO League · Houston, 2026 · Team Kazakhstan'
-  ),
   heroPhotoAlt: words(
     'Қазақстан командасы Хьюстондағы FIRST LEGO League алаңында роботты бірге дайындап жатыр',
     'Команда Казахстана вместе готовит робота на поле FIRST LEGO League в Хьюстоне',
@@ -839,7 +506,6 @@ export const ui = {
     'Результаты в цифрах',
     'Results in numbers'
   ),
-  audiencesTitle: words('Кімге', 'Кому', 'Who it is for'),
   source: words('Дереккөз', 'Источник', 'Source'),
   sourceAsOf: words('Дерек күні', 'Актуально на', 'As of'),
   competitionsTitle: words(
@@ -862,7 +528,6 @@ export const ui = {
   flagships: words('Флагман іс-шаралар', 'Флагманские события', 'Flagship events'),
   nextEdition: words('Келесі', 'Следующее', 'Next'),
   directions: words('Бағыттар', 'Направления', 'Competition tracks'),
-  partOf: words('Өтеді:', 'Проходит в рамках:', 'Part of:'),
   officialSite: words('Ресми сайт', 'Официальный сайт', 'Official website'),
   rules: words('Регламент (PDF)', 'Регламент (PDF)', 'Rules (PDF)'),
   moreDetails: words('Толығырақ', 'Подробнее', 'Read more'),
@@ -911,16 +576,6 @@ export const ui = {
   otherNews: words('Басқа жаңалықтар', 'Другие новости', 'More news'),
   share: words('Бөлісу', 'Поделиться', 'Share'),
   copyLink: words('Сілтемені көшіру', 'Скопировать ссылку', 'Copy link'),
-  partnersTitle: words(
-    'Келесі жеңіске бірге жол ашайық.',
-    'Проложим путь к следующей победе вместе.',
-    'Let’s pave the way to the next victory together.'
-  ),
-  partnersText: words(
-    'Жастардың инженериядағы алғашқы қадамына қолдау көрсетіңіз. Әр үлес маңызды.',
-    'Поддержите первый шаг молодёжи в инженерии. Важен каждый вклад.',
-    'Support young people’s first step in engineering. Every contribution matters.'
-  ),
   becomePartner: words('Серіктес болу', 'Стать партнёром', 'Become a partner'),
   supportLabel: words('Көмектесу', 'Поддержать', 'Support'),
   supportText: words(
@@ -957,7 +612,6 @@ export const ui = {
   previous: words('Алдыңғы', 'Назад', 'Previous'),
   next: words('Келесі', 'Вперёд', 'Next'),
   program: words('Бағдарлама', 'Программа', 'Program'),
-  project: words('Жоба', 'Проект', 'Project'),
   home: words('Басты бет', 'Главная', 'Home'),
   breadcrumb: words('Навигация жолы', 'Навигационная цепочка', 'Breadcrumb')
 }
@@ -1114,7 +768,6 @@ export type SiteEvent = {
   title: string
   kind: 'flagship' | 'direction'
   /** TZ §7.1: FIRST Robotics, Alem Drone League and RoboCup run inside Alem Tech Fest. */
-  partOf?: string
   fact: Localized
   detail: Localized
   /** Confirmed facts only (TZ §11). */
@@ -1458,7 +1111,6 @@ export const events: SiteEvent[] = [
     slug: 'first-robotics',
     title: 'FIRST Robotics',
     kind: 'direction',
-    partOf: 'alem-tech-fest',
     fact: words(
       'Командалық робототехника және әлемдік FIRST қауымдастығы.',
       'Командная робототехника и мировое сообщество FIRST.',
@@ -1481,7 +1133,6 @@ export const events: SiteEvent[] = [
     slug: 'alem-drone-league',
     title: 'Alem Drone League',
     kind: 'direction',
-    partOf: 'alem-tech-fest',
     fact: words(
       'Дрон технологиялары және ұшу шеберлігі.',
       'Дрон-технологии и мастерство пилотирования.',
@@ -1586,7 +1237,6 @@ export const events: SiteEvent[] = [
     slug: 'robocup',
     title: 'RoboCup',
     kind: 'direction',
-    partOf: 'alem-tech-fest',
     fact: words(
       'Автономды футбол және құтқару роботтары.',
       'Автономный футбол и спасательные роботы.',

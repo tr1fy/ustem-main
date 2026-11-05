@@ -864,40 +864,6 @@
   align-items: center;
   gap: 12px;
 }
-/* «Проходит в рамках: Alem Tech Fest →» — one pill, one link. */
-.cmp-partof {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 2px 6px;
-  min-height: 44px;
-  padding: 8px 16px 8px 20px;
-  border-radius: var(--radius-pill);
-  background: var(--tint);
-  font-size: 0.9375rem;
-  line-height: 1.3;
-  transition: box-shadow var(--dur) var(--ease);
-}
-.cmp-partof-key {
-  color: var(--muted);
-}
-.cmp-partof-name {
-  color: var(--blue);
-  font-weight: 700;
-}
-.cmp-partof svg {
-  width: 16px;
-  height: 16px;
-  color: var(--blue);
-  stroke-width: 2;
-  transition: transform var(--dur) var(--ease);
-}
-.cmp-partof:hover {
-  box-shadow: inset 0 0 0 1px rgba(0, 105, 218, 0.28);
-}
-.cmp-partof:hover svg {
-  transform: translateX(3px);
-}
 .cmp-detail-copy {
   display: flex;
   flex-direction: column;
@@ -1235,8 +1201,7 @@
   .cmp-card-go svg,
   .cmp-other,
   .cmp-other-thumb img,
-  .cmp-other-go svg,
-  .cmp-partof svg {
+.cmp-other-go svg {
     transition: none;
   }
   .cmp-card:hover .cmp-card-media img,
