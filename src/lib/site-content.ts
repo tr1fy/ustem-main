@@ -1125,14 +1125,14 @@ export const events: SiteEvent[] = [
       'Almaty’s annual championship in robotics, engineering and AI.'
     ),
     detail: words(
-      'USTEM Foundation ұйымдастыратын технология чемпионаты. XII чемпионат «Age of AI» 2026 жылғы 30 маусым – 1 шілдеде Almaty Arena-да өтті: 3000-нан астам қатысушы, 14 жарыс, 5 ел.',
-      'Технологический чемпионат, который организует USTEM Foundation. XII чемпионат «Age of AI» прошёл 30 июня – 1 июля 2026 года в Almaty Arena: более 3000 участников, 14 соревнований, 5 стран.',
-      'A technology championship organized by USTEM Foundation. The XII championship “Age of AI” took place on 30 June – 1 July 2026 at Almaty Arena: 3,000+ participants, 14 competitions, 5 countries.'
+      'USTEM Foundation ұйымдастыратын технология чемпионаты. XII чемпионат «Age of AI» 2026 жылғы 30 маусым – 1 шілдеде Almaty Arena-да өтті: 3000-нан астам қатысушы, 14 жарыс, 10 000 қонақ, 5 ел.',
+      'Технологический чемпионат, который организует USTEM Foundation. XII чемпионат «Age of AI» прошёл 30 июня – 1 июля 2026 года в Almaty Arena: более 3000 участников, 14 соревнований, 10 000 гостей, 5 стран.',
+      'A technology championship organized by USTEM Foundation. The XII championship “Age of AI” took place on 30 June – 1 July 2026 at Almaty Arena: 3,000+ participants, 14 competitions, 10,000 visitors, 5 countries.'
     ),
     meta: words(
-      '2026 · Almaty Arena · 3000+ қатысушы · 14 бағыт · 5 ел',
-      '2026 · Almaty Arena · 3000+ участников · 14 направлений · 5 стран',
-      '2026 · Almaty Arena · 3,000+ participants · 14 competition tracks · 5 countries'
+      '2026 · Almaty Arena · 3000+ қатысушы · 14 жарыс · 10 000 қонақ · 5 ел',
+      '2026 · Almaty Arena · 3000+ участников · 14 соревнований · 10 000 гостей · 5 стран',
+      '2026 · Almaty Arena · 3,000+ participants · 14 competitions · 10,000 visitors · 5 countries'
     ),
     next: words(
       'маусым 2027 · FIRST Tech Challenge Premier Event · 96 командаға дейін',
