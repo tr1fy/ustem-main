@@ -68,6 +68,7 @@ const text = {
   ),
   contacts: words('Байланыс', 'Контакты', 'Contacts'),
   email: words('Пошта', 'Почта', 'Email'),
+  phone: words('Телефон', 'Телефон', 'Phone'),
   notice: words('Хабарландыру', 'Уведомление', 'Notice'),
   close: words('Жабу', 'Закрыть', 'Close'),
   newTab: words(
@@ -117,6 +118,25 @@ const icons: Record<FlagshipTrackIcon, ReactNode> = {
       <rect x='6' y='6' width='12' height='12' rx='2' />
       <rect x='10' y='10' width='4' height='4' />
       <path d='M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4' />
+    </>
+  ),
+  blocks: (
+    <>
+      <rect x='3' y='9' width='18' height='11' rx='2' />
+      <rect x='6' y='5' width='4' height='4' rx='1' />
+      <rect x='14' y='5' width='4' height='4' rx='1' />
+    </>
+  ),
+  humanoid: (
+    <>
+      <circle cx='12' cy='4.5' r='2.5' />
+      <path d='M8 9h8l-1 6H9zM9 15l-1 7M15 15l1 7M8 9l-3 5M16 9l3 5' />
+    </>
+  ),
+  zone: (
+    <>
+      <path d='M3 21h18M5 21V10l7-5 7 5v11' />
+      <path d='M9 21v-6h6v6' />
     </>
   )
 }
@@ -173,7 +193,7 @@ function SiteNotice({
       returnTo.current?.focus()
     }
   }, [open, onClose, returnTo])
-  if (!open) return null
+  if (!open || !page.siteNotice) return null
   return (
     <div className='fp-backdrop' onClick={onClose}>
       <div
@@ -246,6 +266,9 @@ export default function FlagshipPage({
   const nextId = useId()
   const contactsId = useId()
   const [titleA, titleB] = event.title.split(' Tech ')
+  const siteHost = event.officialUrl
+    ?.replace(/^https?:\/\/(www\.)?/, '')
+    .replace(/\/$/, '')
   return (
     <div className='fp'>
       {/* 1. Hero: breadcrumb, name, description, buttons, six-photo mosaic */}
@@ -279,14 +302,26 @@ export default function FlagshipPage({
               </h1>
               <p className='fp-lead'>{t(page.description)}</p>
               <div className='fp-actions'>
-                <button
-                  ref={openerRef}
-                  type='button'
-                  className='btn btn-primary'
-                  onClick={openNotice}
-                >
-                  {t(ui.officialSite)}
-                </button>
+                {page.siteNotice ? (
+                  <button
+                    ref={openerRef}
+                    type='button'
+                    className='btn btn-primary'
+                    onClick={openNotice}
+                  >
+                    {t(ui.officialSite)}
+                  </button>
+                ) : (
+                  <a
+                    className='btn btn-primary'
+                    href={event.officialUrl}
+                    target='_blank'
+                    rel='noreferrer'
+                  >
+                    {t(ui.officialSite)}
+                    <span className='visually-hidden'> {t(text.newTab)}</span>
+                  </a>
+                )}
                 <a className='btn btn-secondary' href='#fp-join'>
                   {t(text.howToJoin)}
                 </a>
@@ -338,7 +373,12 @@ export default function FlagshipPage({
             <h2 id={statsId}>{t(text.stats)}</h2>
             <p className='fp-head-note'>{t(page.stats.note)}</p>
           </div>
-          <ul className='fp-stats' role='list'>
+          <ul
+            className={`fp-stats${
+              page.stats.items.length === 3 ? ' fp-stats--three' : ''
+            }`}
+            role='list'
+          >
             {page.stats.items.map(item => (
               <li key={t(item.label)}>
                 <span className='fp-stat-value'>
@@ -352,6 +392,7 @@ export default function FlagshipPage({
       </section>
 
       {/* 3. Mission */}
+      {page.mission && (
       <section className='fp-section' aria-labelledby={missionId}>
         <div className='fp-mission container'>
           <div className='fp-mission-key'>
@@ -366,6 +407,7 @@ export default function FlagshipPage({
           </div>
         </div>
       </section>
+      )}
 
       {/* 4. Tracks: one rectangle divided into six */}
       <section
@@ -374,19 +416,19 @@ export default function FlagshipPage({
       >
         <div className='container'>
           <h2 id={tracksId} className='fp-h2'>
-            {t(text.tracks)}
+            {t(page.tracksTitle ?? text.tracks)}
           </h2>
           <ol
             className={`fp-tracks${
               page.trackStyle === 'photos' ? ' fp-tracks--photos' : ''
-            }`}
+            }${page.tracks.length === 4 ? ' fp-tracks--four' : ''}`}
             role='list'
           >
             {page.tracks.map((item, index) => {
               const photo =
                 page.trackStyle === 'photos' ? page.photos[index] : undefined
               return (
-                <li key={item.icon}>
+                <li key={index}>
                   {photo ? (
                     <span className='fp-track-photo'>
                       {/* The name below says what it is. */}
@@ -524,12 +566,26 @@ export default function FlagshipPage({
           </h2>
           <ul className='fp-contacts' role='list'>
             <li>
-              <button type='button' className='fp-contact' onClick={openNotice}>
-                <span className='fp-contact-key'>{t(ui.officialSite)}</span>
-                <span className='fp-contact-value'>
-                  {event.officialUrl?.replace(/^https?:\/\/(www\.)?/, '')}
-                </span>
-              </button>
+              {page.siteNotice ? (
+                <button
+                  type='button'
+                  className='fp-contact'
+                  onClick={openNotice}
+                >
+                  <span className='fp-contact-key'>{t(ui.officialSite)}</span>
+                  <span className='fp-contact-value'>{siteHost}</span>
+                </button>
+              ) : (
+                <a
+                  className='fp-contact'
+                  href={event.officialUrl}
+                  target='_blank'
+                  rel='noreferrer'
+                >
+                  <span className='fp-contact-key'>{t(ui.officialSite)}</span>
+                  <span className='fp-contact-value'>{siteHost}</span>
+                </a>
+              )}
             </li>
             <li>
               <a className='fp-contact' href={`mailto:${page.contacts.email}`}>
@@ -550,19 +606,31 @@ export default function FlagshipPage({
                 </span>
               </a>
             </li>
-            <li>
-              <a
-                className='fp-contact'
-                href={page.contacts.telegram.url}
-                target='_blank'
-                rel='noreferrer'
-              >
-                <span className='fp-contact-key'>Telegram</span>
-                <span className='fp-contact-value'>
-                  {page.contacts.telegram.handle}
-                </span>
-              </a>
-            </li>
+            {page.contacts.telegram ? (
+              <li>
+                <a
+                  className='fp-contact'
+                  href={page.contacts.telegram.url}
+                  target='_blank'
+                  rel='noreferrer'
+                >
+                  <span className='fp-contact-key'>Telegram</span>
+                  <span className='fp-contact-value'>
+                    {page.contacts.telegram.handle}
+                  </span>
+                </a>
+              </li>
+            ) : page.contacts.phone ? (
+              <li>
+                <a
+                  className='fp-contact'
+                  href={`tel:${page.contacts.phone.replace(/[^+\d]/g, '')}`}
+                >
+                  <span className='fp-contact-key'>{t(text.phone)}</span>
+                  <span className='fp-contact-value'>{page.contacts.phone}</span>
+                </a>
+              </li>
+            ) : null}
           </ul>
         </div>
       </section>

@@ -674,3 +674,21 @@
     animation: none;
   }
 }
+
+/* Four tracks: two per row on tablets, one row of four on desktop. */
+@media (min-width: 1024px) {
+  .fp-tracks--four {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .fp-tracks--four li:nth-child(-n + 4) {
+    border-top: 0;
+  }
+  .fp-tracks--four li:not(:first-child) {
+    border-left: 1px solid var(--line);
+  }
+}
+@media (min-width: 768px) {
+  .fp .fp-stats--three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
