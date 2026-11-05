@@ -289,18 +289,36 @@ export default function FlagshipPage({
               </div>
             </div>
             <div className='fp-hero-media'>
-              <ul className='fp-mosaic' role='list'>
-                {page.photos.map(photo => (
-                  <li key={photo.src}>
-                    <img
-                      src={photo.src}
-                      alt={t(photo.alt)}
-                      loading='eager'
-                      decoding='async'
-                    />
-                  </li>
-                ))}
-              </ul>
+              {page.heroStyle === 'cover' ? (
+                <div className='fp-cover'>
+                  {/* The H1 names the event; the cover is decorative. */}
+                  <img
+                    src={event.cover}
+                    alt=''
+                    loading='eager'
+                    fetchPriority='high'
+                    decoding='async'
+                    style={
+                      event.coverPosition
+                        ? { objectPosition: event.coverPosition }
+                        : undefined
+                    }
+                  />
+                </div>
+              ) : (
+                <ul className='fp-mosaic' role='list'>
+                  {page.photos.map(photo => (
+                    <li key={photo.src}>
+                      <img
+                        src={photo.src}
+                        alt={t(photo.alt)}
+                        loading='eager'
+                        decoding='async'
+                      />
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
         </div>
@@ -351,20 +369,48 @@ export default function FlagshipPage({
           <h2 id={tracksId} className='fp-h2'>
             {t(text.tracks)}
           </h2>
-          <ol className='fp-tracks' role='list'>
-            {page.tracks.map((item, index) => (
-              <li key={item.icon}>
-                <div className='fp-track-top'>
-                  <span className='fp-track-icon'>
-                    <TrackIcon icon={item.icon} />
+          <ol
+            className={`fp-tracks${
+              page.trackStyle === 'photos' ? ' fp-tracks--photos' : ''
+            }`}
+            role='list'
+          >
+            {page.tracks.map((item, index) => {
+              const photo =
+                page.trackStyle === 'photos' ? page.photos[index] : undefined
+              return (
+                <li key={item.icon}>
+                  {photo ? (
+                    <span className='fp-track-photo'>
+                      {/* The name below says what it is. */}
+                      <img
+                        src={photo.src}
+                        alt=''
+                        loading='lazy'
+                        decoding='async'
+                      />
+                    </span>
+                  ) : (
+                    <div className='fp-track-top'>
+                      <span className='fp-track-icon'>
+                        <TrackIcon icon={item.icon} />
+                      </span>
+                      <span className='fp-track-n'>
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                    </div>
+                  )}
+                  <span className='fp-track-name'>
+                    {photo && (
+                      <span className='fp-track-n'>
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                    )}
+                    {t(item.name)}
                   </span>
-                  <span className='fp-track-n'>
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                </div>
-                <span className='fp-track-name'>{t(item.name)}</span>
-              </li>
-            ))}
+                </li>
+              )
+            })}
           </ol>
         </div>
       </section>
