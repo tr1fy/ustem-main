@@ -1,10 +1,8 @@
 /**
  * Homepage sections after the hero (TZ §6; order revised 2026-10-29):
- * Numbers → Audiences → Competitions → Academy → Projects → Trust →
- * Partner logos → News → Partners card.
- * The partner logo band follows Trust (who stands behind the foundation),
- * so the page no longer ends on three blue blocks in a row (logo band,
- * Partners card, footer).
+ * Numbers → Competitions → Academy → Projects → Trust → News → Reports.
+ * Trimmed 2026-11-05: no audience row, no testimonials, no partner logo
+ * wall (it lives on the Partners page), no support popup.
  * The global footer is the contacts section, so there is no contacts block.
  *
  * Motion: each section's content sits in a <Reveal className='home-rv'>;
@@ -19,7 +17,6 @@ import { Link } from '@/i18n/routing'
 import { imageVariant } from '@/lib/image-variant'
 import {
   academyPrograms,
-  audiences,
   localize,
   projects,
   homeReportsLimit,
@@ -33,10 +30,8 @@ import {
 import CompetitionsShowcase from './competitions-showcase'
 import ImpactCard from './impact-card'
 import { NewsCard, latestNews } from './news-card'
-import PartnerLogos from './partner-logos'
 import ReportsDialog from './reports-dialog'
 import { Reveal } from './reveal'
-import Testimonials from './testimonials'
 import { ArrowLink, SectionHead } from './ui'
 
 type Project = (typeof projects)[number]
@@ -82,36 +77,6 @@ const projectCovers: Record<
     width: 800,
     height: 540
   }
-}
-
-/** «Who it is for»: one plain row of four entry points under the numbers —
-    a title, one line and a small arrow each, split by hairlines. No cards
-    and no icons, so it reads as an index rather than another block. */
-function Audiences({ locale }: { locale: string }) {
-  return (
-    <section className='section home-audiences' aria-labelledby='audiences-title'>
-      <div className='container'>
-        <h2 id='audiences-title' className='visually-hidden'>
-          {localize(ui.audiencesTitle, locale)}
-        </h2>
-        <Reveal className='home-rv'>
-          <ul className='aud-list' role='list'>
-            {audiences.map((item, i) => (
-              <li className='rv' style={order(i)} key={item.key}>
-                <Link className='aud-link' href={item.href}>
-                  <span className='aud-title'>
-                    {localize(item.title, locale)}
-                    <ArrowRightIcon aria-hidden='true' />
-                  </span>
-                  <span className='aud-text'>{localize(item.text, locale)}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </Reveal>
-      </div>
-    </section>
-  )
 }
 
 function Competitions({ locale }: { locale: string }) {
@@ -408,9 +373,6 @@ function Trust({ locale }: { locale: string }) {
               </li>
             ))}
           </ul>
-          <div className='rv' style={order(3 + rest.length)}>
-            <Testimonials />
-          </div>
         </Reveal>
       </div>
     </section>
@@ -438,26 +400,6 @@ function News({ locale }: { locale: string }) {
               </li>
             ))}
           </ul>
-        </Reveal>
-      </div>
-    </section>
-  )
-}
-
-/** Partner logo band (TZ §6.7) right after Trust: the President, the
-    testimonials, then the organisations that support the foundation. */
-function PartnerLogoBand({ locale }: { locale: string }) {
-  return (
-    <section
-      id='partner-logos'
-      className='section home-logos'
-      aria-labelledby='partner-logos-title'
-    >
-      <div className='container'>
-        <Reveal className='home-rv'>
-          <div className='rv'>
-            <PartnerLogos locale={locale} id='partner-logos-title' />
-          </div>
         </Reveal>
       </div>
     </section>
@@ -521,12 +463,10 @@ export default function HomeSections({ locale }: { locale: string }) {
   return (
     <>
       <ImpactCard variant='overlap' />
-      <Audiences locale={locale} />
       <Competitions locale={locale} />
       <Academy locale={locale} />
       <Projects locale={locale} />
       <Trust locale={locale} />
-      <PartnerLogoBand locale={locale} />
       <News locale={locale} />
       <Reports locale={locale} />
     </>

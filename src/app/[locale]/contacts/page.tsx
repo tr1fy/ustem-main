@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react'
 import type { Metadata } from 'next'
 import { ArrowRightIcon, ArrowUpRightIcon } from '@heroicons/react/24/outline'
-import { localize, navItems, site, ui, words, type Localized } from '@/lib/site-content'
+import { localize, site, subPages, ui, words, type Localized } from '@/lib/site-content'
 import { alternatesFor, htmlLang } from '@/lib/seo'
 import { PageHead } from '../_components/ui'
 import { NewsCard, latestNews } from '../_components/news-card'
@@ -16,7 +16,7 @@ import { Reveal } from '../_components/reveal'
  * the footer). Hidden until provided (TZ §14 items 11–12): office map,
  * named press contact, press kit and logo rules. */
 
-const title = navItems.find(item => item.key === 'contacts')!.label
+const title = subPages.contacts.label
 
 const description = words(
   'USTEM Foundation байланыстары: e-mail, телефон және БАҚ сұраулары.',

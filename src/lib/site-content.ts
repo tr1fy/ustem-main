@@ -704,9 +704,8 @@ export const audiences: {
   }
 ]
 
-/** Main menu (TZ §5.1), in this exact order. */
+/** Main menu: five items (2026-11-05), in this exact order. */
 export const navItems = [
-  { key: 'about', href: '/about', label: words('Біз туралы', 'О нас', 'About us') },
   {
     key: 'competitions',
     href: '/competitions',
@@ -717,19 +716,21 @@ export const navItems = [
     href: '/academy',
     label: words('USTEM Academy', 'USTEM Academy', 'USTEM Academy')
   },
-  { key: 'projects', href: '/projects', label: words('Жобалар', 'Проекты', 'Projects') },
+  { key: 'about', href: '/about', label: words('Біз туралы', 'О нас', 'About us') },
   { key: 'news', href: '/news', label: words('Жаңалықтар', 'Новости', 'News') },
   {
     key: 'partners',
     href: '/partners',
     label: words('Серіктестерге', 'Партнёрам', 'For Partners')
-  },
-  {
-    key: 'contacts',
-    href: '/contacts',
-    label: words('Контактілер', 'Контакты', 'Contacts')
   }
 ] as const
+
+/** Pages that left the main menu (2026-11-05): still reachable from About
+    (projects) and the footer (contacts), old URLs keep working. */
+export const subPages = {
+  projects: { href: '/projects', label: words('Жобалар', 'Проекты', 'Projects') },
+  contacts: { href: '/contacts', label: words('Контактілер', 'Контакты', 'Contacts') }
+} as const
 
 export const languages = [
   { code: 'kz', short: 'KK', name: 'Қазақша', lang: 'kk' },
