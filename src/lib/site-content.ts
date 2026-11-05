@@ -1340,7 +1340,7 @@ export const events: SiteEvent[] = [
       mission: {
         lead: words(
           'Жастарды STEM-ге тарту арқылы адами капиталды арттыру.',
-          'Повысить человеческий капитал, вовлекая молодёжь в STEM.',
+          'Повысить человеческий капитал путём вовлечения молодёжи в STEM.',
           'Grow human capital by bringing young people into STEM.'
         ),
         text: words(
