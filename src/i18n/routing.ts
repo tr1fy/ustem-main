@@ -7,11 +7,11 @@ export const routing = defineRouting({
 
   // Used when no locale matches
   defaultLocale: 'kz',
-  // next-intl's own middleware is not used: src/middleware.ts redirects '/'
-  // to the NEXT_LOCALE cookie (manual choice) or else to kz — the browser
-  // language is ignored, the site opens in Kazakh for everyone.
+  // next-intl's own middleware is not used: src/middleware.ts sends '/' and
+  // unprefixed paths to kz every time. No language cookie is kept, so a new
+  // visit always opens in Kazakh; the chosen language lives in the URL.
   localeDetection: false,
-  localeCookie: { maxAge: 60 * 60 * 24 * 365, partitioned: false }
+  localeCookie: false
 })
 
 // Lightweight wrappers around Next.js' navigation APIs

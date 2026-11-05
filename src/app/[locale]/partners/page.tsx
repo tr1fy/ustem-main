@@ -86,7 +86,7 @@ const formats = [
   words('Жарыс серіктесі', 'Партнёр соревнования', 'Competition partner'),
   words('Жоба серіктесі', 'Партнёр проекта', 'Project partner'),
   words('Білім беру серіктесі', 'Образовательный партнёр', 'Education partner'),
-  words('Заттай қолдау', 'Поддержка в натуре', 'In-kind support')
+  words('Заттай қолдау', 'Поддержка в натуральной форме', 'In-kind support')
 ]
 const formatsNote = words(
   'Серіктестік пакеттері мен шарттарын сұрау бойынша ұсынамыз.',

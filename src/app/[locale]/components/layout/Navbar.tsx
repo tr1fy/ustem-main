@@ -321,8 +321,15 @@ export default function Navbar() {
     moveFocus(event, focusablesIn(panelRef.current))
 
   /* ---------- §5.5 language ---------- */
+  // The choice is not saved: it lives in the URL, and a new visit to
+  // ustem.kz opens in Kazakh again. Drop the year-long NEXT_LOCALE cookie
+  // that older versions of the site wrote.
+  useEffect(() => {
+    if (/(?:^|;\s*)NEXT_LOCALE=/.test(document.cookie))
+      document.cookie = 'NEXT_LOCALE=;path=/;max-age=0;SameSite=Lax'
+  }, [])
+
   const switchLanguage = (code: Locale) => {
-    document.cookie = `NEXT_LOCALE=${code};path=/;max-age=31536000;SameSite=Lax`
     setLangOpen(false)
     setMenuOpen(false)
     if (code === locale) return
