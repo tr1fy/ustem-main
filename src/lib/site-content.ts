@@ -1052,6 +1052,38 @@ export const metrics: {
 ]
 export const publishedMetrics = metrics.filter(item => item.status === 'verified')
 
+/**
+ * Full flagship page (owner's brief of 2026-11-05): name + description,
+ * last year's numbers, mission, tracks, next edition, two steps to take
+ * part, contacts. Every value is a verified fact from the brief or the
+ * event's official site; nothing else is rendered.
+ */
+export type FlagshipTrackIcon =
+  | 'robot'
+  | 'wrench'
+  | 'drone'
+  | 'rocket'
+  | 'shield'
+  | 'chip'
+export type FlagshipPage = {
+  /** Pill next to «Flagship»: the next edition in a few words. */
+  nextShort: Localized
+  /** Hero description: the one sentence from the brief. */
+  description: Localized
+  /** Hero mosaic: six photos, one per track, in track order. */
+  photos: { src: string; alt: Localized }[]
+  /** Last edition in numbers; `note` names the edition. */
+  stats: { note: Localized; items: { value: number; suffix?: string; label: Localized }[] }
+  mission: { lead: Localized; text: Localized }
+  tracks: { icon: FlagshipTrackIcon; name: Localized }[]
+  next: { title: string; line: Localized }
+  /** Where the rules are announced, in the order they should be shown. */
+  rules: { label: string; url: string }[]
+  contacts: { email: string; instagram: { handle: string; url: string }; telegram: { handle: string; url: string } }
+  /** The official site still shows last season: say so before leaving. */
+  siteNotice: { title: Localized; text: Localized }
+}
+
 /** Competitions catalogue (TZ §7.1): 3 flagships + 8 directions, in TZ order. */
 export type SiteEvent = {
   slug: string
@@ -1074,6 +1106,8 @@ export type SiteEvent = {
   format?: Localized
   season?: Localized
   rulesPdf?: string
+  /** Rendered as the full flagship page when present. */
+  page?: FlagshipPage
 }
 
 export const events: SiteEvent[] = [
@@ -1102,7 +1136,107 @@ export const events: SiteEvent[] = [
       'June 2027 · FIRST Tech Challenge Premier Event · up to 96 teams'
     ),
     cover: '/images/projects/almaty-tech-cup-cover.jpg',
-    officialUrl: 'https://www.almaty-tech-cup.kz'
+    officialUrl: 'https://www.almaty-tech-cup.kz',
+    page: {
+      nextShort: words(
+        'Келесі: маусым 2027 · Алматы',
+        'Следующий: июнь 2027 · Алматы',
+        'Next: June 2027 · Almaty'
+      ),
+      description: words(
+        'Адам капиталы мен STEM болашағын қалыптастыратын Орталық Азиядағы ірі технологиялық чемпионат.',
+        'Крупный технологический чемпионат Центральной Азии, который формирует человеческий капитал и будущее STEM.',
+        'Central Asia’s major technology championship, shaping human capital and the future of STEM.'
+      ),
+      photos: [
+        {
+          src: '/images/competitions/first-robotics.jpg',
+          alt: words('Робототехника', 'Робототехника', 'Robotics')
+        },
+        {
+          src: '/images/competitions/future-race.jpg',
+          alt: words('Инженерия', 'Инженерия', 'Engineering')
+        },
+        {
+          src: '/images/competitions/alem-drone-league.jpg',
+          alt: words('Дрон технологиялары', 'Дрон-технологии', 'Drone technology')
+        },
+        {
+          src: '/images/competitions/wso.jpg',
+          alt: words('Аэроғарыш', 'Аэрокосмос', 'Aerospace')
+        },
+        {
+          src: '/images/competitions/ctf.jpg',
+          alt: words('Киберқауіпсіздік', 'Кибербезопасность', 'Cybersecurity')
+        },
+        {
+          src: '/images/competitions/digital-bridge-2026.jpg',
+          alt: words('Физикалық AI', 'Физический AI', 'Physical AI')
+        }
+      ],
+      stats: {
+        note: words(
+          'Өткен жылғы қорытынды · Almaty Tech Cup XII, 2026',
+          'Итоги прошлого года · Almaty Tech Cup XII, 2026',
+          'Last year’s results · Almaty Tech Cup XII, 2026'
+        ),
+        items: [
+          { value: 3000, suffix: '+', label: words('қатысушы', 'участников', 'participants') },
+          { value: 14, label: words('жарыс', 'соревнований', 'competitions') },
+          { value: 10000, label: words('қонақ', 'гостей', 'guests') },
+          { value: 5, label: words('ел', 'стран', 'countries') }
+        ]
+      },
+      mission: {
+        lead: words(
+          'Жастарды STEM-ге тарту арқылы адам капиталын арттыру.',
+          'Развивать человеческий капитал, вовлекая молодёжь в STEM.',
+          'Grow human capital by bringing young people into STEM.'
+        ),
+        text: words(
+          'Қатысушыларға заманауи технологиялармен, командалық жұмыспен, инженерлік ойлаумен және AI шешімдерімен нақты тәжірибе беру.',
+          'Дать участникам реальный опыт работы с современными технологиями, командной работы, инженерного мышления и AI-решений.',
+          'Give participants hands-on experience with modern technology, teamwork, engineering thinking and AI solutions.'
+        )
+      },
+      tracks: [
+        { icon: 'robot', name: words('Робототехника', 'Робототехника', 'Robotics') },
+        { icon: 'wrench', name: words('Инженерия', 'Инженерия', 'Engineering') },
+        { icon: 'drone', name: words('Дрон технологиялары', 'Дрон-технологии', 'Drone technology') },
+        { icon: 'rocket', name: words('Аэроғарыш', 'Аэрокосмос', 'Aerospace') },
+        { icon: 'shield', name: words('Киберқауіпсіздік', 'Кибербезопасность', 'Cybersecurity') },
+        { icon: 'chip', name: words('Физикалық AI', 'Физический AI', 'Physical AI') }
+      ],
+      next: {
+        title: 'FIRST Tech Challenge Premier Event 2027',
+        line: words(
+          '96 командаға дейін · Мерзімі: 2027 маусым, Алматы',
+          'До 96 команд · Сроки: июнь 2027, Алматы',
+          'Up to 96 teams · June 2027, Almaty'
+        )
+      },
+      rules: [
+        { label: 'Instagram @tech_cup_almaty', url: 'https://www.instagram.com/tech_cup_almaty/' },
+        { label: 'Telegram @firstroboticskz', url: 'https://t.me/firstroboticskz' }
+      ],
+      contacts: {
+        email: 'info@almatytechcup.kz',
+        instagram: { handle: '@tech_cup_almaty', url: 'https://www.instagram.com/tech_cup_almaty/' },
+        telegram: { handle: 't.me/firstroboticskz', url: 'https://t.me/firstroboticskz' }
+      },
+      siteNotice: {
+        title: words(
+          'Ресми сайт жаңартылу үстінде',
+          'Официальный сайт обновляется',
+          'The official website is being updated'
+        ),
+        text: words(
+          'Almaty Tech Cup ресми сайты жаңа маусымға дайындалуда: қазіргі нұсқада 2026 жылғы ережелер орналасқан. Жаңартылған ережелер мен тіркеу жарияланған сәтте сайтқа қолжетімділік ашылады. Хабарландыруларды ресми Instagram парақшасынан немесе Telegram-каналдан бақылаңыз.',
+          'Официальный сайт Almaty Tech Cup готовится к новому сезону: сейчас на нём размещены правила 2026 года. Доступ к сайту откроется, как только будут опубликованы обновлённые правила и регистрация. Следите за объявлениями в официальном Instagram или Telegram-канале.',
+          'The official Almaty Tech Cup website is being prepared for the new season and currently shows the 2026 rules. Access opens as soon as the updated rules and registration are published. Follow the announcements on the official Instagram page or Telegram channel.'
+        )
+      }
+    }
   },
   {
     slug: 'alem-tech-fest',
