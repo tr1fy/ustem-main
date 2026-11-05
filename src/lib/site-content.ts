@@ -109,9 +109,9 @@ const allNews: {
       'FIRST Global Challenge 2026, Incheon: the schools behind Team Kazakhstan'
     ),
     text: words(
-      'Инчхонда 7–10 қазанда өтетін олимпиадаға 185 ел қатысады. Қазақстан құрамасы — Алматының бес оқушысы: № 92 мамандандырылған лицейден төртеуі және № 159 гимназиядан біреуі.',
-      'В олимпиаде в Инчхоне 7–10 октября участвуют 185 стран. Сборная Казахстана — пятеро школьников из Алматы: четверо из специализированного лицея № 92 и один из гимназии № 159.',
-      '185 nations take part in the olympiad in Incheon on 7–10 October. Team Kazakhstan consists of five students from Almaty: four from Specialized Lyceum No. 92 and one from Gymnasium No. 159.'
+      'Инчхонда 7–10 қазанда өткен олимпиадаға 190-нан астам ел қатысты. Қазақстан құрамасы — Алматының бес оқушысы: № 92 мамандандырылған лицейден төртеуі және № 159 гимназиядан біреуі.',
+      'В олимпиаде в Инчхоне 7–10 октября участвовали более 190 стран. Сборная Казахстана — пятеро школьников из Алматы: четверо из специализированного лицея № 92 и один из гимназии № 159.',
+      'More than 190 nations took part in the olympiad in Incheon on 7–10 October. Team Kazakhstan consisted of five students from Almaty: four from Specialized Lyceum No. 92 and one from Gymnasium No. 159.'
     ),
     body: [
       words(
@@ -197,14 +197,14 @@ const allNews: {
     tag: 'FIRST Global',
     category: 'foundation',
     title: words(
-      'Астанада FIRST Global Challenge ұлттық іріктеуі өтті',
+      'Астанада FIRST Global Challenge 2026 ұлттық іріктеуі өтті',
       'В Астане прошёл национальный отбор на FIRST Global Challenge 2026',
       'Astana hosted the national selection for FIRST Global Challenge 2026'
     ),
     text: words(
-      '24–26 тамызда Астанада Орталық Азия командалары жиналды. Іріктеу жеңімпазы Инчхонда өтетін әлемдік чемпионатта Қазақстан намысын қорғайды.',
-      '24–26 августа в Астане собрались команды Центральной Азии. Победитель отбора представит Казахстан на мировом чемпионате в Инчхоне.',
-      'Central Asian teams gathered in Astana on 24–26 August. The selection winner will represent Kazakhstan at the world championship in Incheon.'
+      '24–26 тамызда Астанада, Қазақ ұлттық спорт университетінде Қазақстаннан 40-қа жуық команда және Өзбекстанның үздік командалары жиналды. Іріктеу қорытындысы бойынша Инчхондағы әлемдік чемпионатқа баратын Қазақстан құрамасы анықталды.',
+      '24–26 августа в Астане, в Казахском национальном университете спорта, собрались около 40 команд из Казахстана и лидирующие команды Узбекистана. По итогам отбора определена сборная Казахстана на мировой чемпионат в Инчхоне.',
+      'On 24–26 August, about 40 teams from Kazakhstan and the leading teams from Uzbekistan gathered at the Kazakh National University of Sports in Astana. The selection determined Team Kazakhstan for the world championship in Incheon.'
     ),
     source:
       'https://www.gov.kz/memleket/entities/maidd/press/news/details/1279010?lang=ru'
@@ -322,8 +322,8 @@ export const site = {
     {
       key: 'telegram',
       network: 'telegram',
-      label: 'Telegram · FIRST Central Asia',
-      url: 'https://t.me/firstkazakhstan'
+      label: 'Telegram · FIRST Kazakhstan',
+      url: 'https://t.me/firstroboticskz'
     },
     {
       key: 'youtube',
@@ -798,14 +798,14 @@ export const events: SiteEvent[] = [
       'Robotics, engineering and AI championship. Almaty.'
     ),
     detail: words(
-      'USTEM Foundation ұйымдастыратын технология чемпионаты. XII чемпионат «Age of AI» 2026 жылғы 30 маусым – 1 шілдеде Almaty Arena-да өтті: 3000-нан астам қатысушы, 14 жарыс, 10 000 қонақ, 5 ел.',
-      'Технологический чемпионат, который организует USTEM Foundation. XII чемпионат «Age of AI» прошёл 30 июня – 1 июля 2026 года в Almaty Arena: более 3000 участников, 14 соревнований, 10 000 гостей, 5 стран.',
-      'A technology championship organized by USTEM Foundation. The XII championship “Age of AI” took place on 30 June – 1 July 2026 at Almaty Arena: 3,000+ participants, 14 competitions, 10,000 visitors, 5 countries.'
+      'USTEM Foundation ұйымдастыратын технология чемпионаты. XII чемпионат «Age of AI» 2026 жылғы 30 маусым – 1 шілдеде Almaty Arena-да өтті: 3000-нан астам қатысушы, 14 жарыс, 5 ел.',
+      'Технологический чемпионат, который организует USTEM Foundation. XII чемпионат «Age of AI» прошёл 30 июня – 1 июля 2026 года в Almaty Arena: более 3000 участников, 14 соревнований, 5 стран.',
+      'A technology championship organized by USTEM Foundation. The XII championship “Age of AI” took place on 30 June – 1 July 2026 at Almaty Arena: 3,000+ participants, 14 competitions, 5 countries.'
     ),
     meta: words(
-      '2026 · Almaty Arena · 3000+ қатысушы · 14 жарыс · 10 000 қонақ · 5 ел',
-      '2026 · Almaty Arena · 3000+ участников · 14 соревнований · 10 000 гостей · 5 стран',
-      '2026 · Almaty Arena · 3,000+ participants · 14 competitions · 10,000 visitors · 5 countries'
+      '2026 · Almaty Arena · 3000+ қатысушы · 14 жарыс · 5 ел',
+      '2026 · Almaty Arena · 3000+ участников · 14 соревнований · 5 стран',
+      '2026 · Almaty Arena · 3,000+ participants · 14 competitions · 5 countries'
     ),
     next: words(
       'маусым 2027 · Алматы',
@@ -862,7 +862,6 @@ export const events: SiteEvent[] = [
         items: [
           { value: 3000, suffix: '+', label: words('қатысушы', 'участников', 'participants') },
           { value: 14, label: words('жарыс', 'соревнований', 'competitions') },
-          { value: 10000, label: words('қонақ', 'гостей', 'guests') },
           { value: 5, label: words('ел', 'стран', 'countries') }
         ]
       },
@@ -932,9 +931,9 @@ export const events: SiteEvent[] = [
       'Held on 11–13 February 2026 at EXPO, Astana, with 5,000+ participants. The program included the Central Asia FIRST Championship, FIRST LEGO League, FIRST Tech Challenge, RoboCup, drone racing and the Physical AI Championship.'
     ),
     meta: words(
-      '2026 · Астана, EXPO · 5000+ қатысушы · 500+ команда · 7 ел мен өңір',
-      '2026 · Астана, EXPO · 5000+ участников · 500+ команд · 7 стран и регионов',
-      '2026 · Astana, EXPO · 5,000+ participants · 500+ teams · 7 countries and regions'
+      '2026 · Астана, EXPO · 5000+ қатысушы · 500+ команда · 7 ел',
+      '2026 · Астана, EXPO · 5000+ участников · 500+ команд · 7 стран',
+      '2026 · Astana, EXPO · 5,000+ participants · 500+ teams · 7 countries'
     ),
     next: words(
       '18–21 ақпан 2027 · Астана',
@@ -1127,7 +1126,7 @@ export const events: SiteEvent[] = [
       'Ages 4–18'
     ),
     cover: '/images/competitions/first-robotics.jpg',
-    officialUrl: 'https://www.firstrobotics.kz/ru/'
+    officialUrl: 'https://www.firstrobotics.kz/'
   },
   {
     slug: 'alem-drone-league',
@@ -1224,9 +1223,9 @@ export const events: SiteEvent[] = [
       'Humanoid robots and artificial intelligence in the physical world.'
     ),
     detail: words(
-      'Physical AI — сенсорлар мен лидарлар арқылы физикалық әлемді «көріп», өзі шешім қабылдайтын жасанды интеллект. Хакатонда командалар гуманоидты роботтарға шешімдер жасайды; Almaty Tech Cup 2026-да Unitree гуманоидты роботтарындағы 48 сағаттық хакатон өтті. Humanoid Robot R&D бағытының мақсаты — Astana Hub-пен бірге Орталық Азияда Physical AI құзырет орталығын құру.',
-      'Physical AI — искусственный интеллект, который «видит» физический мир через сенсоры и лидары и сам принимает решения. На хакатоне команды создают решения для гуманоидных роботов; на Almaty Tech Cup 2026 прошёл 48-часовой хакатон на гуманоидных роботах Unitree. Цель направления Humanoid Robot R&D — вместе с Astana Hub создать центр компетенций по Physical AI в Центральной Азии.',
-      'Physical AI is artificial intelligence that perceives the physical world through sensors and lidars and makes its own decisions. At the hackathon, teams build solutions for humanoid robots; Almaty Tech Cup 2026 hosted a 48-hour hackathon on Unitree humanoid robots. The Humanoid Robot R&D track aims to build a Physical AI competence center in Central Asia together with Astana Hub.'
+      'Physical AI — сенсорлар мен лидарлар арқылы физикалық әлемді «көріп», өзі шешім қабылдайтын жасанды интеллект. Physical AI хакатонында командалар гуманоидты роботтарға арналған шешімдер жасайды.',
+      'Physical AI — искусственный интеллект, который «видит» физический мир через сенсоры и лидары и сам принимает решения. На хакатоне Physical AI команды создают решения для гуманоидных роботов.',
+      'Physical AI is artificial intelligence that perceives the physical world through sensors and lidars and makes its own decisions. At the Physical AI hackathon, teams build solutions for humanoid robots.'
     ),
     // Same forum photo as AI Digital Bridge, cropped to the left humanoid,
     // until the foundation supplies a Physical AI hackathon photo.
@@ -1290,9 +1289,9 @@ export const projects: {
     title: 'STEM Hanym',
     label: words('Жоба', 'Проект', 'Project'),
     fact: words(
-      'Empowering Women. Inspiring Future. Қыздарға арналған STEM-менторлық.',
-      'Empowering Women. Inspiring Future. STEM-наставничество для девушек.',
-      'Empowering Women. Inspiring Future. STEM mentoring for girls.'
+      'Әйелдердің өмірін өзгертетін орта. Қыздарға арналған STEM-менторлық.',
+      'Среда, которая меняет жизнь женщин. STEM-наставничество для девушек.',
+      'A community that changes women’s lives. STEM mentoring for girls.'
     ),
     href: 'https://stemhanym.kz',
     external: true,
