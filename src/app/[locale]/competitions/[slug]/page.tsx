@@ -22,7 +22,7 @@ import { NewsCard, latestNews } from '../../_components/news-card'
 import { SectionHead } from '../../_components/ui'
 
 const text = {
-  breadcrumb: words('Навигация жолы', 'Хлебные крошки', 'Breadcrumb'),
+  breadcrumb: words('Навигация жолы', 'Навигационная цепочка', 'Breadcrumb'),
   others: words('Басқа жарыстар', 'Другие соревнования', 'Other competitions'),
   spaceLab: words(
     'Педагогтерге арналған Space Lab бағдарламасы:',

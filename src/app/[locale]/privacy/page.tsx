@@ -30,7 +30,7 @@ type Block = { title: Localized; text?: Localized; list?: Localized[] }
 
 const blocks: Block[] = [
   {
-    title: words('Деректерге кім жауап береді', 'Кто отвечает за данные', 'Who is responsible'),
+    title: words('Деректерге кім жауап береді', 'Кто отвечает за данные', 'Who is responsible for your data'),
     text: words(
       `Сайт операторы — ${site.name}. Деректерге қатысты сұрақтарды ${site.email} мекенжайына жіберіңіз.`,
       `Оператор сайта — ${site.name}. Вопросы о данных присылайте на ${site.email}.`,
@@ -57,7 +57,7 @@ const blocks: Block[] = [
     text: words(
       'Сайт формалар арқылы деректер жинамайды. Бізге e-mail арқылы жазсаңыз немесе қоңырау шалсаңыз, деректеріңізді тек сізге жауап беру үшін пайдаланамыз.',
       'Сайт не собирает данные через формы. Если вы пишете нам на e-mail или звоните, ваши данные используются только для ответа вам.',
-      'The site does not collect data through forms. If you e-mail or call us, your details are used only to reply to you.'
+      'The site does not collect data through forms. If you email or call us, your details are used only to reply to you.'
     )
   },
   {

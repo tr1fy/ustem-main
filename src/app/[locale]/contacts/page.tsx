@@ -21,12 +21,12 @@ const title = navItems.find(item => item.key === 'contacts')!.label
 const description = words(
   'USTEM Foundation байланыстары: e-mail, телефон және БАҚ сұраулары.',
   'Контакты USTEM Foundation: e-mail, телефон и запросы СМИ.',
-  'USTEM Foundation contacts: e-mail, phone and media inquiries.'
+  'USTEM Foundation contacts: email, phone and media inquiries.'
 )
 const lead = words(
   'Жарыстар, USTEM Academy, серіктестік және БАҚ сұраулары бойынша жазыңыз немесе қоңырау шалыңыз.',
   'Пишите или звоните по вопросам соревнований, USTEM Academy, партнёрства и СМИ.',
-  'Write or call about competitions, USTEM Academy, partnerships and media inquiries.'
+  'Write or call us about competitions, USTEM Academy, partnerships or media inquiries.'
 )
 const phoneLabel = words('Телефон', 'Телефон', 'Phone')
 const opensInNewTab = words(
@@ -39,7 +39,7 @@ const writeTitle = words('Бізге жазыңыз', 'Напишите нам',
 const writeText = words(
   'Тақырыпты таңдаңыз — хат поштаңызда ашылады.',
   'Выберите тему — письмо откроется в вашей почте.',
-  'Choose a topic and the e-mail will open in your mail app.'
+  'Choose a topic, and the email will open in your mail app.'
 )
 /* TZ topics; «СМИ» is the single action of the #media block next to it. */
 const topics = [
@@ -52,7 +52,7 @@ const mediaSubject = words('БАҚ', 'СМИ', 'Media')
 const mediaText = words(
   'Журналистердің сұрауларын «БАҚ» тақырыбымен хат арқылы қабылдаймыз.',
   'Запросы журналистов принимаем письмом с темой «СМИ».',
-  'We take journalists’ requests by e-mail with the subject “Media”.'
+  'We accept media requests by email with the subject line “Media”.'
 )
 const mediaAction = words('БАҚ сұрауы', 'Запрос от СМИ', 'Media inquiry')
 const pressReleases = words('Баспасөз хабарламалары', 'Пресс-релизы', 'Press releases')

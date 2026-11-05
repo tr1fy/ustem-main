@@ -249,7 +249,7 @@ export default function FlagshipPage({
         <span className='fp-hero-circle' aria-hidden='true' />
         <div className='container fp-hero-grid'>
           <div className='fp-hero-copy'>
-            <nav aria-label='Breadcrumb'>
+            <nav aria-label={t(ui.breadcrumb)}>
               <ol className='breadcrumbs'>
                 <li>
                   <Link href='/competitions'>{t(catalogLabel)}</Link>
