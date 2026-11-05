@@ -12,7 +12,7 @@ export const connectUrl = 'https://connect.ustem.kz/'
 /** Switches USTEM Connect on or off everywhere (header, mobile menu,
     «how to take part», competitions intro, privacy, news item). */
 export const connectEnabled = true
-export const contactEmail = 'info@ustemfoundation.org'
+export const contactEmail = 'hello@ustemfoundation.org'
 export const presidentSource =
   'https://www.akorda.kz/ru/kasym-zhomart-tokaev-posetil-vystavku-na-mezhdunarodnom-tehnologicheskom-forume-digital-bridge-1291855'
 export const copy = {
@@ -1447,7 +1447,7 @@ export const events: SiteEvent[] = [
         { label: 'Telegram @firstroboticskz', url: 'https://t.me/firstroboticskz' }
       ],
       contacts: {
-        email: 'info@ustemfoundation.org',
+        email: 'hello@ustemfoundation.org',
         instagram: { handle: '@digitalbridge.ai', url: 'https://www.instagram.com/digitalbridge.ai/' },
         telegram: { handle: 't.me/firstroboticskz', url: 'https://t.me/firstroboticskz' }
       }
