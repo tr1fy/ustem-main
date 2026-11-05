@@ -458,16 +458,10 @@
   color: var(--white);
 }
 
-/* ---------- 6. two steps ---------- */
-.fp-steps {
-  display: grid;
-  /* minmax(0, 1fr): the nowrap Connect button must not widen a phone column */
-  grid-template-columns: minmax(0, 1fr);
-  gap: 16px;
-}
-.fp-steps > li {
+/* ---------- 6. how to take part: one card ---------- */
+.fp-join-card {
   display: flex;
-  min-width: 0;
+  flex-direction: column;
   gap: 20px;
   align-items: flex-start;
   padding: 28px;
@@ -475,68 +469,25 @@
   border-radius: var(--radius);
   background: var(--white);
 }
-.fp-step-n {
-  display: grid;
-  flex: 0 0 48px;
-  place-items: center;
-  height: 48px;
-  border-radius: 50%;
-  background: var(--blue);
-  color: var(--white);
-  font-size: 1.25rem;
-  font-weight: 700;
-}
-.fp-step-body {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  min-width: 0;
-}
 .fp-step-title {
+  margin: 0;
+  max-width: 40ch;
   font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.25;
   letter-spacing: -0.02em;
-}
-.fp-step-note {
-  font-size: 0.9375rem;
-  line-height: 1.5;
-  color: var(--muted);
-}
-.fp-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-.fp-pill {
-  display: inline-flex;
-  align-items: center;
-  min-height: 40px;
-  padding: 8px 16px;
-  border-radius: var(--radius-pill);
-  background: var(--tint);
-  color: var(--blue);
-  font-size: 0.9375rem;
-  font-weight: 600;
-  transition:
-    background-color var(--dur) var(--ease),
-    color var(--dur) var(--ease);
-}
-.fp-pill:hover {
-  background: var(--blue);
-  color: var(--white);
 }
 .fp-step-cta {
   min-height: 44px;
   padding-block: 10px;
+  white-space: nowrap;
 }
 @media (min-width: 768px) {
-  .fp-steps {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
-  }
-  .fp-steps > li {
-    gap: 24px;
+  .fp-join-card {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
     padding: 36px;
   }
 }

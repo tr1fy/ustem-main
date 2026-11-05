@@ -1440,6 +1440,8 @@ export const events: SiteEvent[] = [
           'The date will be announced on the official website'
         )
       },
+      // Official site linked directly, no «site being updated» notice
+      // (user, 2026-11-05).
       rules: [
         { label: 'Instagram @digitalbridge.ai', url: 'https://www.instagram.com/digitalbridge.ai/' },
         { label: 'Telegram @firstroboticskz', url: 'https://t.me/firstroboticskz' }
@@ -1448,18 +1450,6 @@ export const events: SiteEvent[] = [
         email: 'info@ustemfoundation.org',
         instagram: { handle: '@digitalbridge.ai', url: 'https://www.instagram.com/digitalbridge.ai/' },
         telegram: { handle: 't.me/firstroboticskz', url: 'https://t.me/firstroboticskz' }
-      },
-      siteNotice: {
-        title: words(
-          'Ресми сайт жаңартылу үстінде',
-          'Официальный сайт обновляется',
-          'The official website is being updated'
-        ),
-        text: words(
-          'AI & Digital Bridge ресми сайты 2027 жылғы форумға дайындалуда. Бағдарлама мен тіркеу жарияланған сәтте сайтқа қолжетімділік ашылады. Хабарландыруларды ресми Instagram парақшасынан немесе Telegram-каналдан бақылаңыз.',
-          'Официальный сайт AI & Digital Bridge готовится к форуму 2027 года. Доступ к сайту откроется, как только будут опубликованы программа и регистрация. Следите за объявлениями в официальном Instagram или Telegram-канале.',
-          'The official AI & Digital Bridge website is being prepared for the 2027 forum. Access opens as soon as the program and registration are published. Follow the announcements on the official Instagram page or Telegram channel.'
-        )
       }
     }
   },
