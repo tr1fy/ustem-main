@@ -19,9 +19,9 @@ import {
   type SiteEvent
 } from '@/lib/site-content'
 import { eventFacts } from './competition-card'
-import { Count } from './reveal'
 
 const text = {
+  tracks: words('Бағыттар', 'Направления', 'Tracks'),
   newTab: words(
     '(жаңа бетте ашылады)',
     '(откроется в новой вкладке)',
@@ -60,9 +60,9 @@ export default function CompetitionDetail({
   const parent = event.partOf ? eventBySlug(event.partOf) : undefined
   const facts = eventFacts(event)
   const page = event.page
-  // A flagship's panel is a teaser of its full page: the same description,
-  // last year's numbers and the next edition, then «Толығырақ». How to take
-  // part is read on the page itself, not from the panel.
+  // A flagship's panel is a short teaser of its full page: description,
+  // the last edition in one sentence, the tracks, the next edition, then
+  // «Толығырақ». How to take part is read on the page itself.
   if (inPanel && page) {
     return (
       <div className='cmp-detail cmp-detail--panel cmp-detail--flagship'>
@@ -72,17 +72,11 @@ export default function CompetitionDetail({
           </Title>
           <p className='cmp-detail-fact'>{t(page.description)}</p>
         </div>
-        <dl className='cmp-teaser-stats'>
-          {page.stats.items.map(item => (
-            <div key={t(item.label)}>
-              <dt className='cmp-teaser-label'>{t(item.label)}</dt>
-              <dd className='cmp-teaser-value'>
-                <Count value={item.value} suffix={item.suffix} />
-              </dd>
-            </div>
-          ))}
-        </dl>
-        <p className='cmp-teaser-note'>{t(page.stats.note)}</p>
+        <p className='cmp-detail-text'>{t(event.detail)}</p>
+        <p className='cmp-teaser-tracks'>
+          <strong>{t(text.tracks)}:</strong>{' '}
+          {page.tracks.map(item => t(item.name)).join(' · ')}
+        </p>
         <p className='cmp-card-next'>
           <strong>{t(ui.nextEdition)}:</strong> {page.next.title} ·{' '}
           {t(page.next.line)}
