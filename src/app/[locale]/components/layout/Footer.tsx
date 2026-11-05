@@ -179,9 +179,6 @@ export default function Footer() {
                 {t(ui.footerCta)}
               </a>
               <div className='ftr-reach-row ftr-in' style={order(3)}>
-                <a className='ftr-phone' href={`mailto:${site.email}`}>
-                  {site.email}
-                </a>
                 <a className='ftr-phone' href={site.phone.href}>
                   {site.phone.display}
                 </a>
