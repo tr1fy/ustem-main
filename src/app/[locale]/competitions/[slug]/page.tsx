@@ -192,7 +192,13 @@ export default function CompetitionPage({ params: { locale, slug } }: Params) {
       )}
 
       <section
-        className='section section-paper cmp-others'
+        // Flagship pages alternate white/paper bands and end on paper, so
+        // this list stays white unless a news band sits in between.
+        className={
+          event.page && related.length === 0
+            ? 'section cmp-others'
+            : 'section section-paper cmp-others'
+        }
         aria-labelledby='cmp-others-title'
       >
         <div className='container'>

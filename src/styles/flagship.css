@@ -12,8 +12,16 @@
   padding: 0;
   list-style: none;
 }
+/* Sections alternate white / paper bands, each with its own symmetrical
+   padding, so the page reads as a sequence of blocks on any screen. */
 .fp-section {
-  padding-top: clamp(56px, 7vw, 96px);
+  padding-block: clamp(48px, 6vw, 80px);
+}
+.fp-section--paper {
+  background: var(--paper);
+}
+.fp-section--paper .fp-contact {
+  background: var(--white);
 }
 .fp-section--last {
   padding-bottom: var(--section);
@@ -27,6 +35,10 @@
   position: relative;
   overflow: hidden;
   padding-top: clamp(24px, 4vw, 48px);
+}
+.fp-hero-media {
+  position: relative;
+  min-width: 0;
 }
 .fp-hero-circle {
   position: absolute;
@@ -52,8 +64,10 @@
   gap: 28px;
   min-width: 0;
 }
-.fp-hero-copy .breadcrumbs {
-  margin-bottom: 0;
+.fp-hero .breadcrumbs {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 28px;
 }
 .fp-chip-solid {
   background: var(--blue);
@@ -72,7 +86,7 @@
 .fp-lead {
   max-width: 48ch;
   font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
-  line-height: 1.55;
+  line-height: 1.7;
   color: var(--muted);
 }
 .fp-actions {
@@ -101,22 +115,38 @@
   object-fit: cover;
 }
 @media (min-width: 1024px) {
-  /* copy takes a fixed share, the mosaic fills the rest: no dead middle */
+  /* The mosaic is as tall as the copy (chips to buttons) and no wider
+     than that height allows, sitting right next to the text. */
   .fp-hero-grid {
-    grid-template-columns: minmax(0, 44%) minmax(0, 1fr);
+    grid-template-columns: minmax(0, auto) minmax(0, 1fr);
     gap: 48px;
+    align-items: stretch;
+  }
+  .fp-hero-copy {
+    max-width: 560px;
+  }
+  .fp-mosaic {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    width: auto;
+    max-width: 100%;
+    aspect-ratio: 5 / 4;
+  }
+  .fp-mosaic li {
+    min-height: 0;
   }
   .fp-mosaic img {
-    aspect-ratio: 16 / 10;
+    height: 100%;
+    aspect-ratio: auto;
   }
   .fp-hero-copy {
     gap: 40px;
   }
   .fp-actions {
     margin-top: 0;
-  }
-  .fp-mosaic {
-    margin-top: 36px;
   }
 }
 
@@ -133,23 +163,20 @@
   font-size: 0.9375rem;
   color: var(--muted);
 }
-/* four soft tiles, alternating blue tint and paper; no hairlines */
-.fp-stats {
+/* one light-blue block, four plain numbers inside, no lines */
+.fp .fp-stats {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  gap: 28px 24px;
+  padding: 28px 24px;
+  border-radius: var(--radius);
+  background: var(--tint);
 }
 .fp-stats li {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   min-width: 0;
-  padding: 24px 24px 22px;
-  border-radius: 20px;
-  background: var(--tint);
-}
-.fp-stats li:nth-child(even) {
-  background: var(--paper);
 }
 .fp-stat-value {
   font-size: clamp(2.5rem, 1.6rem + 2.6vw, 3.375rem);
@@ -165,13 +192,10 @@
   color: var(--muted);
 }
 @media (min-width: 768px) {
-  .fp-stats {
+  .fp .fp-stats {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 16px;
-  }
-  .fp-stats li {
-    padding: 32px 32px 28px;
-    border-radius: var(--radius);
+    gap: 32px;
+    padding: 36px 40px;
   }
 }
 
@@ -216,6 +240,10 @@
   .fp-mission {
     grid-template-columns: 220px minmax(0, 1fr);
     align-items: start;
+  }
+  .fp-mission-lead,
+  .fp-mission-text {
+    max-width: none;
   }
 }
 
@@ -356,6 +384,7 @@
   padding: 28px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
+  background: var(--white);
 }
 .fp-step-n {
   display: grid;
