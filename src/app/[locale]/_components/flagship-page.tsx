@@ -329,7 +329,10 @@ export default function FlagshipPage({
       </section>
 
       {/* 2. Last year's numbers, counting up from zero */}
-      <section className='fp-section' aria-labelledby={statsId}>
+      <section
+        className='fp-section fp-section--paper'
+        aria-labelledby={statsId}
+      >
         <div className='container'>
           <div className='fp-head'>
             <h2 id={statsId}>{t(text.stats)}</h2>
@@ -349,10 +352,7 @@ export default function FlagshipPage({
       </section>
 
       {/* 3. Mission */}
-      <section
-        className='fp-section fp-section--paper'
-        aria-labelledby={missionId}
-      >
+      <section className='fp-section' aria-labelledby={missionId}>
         <div className='fp-mission container'>
           <div className='fp-mission-key'>
             <span id={missionId} className='label fp-label'>
@@ -368,7 +368,10 @@ export default function FlagshipPage({
       </section>
 
       {/* 4. Tracks: one rectangle divided into six */}
-      <section className='fp-section' aria-labelledby={tracksId}>
+      <section
+        className='fp-section fp-section--paper'
+        aria-labelledby={tracksId}
+      >
         <div className='container'>
           <h2 id={tracksId} className='fp-h2'>
             {t(text.tracks)}
@@ -420,10 +423,7 @@ export default function FlagshipPage({
       </section>
 
       {/* 4. Next edition + last year's numbers */}
-      <section
-        className='fp-section fp-section--paper'
-        aria-labelledby={nextId}
-      >
+      <section className='fp-section' aria-labelledby={nextId}>
         <div className='container'>
           {/* One banner: the next edition left, its date and size right */}
           <div className='fp-next on-dark'>
@@ -442,7 +442,7 @@ export default function FlagshipPage({
       {/* 5. Two steps to take part */}
       <section
         id='fp-join'
-        className='fp-section'
+        className='fp-section fp-section--paper'
         aria-labelledby='fp-join-title'
       >
         <div className='container'>
@@ -515,7 +515,7 @@ export default function FlagshipPage({
 
       {/* 6. Contacts */}
       <section
-        className='fp-section fp-section--paper fp-section--last'
+        className='fp-section fp-section--last'
         aria-labelledby={contactsId}
       >
         <div className='container'>
