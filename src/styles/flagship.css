@@ -35,6 +35,7 @@
   position: relative;
   overflow: hidden;
   padding-top: clamp(24px, 4vw, 48px);
+  padding-bottom: clamp(40px, 5vw, 72px);
 }
 .fp-hero-media {
   position: relative;
@@ -184,42 +185,6 @@
   font-size: 0.9375rem;
   color: var(--muted);
 }
-/* one light-blue block, four plain numbers inside, no lines */
-.fp .fp-stats {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 28px 24px;
-  padding: 28px 24px;
-  border-radius: var(--radius);
-  background: var(--tint);
-}
-.fp-stats li {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  min-width: 0;
-}
-.fp-stat-value {
-  font-size: clamp(2.5rem, 1.6rem + 2.6vw, 3.375rem);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.04em;
-  color: var(--blue);
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-}
-.fp-stat-label {
-  font-size: 1rem;
-  color: var(--muted);
-}
-@media (min-width: 768px) {
-  .fp .fp-stats {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 32px;
-    padding: 36px 40px;
-  }
-}
-
 /* ---------- 3. mission ---------- */
 .fp-mission {
   display: grid;
@@ -392,13 +357,61 @@
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+  display: grid;
+  gap: 32px;
   padding: clamp(32px, 5vw, 56px);
   border-radius: var(--radius-lg);
   background: var(--aral-deep);
   color: var(--white);
+}
+.fp-next-main {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+/* last year's numbers inside the banner: plain white figures */
+.fp-next-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+.fp-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 24px;
+}
+.fp-stats li {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.fp-stat-value {
+  font-size: clamp(1.75rem, 1.3rem + 1.2vw, 2.125rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: var(--white);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.fp-stat-label {
+  font-size: 0.9375rem;
+  color: var(--on-dark-muted);
+}
+@media (min-width: 1024px) {
+  .fp-next {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 48px;
+    align-items: center;
+  }
+  .fp-next-stats {
+    padding: 0 0 0 48px;
+    border-top: 0;
+    border-left: 1px solid rgba(255, 255, 255, 0.22);
+  }
 }
 .fp-next-circle {
   position: absolute;
@@ -488,7 +501,8 @@
   color: var(--blue);
   font-size: 0.9375rem;
   font-weight: 600;
-  transition: background-color var(--dur) var(--ease),
+  transition:
+    background-color var(--dur) var(--ease),
     color var(--dur) var(--ease);
 }
 .fp-pill:hover {
