@@ -761,6 +761,22 @@ export type FlagshipPage = {
     /** Shown in place of Telegram when the event lists a phone instead. */
     phone?: string
   }
+  /**
+   * Where registration happens: USTEM Connect (default) or the event's own
+   * site (Alem Tech Fest, whose site carries registration; user 2026-11-05).
+   */
+  join?: 'connect' | 'site'
+  /**
+   * The official site still shows last season: «Official website» opens
+   * this notice first, with the channel to follow and a «go to the site
+   * anyway» link under it (user 2026-11-05). Without it the button links
+   * straight to the site.
+   */
+  siteNotice?: {
+    title: Localized
+    text: Localized
+    channel: { label: string; url: string }
+  }
 }
 
 /** Competitions catalogue (TZ §7.1): 3 flagships + 8 directions, in TZ order. */
@@ -898,6 +914,19 @@ export const events: SiteEvent[] = [
         email: 'info@almatytechcup.kz',
         instagram: { handle: '@tech_cup_almaty', url: 'https://www.instagram.com/tech_cup_almaty/' },
         telegram: { handle: 't.me/firstroboticskz', url: 'https://t.me/firstroboticskz' }
+      },
+      siteNotice: {
+        title: words(
+          'Ресми сайт жаңартылу үстінде',
+          'Официальный сайт обновляется',
+          'The official website is being updated'
+        ),
+        text: words(
+          'Almaty Tech Cup ресми сайты жаңа маусымға дайындалуда. Қазіргі уақытта сайтта өткен маусымның ережелері орналасқан. Жаңа маусымның ережелері мен хабарландырулары ресми Instagram парақшасында жарияланады. Тіркелу USTEM Connect платформасында жарыс мерзіміне жақын ашылады.',
+          'Официальный сайт Almaty Tech Cup готовится к новому сезону. В настоящее время на сайте размещены правила прошлого сезона. Правила и объявления нового сезона публикуются на официальной странице в Instagram. Регистрация откроется на платформе USTEM Connect ближе к дате соревнований.',
+          'The official Almaty Tech Cup website is being prepared for the new season. It currently shows last season’s rules. The new season’s rules and announcements are published on the official Instagram page. Registration will open on the USTEM Connect platform closer to the competition dates.'
+        ),
+        channel: { label: 'Instagram @tech_cup_almaty', url: 'https://www.instagram.com/tech_cup_almaty/' }
       }
     }
   },
@@ -929,6 +958,8 @@ export const events: SiteEvent[] = [
     officialUrl: 'https://alemtechfest.kz',
     // Copy, numbers and photos: alemtechfest.kz (checked 2026-11-05).
     page: {
+      // Registration lives on alemtechfest.kz, not in USTEM Connect.
+      join: 'site',
       heroStyle: 'cover',
       trackStyle: 'photos',
       nextShort: words(
@@ -1243,7 +1274,9 @@ export const flagshipEvents = events.filter(item => item.kind === 'flagship')
 export const directionEvents = events.filter(item => item.kind === 'direction')
 export const eventBySlug = (slug: string) => events.find(item => item.slug === slug)
 
-/** Projects block (TZ §6.4). Flagship events never appear here. */
+/** Projects block (TZ §6.4): STEM Hanym · USTEM Academy · Jasampaz Urpaq,
+    the program between the two projects (user 2026-11-05). Flagship
+    events never appear here. */
 export const projects: {
   slug: string
   title: string
@@ -1267,18 +1300,6 @@ export const projects: {
     cover: '/images/projects/stem-hanym-cover.jpg'
   },
   {
-    slug: 'jasampaz-urpaq',
-    title: 'Jasampaz Urpaq',
-    label: words('Жоба', 'Проект', 'Project'),
-    fact: words(
-      'Балалар идеяларын нақты прототиптерге айналдырады.',
-      'Дети превращают идеи в работающие прототипы.',
-      'Children turn ideas into working prototypes.'
-    ),
-    href: '/projects/jasampaz-urpaq',
-    cover: '/images/projects/jasampaz-urpaq-cover.jpg'
-  },
-  {
     slug: 'academy',
     title: 'USTEM Academy',
     label: words('Бағдарлама', 'Программа', 'Program'),
@@ -1289,6 +1310,18 @@ export const projects: {
     ),
     href: '/academy',
     cover: '/images/projects/ustem-academy-cover.jpg'
+  },
+  {
+    slug: 'jasampaz-urpaq',
+    title: 'Jasampaz Urpaq',
+    label: words('Жоба', 'Проект', 'Project'),
+    fact: words(
+      'Балалар идеяларын нақты прототиптерге айналдырады.',
+      'Дети превращают идеи в работающие прототипы.',
+      'Children turn ideas into working prototypes.'
+    ),
+    href: '/projects/jasampaz-urpaq',
+    cover: '/images/projects/jasampaz-urpaq-cover.jpg'
   }
 ]
 

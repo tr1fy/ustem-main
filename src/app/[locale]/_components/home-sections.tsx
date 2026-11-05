@@ -1,6 +1,6 @@
 /**
  * Homepage sections after the hero (TZ §6; order revised 2026-10-29):
- * Numbers → Competitions → Academy → Projects → Trust → News → Reports.
+ * Numbers → Competitions → Projects → Trust → News → Reports.
  * Trimmed 2026-11-05: no audience row, no testimonials, no partner logo
  * wall (it lives on the Partners page), no support popup.
  * The global footer is the contacts section, so there is no contacts block.
@@ -16,7 +16,6 @@ import { ArrowRightIcon, ArrowUpRightIcon } from '@heroicons/react/24/outline'
 import { Link } from '@/i18n/routing'
 import { imageVariant } from '@/lib/image-variant'
 import {
-  academyPrograms,
   localize,
   projects,
   homeReportsLimit,
@@ -174,81 +173,6 @@ function ProjectCard({
   )
 }
 
-/** USTEM Academy as its own block between Competitions and Projects (the
-    order chosen on 2026-10-29): the artwork beside the two programs as
-    plain rows — the name with an arrow, one line and the scope — each
-    leading to that program on /academy. */
-function Academy({ locale }: { locale: string }) {
-  const academy = projects.find(project => project.slug === 'academy')
-  const cover = projectCovers.academy
-  if (!academy) return null
-  return (
-    <section
-      id='academy'
-      className='section home-academy'
-      aria-labelledby='academy-title'
-    >
-      <div className='container'>
-        <Reveal className='home-rv'>
-          <div className='rv' style={order(0)}>
-            <SectionHead
-              id='academy-title'
-              title={academy.title}
-              lead={localize(academy.fact, locale)}
-              action={
-                <ArrowLink href='/academy'>
-                  {localize(ui.moreDetails, locale)}
-                </ArrowLink>
-              }
-            />
-          </div>
-          <div className='home-academy-grid'>
-            <div className='home-academy-media rv' style={order(1)}>
-              <img
-                src={academy.cover}
-                srcSet={cover.srcSet}
-                sizes='(min-width: 1280px) 480px, (min-width: 1024px) 40vw, 92vw'
-                alt=''
-                width={cover.width}
-                height={cover.height}
-                loading='lazy'
-                decoding='async'
-              />
-            </div>
-            <ul className='home-academy-list' role='list'>
-              {academyPrograms.map((program, i) => (
-                <li
-                  className='home-academy-item rv'
-                  style={order(2 + i)}
-                  key={program.slug}
-                >
-                  <h3 className='home-academy-title'>
-                    {/* stretched over the whole row (.card-link) */}
-                    <Link
-                      className='card-link'
-                      href={`/academy#pg-${program.slug}`}
-                    >
-                      {program.title}
-                      <ArrowRightIcon aria-hidden='true' />
-                    </Link>
-                  </h3>
-                  <p className='home-academy-text'>
-                    {localize(program.text, locale)}
-                  </p>
-                  {/* keep «80» and «академиялық» on one line */}
-                  <p className='home-academy-meta'>
-                    {localize(program.meta, locale).replace(/(\d) /g, '$1\u00a0')}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  )
-}
-
 function Projects({ locale }: { locale: string }) {
   return (
     <section
@@ -257,9 +181,9 @@ function Projects({ locale }: { locale: string }) {
       aria-labelledby='projects-title'
     >
       <div className='container'>
-        {/* Heading row like Competitions, then two equal cards on one
-            baseline: every artwork the same size, text always below.
-            USTEM Academy has its own block above (Academy). */}
+        {/* Heading row like Competitions, then three equal cards on one
+            baseline, USTEM Academy in the middle (user 2026-11-05):
+            every artwork the same size, text always below. */}
         <Reveal className='home-rv'>
           <div className='rv' style={order(0)}>
             <SectionHead
@@ -274,13 +198,11 @@ function Projects({ locale }: { locale: string }) {
             />
           </div>
           <ul className='home-projects-grid' role='list'>
-            {projects
-              .filter(project => project.slug !== 'academy')
-              .map((project, i) => (
-                <li className='rv' style={order(i + 1)} key={project.slug}>
-                  <ProjectCard project={project} locale={locale} />
-                </li>
-              ))}
+            {projects.map((project, i) => (
+              <li className='rv' style={order(i + 1)} key={project.slug}>
+                <ProjectCard project={project} locale={locale} />
+              </li>
+            ))}
           </ul>
         </Reveal>
         {/* Supporter logos (TZ §6.4) appear here once written consent exists. */}
@@ -464,7 +386,6 @@ export default function HomeSections({ locale }: { locale: string }) {
     <>
       <ImpactCard variant='overlap' />
       <Competitions locale={locale} />
-      <Academy locale={locale} />
       <Projects locale={locale} />
       <Trust locale={locale} />
       <News locale={locale} />

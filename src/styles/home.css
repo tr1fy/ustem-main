@@ -1059,96 +1059,10 @@
 }
 /* the arrow follows the last word, even when the title wraps */
 
-/* ---------- USTEM Academy ----------
- * Its own block between Competitions and Projects: the artwork in a rounded
- * mask beside the two programs as plain rows (name with an arrow, one line,
- * hours · modules) split by hairlines; the whole row is the link. Stacked
- * up to 1023px (a 2:1 crop of the artwork), artwork | rows from 1024px.  */
-.home-academy-grid {
-  display: grid;
-  gap: 32px;
-}
-.home-academy-media {
-  overflow: hidden;
-  border-radius: var(--radius);
-  background: var(--paper);
-  aspect-ratio: 2 / 1;
-  isolation: isolate;
-}
-.home-academy-media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.home-academy-list {
-  display: grid;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  border-top: 1px solid var(--line);
-}
-.home-academy-item {
-  position: relative;
-  display: grid;
-  gap: 8px;
-  padding: 20px 0;
-  border-bottom: 1px solid var(--line);
-}
-.home-academy-title {
-  font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.5rem);
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-}
-.home-academy-title a {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: color var(--dur) var(--ease);
-}
-.home-academy-title svg {
-  width: 20px;
-  height: 20px;
-  stroke-width: 2;
-  color: var(--blue);
-  transition: transform var(--dur) var(--ease);
-}
-.home-academy-item:hover .home-academy-title a {
-  color: var(--blue);
-}
-.home-academy-item:hover .home-academy-title svg {
-  transform: translateX(4px);
-}
-.home-academy-text {
-  max-width: 52ch;
-  font-size: 0.9375rem;
-  line-height: 1.55;
-  color: var(--muted);
-}
-.home-academy-meta {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--blue);
-}
-@media (min-width: 1024px) {
-  .home-academy-grid {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    align-items: start;
-    gap: clamp(40px, 5vw, 80px);
-  }
-  .home-academy-media {
-    border-radius: var(--radius-lg);
-    aspect-ratio: 800 / 540;
-  }
-  .home-academy-item {
-    padding: 24px 0;
-  }
-}
-
 /* ---------- 6.4 Projects ----------
- * Heading row (title, lead, «Все проекты»), then two equal cards on one
- * baseline: one column on phones, two columns from 768px, the full 2:1
- * artwork at every width (USTEM Academy has its own block above).
+ * Heading row (title, lead, «Все проекты»), then three equal cards on one
+ * baseline, USTEM Academy in the middle: one column on phones, three
+ * columns from 768px, the full 2:1 artwork at every width.
  * The artwork is full-bleed in a rounded mask, the label, title,
  * "go" circle and one line below: the same anatomy as the flagship
  * competition cards above, so both sections read as one system.        */
@@ -1255,7 +1169,7 @@
 
 @media (min-width: 768px) {
   .home-projects-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 24px;
   }
 }
