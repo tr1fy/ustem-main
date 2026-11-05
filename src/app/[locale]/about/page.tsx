@@ -16,6 +16,7 @@ import {
 import { alternatesFor, htmlLang } from '@/lib/seo'
 import { PageHead, SectionHead } from '../_components/ui'
 import { Reveal } from '../_components/reveal'
+import { publicReports, reportsText } from '@/lib/site-content'
 
 /*
  * Біз туралы / О нас — the site's own style, structured like a large
@@ -61,25 +62,17 @@ const text = {
   facts: [
     { value: '2020', label: words('10 ақпанда Алматыда құрылды', 'основан 10 февраля в Алматы', 'founded on 10 February in Almaty') },
     { value: '1 000+', label: words('өңірлік жарыс өткізілді', 'региональных соревнований', 'regional competitions held') },
-    { value: '3', label: words('ел: Қазақстан, Өзбекстан, Қырғызстан', 'страны: Казахстан, Узбекистан, Кыргызстан', 'countries: Kazakhstan, Uzbekistan, Kyrgyzstan') }
+    { value: '3', label: words('ел: Қазақстан, Өзбекстан, Қырғызстан', 'страны: Казахстан, Узбекистан, Кыргызстан', 'countries: Kazakhstan, Uzbekistan, Kyrgyzstan') },
+    { value: '4×', label: words('FIRST Global Challenge әлем чемпионы, 2022–2025', 'чемпион мира FIRST Global Challenge, 2022–2025', 'FIRST Global Challenge world champion, 2022–2025') }
   ],
   path: words('Біздің жол', 'Наш путь', 'Our path'),
   pathSteps: [
-    {
-      year: '2020',
-      title: words('Алғашқы чемпионат', 'Первый чемпионат', 'First championship'),
-      line: words('3 өңірден 150 команда.', '150 команд из 3 регионов.', '150 teams from 3 regions.')
-    },
-    {
-      year: '2022–2025',
-      title: words('FIRST Global Challenge', 'FIRST Global Challenge', 'FIRST Global Challenge'),
-      line: words('Қазақстан құрамасы — қатарынан 4 рет әлем чемпионы.', 'Сборная Казахстана — 4 раза подряд чемпион мира.', 'Team Kazakhstan — world champion 4 years in a row.')
-    },
-    {
-      year: '2026',
-      title: words('Alem Tech Fest', 'Alem Tech Fest', 'Alem Tech Fest'),
-      line: words('Астана, EXPO: 5 000+ қатысушы, 7 ел.', 'Астана, EXPO: 5 000+ участников, 7 стран.', 'Astana, EXPO: 5,000+ participants, 7 countries.')
-    }
+    { year: '2020', title: words('Алғашқы чемпионат', 'Первый чемпионат', 'First championship'), line: words('3 өңірден 150 команда.', '150 команд из 3 регионов.', '150 teams from 3 regions.') },
+    { year: '2022', title: words('Әлем чемпионы', 'Чемпион мира', 'World champion'), line: words('FIRST Global Challenge, Женева.', 'FIRST Global Challenge, Женева.', 'FIRST Global Challenge, Geneva.') },
+    { year: '2023', title: words('Әлем чемпионы', 'Чемпион мира', 'World champion'), line: words('FIRST Global Challenge, Сингапур.', 'FIRST Global Challenge, Сингапур.', 'FIRST Global Challenge, Singapore.') },
+    { year: '2024', title: words('Әлем чемпионы', 'Чемпион мира', 'World champion'), line: words('FIRST Global Challenge, Афина.', 'FIRST Global Challenge, Афины.', 'FIRST Global Challenge, Athens.') },
+    { year: '2025', title: words('Әлем чемпионы', 'Чемпион мира', 'World champion'), line: words('FIRST Global Challenge, Панама.', 'FIRST Global Challenge, Панама.', 'FIRST Global Challenge, Panama.') },
+    { year: '2026', title: words('Alem Tech Fest', 'Alem Tech Fest', 'Alem Tech Fest'), line: words('Астана, EXPO: 5 000+ қатысушы, 7 ел.', 'Астана, EXPO: 5 000+ участников, 7 стран.', 'Astana, EXPO: 5,000+ participants, 7 countries.') }
   ],
   leadership: words('Басшылық', 'Руководство', 'Leadership'),
   leaders: [
@@ -122,6 +115,41 @@ const text = {
       url: ''
     }
   ],
+  statement: words(
+    'FIRST бағдарламаларының Қазақстан, Өзбекстан және Қырғызстандағы ресми операторы. Қазақстан құрамасы FIRST Global Challenge-те қатарынан 4 рет әлем чемпионы атанды.',
+    'Официальный оператор программ FIRST в Казахстане, Узбекистане и Кыргызстане. Сборная Казахстана четыре года подряд становилась чемпионом мира FIRST Global Challenge.',
+    'The official operator of FIRST programs in Kazakhstan, Uzbekistan and Kyrgyzstan. Team Kazakhstan has been FIRST Global Challenge world champion four years in a row.'
+  ),
+  statusFirst: {
+    meta: words('FIRST', 'FIRST', 'FIRST'),
+    title: words(
+      'FIRST бағдарламаларының Қазақстан, Өзбекстан және Қырғызстандағы ресми операторы.',
+      'Официальный оператор программ FIRST в Казахстане, Узбекистане и Кыргызстане.',
+      'Official operator of FIRST programs in Kazakhstan, Uzbekistan and Kyrgyzstan.'
+    )
+  },
+  forbes: {
+    meta: words('Forbes Kazakhstan · 2026', 'Forbes Kazakhstan · 2026', 'Forbes Kazakhstan · 2026'),
+    title: words(
+      'Данияр Ерматов Forbes Kazakhstan «30 до 30» рейтингіне енді.',
+      'Данияр Ерматов вошёл в рейтинг Forbes Kazakhstan «30 до 30».',
+      'Daniyar Yermatov named to Forbes Kazakhstan’s 30 Under 30.'
+    ),
+    url: 'https://forbes.kz/articles/forbes-kazakhstan-predstavlyaet-reyting-30-do-30-e11bed'
+  },
+  results: words('Нәтижелер', 'Результаты', 'Results'),
+  attention: words('Мемлекет басшысының назары', 'Внимание Главы государства', 'Recognition by the Head of State'),
+  projectsTitle: words('Жобалар', 'Проекты', 'Projects'),
+  allProjects: words('Барлық жобалар', 'Все проекты', 'All projects'),
+  contact: words('Байланыс', 'Контакты', 'Contact'),
+  emailLabel: words('E-mail', 'E-mail', 'Email'),
+  phoneLabel: words('Телефон', 'Телефон', 'Phone'),
+  addressLabel: words('Мекенжай', 'Адрес', 'Address'),
+  teamNote: words(
+    'Командада 30-дан астам маман: инженерлер, педагогтер, іс-шара менеджерлері және жаттықтырушылар.',
+    'В команде более 30 специалистов: инженеры, педагоги, менеджеры мероприятий и тренеры.',
+    'A team of more than 30 specialists: engineers, educators, event managers and coaches.'
+  ),
   newTab: words(
     '(жаңа бетте ашылады)',
     '(откроется в новой вкладке)',
@@ -174,81 +202,60 @@ export default function AboutPage({
   params: { locale: string }
 }) {
   const t = (value: Localized) => localize(value, locale)
-  const feature = trustItems.find(item => item.key === 'akorda-2025')
-  const academy = projects.find(item => item.slug === 'academy')!
-  const directions = [
-    {
-      href: '/competitions',
-      title: t(navLabel('competitions')),
-      line: t(text.competitionsLine)
-    },
-    {
-      href: '/academy',
-      title: t(text.teacherTraining),
-      line: t(academy.fact)
-    },
-    {
-      href: '/projects',
-      title: t(navLabel('projects')),
-      line: t(ui.projectsLead)
-    }
+  const akorda = trustItems.filter(item => item.key === 'akorda-2025' || item.key === 'akorda-2023')
+  const projectList = projects.filter(item => item.slug !== 'academy')
+  const report = publicReports[0]
+  const proof = [
+    { meta: text.statusFirst.meta, title: text.statusFirst.title, url: '' },
+    ...text.orders,
+    { meta: text.forbes.meta, title: text.forbes.title, url: text.forbes.url }
   ]
 
   return (
-    <main id='main-content' className='pg-main'>
+    <main id='main-content' className='pg-main ab'>
       <div className='pg-intro pg-intro-plain pg-v2-intro'>
         <PageHead locale={locale} title={t(navLabel('about'))}>
           <p className='pg-v2-statement'>{t(copy.aboutText)}</p>
-          <p className='pg-v2-sub'>{t(text.operator)}</p>
-          <p className='pg-since'>{t(text.since)}</p>
         </PageHead>
       </div>
 
-      <section className='pg-v2-band' aria-label={t(text.since)}>
-        <div className='container'><dl className='pg-facts'>
-          {text.facts.map(fact => (
-            <div className='pg-fact' key={fact.value}>
-              <dt>{fact.value}</dt>
-              <dd>{t(fact.label)}</dd>
-            </div>
-          ))}
-        </dl></div>
-      </section>
-
-      <section className='section' aria-labelledby='pg-directions-title'>
-        <div className='container pg-v2-split'>
-          <div className='pg-v2-split-head'>
-            <h2 id='pg-directions-title'>{t(copy.directions)}</h2>
-          </div>
-          <ol className='pg-v2-rows'>
-            {directions.map((item, index) => (
-              <li className='pg-v2-row' key={item.href}>
-                <span className='pg-v2-num'>0{index + 1}</span>
-                <div>
-                  <h3>
-                    <Link className='card-link' href={item.href}>
-                      {item.title}
-                    </Link>
-                  </h3>
-                  <p>{item.line}</p>
-                </div>
-                <span className='pg-tile-arrow' aria-hidden='true'>
-                  <ArrowRightIcon />
-                </span>
+      <section className='ab-proof' aria-label={t(text.recognition)}>
+        <div className='container ab-proof-grid'>
+          <p className='ab-statement'>{t(text.statement)}</p>
+          <ul className='pg-recog ab-docs'>
+            {proof.map(item => (
+              <li key={item.meta.en}>
+                <span className='pg-recog-meta'>{t(item.meta)}</span>
+                {item.url ? (
+                  <a href={item.url} target='_blank' rel='noreferrer'>
+                    {t(item.title)}
+                    <ArrowUpRightIcon aria-hidden='true' />
+                  </a>
+                ) : (
+                  <span>{t(item.title)}</span>
+                )}
               </li>
             ))}
-          </ol>
+          </ul>
         </div>
       </section>
 
-      <section className='section section-paper pg-v2-path' aria-labelledby='pg-path-title'>
+      <section className='section section-paper' aria-labelledby='ab-results-title'>
         <div className='container'>
-          <SectionHead id='pg-path-title' title={t(text.path)} />
+          <SectionHead id='ab-results-title' title={t(text.results)} />
+          <dl className='pg-facts ab-facts'>
+            {text.facts.map(fact => (
+              <div className='pg-fact' key={fact.value}>
+                <dt>{fact.value}</dt>
+                <dd>{t(fact.label)}</dd>
+              </div>
+            ))}
+          </dl>
           <Reveal className='pg-stagger'>
-            <ol className='pg-v2-steps'>
+            <ol className='ab-steps'>
               {text.pathSteps.map((step, index) => (
-                <li className='pg-v2-step pg-item' key={step.year} style={stagger(index)}>
-                  <span className='pg-v2-year'>{step.year}</span>
+                <li className='ab-step pg-item' key={step.year} style={stagger(index)}>
+                  <span className='ab-year'>{step.year}</span>
                   <strong>{t(step.title)}</strong>
                   <span>{t(step.line)}</span>
                 </li>
@@ -258,112 +265,106 @@ export default function AboutPage({
         </div>
       </section>
 
-      <section className='section' aria-labelledby='pg-leaders-title'>
+      <section className='section' aria-labelledby='ab-akorda-title'>
         <div className='container'>
-          <SectionHead id='pg-leaders-title' title={t(text.leadership)} />
-          <ul className='pg-v2-people'>
+          <SectionHead id='ab-akorda-title' title={t(text.attention)} />
+          <ul className='ab-pair'>
+            {akorda.map(item => (
+              <li key={item.key}>
+                <a className='ab-pair-link' href={item.url} target='_blank' rel='noreferrer'>
+                  <span className='ab-pair-media'>
+                    <img
+                      src={item.photo.src}
+                      alt={t(item.alt)}
+                      width={item.photo.width}
+                      height={item.photo.height}
+                      loading='lazy'
+                      decoding='async'
+                      style={item.photo.position ? { objectPosition: item.photo.position } : undefined}
+                    />
+                  </span>
+                  <span className='pg-recog-meta'>{t(item.meta)}</span>
+                  <h3>{t(item.title)}</h3>
+                  <p>{t(item.text)}</p>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className='section section-paper' aria-labelledby='ab-leaders-title'>
+        <div className='container'>
+          <SectionHead id='ab-leaders-title' title={t(text.leadership)} />
+          <ul className='ab-leaders'>
             {text.leaders.map(person => (
-              <li className='pg-v2-person' key={person.name.en}>
-                <div className='pg-v2-portrait'>
-                  <img src={person.photo} alt={t(person.name)} width={512} height={512} loading='lazy' decoding='async' />
-                </div>
+              <li key={person.name.en}>
                 <h3>{t(person.name)}</h3>
                 <p className='pg-person-role'>{t(person.role)}</p>
                 <p>{t(person.line)}</p>
               </li>
             ))}
           </ul>
-          <div className='pg-v2-team'>
-            <div className='pg-v2-team-media'>
-            <img
-              src='/images/people/team-staff-1132.jpg'
-              alt={t(text.teamAlt)}
-              width={1132}
-              height={794}
-              loading='lazy'
-              decoding='async'
-            />
-          </div>
-            <div className='pg-v2-team-body'>
-              <h2 id='pg-team-title'>{t(text.team)}</h2>
-              <p>{t(text.teamText)}</p>
-            </div>
-          </div>
+          <p className='ab-note'>{t(text.teamNote)}</p>
         </div>
       </section>
 
-      <section className='section section-paper' aria-labelledby='pg-recog-title'>
+      <section className='section' aria-labelledby='ab-projects-title'>
         <div className='container'>
-          <SectionHead id='pg-recog-title' title={t(text.recognition)} />
-          {feature && (
-            <article className='home-president pg-v2-feature'>
-              <div className='home-president-media'>
-                <img
-                  src={feature.photo.src}
-                  alt={t(feature.alt)}
-                  width={feature.photo.width}
-                  height={feature.photo.height}
-                  loading='lazy'
-                  decoding='async'
-                  style={feature.photo.position ? { objectPosition: feature.photo.position } : undefined}
-                />
-              </div>
-              <div className='home-president-body'>
-                <p className='home-president-meta'>{t(feature.meta)}</p>
-                <h3>{t(feature.title)}</h3>
-                <p className='home-president-text'>{t(feature.text)}</p>
-                <a className='link-arrow' href={feature.url} target='_blank' rel='noreferrer'>
-                  {t(feature.link)}
-                  <ArrowUpRightIcon aria-hidden='true' />
-                </a>
-              </div>
-            </article>
-          )}
-          <ul className='pg-recog'>
-            {trustItems
-              .filter(item => item.key === 'akorda-2023')
-              .map(item => (
-                <li key={item.key}>
-                  <span className='pg-recog-meta'>{t(item.meta)}</span>
-                  <a href={item.url} target='_blank' rel='noreferrer'>
-                    {t(item.title)}
-                    <ArrowUpRightIcon aria-hidden='true' />
-                  </a>
-                </li>
-              ))}
-            {text.orders.map(order => (
-              <li key={order.meta.en}>
-                <span className='pg-recog-meta'>{t(order.meta)}</span>
-                {order.url ? (
-                  <a href={order.url} target='_blank' rel='noreferrer'>
-                    {t(order.title)}
-                    <ArrowUpRightIcon aria-hidden='true' />
-                  </a>
-                ) : (
-                  <span>{t(order.title)}</span>
-                )}
+          <SectionHead
+            id='ab-projects-title'
+            title={t(text.projectsTitle)}
+            action={
+              <Link className='link-arrow' href='/projects'>
+                {t(text.allProjects)}
+                <ArrowRightIcon aria-hidden='true' />
+              </Link>
+            }
+          />
+          <ul className='ab-projects'>
+            {projectList.map(project => (
+              <li key={project.slug}>
+                <Link className='ab-project' href={`/projects/${project.slug}`}>
+                  <h3>{project.title}</h3>
+                  <p>{t(project.fact)}</p>
+                </Link>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      <section className='section pg-v2-cta' aria-labelledby='pg-cta-title'>
-        <div className='container pg-v2-cta-inner'>
-          <h2 id='pg-cta-title'>{t(text.ctaTitle)}</h2>
-          <div className='pg-v2-cta-actions'>
-            <a className='btn btn-primary' href={site.connectUrl} target='_blank' rel='noreferrer'>
-              {t(text.ctaRegister)}
-              <ArrowUpRightIcon aria-hidden='true' />
-            </a>
-            <Link className='btn btn-secondary' href='/partners'>
-              {t(ui.becomePartner)}
-              <ArrowRightIcon aria-hidden='true' />
-            </Link>
-          </div>
+      <section className='section ab-bottom' aria-labelledby='ab-contact-title'>
+        <div className='container'>
+          {report && (
+            <p className='ab-report'>
+              <span>
+                <strong>{t(ui.reports)}.</strong> {t(report.date)}: {t(report.title)}
+              </span>
+              <a className='link-arrow' href={report.file} target='_blank' rel='noreferrer'>
+                {t(report.note)}
+                <ArrowUpRightIcon aria-hidden='true' />
+              </a>
+            </p>
+          )}
+          <h2 id='ab-contact-title'>{t(text.contact)}</h2>
+          <dl className='ab-contact'>
+            <div>
+              <dt>{t(text.emailLabel)}</dt>
+              <dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
+            </div>
+            <div>
+              <dt>{t(text.phoneLabel)}</dt>
+              <dd><a href={site.phone.href}>{site.phone.display}</a></dd>
+            </div>
+            <div>
+              <dt>{t(text.addressLabel)}</dt>
+              <dd>{t(site.address)}</dd>
+            </div>
+          </dl>
+          <p className='ab-note'>{t(reportsText)} <a href={`mailto:${site.email}`}>{site.email}</a></p>
         </div>
       </section>
-
     </main>
   )
 }
