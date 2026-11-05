@@ -918,6 +918,34 @@
   overflow: hidden;
 }
 
+/* Flagship teaser in the panel: prose only, then «Толығырақ». */
+.cmp-detail--flagship {
+  gap: 20px;
+}
+.cmp-teaser-meta {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink);
+  font-weight: 500;
+}
+.cmp-teaser-tracks {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.cmp-teaser-tracks strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+.cmp-detail--flagship .cmp-card-next {
+  margin-top: 0;
+  font-size: 1rem;
+}
+.cmp-teaser-more {
+  align-self: flex-start;
+  margin-top: 4px;
+}
+
 /* How to take part — a real sequence: blue numbered circles. */
 .cmp-join {
   display: flex;

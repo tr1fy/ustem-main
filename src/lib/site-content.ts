@@ -12,7 +12,7 @@ export const connectUrl = 'https://connect.ustem.kz/'
 /** Switches USTEM Connect on or off everywhere (header, mobile menu,
     «how to take part», competitions intro, privacy, news item). */
 export const connectEnabled = true
-export const contactEmail = 'info@ustemfoundation.org'
+export const contactEmail = 'hello@ustemfoundation.org'
 export const presidentSource =
   'https://www.akorda.kz/ru/kasym-zhomart-tokaev-posetil-vystavku-na-mezhdunarodnom-tehnologicheskom-forume-digital-bridge-1291855'
 export const copy = {
@@ -704,9 +704,8 @@ export const audiences: {
   }
 ]
 
-/** Main menu (TZ §5.1), in this exact order. */
+/** Main menu: five items (2026-11-05), in this exact order. */
 export const navItems = [
-  { key: 'about', href: '/about', label: words('Біз туралы', 'О нас', 'About us') },
   {
     key: 'competitions',
     href: '/competitions',
@@ -717,19 +716,21 @@ export const navItems = [
     href: '/academy',
     label: words('USTEM Academy', 'USTEM Academy', 'USTEM Academy')
   },
-  { key: 'projects', href: '/projects', label: words('Жобалар', 'Проекты', 'Projects') },
+  { key: 'about', href: '/about', label: words('Біз туралы', 'О нас', 'About us') },
   { key: 'news', href: '/news', label: words('Жаңалықтар', 'Новости', 'News') },
   {
     key: 'partners',
     href: '/partners',
     label: words('Серіктестерге', 'Партнёрам', 'For partners')
-  },
-  {
-    key: 'contacts',
-    href: '/contacts',
-    label: words('Контактілер', 'Контакты', 'Contacts')
   }
 ] as const
+
+/** Pages that left the main menu (2026-11-05): still reachable from About
+    (projects) and the footer (contacts), old URLs keep working. */
+export const subPages = {
+  projects: { href: '/projects', label: words('Жобалар', 'Проекты', 'Projects') },
+  contacts: { href: '/contacts', label: words('Контактілер', 'Контакты', 'Contacts') }
+} as const
 
 export const languages = [
   { code: 'kz', short: 'KK', name: 'Қазақша', lang: 'kk' },
@@ -738,34 +739,40 @@ export const languages = [
 ] as const
 
 /** Text used by the TZ v1.0 layout. Exact wording comes from the TZ. */
-/** Public reports listed in the «Есептер» section near the bottom of the
-    home page (moved there from the About page on 2026-10-29). */
+/** Public reports in the «Есептер» block near the bottom of the home page.
+    One object = one row (date · title · PDF); add a new report on top. The
+    block shows the latest `homeReportsLimit`, the «Барлық есептер» dialog
+    shows all. */
 export const publicReports: {
   file: string
+  date: Localized
   meta: Localized
   title: Localized
   note: Localized
 }[] = [
   {
     file: '/docs/public-report-alem-techfest-2026.pdf',
+    date: words('2026 ж. 10 сәуір', '10 апреля 2026', '10 April 2026'),
     meta: words(
-      'Alem TechFest 2026 · КҚ «Samruk-Kazyna Trust»',
+      'Alem TechFest 2026 · КҚ «Samruk-Kazyna Trust» · орыс тілінде',
       'Alem TechFest 2026 · КФ «Samruk-Kazyna Trust»',
-      'Alem TechFest 2026 · Samruk-Kazyna Trust'
+      'Alem TechFest 2026 · Samruk-Kazyna Trust · in Russian'
     ),
     title: words(
       'Қайырымдылық көмегі қаражатының пайдаланылуы туралы жария есеп',
       'Публичный отчёт об использовании средств благотворительной помощи',
       'Public report on the use of charitable funds'
     ),
-    note: words('PDF · 1,4 МБ · орыс тілінде', 'PDF · 1,4 МБ', 'PDF · 1.4 MB · in Russian')
+    note: words('PDF · 1,4 МБ', 'PDF · 1,4 МБ', 'PDF · 1.4 MB')
   }
 ]
 
+export const homeReportsLimit = 2
+
 export const reportsText = words(
-  'Басқа есептер мен құжаттар сұрау бойынша беріледі — бізге хат жазыңыз.',
-  'Другие отчёты и документы предоставляются по запросу — напишите нам.',
-  'Other reports and documents are available on request — write to us.'
+  'Басқа есептер мен құжаттар сұрау бойынша беріледі:',
+  'Другие отчёты и документы — по запросу:',
+  'Other reports and documents are available on request:'
 )
 
 export const ui = {
@@ -777,9 +784,9 @@ export const ui = {
     'The foundation advancing engineering education'
   ),
   heroText: words(
-    'USTEM Foundation балаларды, педагогтерді және серіктестерді ғылым мен технология төңірегінде біріктіреді: жарыстар өткізеді, педагогтерді оқытады және жас инженерлерді қолдайды.',
-    'USTEM Foundation объединяет детей, педагогов и партнёров вокруг науки и технологий: проводит соревнования, обучает педагогов и поддерживает молодых инженеров.',
-    'USTEM Foundation brings students, teachers and partners together around science and technology: it runs competitions, trains teachers and supports young engineers.'
+    'USTEM Foundation Орталық Азиядағы балаларды, педагогтерді және серіктестерді ғылым мен технология төңірегінде біріктіреді: жарыстар өткізеді, педагогтерді оқытады және жас инженерлерді қолдайды.',
+    'USTEM Foundation объединяет детей, педагогов и партнёров Центральной Азии вокруг науки и технологий: проводит соревнования, обучает педагогов и поддерживает молодых инженеров.',
+    'USTEM Foundation brings students, teachers and partners across Central Asia together around science and technology: it runs competitions, trains teachers and supports young engineers.'
   ),
   heroCta: words('Жарыстарды көру', 'Смотреть соревнования', 'Explore competitions'),
   heroAbout: words('Біз туралы', 'О нас', 'About us'),
@@ -943,6 +950,7 @@ export const ui = {
   socials: words('Әлеуметтік желілер', 'Соцсети', 'Social media'),
   bin: words('БСН', 'БИН', 'BIN'),
   reports: words('Есептер', 'Отчёты', 'Reports'),
+  allReports: words('Барлық есептер', 'Все отчёты', 'All reports'),
   forMedia: words('БАҚ үшін', 'Для СМИ', 'For media'),
   privacy: words('Құпиялылық саясаты', 'Политика конфиденциальности', 'Privacy policy'),
   backToTop: words('Жоғарыға', 'Наверх', 'Back to top'),
@@ -1066,6 +1074,9 @@ export type FlagshipTrackIcon =
   | 'rocket'
   | 'shield'
   | 'chip'
+  | 'blocks'
+  | 'humanoid'
+  | 'zone'
 export type FlagshipPage = {
   /** Pill next to «Flagship»: the next edition in a few words. */
   nextShort: Localized
@@ -1073,16 +1084,32 @@ export type FlagshipPage = {
   description: Localized
   /** Hero mosaic: six photos, one per track, in track order. */
   photos: { src: string; alt: Localized }[]
+  /** 'cover' shows the event cover alone instead of the mosaic. */
+  heroStyle?: 'mosaic' | 'cover'
+  /** 'photos' shows each track's photo (from `photos`) instead of an icon. */
+  trackStyle?: 'icons' | 'photos'
   /** Last edition in numbers; `note` names the edition. */
   stats: { note: Localized; items: { value: number; suffix?: string; label: Localized }[] }
-  mission: { lead: Localized; text: Localized }
+  /** Hidden while the official sources give no mission. */
+  mission?: { lead: Localized; text: Localized }
+  /** Heading above the tracks; defaults to «Чемпионат жарыс бағыттары». */
+  tracksTitle?: Localized
   tracks: { icon: FlagshipTrackIcon; name: Localized }[]
   next: { title: string; line: Localized }
   /** Where the rules are announced, in the order they should be shown. */
   rules: { label: string; url: string }[]
-  contacts: { email: string; instagram: { handle: string; url: string }; telegram: { handle: string; url: string } }
-  /** The official site still shows last season: say so before leaving. */
-  siteNotice: { title: Localized; text: Localized }
+  contacts: {
+    email: string
+    instagram: { handle: string; url: string }
+    telegram?: { handle: string; url: string }
+    /** Shown in place of Telegram when the event lists a phone instead. */
+    phone?: string
+  }
+  /**
+   * The official site still shows last season: say so before leaving.
+   * Without it, «Official website» links straight to the site.
+   */
+  siteNotice?: { title: Localized; text: Localized }
 }
 
 /** Competitions catalogue (TZ §7.1): 3 flagships + 8 directions, in TZ order. */
@@ -1117,28 +1144,30 @@ export const events: SiteEvent[] = [
     title: 'Almaty Tech Cup',
     kind: 'flagship',
     fact: words(
-      'Алматыдағы жыл сайынғы робототехника, инженерия және ЖИ чемпионаты.',
-      'Ежегодный чемпионат по робототехнике, инженерии и ИИ в Алматы.',
-      'Almaty’s annual championship in robotics, engineering and AI.'
+      'Робототехника, инженерия және ЖИ чемпионаты. Алматы.',
+      'Чемпионат по робототехнике, инженерии и ИИ. Алматы.',
+      'Robotics, engineering and AI championship. Almaty.'
     ),
     detail: words(
-      'USTEM Foundation ұйымдастыратын технология чемпионаты. XII чемпионат «Age of AI» 2026 жылғы 30 маусым – 1 шілдеде Almaty Arena-да өтті: 3000-нан астам қатысушы, 14 жарыс, 5 ел.',
-      'Технологический чемпионат, который организует USTEM Foundation. XII чемпионат «Age of AI» прошёл 30 июня – 1 июля 2026 года в Almaty Arena: более 3000 участников, 14 соревнований, 5 стран.',
-      'A technology championship organized by USTEM Foundation. The XII championship “Age of AI” took place on 30 June – 1 July 2026 at Almaty Arena: 3,000+ participants, 14 competitions, 5 countries.'
+      'USTEM Foundation ұйымдастыратын технология чемпионаты. XII чемпионат «Age of AI» 2026 жылғы 30 маусым – 1 шілдеде Almaty Arena-да өтті: 3000-нан астам қатысушы, 14 жарыс, 10 000 қонақ, 5 ел.',
+      'Технологический чемпионат, который организует USTEM Foundation. XII чемпионат «Age of AI» прошёл 30 июня – 1 июля 2026 года в Almaty Arena: более 3000 участников, 14 соревнований, 10 000 гостей, 5 стран.',
+      'A technology championship organized by USTEM Foundation. The XII championship “Age of AI” took place on 30 June – 1 July 2026 at Almaty Arena: 3,000+ participants, 14 competitions, 10,000 visitors, 5 countries.'
     ),
     meta: words(
-      '2026 · Almaty Arena · 3000+ қатысушы · 14 бағыт · 5 ел',
-      '2026 · Almaty Arena · 3000+ участников · 14 направлений · 5 стран',
-      '2026 · Almaty Arena · 3,000+ participants · 14 competition tracks · 5 countries'
+      '2026 · Almaty Arena · 3000+ қатысушы · 14 жарыс · 10 000 қонақ · 5 ел',
+      '2026 · Almaty Arena · 3000+ участников · 14 соревнований · 10 000 гостей · 5 стран',
+      '2026 · Almaty Arena · 3,000+ participants · 14 competitions · 10,000 visitors · 5 countries'
     ),
     next: words(
-      'маусым 2027 · FIRST Tech Challenge Premier Event · 96 командаға дейін',
-      'июнь 2027 · FIRST Tech Challenge Premier Event · до 96 команд',
-      'June 2027 · FIRST Tech Challenge Premier Event · up to 96 teams'
+      'маусым 2027 · Алматы',
+      'июнь 2027 · Алматы',
+      'June 2027 · Almaty'
     ),
     cover: '/images/projects/almaty-tech-cup-cover.jpg',
     officialUrl: 'https://www.almaty-tech-cup.kz',
     page: {
+      heroStyle: 'cover',
+      trackStyle: 'photos',
       nextShort: words(
         'Келесі: маусым 2027 · Алматы',
         'Следующий: июнь 2027 · Алматы',
@@ -1244,9 +1273,9 @@ export const events: SiteEvent[] = [
     title: 'Alem Tech Fest',
     kind: 'flagship',
     fact: words(
-      'Астанадағы технология фестивалі: FIRST, RoboCup, дрон жарыстары және Physical AI.',
-      'Технологический фестиваль в Астане: FIRST, RoboCup, гонки дронов и Physical AI.',
-      'A technology festival in Astana: FIRST, RoboCup, drone racing and Physical AI.'
+      'Технология фестивалі: FIRST, RoboCup, дрондар, Physical AI. Астана.',
+      'Технологический фестиваль: FIRST, RoboCup, дроны, Physical AI. Астана.',
+      'Technology festival: FIRST, RoboCup, drones, Physical AI. Astana.'
     ),
     detail: words(
       '2026 жылғы 11–13 ақпанда Астанада, EXPO алаңында өтті: 5000-нан астам қатысушы. Бағдарламада — Central Asia FIRST Championship, FIRST LEGO League, FIRST Tech Challenge, RoboCup, дрон жарыстары және Physical AI Championship.',
@@ -1259,22 +1288,106 @@ export const events: SiteEvent[] = [
       '2026 · Astana, EXPO · 5,000+ participants · 500+ teams · 7 countries and regions'
     ),
     next: words(
-      '18–21 ақпан 2027 · Астана · Central Asia FIRST Championship 2027',
-      '18–21 февраля 2027 · Астана · Central Asia FIRST Championship 2027',
-      '18–21 February 2027 · Astana · Central Asia FIRST Championship 2027'
+      '18–21 ақпан 2027 · Астана',
+      '18–21 февраля 2027 · Астана',
+      '18–21 February 2027 · Astana'
     ),
     cover: '/images/projects/alem-tech-fest-cover.jpg',
-    officialUrl: 'https://alemtechfest.kz'
+    officialUrl: 'https://alemtechfest.kz',
+    // Copy, numbers and photos: alemtechfest.kz (checked 2026-11-05).
+    page: {
+      heroStyle: 'cover',
+      trackStyle: 'photos',
+      nextShort: words(
+        'Келесі: 18–21 ақпан 2027 · Астана',
+        'Следующий: 18–21 февраля 2027 · Астана',
+        'Next: 18–21 February 2027 · Astana'
+      ),
+      description: words(
+        'Астанадағы технология фестивалі: FIRST, RoboCup, дрон жарыстары және Physical AI.',
+        'Технологический фестиваль в Астане: FIRST, RoboCup, гонки дронов и Physical AI.',
+        'A technology festival in Astana: FIRST, RoboCup, drone racing and Physical AI.'
+      ),
+      photos: [
+        {
+          src: '/images/competitions/atf-robotics.jpg',
+          alt: words('Робототехника', 'Робототехника', 'Robotics')
+        },
+        {
+          src: '/images/competitions/atf-drones-space.jpg',
+          alt: words('Дрондар мен ғарыш', 'Дроны и космос', 'Drones & space')
+        },
+        {
+          src: '/images/competitions/atf-ai-cyber.jpg',
+          alt: words('ЖИ және кибер', 'ИИ и кибер', 'AI & cyber')
+        },
+        {
+          src: '/images/competitions/atf-engineering.jpg',
+          alt: words('Инженерия', 'Инженерия', 'Engineering')
+        }
+      ],
+      stats: {
+        note: words(
+          'Өткен жылғы қорытынды · Alem Tech Fest 2026',
+          'Итоги прошлого года · Alem Tech Fest 2026',
+          'Last year’s results · Alem Tech Fest 2026'
+        ),
+        items: [
+          { value: 5000, suffix: '+', label: words('қатысушы', 'участников', 'participants') },
+          { value: 10000, suffix: '+', label: words('қонақ', 'гостей', 'guests') },
+          { value: 500, suffix: '+', label: words('команда', 'команд', 'teams') },
+          { value: 7, label: words('ел', 'стран', 'countries') }
+        ]
+      },
+      mission: {
+        lead: words(
+          'Жастарды STEM-ге тарту арқылы адами капиталды арттыру.',
+          'Наращивать человеческий капитал, вовлекая молодёжь в STEM.',
+          'Grow human capital by bringing young people into STEM.'
+        ),
+        text: words(
+          '4 жастан 25 жасқа дейінгі және одан үлкен командалар роботтарын, дрондарын, спутниктері мен кодын әкеледі. Нәтижелер ұлттық рейтингке және халықаралық чемпионаттарға іріктеуге есептеледі.',
+          'Команды от 4 до 25 лет и старше привозят роботов, дроны, спутники и код. Результаты учитываются в национальном рейтинге и при отборе на международные чемпионаты.',
+          'Teams aged 4 to 25 and older bring robots, drones, satellites and code. Results count toward national rankings and qualification for international championships.'
+        )
+      },
+      tracksTitle: words('Фестиваль бағыттары', 'Направления фестиваля', 'Festival tracks'),
+      tracks: [
+        { icon: 'robot', name: words('Робототехника', 'Робототехника', 'Robotics') },
+        { icon: 'drone', name: words('Дрондар мен ғарыш', 'Дроны и космос', 'Drones & space') },
+        { icon: 'shield', name: words('ЖИ және кибер', 'ИИ и кибер', 'AI & cyber') },
+        { icon: 'wrench', name: words('Инженерия', 'Инженерия', 'Engineering') }
+      ],
+      next: {
+        title: 'Central Asia FIRST Championship 2027',
+        line: words(
+          '18–21 ақпан 2027 · Астана, Қазақ ұлттық спорт университеті (KNUS)',
+          '18–21 февраля 2027 · Астана, Казахский национальный университет спорта (KNUS)',
+          '18–21 February 2027 · Astana, Kazakh National University of Sports (KNUS)'
+        )
+      },
+      // The regulations are published on the festival site itself.
+      rules: [
+        { label: 'alemtechfest.kz', url: 'https://alemtechfest.kz' },
+        { label: 'Instagram @alemtechfest', url: 'https://www.instagram.com/alemtechfest/' }
+      ],
+      contacts: {
+        email: 'hello@ustemfoundation.org',
+        instagram: { handle: '@alemtechfest', url: 'https://www.instagram.com/alemtechfest/' },
+        phone: '+7 700 444 60 00'
+      }
+    }
   },
   {
     slug: 'digital-bridge',
     title: 'AI & Digital Bridge',
     kind: 'flagship',
     fact: words(
-      'Астанадағы халықаралық жасанды интеллект форумы: USTEM Foundation ұйымдастыратын робототехника аймағы және FIRST жарыстары.',
-      'Международный форум по искусственному интеллекту в Астане: зона робототехники USTEM Foundation и соревнования FIRST.',
-      'An international AI forum in Astana: the USTEM Foundation robotics zone and FIRST competitions.'
+      'Халықаралық жасанды интеллект форумы және FIRST жарыстары. Астана.',
+      'Международный форум по искусственному интеллекту и соревнования FIRST. Астана.',
+      'International AI forum and FIRST competitions. Astana.'
     ),
+    next: words('2027 · Астана', '2027 · Астана', '2027 · Astana'),
     detail: words(
       'AI & Digital Bridge — Астанада өтетін халықаралық жасанды интеллект форумы. 2026 жылы форум 1–3 қазанда Астанадағы EXPO-да өтті. Оның алдындағы AI Month 2026 бағдарламасына FIRST LEGO League Future Edition және FIRST Tech Challenge бағыттары, сондай-ақ студенттерге арналған Unitree G1 гуманоидты роботындағы хакатон енді. 24–25 қыркүйекте USTEM Foundation Alem.ai алаңында FIRST Tech Challenge маусымын ашатын AI & Digital Bridge Cup жарысын өткізді: Қазақстан мен Өзбекстаннан 35 команда қатысты. Форумдағы робототехника аймағын USTEM Foundation Kerneu Group-пен бірлесіп ұйымдастырды: онда гуманоидты роботтар, робот-иттер және үстел теннисі ойнайтын роботтар көрсетілді.',
       'AI & Digital Bridge — международный форум по искусственному интеллекту в Астане. В 2026 году форум прошёл 1–3 октября на площадке EXPO в Астане. В программу предшествовавшего ему AI Month 2026 вошли направления FIRST LEGO League Future Edition и FIRST Tech Challenge, а также хакатон для студентов на гуманоидном роботе Unitree G1. 24–25 сентября USTEM Foundation провёл на площадке Alem.ai соревнование AI & Digital Bridge Cup, открывающее сезон FIRST Tech Challenge: 35 команд из Казахстана и Узбекистана. Зону робототехники форума USTEM Foundation организовал вместе с Kerneu Group: там показали человекоподобных роботов, робособак и роботов, играющих в настольный теннис.',
@@ -1292,7 +1405,68 @@ export const events: SiteEvent[] = [
     ),
     cover: '/images/competitions/digital-bridge-2026-poster.jpg',
     coverPosition: '50% 50%',
-    officialUrl: 'https://digitalbridge.ai/'
+    officialUrl: 'https://digitalbridge.ai/',
+    // Facts: ustem.kz (digitalbridge.ai shows only a 2027 teaser). The
+    // mission and the 2027 date are not published yet, so they are left out.
+    page: {
+      heroStyle: 'cover',
+      trackStyle: 'icons',
+      nextShort: words('Келесі: 2027', 'Следующий: 2027', 'Next: 2027'),
+      description: words(
+        'Астанадағы халықаралық жасанды интеллект форумы: USTEM Foundation ұйымдастыратын робототехника аймағы және FIRST жарыстары.',
+        'Международный форум по искусственному интеллекту в Астане: зона робототехники USTEM Foundation и соревнования FIRST.',
+        'An international AI forum in Astana: the USTEM Foundation robotics zone and FIRST competitions.'
+      ),
+      photos: [],
+      stats: {
+        note: words(
+          'Өткен жылғы қорытынды · AI & Digital Bridge 2026, 1–3 қазан, EXPO',
+          'Итоги прошлого года · AI & Digital Bridge 2026, 1–3 октября, EXPO',
+          'Last year’s results · AI & Digital Bridge 2026, 1–3 October, EXPO'
+        ),
+        items: [
+          { value: 35, label: words('команда · AI & Digital Bridge Cup', 'команд · AI & Digital Bridge Cup', 'teams · AI & Digital Bridge Cup') },
+          { value: 2, label: words('ел · Қазақстан, Өзбекстан', 'страны · Казахстан, Узбекистан', 'countries · Kazakhstan, Uzbekistan') },
+          { value: 3, label: words('күн · форум', 'дня · форум', 'days · forum') }
+        ]
+      },
+      tracksTitle: words('Форумдағы USTEM бағыттары', 'Направления USTEM на форуме', 'USTEM tracks at the forum'),
+      tracks: [
+        { icon: 'blocks', name: words('FIRST LEGO League Future Edition', 'FIRST LEGO League Future Edition', 'FIRST LEGO League Future Edition') },
+        { icon: 'robot', name: words('FIRST Tech Challenge', 'FIRST Tech Challenge', 'FIRST Tech Challenge') },
+        { icon: 'humanoid', name: words('Unitree G1 хакатоны', 'Хакатон на Unitree G1', 'Unitree G1 hackathon') },
+        { icon: 'zone', name: words('Робототехника аймағы', 'Зона робототехники', 'Robotics zone') }
+      ],
+      next: {
+        title: 'AI & Digital Bridge 2027',
+        line: words(
+          'Күні ресми сайтта жарияланады',
+          'Дата будет объявлена на официальном сайте',
+          'The date will be announced on the official website'
+        )
+      },
+      rules: [
+        { label: 'Instagram @digitalbridge.ai', url: 'https://www.instagram.com/digitalbridge.ai/' },
+        { label: 'Telegram @firstroboticskz', url: 'https://t.me/firstroboticskz' }
+      ],
+      contacts: {
+        email: 'hello@ustemfoundation.org',
+        instagram: { handle: '@digitalbridge.ai', url: 'https://www.instagram.com/digitalbridge.ai/' },
+        telegram: { handle: 't.me/firstroboticskz', url: 'https://t.me/firstroboticskz' }
+      },
+      siteNotice: {
+        title: words(
+          'Ресми сайт жаңартылу үстінде',
+          'Официальный сайт обновляется',
+          'The official website is being updated'
+        ),
+        text: words(
+          'AI & Digital Bridge ресми сайты 2027 жылғы форумға дайындалуда. Бағдарлама мен тіркеу жарияланған сәтте сайтқа қолжетімділік ашылады. Хабарландыруларды ресми Instagram парақшасынан немесе Telegram-каналдан бақылаңыз.',
+          'Официальный сайт AI & Digital Bridge готовится к форуму 2027 года. Доступ к сайту откроется, как только будут опубликованы программа и регистрация. Следите за объявлениями в официальном Instagram или Telegram-канале.',
+          'The official AI & Digital Bridge website is being prepared for the 2027 forum. Access opens as soon as the program and registration are published. Follow the announcements on the official Instagram page or Telegram channel.'
+        )
+      }
+    }
   },
   {
     slug: 'first-robotics',

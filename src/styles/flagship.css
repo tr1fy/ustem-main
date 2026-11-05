@@ -12,8 +12,17 @@
   padding: 0;
   list-style: none;
 }
+/* Sections alternate white / paper bands, each with its own symmetrical
+   padding, so the page reads as a sequence of blocks on any screen. */
 .fp-section {
-  padding-top: clamp(56px, 7vw, 96px);
+  padding-block: clamp(32px, 4vw, 52px);
+}
+/* Only the numbers sit on a card: a lighter grey than --paper, inside the
+   container, so no band runs edge to edge. */
+.fp-section--numbers > .container {
+  padding: clamp(28px, 3.5vw, 44px) clamp(24px, 3.5vw, 48px);
+  border-radius: var(--radius-lg);
+  background: #f8fafc;
 }
 .fp-section--last {
   padding-bottom: var(--section);
@@ -27,6 +36,25 @@
   position: relative;
   overflow: hidden;
   padding-top: clamp(24px, 4vw, 48px);
+  padding-bottom: clamp(20px, 3vw, 36px);
+}
+.fp-hero-media {
+  position: relative;
+  min-width: 0;
+}
+/* Variant: the event cover alone, in the same rounded frame. */
+.fp-cover {
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--paper);
+  box-shadow: var(--shadow-soft);
+}
+.fp-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
 }
 .fp-hero-circle {
   position: absolute;
@@ -52,8 +80,10 @@
   gap: 28px;
   min-width: 0;
 }
-.fp-hero-copy .breadcrumbs {
-  margin-bottom: 0;
+.fp-hero .breadcrumbs {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 28px;
 }
 .fp-chip-solid {
   background: var(--blue);
@@ -70,9 +100,9 @@
   letter-spacing: -0.045em;
 }
 .fp-lead {
-  max-width: 34ch;
+  max-width: 48ch;
   font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
-  line-height: 1.55;
+  line-height: 1.7;
   color: var(--muted);
 }
 .fp-actions {
@@ -101,9 +131,39 @@
   object-fit: cover;
 }
 @media (min-width: 1024px) {
+  /* The mosaic is as tall as the copy (chips to buttons) and no wider
+     than that height allows, sitting right next to the text. */
   .fp-hero-grid {
-    grid-template-columns: minmax(0, 1.22fr) minmax(0, 0.78fr);
-    gap: 40px;
+    grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+    gap: 48px;
+    align-items: stretch;
+  }
+  .fp-hero-copy {
+    max-width: 560px;
+  }
+  .fp-cover {
+    position: absolute;
+    inset: 0;
+  }
+  .fp-cover img {
+    aspect-ratio: auto;
+  }
+  .fp-mosaic {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    width: auto;
+    max-width: 100%;
+    aspect-ratio: 5 / 4;
+  }
+  .fp-mosaic li {
+    min-height: 0;
+  }
+  .fp-mosaic img {
+    height: 100%;
+    aspect-ratio: auto;
   }
   .fp-hero-copy {
     gap: 40px;
@@ -111,12 +171,15 @@
   .fp-actions {
     margin-top: 0;
   }
-  .fp-mosaic {
-    margin-top: 36px;
-  }
 }
 
 /* ---------- 2. numbers ---------- */
+/* The numbers heading sits one step below the other section titles. */
+.fp-head h2 {
+  font-size: var(--fs-h3);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
 .fp-head {
   display: flex;
   flex-wrap: wrap;
@@ -129,13 +192,11 @@
   font-size: 0.9375rem;
   color: var(--muted);
 }
-.fp-stats {
+/* four plain blue numbers on white, no box, no lines */
+.fp .fp-stats {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 28px 24px;
-  padding-block: 32px;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
 }
 .fp-stats li {
   display: flex;
@@ -157,14 +218,9 @@
   color: var(--muted);
 }
 @media (min-width: 768px) {
-  .fp-stats {
+  .fp .fp-stats {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 32px;
-    padding-block: 36px;
-  }
-  .fp-stats li + li {
-    padding-left: 32px;
-    border-left: 1px solid var(--line);
   }
 }
 
@@ -193,22 +249,26 @@
   gap: 16px;
 }
 .fp-mission-lead {
-  max-width: 24ch;
+  max-width: 30ch;
   font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2.125rem);
   font-weight: 600;
   line-height: 1.3;
   letter-spacing: -0.025em;
 }
 .fp-mission-text {
-  max-width: 58ch;
+  max-width: 72ch;
   font-size: clamp(1.0625rem, 1rem + 0.2vw, 1.1875rem);
   line-height: 1.55;
   color: var(--muted);
 }
 @media (min-width: 1024px) {
   .fp-mission {
-    grid-template-columns: 280px minmax(0, 1fr);
+    grid-template-columns: 220px minmax(0, 1fr);
     align-items: start;
+  }
+  .fp-mission-lead,
+  .fp-mission-text {
+    max-width: none;
   }
 }
 
@@ -254,6 +314,37 @@
   font-weight: 600;
   color: var(--muted);
 }
+/* Variant: each track's photo above its name; two per row on phones so
+   the block stays short. */
+.fp-tracks--photos {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.fp-tracks--photos li {
+  gap: 14px;
+  padding: 12px 12px 18px;
+  border-top: 0;
+}
+.fp-tracks--photos .fp-track-name {
+  font-size: 1.0625rem;
+}
+.fp-track-photo {
+  display: block;
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--paper);
+}
+.fp-track-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+.fp-tracks--photos .fp-track-name {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding-inline: 8px;
+}
 .fp-track-name {
   font-size: 1.375rem;
   font-weight: 600;
@@ -282,6 +373,13 @@
     gap: 28px;
     padding: 32px 32px 30px;
   }
+  .fp-tracks--photos li {
+    gap: 18px;
+    padding: 16px 16px 24px;
+  }
+  .fp-tracks--photos .fp-track-name {
+    font-size: 1.25rem;
+  }
   .fp-tracks li:nth-child(-n + 3) {
     border-top: 0;
   }
@@ -298,13 +396,45 @@
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+  display: grid;
+  gap: 20px;
   padding: clamp(32px, 5vw, 56px);
   border-radius: var(--radius-lg);
   background: var(--aral-deep);
   color: var(--white);
+}
+.fp-next-main {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.fp-next-line {
+  max-width: 48ch;
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+  line-height: 1.5;
+  color: var(--on-dark-muted);
+}
+@media (min-width: 1024px) {
+  .fp-next {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 48px;
+    align-items: end;
+  }
+  .fp-next-line {
+    max-width: 26ch;
+    text-align: right;
+    padding-bottom: 6px;
+  }
+}
+@media (min-width: 1200px) {
+  .fp-next {
+    align-items: center;
+  }
+  .fp-next-line {
+    max-width: none;
+    white-space: nowrap;
+    padding-bottom: 0;
+  }
 }
 .fp-next-circle {
   position: absolute;
@@ -327,25 +457,23 @@
   letter-spacing: -0.035em;
   color: var(--white);
 }
-.fp-next-line {
-  max-width: 48ch;
-  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
-  line-height: 1.5;
-  color: var(--on-dark-muted);
-}
 
 /* ---------- 6. two steps ---------- */
 .fp-steps {
   display: grid;
+  /* minmax(0, 1fr): the nowrap Connect button must not widen a phone column */
+  grid-template-columns: minmax(0, 1fr);
   gap: 16px;
 }
 .fp-steps > li {
   display: flex;
+  min-width: 0;
   gap: 20px;
   align-items: flex-start;
   padding: 28px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
+  background: var(--white);
 }
 .fp-step-n {
   display: grid;
@@ -390,7 +518,8 @@
   color: var(--blue);
   font-size: 0.9375rem;
   font-weight: 600;
-  transition: background-color var(--dur) var(--ease),
+  transition:
+    background-color var(--dur) var(--ease),
     color var(--dur) var(--ease);
 }
 .fp-pill:hover {
@@ -550,5 +679,23 @@
   .fp-backdrop,
   .fp-dialog {
     animation: none;
+  }
+}
+
+/* Four tracks: two per row on tablets, one row of four on desktop. */
+@media (min-width: 1024px) {
+  .fp-tracks--four {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .fp-tracks--four li:nth-child(-n + 4) {
+    border-top: 0;
+  }
+  .fp-tracks--four li:not(:first-child) {
+    border-left: 1px solid var(--line);
+  }
+}
+@media (min-width: 768px) {
+  .fp .fp-stats--three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }

@@ -21,6 +21,7 @@ import {
 import { eventFacts } from './competition-card'
 
 const text = {
+  tracks: words('Бағыттар', 'Направления', 'Tracks'),
   newTab: words(
     '(жаңа бетте ашылады)',
     '(откроется в новой вкладке)',
@@ -58,6 +59,39 @@ export default function CompetitionDetail({
   const Subtitle = inPanel ? 'h3' : 'h2'
   const parent = event.partOf ? eventBySlug(event.partOf) : undefined
   const facts = eventFacts(event)
+  const page = event.page
+  // A flagship's panel is a short teaser of its full page: description,
+  // the last edition in one sentence, the tracks, the next edition, then
+  // «Толығырақ». How to take part is read on the page itself.
+  if (inPanel && page) {
+    return (
+      <div className='cmp-detail cmp-detail--panel cmp-detail--flagship'>
+        <div className='cmp-detail-head'>
+          <Title id={titleId} className='cmp-detail-title'>
+            {event.title}
+          </Title>
+          <p className='cmp-detail-fact'>{t(page.description)}</p>
+        </div>
+        {event.meta && <p className='cmp-teaser-meta'>{t(event.meta)}</p>}
+        <p className='cmp-teaser-tracks'>
+          <strong>{t(text.tracks)}:</strong>{' '}
+          {page.tracks.map(item => t(item.name)).join(' · ')}
+        </p>
+        <p className='cmp-card-next'>
+          <strong>{t(ui.nextEdition)}:</strong> {page.next.title} ·{' '}
+          {t(page.next.line)}
+        </p>
+        <Link
+          className='btn btn-primary cmp-teaser-more'
+          href={`/competitions/${event.slug}`}
+          replace
+        >
+          {t(ui.moreDetails)}
+          <ArrowRightIcon aria-hidden='true' />
+        </Link>
+      </div>
+    )
+  }
   return (
     <div className={`cmp-detail cmp-detail--${mode}`}>
       <div className='cmp-detail-head'>
@@ -112,7 +146,7 @@ export default function CompetitionDetail({
         )}
       </div>
 
-      {connectEnabled && (
+      {connectEnabled && !inPanel && (
         <section className='cmp-join' aria-labelledby={joinId}>
           <Subtitle id={joinId} className='cmp-join-title'>
             {t(ui.howToJoin)}

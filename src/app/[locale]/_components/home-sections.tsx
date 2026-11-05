@@ -1,10 +1,8 @@
 /**
  * Homepage sections after the hero (TZ §6; order revised 2026-10-29):
- * Numbers → Audiences → Competitions → Academy → Projects → Trust →
- * Partner logos → News → Partners card.
- * The partner logo band follows Trust (who stands behind the foundation),
- * so the page no longer ends on three blue blocks in a row (logo band,
- * Partners card, footer).
+ * Numbers → Competitions → Academy → Projects → Trust → News → Reports.
+ * Trimmed 2026-11-05: no audience row, no testimonials, no partner logo
+ * wall (it lives on the Partners page), no support popup.
  * The global footer is the contacts section, so there is no contacts block.
  *
  * Motion: each section's content sits in a <Reveal className='home-rv'>;
@@ -19,9 +17,9 @@ import { Link } from '@/i18n/routing'
 import { imageVariant } from '@/lib/image-variant'
 import {
   academyPrograms,
-  audiences,
   localize,
   projects,
+  homeReportsLimit,
   publicReports,
   reportsText,
   site,
@@ -32,10 +30,8 @@ import {
 import CompetitionsShowcase from './competitions-showcase'
 import ImpactCard from './impact-card'
 import { NewsCard, latestNews } from './news-card'
-import PartnerLogos from './partner-logos'
+import ReportsDialog from './reports-dialog'
 import { Reveal } from './reveal'
-import Squircle from './squircle'
-import Testimonials from './testimonials'
 import { ArrowLink, SectionHead } from './ui'
 
 type Project = (typeof projects)[number]
@@ -44,14 +40,6 @@ const newTab = words(
   '(жаңа бетте ашылады)',
   '(откроется в новой вкладке)',
   '(opens in a new tab)'
-)
-
-/** The Partners card photo: Team Kazakhstan tossing a teammate at the
-    FIRST Championship in Houston (houston306). */
-const partnersPhotoAlt = words(
-  'Қазақстан командасы Хьюстондағы FIRST Championship жарысында командаласын аспанға лақтырып жатыр',
-  'Команда Казахстана подбрасывает товарища на FIRST Championship в Хьюстоне',
-  'Team Kazakhstan tossing a teammate into the air at the FIRST Championship in Houston'
 )
 
 /** Stagger index for `.rv` children (see home.css, "Reveals"). */
@@ -89,51 +77,6 @@ const projectCovers: Record<
     width: 800,
     height: 540
   }
-}
-
-/** One photo, two layers: the right panel shows it, and the same src masked
-    to the tossed boy and the raised hands (houston-toss-mask, same canvas)
-    lets him fly out over the blue half. */
-const partnersPhoto = {
-  src: '/images/people/houston-toss-1886.webp',
-  srcSet: [
-    '/images/people/houston-toss-1000.webp 1000w',
-    '/images/people/houston-toss-1886.webp 1886w'
-  ].join(', '),
-  /* home.css: 1184px on desktop, 159cqw of the card below 1024px */
-  sizes: '(min-width: 1024px) 1184px, 160vw',
-  width: 1886,
-  height: 1472
-}
-
-/** «Who it is for»: one plain row of four entry points under the numbers —
-    a title, one line and a small arrow each, split by hairlines. No cards
-    and no icons, so it reads as an index rather than another block. */
-function Audiences({ locale }: { locale: string }) {
-  return (
-    <section className='section home-audiences' aria-labelledby='audiences-title'>
-      <div className='container'>
-        <h2 id='audiences-title' className='visually-hidden'>
-          {localize(ui.audiencesTitle, locale)}
-        </h2>
-        <Reveal className='home-rv'>
-          <ul className='aud-list' role='list'>
-            {audiences.map((item, i) => (
-              <li className='rv' style={order(i)} key={item.key}>
-                <Link className='aud-link' href={item.href}>
-                  <span className='aud-title'>
-                    {localize(item.title, locale)}
-                    <ArrowRightIcon aria-hidden='true' />
-                  </span>
-                  <span className='aud-text'>{localize(item.text, locale)}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </Reveal>
-      </div>
-    </section>
-  )
 }
 
 function Competitions({ locale }: { locale: string }) {
@@ -430,9 +373,6 @@ function Trust({ locale }: { locale: string }) {
               </li>
             ))}
           </ul>
-          <div className='rv' style={order(3 + rest.length)}>
-            <Testimonials />
-          </div>
         </Reveal>
       </div>
     </section>
@@ -466,107 +406,53 @@ function News({ locale }: { locale: string }) {
   )
 }
 
-/** Partner logo band (TZ §6.7) right after Trust: the President, the
-    testimonials, then the organisations that support the foundation. */
-function PartnerLogoBand({ locale }: { locale: string }) {
-  return (
-    <section
-      id='partner-logos'
-      className='section home-logos'
-      aria-labelledby='partner-logos-title'
-    >
-      <div className='container'>
-        <Reveal className='home-rv'>
-          <div className='rv'>
-            <PartnerLogos locale={locale} id='partner-logos-title' />
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  )
-}
-
-/** Public reports (moved here from the About page on 2026-10-29): the
-    published PDFs and how to ask for the rest. The last content block
-    before the partners call to action; the footer «Есептер» link lands here. */
+/** Public reports: one light-blue block, one white row per report
+    (date · title and project · PDF), and a line below on how to ask for
+    the rest. Shows the latest `homeReportsLimit`; «Барлық есептер» opens
+    the full list. The footer «Есептер» link lands here. */
 function Reports({ locale }: { locale: string }) {
   return (
     <section id='reports' className='section home-reports' aria-labelledby='reports-title'>
       <div className='container'>
         <Reveal className='home-rv home-reports-inner'>
           <div className='rv' style={order(0)}>
-            <SectionHead id='reports-title' title={localize(ui.reports, locale)} />
+            <SectionHead
+              id='reports-title'
+              title={localize(ui.reports, locale)}
+              action={<ReportsDialog locale={locale} />}
+            />
           </div>
-          <div className='rv home-reports-body' style={order(1)}>
+          <div className='rv home-reports-block' style={order(1)}>
             <ul className='home-reports-list'>
-              {publicReports.map(report => (
+              {publicReports.slice(0, homeReportsLimit).map(report => (
                 <li key={report.file}>
-                  <span className='home-reports-meta'>{localize(report.meta, locale)}</span>
                   <a
-                    className='link-arrow is-external'
+                    className='home-reports-row'
                     href={report.file}
                     target='_blank'
                     rel='noreferrer'
                   >
-                    {localize(report.title, locale)}
-                    <ArrowUpRightIcon aria-hidden='true' />
+                    <span className='home-reports-date'>{localize(report.date, locale)}</span>
+                    <span className='home-reports-main'>
+                      <span className='home-reports-title'>{localize(report.title, locale)}</span>
+                      <span className='home-reports-meta'>{localize(report.meta, locale)}</span>
+                    </span>
+                    <span className='home-reports-file'>
+                      {localize(report.note, locale)}
+                      <ArrowUpRightIcon aria-hidden='true' />
+                    </span>
+                    <span className='visually-hidden'> {localize(newTab, locale)}</span>
                   </a>
-                  <span className='home-reports-note'>{localize(report.note, locale)}</span>
                 </li>
               ))}
             </ul>
-            <p className='home-reports-text'>{localize(reportsText, locale)}</p>
-            <a
-              className='link-arrow'
-              href={`mailto:${site.email}?subject=${encodeURIComponent(localize(ui.reports, locale))}`}
-            >
-              {site.email}
-              <ArrowRightIcon aria-hidden='true' />
-            </a>
+            <p className='home-reports-text'>
+              {localize(reportsText, locale)}{' '}
+              <a href={`mailto:${site.email}?subject=${encodeURIComponent(localize(ui.reports, locale))}`}>
+                {site.email}
+              </a>
+            </p>
           </div>
-        </Reveal>
-      </div>
-    </section>
-  )
-}
-
-function Partners({ locale }: { locale: string }) {
-  const photo = (cutout: boolean) => (
-    <img
-      className={`home-partners-img${cutout ? ' home-partners-cutout' : ''}`}
-      src={partnersPhoto.src}
-      srcSet={partnersPhoto.srcSet}
-      sizes={partnersPhoto.sizes}
-      alt={cutout ? '' : localize(partnersPhotoAlt, locale)}
-      aria-hidden={cutout ? true : undefined}
-      width={partnersPhoto.width}
-      height={partnersPhoto.height}
-      loading='lazy'
-      decoding='async'
-    />
-  )
-  return (
-    <section
-      id='partners'
-      className='section home-partners'
-      aria-labelledby='partners-title'
-    >
-      <div className='container'>
-        <Reveal className='home-rv home-partners-shadow'>
-          <Squircle className='home-partners-card rv'>
-            <div className='home-partners-copy'>
-              <h2 id='partners-title'>{localize(ui.partnersTitle, locale)}</h2>
-              <p>{localize(ui.partnersText, locale)}</p>
-              <Link className='btn home-partners-cta' href='/partners'>
-                {localize(ui.becomePartner, locale)}
-                <ArrowRightIcon aria-hidden='true' />
-              </Link>
-            </div>
-            <div className='home-partners-photo'>
-              <div className='home-partners-frame'>{photo(false)}</div>
-              {photo(true)}
-            </div>
-          </Squircle>
         </Reveal>
       </div>
     </section>
@@ -577,15 +463,12 @@ export default function HomeSections({ locale }: { locale: string }) {
   return (
     <>
       <ImpactCard variant='overlap' />
-      <Audiences locale={locale} />
       <Competitions locale={locale} />
       <Academy locale={locale} />
       <Projects locale={locale} />
       <Trust locale={locale} />
-      <PartnerLogoBand locale={locale} />
       <News locale={locale} />
       <Reports locale={locale} />
-      <Partners locale={locale} />
     </>
   )
 }

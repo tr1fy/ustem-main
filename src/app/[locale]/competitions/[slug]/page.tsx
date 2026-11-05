@@ -89,7 +89,9 @@ export function generateStaticParams() {
   return events.map(({ slug }) => ({ slug }))
 }
 
-export function generateMetadata({ params: { locale, slug } }: Params): Metadata {
+export function generateMetadata({
+  params: { locale, slug }
+}: Params): Metadata {
   const event = eventBySlug(slug)
   if (!event) return {}
   const description = localize(event.fact, locale)
@@ -115,7 +117,11 @@ export default function CompetitionPage({ params: { locale, slug } }: Params) {
   const event = eventBySlug(slug)
   if (!event) notFound()
   const t = (value: Parameters<typeof localize>[0]) => localize(value, locale)
-  const cover = coverImage(event.cover, 'wide', '(min-width: 1024px) 40vw, 100vw')
+  const cover = coverImage(
+    event.cover,
+    'wide',
+    '(min-width: 1024px) 40vw, 100vw'
+  )
   // TZ §7.3: related news are matched automatically by their tag.
   const related = latestNews()
     .filter(item => item.tag === event.title)
@@ -135,51 +141,54 @@ export default function CompetitionPage({ params: { locale, slug } }: Params) {
       {event.page ? (
         <FlagshipPage event={event} locale={locale} />
       ) : (
-      <div className='container cmp-page'>
-        <nav aria-label={t(text.breadcrumb)}>
-          <ol className='breadcrumbs'>
-            <li>
-              <Link href='/'>{t(ui.home)}</Link>
-            </li>
-            <li>
-              <Link href='/competitions'>{t(catalogLabel)}</Link>
-            </li>
-          </ol>
-        </nav>
-        <div className='cmp-page-grid'>
-          <div className='cmp-page-main'>
-            <CompetitionDetail event={event} locale={locale} mode='page' />
-            {event.slug === 'world-space-olympiad' && (
-              <p className='cmp-page-note'>
-                {t(text.spaceLab)} <Link href='/academy'>USTEM Academy</Link>
-              </p>
-            )}
-          </div>
-          <div className='cmp-page-media'>
-            {/* One flourish: an Aral circle peeking out behind the cover. */}
-            <span className='cmp-page-circle' aria-hidden='true' />
-            <div className='cmp-page-cover'>
-              {/* The H1 already names the event, so the photo is decorative. */}
-              <img
-                {...cover}
-                alt=''
-                loading='eager'
-                fetchPriority='high'
-                decoding='async'
-                style={
-                  event.coverPosition
-                    ? { objectPosition: event.coverPosition }
-                    : undefined
-                }
-              />
+        <div className='cmp-page container'>
+          <nav aria-label={t(text.breadcrumb)}>
+            <ol className='breadcrumbs'>
+              <li>
+                <Link href='/'>{t(ui.home)}</Link>
+              </li>
+              <li>
+                <Link href='/competitions'>{t(catalogLabel)}</Link>
+              </li>
+            </ol>
+          </nav>
+          <div className='cmp-page-grid'>
+            <div className='cmp-page-main'>
+              <CompetitionDetail event={event} locale={locale} mode='page' />
+              {event.slug === 'world-space-olympiad' && (
+                <p className='cmp-page-note'>
+                  {t(text.spaceLab)} <Link href='/academy'>USTEM Academy</Link>
+                </p>
+              )}
+            </div>
+            <div className='cmp-page-media'>
+              {/* One flourish: an Aral circle peeking out behind the cover. */}
+              <span className='cmp-page-circle' aria-hidden='true' />
+              <div className='cmp-page-cover'>
+                {/* The H1 already names the event, so the photo is decorative. */}
+                <img
+                  {...cover}
+                  alt=''
+                  loading='eager'
+                  fetchPriority='high'
+                  decoding='async'
+                  style={
+                    event.coverPosition
+                      ? { objectPosition: event.coverPosition }
+                      : undefined
+                  }
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
       )}
 
       {related.length > 0 && (
-        <section className='container cmp-related' aria-labelledby='cmp-news-title'>
+        <section
+          className='cmp-related container'
+          aria-labelledby='cmp-news-title'
+        >
           <SectionHead id='cmp-news-title' title={t(ui.newsTitle)} />
           <ul className='cmp-news-grid' role='list'>
             {related.map(item => (
@@ -191,47 +200,47 @@ export default function CompetitionPage({ params: { locale, slug } }: Params) {
         </section>
       )}
 
-      <section
-        className='section section-paper cmp-others'
-        aria-labelledby='cmp-others-title'
-      >
-        <div className='container'>
-          <SectionHead id='cmp-others-title' title={t(text.others)} />
-          <StaggerReveal>
-            <ul className='cmp-others-list' role='list'>
-              {others.map((item, index) => (
-                <li
-                  key={item.slug}
-                  style={{ '--i': index } as CSSProperties}
-                >
-                  <Link
-                    className='cmp-other'
-                    href={`/competitions/${item.slug}`}
-                  >
-                    <span className='cmp-other-thumb'>
-                      <img
-                        {...coverImage(item.cover, 'tile', '64px')}
-                        alt=''
-                        loading='lazy'
-                        decoding='async'
-                        style={
-                          item.coverPosition
-                            ? { objectPosition: item.coverPosition }
-                            : undefined
-                        }
-                      />
-                    </span>
-                    <span className='cmp-other-name'>{item.title}</span>
-                    <span className='cmp-other-go' aria-hidden='true'>
-                      <ArrowRightIcon />
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </StaggerReveal>
-        </div>
-      </section>
+      {/* Flagship pages end on contacts; the catalogue is one click away. */}
+      {!event.page && (
+        <section
+          className='section section-paper cmp-others'
+          aria-labelledby='cmp-others-title'
+        >
+          <div className='container'>
+            <SectionHead id='cmp-others-title' title={t(text.others)} />
+            <StaggerReveal>
+              <ul className='cmp-others-list' role='list'>
+                {others.map((item, index) => (
+                  <li key={item.slug} style={{ '--i': index } as CSSProperties}>
+                    <Link
+                      className='cmp-other'
+                      href={`/competitions/${item.slug}`}
+                    >
+                      <span className='cmp-other-thumb'>
+                        <img
+                          {...coverImage(item.cover, 'tile', '64px')}
+                          alt=''
+                          loading='lazy'
+                          decoding='async'
+                          style={
+                            item.coverPosition
+                              ? { objectPosition: item.coverPosition }
+                              : undefined
+                          }
+                        />
+                      </span>
+                      <span className='cmp-other-name'>{item.title}</span>
+                      <span className='cmp-other-go' aria-hidden='true'>
+                        <ArrowRightIcon />
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </StaggerReveal>
+          </div>
+        </section>
+      )}
     </main>
   )
 }
