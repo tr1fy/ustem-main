@@ -6,7 +6,6 @@ import {
   copy,
   localize,
   navItems,
-  subPages,
   projects,
   site,
   trustItems,
@@ -191,7 +190,7 @@ export default function AboutPage({
     },
     {
       href: '/projects',
-      title: t(subPages.projects.label),
+      title: t(navLabel('projects')),
       line: t(ui.projectsLead)
     }
   ]

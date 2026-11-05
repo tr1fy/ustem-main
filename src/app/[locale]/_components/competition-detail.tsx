@@ -10,7 +10,6 @@ import { Link } from '@/i18n/routing'
 import { track } from '@/lib/analytics'
 import {
   connectEnabled,
-  eventBySlug,
   localize,
   site,
   ui,
@@ -57,7 +56,6 @@ export default function CompetitionDetail({
   const inPanel = mode === 'panel'
   const Title = inPanel ? 'h2' : 'h1'
   const Subtitle = inPanel ? 'h3' : 'h2'
-  const parent = event.partOf ? eventBySlug(event.partOf) : undefined
   const facts = eventFacts(event)
   const page = event.page
   // A flagship's panel is a short teaser of its full page: description,
@@ -101,7 +99,7 @@ export default function CompetitionDetail({
         <p className='cmp-detail-fact'>{t(event.fact)}</p>
       </div>
 
-      {(facts.length > 0 || parent) && (
+      {facts.length > 0 && (
         <div className='cmp-detail-tags'>
           {facts.length > 0 && (
             <ul className='cmp-chips' role='list'>
@@ -112,17 +110,6 @@ export default function CompetitionDetail({
                 </li>
               ))}
             </ul>
-          )}
-          {parent && (
-            <Link
-              className='cmp-partof'
-              href={`/competitions/${parent.slug}`}
-              replace={inPanel}
-            >
-              <span className='cmp-partof-key'>{t(ui.partOf)}</span>{' '}
-              <span className='cmp-partof-name'>{parent.title}</span>
-              <ArrowRightIcon aria-hidden='true' />
-            </Link>
           )}
         </div>
       )}
