@@ -33,7 +33,11 @@ const text = {
     'Как принять участие',
     'How to take part'
   ),
-  stats: words('Статистика', 'Статистика', 'In numbers'),
+  stats: words(
+    'Өткен жыл сандармен',
+    'Прошлый год в цифрах',
+    'Last year in numbers'
+  ),
   mission: words('Мақсаты', 'Миссия', 'Mission'),
   tracks: words(
     'Чемпионат жарыс бағыттары',
