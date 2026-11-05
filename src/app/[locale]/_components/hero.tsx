@@ -102,7 +102,6 @@ export default function Hero({ locale }: { locale: string }) {
   return (
     <section className='hero' aria-labelledby='hero-title'>
       <div className='container hero-content'>
-        <p className='hero-geo'>{t(site.geography)}</p>
         <h1 id='hero-title'>{t(ui.heroTitle)}</h1>
         <p className='hero-text'>
           {sentences.map(sentence => (
