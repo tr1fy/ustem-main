@@ -157,29 +157,6 @@
   border-radius: 2px;
   background: var(--aral);
 }
-/* Academy: an oversized pale wordmark behind the photo — lettering, not a
-   second title. Baseline sits at ~17cqw of the figure and the x-height
-   starts at ~5cqw; the photo starts at 12.5cqw, so it covers the lower
-   ~40% of the word and the descender never shows. Same quiet tint as the
-   404 numerals. (cqw on a child of .pg-intro-media resolves against the
-   figure.) */
-.pg-intro-academy .pg-photo {
-  margin-top: 12.5cqw;
-}
-.pg-word {
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  left: -1cqw;
-  font-size: 22.5cqw;
-  font-weight: 800;
-  line-height: 0.8;
-  letter-spacing: -0.055em;
-  white-space: nowrap;
-  color: #e4eefc;
-  pointer-events: none;
-  user-select: none;
-}
 
 @media (min-width: 768px) {
   .pg-photo {
@@ -236,9 +213,6 @@
   .pg-photo img {
     animation: pg-settle 1600ms var(--ease) 120ms both;
   }
-.pg-word {
-    animation: pg-rise 1100ms var(--ease) 240ms both;
-  }
   .pg-caption {
     animation: pg-copy 700ms var(--ease) 650ms both;
   }
@@ -267,12 +241,6 @@
   from {
     opacity: 0;
     transform: scale(0.82);
-  }
-}
-@keyframes pg-rise {
-  from {
-    opacity: 0;
-    transform: translateY(32%);
   }
 }
 @keyframes pg-draw {
@@ -1162,9 +1130,6 @@
 .pg-v2-person p:last-child {
   color: var(--muted);
 }
-.pg-v2-feature {
-  margin-bottom: clamp(32px, 4vw, 56px);
-}
 @media (min-width: 768px) {
   .pg-v2-person {
     grid-template-columns: 128px minmax(0, 1fr);
@@ -1201,27 +1166,5 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-.pg-v2-cta {
-  padding-block: clamp(48px, 6vw, 88px);
-}
-.pg-v2-cta-inner {
-  display: grid;
-  gap: 24px;
-}
-.pg-v2-cta h2 {
-  font-size: var(--fs-h2);
-  letter-spacing: -0.03em;
-}
-.pg-v2-cta-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-@media (min-width: 1024px) {
-.pg-v2-cta-inner {
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: center;
-  }
 }
 

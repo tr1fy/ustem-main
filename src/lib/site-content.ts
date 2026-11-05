@@ -576,7 +576,6 @@ export const ui = {
   otherNews: words('Басқа жаңалықтар', 'Другие новости', 'More news'),
   share: words('Бөлісу', 'Поделиться', 'Share'),
   copyLink: words('Сілтемені көшіру', 'Скопировать ссылку', 'Copy link'),
-  becomePartner: words('Серіктес болу', 'Стать партнёром', 'Become a partner'),
   supportLabel: words('Көмектесу', 'Поддержать', 'Support'),
   supportText: words(
     'Жас инженерлердің алғашқы қадамына қолдау көрсетіңіз.',
@@ -746,8 +745,6 @@ export type FlagshipPage = {
   tracksTitle?: Localized
   tracks: { icon: FlagshipTrackIcon; name: Localized }[]
   next: { title: string; line: Localized }
-  /** Where the rules are announced, in the order they should be shown. */
-  rules: { label: string; url: string }[]
   contacts: {
     email: string
     instagram: { handle: string; url: string }
@@ -755,11 +752,6 @@ export type FlagshipPage = {
     /** Shown in place of Telegram when the event lists a phone instead. */
     phone?: string
   }
-  /**
-   * The official site still shows last season: say so before leaving.
-   * Without it, «Official website» links straight to the site.
-   */
-  siteNotice?: { title: Localized; text: Localized }
 }
 
 /** Competitions catalogue (TZ §7.1): 3 flagships + 8 directions, in TZ order. */
@@ -893,26 +885,10 @@ export const events: SiteEvent[] = [
           'Up to 96 teams · June 2027, Almaty'
         )
       },
-      rules: [
-        { label: 'Instagram @tech_cup_almaty', url: 'https://www.instagram.com/tech_cup_almaty/' },
-        { label: 'Telegram @firstroboticskz', url: 'https://t.me/firstroboticskz' }
-      ],
       contacts: {
         email: 'info@almatytechcup.kz',
         instagram: { handle: '@tech_cup_almaty', url: 'https://www.instagram.com/tech_cup_almaty/' },
         telegram: { handle: 't.me/firstroboticskz', url: 'https://t.me/firstroboticskz' }
-      },
-      siteNotice: {
-        title: words(
-          'Ресми сайт жаңартылу үстінде',
-          'Официальный сайт обновляется',
-          'The official website is being updated'
-        ),
-        text: words(
-          'Almaty Tech Cup ресми сайты жаңа маусымға дайындалуда: қазіргі нұсқада 2026 жылғы ережелер орналасқан. Жаңартылған ережелер мен тіркеу жарияланған сәтте сайтқа қолжетімділік ашылады. Хабарландыруларды ресми Instagram парақшасынан немесе Telegram-каналдан бақылаңыз.',
-          'Официальный сайт Almaty Tech Cup готовится к новому сезону: сейчас на нём размещены правила 2026 года. Доступ к сайту откроется, как только будут опубликованы обновлённые правила и открыта регистрация. Следите за объявлениями в официальном Instagram или в Telegram-канале.',
-          'The official Almaty Tech Cup website is being prepared for the new season and currently shows the 2026 rules. Access will be available as soon as the updated rules are published and registration opens. Follow the announcements on the official Instagram page or Telegram channel.'
-        )
       }
     }
   },
@@ -1014,11 +990,6 @@ export const events: SiteEvent[] = [
           '18–21 February 2027 · Astana, Kazakh National University of Sports (KNUS)'
         )
       },
-      // The regulations are published on the festival site itself.
-      rules: [
-        { label: 'alemtechfest.kz', url: 'https://alemtechfest.kz' },
-        { label: 'Instagram @alemtechfest', url: 'https://www.instagram.com/alemtechfest/' }
-      ],
       contacts: {
         email: 'hello@ustemfoundation.org',
         instagram: { handle: '@alemtechfest', url: 'https://www.instagram.com/alemtechfest/' },
@@ -1045,11 +1016,6 @@ export const events: SiteEvent[] = [
       '2026 · Астана, EXPO · 1–3 қазан',
       '2026 · Астана, EXPO · 1–3 октября',
       '2026 · EXPO, Astana · 1–3 October'
-    ),
-    age: words(
-      '10–18 жас · FIRST LEGO League Future Edition және FIRST Tech Challenge',
-      '10–18 лет · FIRST LEGO League Future Edition и FIRST Tech Challenge',
-      'Ages 10–18 · FIRST LEGO League Future Edition and FIRST Tech Challenge'
     ),
     cover: '/images/competitions/digital-bridge-2026-poster.jpg',
     coverPosition: '50% 50%',
@@ -1093,12 +1059,6 @@ export const events: SiteEvent[] = [
           'The date will be announced on the official website'
         )
       },
-      // Official site linked directly, no «site being updated» notice
-      // (user, 2026-11-05).
-      rules: [
-        { label: 'Instagram @digitalbridge.ai', url: 'https://www.instagram.com/digitalbridge.ai/' },
-        { label: 'Telegram @firstroboticskz', url: 'https://t.me/firstroboticskz' }
-      ],
       contacts: {
         email: 'hello@ustemfoundation.org',
         instagram: { handle: '@digitalbridge.ai', url: 'https://www.instagram.com/digitalbridge.ai/' },

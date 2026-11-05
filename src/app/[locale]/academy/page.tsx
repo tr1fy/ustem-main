@@ -115,9 +115,6 @@ export default function AcademyPage({
             </a>
           </PageHead>
           <figure className='pg-intro-media'>
-            <div className='pg-word' aria-hidden='true'>
-              Academy
-            </div>
             <div className='pg-photo pg-photo-tall'>
               <img
                 src={photo.src}

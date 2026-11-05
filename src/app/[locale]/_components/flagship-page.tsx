@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
-import { ArrowUpRightIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { useId, type ReactNode } from 'react'
+import { ArrowUpRightIcon } from '@heroicons/react/24/outline'
 import { Link } from '@/i18n/routing'
 import { track } from '@/lib/analytics'
 import {
@@ -23,9 +23,8 @@ import { Count } from './reveal'
  * divided rectangle, the next edition, one «how to take part» card
  * (registration for every USTEM competition goes through USTEM Connect;
  * no rules step, user 2026-11-05), contacts. Nothing else: cost, deadlines,
- * rules, partners and reports live on the event's own site. «Official
- * website» opens a small notice first only where `siteNotice` is set
- * (Almaty Tech Cup, whose site still shows last season).
+ * rules, partners and reports live on the event's own site, and «Official
+ * website» links there directly (no notice dialog, user 2026-11-05).
  */
 
 const text = {
@@ -61,8 +60,6 @@ const text = {
   contacts: words('Байланыс', 'Контакты', 'Contacts'),
   email: words('Пошта', 'Почта', 'Email'),
   phone: words('Телефон', 'Телефон', 'Phone'),
-  notice: words('Хабарландыру', 'Уведомление', 'Notice'),
-  close: words('Жабу', 'Закрыть', 'Close'),
   newTab: words(
     '(жаңа бетте ашылады)',
     '(откроется в новой вкладке)',
@@ -149,94 +146,6 @@ function TrackIcon({ icon }: { icon: FlagshipTrackIcon }) {
   )
 }
 
-/**
- * The notice shown before the official site: a small modal dialog. It
- * traps nothing heavier than focus on its close button, closes on Escape
- * and on the backdrop, and gives focus back to the button that opened it.
- */
-function SiteNotice({
-  event,
-  locale,
-  open,
-  onClose,
-  returnTo
-}: {
-  event: SiteEvent
-  locale: string
-  open: boolean
-  onClose: () => void
-  returnTo: React.RefObject<HTMLButtonElement>
-}) {
-  const t = (value: Localized) => localize(value, locale)
-  const titleId = useId()
-  const closeRef = useRef<HTMLButtonElement>(null)
-  const page = event.page!
-  useEffect(() => {
-    if (!open) return
-    closeRef.current?.focus()
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-    }
-    document.addEventListener('keydown', onKey)
-    document.documentElement.style.overflow = 'hidden'
-    return () => {
-      document.removeEventListener('keydown', onKey)
-      document.documentElement.style.overflow = ''
-      returnTo.current?.focus()
-    }
-  }, [open, onClose, returnTo])
-  if (!open || !page.siteNotice) return null
-  return (
-    <div className='fp-backdrop' onClick={onClose}>
-      <div
-        className='fp-dialog'
-        role='dialog'
-        aria-modal='true'
-        aria-labelledby={titleId}
-        onClick={e => e.stopPropagation()}
-      >
-        <button
-          ref={closeRef}
-          type='button'
-          className='fp-dialog-x'
-          onClick={onClose}
-          aria-label={t(text.close)}
-        >
-          <XMarkIcon aria-hidden='true' />
-        </button>
-        <span className='chip fp-dialog-chip'>{t(text.notice)}</span>
-        <h2 id={titleId} className='fp-dialog-title'>
-          {t(page.siteNotice.title)}
-        </h2>
-        <p className='fp-dialog-text'>{t(page.siteNotice.text)}</p>
-        <div className='fp-dialog-actions'>
-          {page.rules.map((channel, index) => (
-            <a
-              key={channel.url}
-              className={`btn ${index === 0 ? 'btn-primary' : 'btn-secondary'}`}
-              href={channel.url}
-              target='_blank'
-              rel='noreferrer'
-              onClick={() =>
-                track('rules_channel_click', {
-                  slug: event.slug,
-                  channel: channel.label
-                })
-              }
-            >
-              {channel.label}
-              <span className='visually-hidden'> {t(text.newTab)}</span>
-            </a>
-          ))}
-          <button type='button' className='btn btn-secondary' onClick={onClose}>
-            {t(text.close)}
-          </button>
-        </div>
-      </div>
-    </div>
-  )
-}
-
 export default function FlagshipPage({
   event,
   locale
@@ -246,12 +155,6 @@ export default function FlagshipPage({
 }) {
   const t = (value: Localized) => localize(value, locale)
   const page = event.page!
-  const [noticeOpen, setNoticeOpen] = useState(false)
-  const openerRef = useRef<HTMLButtonElement>(null)
-  const openNotice = () => {
-    track('official_site_notice', { slug: event.slug })
-    setNoticeOpen(true)
-  }
   const statsId = useId()
   const missionId = useId()
   const tracksId = useId()
@@ -294,26 +197,15 @@ export default function FlagshipPage({
               </h1>
               <p className='fp-lead'>{t(page.description)}</p>
               <div className='fp-actions'>
-                {page.siteNotice ? (
-                  <button
-                    ref={openerRef}
-                    type='button'
-                    className='btn btn-primary'
-                    onClick={openNotice}
-                  >
-                    {t(ui.officialSite)}
-                  </button>
-                ) : (
-                  <a
-                    className='btn btn-primary'
-                    href={event.officialUrl}
-                    target='_blank'
-                    rel='noreferrer'
-                  >
-                    {t(ui.officialSite)}
-                    <span className='visually-hidden'> {t(text.newTab)}</span>
-                  </a>
-                )}
+                <a
+                  className='btn btn-primary'
+                  href={event.officialUrl}
+                  target='_blank'
+                  rel='noreferrer'
+                >
+                  {t(ui.officialSite)}
+                  <span className='visually-hidden'> {t(text.newTab)}</span>
+                </a>
                 <a className='btn btn-secondary' href='#fp-join'>
                   {t(text.howToJoin)}
                 </a>
@@ -513,26 +405,15 @@ export default function FlagshipPage({
           </h2>
           <ul className='fp-contacts' role='list'>
             <li>
-              {page.siteNotice ? (
-                <button
-                  type='button'
-                  className='fp-contact'
-                  onClick={openNotice}
-                >
-                  <span className='fp-contact-key'>{t(ui.officialSite)}</span>
-                  <span className='fp-contact-value'>{siteHost}</span>
-                </button>
-              ) : (
-                <a
-                  className='fp-contact'
-                  href={event.officialUrl}
-                  target='_blank'
-                  rel='noreferrer'
-                >
-                  <span className='fp-contact-key'>{t(ui.officialSite)}</span>
-                  <span className='fp-contact-value'>{siteHost}</span>
-                </a>
-              )}
+              <a
+                className='fp-contact'
+                href={event.officialUrl}
+                target='_blank'
+                rel='noreferrer'
+              >
+                <span className='fp-contact-key'>{t(ui.officialSite)}</span>
+                <span className='fp-contact-value'>{siteHost}</span>
+              </a>
             </li>
             <li>
               <a className='fp-contact' href={`mailto:${page.contacts.email}`}>
@@ -584,13 +465,6 @@ export default function FlagshipPage({
         </div>
       </section>
 
-      <SiteNotice
-        event={event}
-        locale={locale}
-        open={noticeOpen}
-        onClose={() => setNoticeOpen(false)}
-        returnTo={openerRef}
-      />
     </div>
   )
 }

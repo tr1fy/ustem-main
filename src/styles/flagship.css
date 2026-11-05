@@ -539,7 +539,7 @@
   }
 }
 
-/* ---------- notice before the official site ---------- */
+/* ---------- dialog shell (used by the homepage reports list) ---------- */
 .fp-backdrop {
   position: fixed;
   inset: 0;
@@ -585,34 +585,15 @@
   width: 20px;
   height: 20px;
 }
-.fp-dialog-chip {
-  align-self: flex-start;
-  background: var(--tint);
-  color: var(--blue);
-}
 .fp-dialog-title {
   font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.625rem);
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.03em;
 }
-.fp-dialog-text {
-  font-size: 1rem;
-  line-height: 1.55;
-  color: var(--muted);
-}
-.fp-dialog-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 8px;
-}
 @media (max-width: 479px) {
   .fp-dialog {
     padding: 32px 24px 24px;
-  }
-  .fp-dialog-actions .btn {
-    width: 100%;
   }
 }
 @keyframes fp-fade {

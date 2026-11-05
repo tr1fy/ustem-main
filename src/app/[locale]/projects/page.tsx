@@ -15,16 +15,16 @@ import { PageHead } from '../_components/ui'
 import { Reveal } from '../_components/reveal'
 
 /*
- * Жобалар / Проекты — TZ §8.3: STEM Hanym (external ↗) + Jasampaz Urpaq.
- * Two large airy cards: the sub-brand artwork framed on brand paper (never
+ * Жобалар / Проекты — TZ §8.3: STEM Hanym (external ↗), Jasampaz Urpaq and
+ * USTEM Academy (the program, leading to /academy). Large airy cards: the sub-brand artwork framed on brand paper (never
  * full-bleed, so the page stays USTEM's), text below it, the whole card is
  * one link (stretched .card-link). The head closes with one 2px Aral rule.
  */
 const text = {
   description: words(
-    'USTEM Foundation жобалары: STEM Hanym және Jasampaz Urpaq.',
-    'Проекты USTEM Foundation: STEM Hanym и Jasampaz Urpaq.',
-    'USTEM Foundation projects: STEM Hanym and Jasampaz Urpaq.'
+    'USTEM Foundation жобалары: STEM Hanym, Jasampaz Urpaq және USTEM Academy.',
+    'Проекты USTEM Foundation: STEM Hanym, Jasampaz Urpaq и USTEM Academy.',
+    'USTEM Foundation projects: STEM Hanym, Jasampaz Urpaq and USTEM Academy.'
   ),
   newTab: words('(жаңа бетте ашылады)', '(откроется в новой вкладке)', '(opens in a new tab)')
 }
@@ -55,8 +55,8 @@ const desktopCovers: Record<string, string> = {
   ].join(', ')
 }
 
-// USTEM Academy is a program with its own page, not a project card here.
-const items = projects.filter(item => item.slug !== 'academy')
+/* Intrinsic sizes of the covers that are not the 1800×900 artwork. */
+const coverSizes: Record<string, [number, number]> = { academy: [800, 540] }
 
 export function generateMetadata({
   params: { locale }
@@ -98,8 +98,9 @@ export default function ProjectsPage({
       <div className='section pg-projects-section'>
         <Reveal className='container pg-stagger'>
           <ul className='pg-projects'>
-            {items.map((project, index) => {
+            {projects.map((project, index) => {
               const mobile = mobileCovers[project.slug]
+              const [coverWidth, coverHeight] = coverSizes[project.slug] ?? [1800, 900]
               return (
                 <li
                   className='pg-project pg-item'
@@ -122,8 +123,8 @@ export default function ProjectsPage({
                           srcSet={desktopCovers[project.slug]}
                           sizes='(min-width: 1280px) 540px, (min-width: 768px) 42vw, 100vw'
                           alt=''
-                          width={1800}
-                          height={900}
+                          width={coverWidth}
+                          height={coverHeight}
                           decoding='async'
                           loading={index === 0 ? 'eager' : 'lazy'}
                         />

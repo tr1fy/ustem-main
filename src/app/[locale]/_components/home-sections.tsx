@@ -422,7 +422,7 @@ function Reports({ locale }: { locale: string }) {
               action={<ReportsDialog locale={locale} />}
             />
           </div>
-          <div className='rv home-reports-block' style={order(1)}>
+          <div className='rv' style={order(1)}>
             <ul className='home-reports-list'>
               {publicReports.slice(0, homeReportsLimit).map(report => (
                 <li key={report.file}>

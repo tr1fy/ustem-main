@@ -27,8 +27,8 @@ import { Reveal } from '../_components/reveal'
  *   leadership  — the two co-founders
  *   team        — photo and a short text
  *   recognition — Akorda mentions (trustItems) and the ministry orders
- *   join        — USTEM Connect and the partners page
- * Reports live at the bottom of the home page (#reports).
+ * Reports live at the bottom of the home page (#reports); the footer
+ * carries the one call to action, so the page has none of its own.
  */
 const text = {
   description: words(
@@ -108,8 +108,6 @@ const text = {
     'Команда USTEM Foundation на площадке соревнований',
     'The USTEM Foundation team at a competition venue'
   ),
-  ctaTitle: words('Бізге қосылыңыз', 'Присоединяйтесь', 'Join us'),
-  ctaRegister: words('Команда тіркеу', 'Зарегистрировать команду', 'Register a team'),
   recognition: words('Ресми мәртебе және мойындау', 'Официальный статус и признание', 'Official status and recognition'),
   orders: [
     {
@@ -170,7 +168,6 @@ export default function AboutPage({
   params: { locale: string }
 }) {
   const t = (value: Localized) => localize(value, locale)
-  const feature = trustItems.find(item => item.key === 'akorda-2025')
   const academy = projects.find(item => item.slug === 'academy')!
   const directions = [
     {
@@ -275,33 +272,11 @@ export default function AboutPage({
       <section className='section section-paper' aria-labelledby='pg-recog-title'>
         <div className='container'>
           <SectionHead id='pg-recog-title' title={t(text.recognition)} />
-          {feature && (
-            <article className='home-president pg-v2-feature'>
-              <div className='home-president-media'>
-                <img
-                  src={feature.photo.src}
-                  alt={t(feature.alt)}
-                  width={feature.photo.width}
-                  height={feature.photo.height}
-                  loading='lazy'
-                  decoding='async'
-                  style={feature.photo.position ? { objectPosition: feature.photo.position } : undefined}
-                />
-              </div>
-              <div className='home-president-body'>
-                <p className='home-president-meta'>{t(feature.meta)}</p>
-                <h3>{t(feature.title)}</h3>
-                <p className='home-president-text'>{t(feature.text)}</p>
-                <a className='link-arrow' href={feature.url} target='_blank' rel='noreferrer'>
-                  {t(feature.link)}
-                  <ArrowUpRightIcon aria-hidden='true' />
-                </a>
-              </div>
-            </article>
-          )}
+          {/* The 2025 visit is the homepage feature; here both Akorda
+              mentions are plain rows like the orders. */}
           <ul className='pg-recog'>
             {trustItems
-              .filter(item => item.key === 'akorda-2023')
+              .filter(item => item.key === 'akorda-2025' || item.key === 'akorda-2023')
               .map(item => (
                 <li key={item.key}>
                   <span className='pg-recog-meta'>{t(item.meta)}</span>
@@ -325,22 +300,6 @@ export default function AboutPage({
               </li>
             ))}
           </ul>
-        </div>
-      </section>
-
-      <section className='section pg-v2-cta' aria-labelledby='pg-cta-title'>
-        <div className='container pg-v2-cta-inner'>
-          <h2 id='pg-cta-title'>{t(text.ctaTitle)}</h2>
-          <div className='pg-v2-cta-actions'>
-            <a className='btn btn-primary' href={site.connectUrl} target='_blank' rel='noreferrer'>
-              {t(text.ctaRegister)}
-              <ArrowUpRightIcon aria-hidden='true' />
-            </a>
-            <Link className='btn btn-secondary' href='/partners'>
-              {t(ui.becomePartner)}
-              <ArrowRightIcon aria-hidden='true' />
-            </Link>
-          </div>
         </div>
       </section>
 
