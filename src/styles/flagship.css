@@ -15,13 +15,14 @@
 /* Sections alternate white / paper bands, each with its own symmetrical
    padding, so the page reads as a sequence of blocks on any screen. */
 .fp-section {
-  padding-block: clamp(48px, 6vw, 80px);
+  padding-block: clamp(32px, 4vw, 52px);
 }
-.fp-section--paper {
-  background: var(--paper);
-}
-.fp-section--paper .fp-contact {
-  background: var(--white);
+/* Only the numbers sit on a card: a lighter grey than --paper, inside the
+   container, so no band runs edge to edge. */
+.fp-section--numbers > .container {
+  padding: clamp(28px, 3.5vw, 44px) clamp(24px, 3.5vw, 48px);
+  border-radius: var(--radius-lg);
+  background: #f8fafc;
 }
 .fp-section--last {
   padding-bottom: var(--section);
@@ -35,7 +36,7 @@
   position: relative;
   overflow: hidden;
   padding-top: clamp(24px, 4vw, 48px);
-  padding-bottom: clamp(40px, 5vw, 72px);
+  padding-bottom: clamp(20px, 3vw, 36px);
 }
 .fp-hero-media {
   position: relative;
