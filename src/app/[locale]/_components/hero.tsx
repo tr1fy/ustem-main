@@ -10,13 +10,12 @@
  * masked to the people's silhouettes → circles 2 and 1 → labels → copy. A
  * photo and its silhouette share one src, so each is downloaded and decoded
  * once; the masks are the alpha of each cut-out on its photo's own canvas.
- * The line above the heading names the three countries (text only; the
- * flags are in the footer).
+ * The line above the heading says what the foundation is.
  * Server component — the entrance and the crossfade are pure CSS.
  */
 import { ArrowRightIcon } from '@heroicons/react/24/outline'
 import { Link } from '@/i18n/routing'
-import { localize, site, ui } from '@/lib/site-content'
+import { localize, ui } from '@/lib/site-content'
 
 /* Framing per slide and breakpoint lives in home.css (.hero-s1 … .hero-s4). */
 const slides = [
@@ -102,23 +101,22 @@ export default function Hero({ locale }: { locale: string }) {
   return (
     <section className='hero' aria-labelledby='hero-title'>
       <div className='container hero-content'>
-        <p className='hero-geo'>{t(site.geography)}</p>
+        <p className='hero-geo'>{t(ui.heroEyebrow)}</p>
         <h1 id='hero-title'>{t(ui.heroTitle)}</h1>
         <p className='hero-text'>
           {sentences.map(sentence => (
             <span key={sentence}>{sentence} </span>
           ))}
         </p>
-        {/* The original order (the state the owner asked to keep on
-            2026-10-29): the white competitions button first, «Біз туралы»
-            second. */}
+        {/* The white programs button first (the order the owner asked to
+            keep on 2026-10-29), «Бізге қосылу» second. */}
         <div className='hero-actions'>
           <Link className='btn hero-btn hero-btn-primary' href='/competitions'>
             {t(ui.heroCta)}
             <ArrowRightIcon aria-hidden='true' />
           </Link>
-          <Link className='btn hero-btn hero-btn-ghost' href='/about'>
-            {t(ui.heroAbout)}
+          <Link className='btn hero-btn hero-btn-ghost' href='/contacts'>
+            {t(ui.heroJoin)}
           </Link>
         </div>
       </div>

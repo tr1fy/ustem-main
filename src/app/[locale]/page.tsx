@@ -17,7 +17,7 @@ export function generateMetadata({
 }): Metadata {
   return {
     title: {
-      absolute: `${site.name} — ${localize(ui.heroTitle, locale).replace(/\.$/, '')}`
+      absolute: `${site.name} — ${localize(ui.heroEyebrow, locale).replace(/\.$/, '')}`
     },
     description: localize(description, locale),
     alternates: alternatesFor(locale, '')

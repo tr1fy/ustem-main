@@ -36,7 +36,7 @@ export function generateMetadata({
 }: {
   params: { locale: string }
 }): Metadata {
-  const title = `${site.name} — ${localize(ui.heroTitle, locale).replace(/\.$/, '')}`
+  const title = `${site.name} — ${localize(ui.heroEyebrow, locale).replace(/\.$/, '')}`
   return {
     metadataBase: new URL(siteUrl),
     title: { default: title, template: `%s — ${site.name}` },

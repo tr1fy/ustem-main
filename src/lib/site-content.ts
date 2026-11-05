@@ -771,18 +771,23 @@ export const reportsText = words(
 export const ui = {
   // Wording chosen by the foundation on 2026-10-29 (homepage TZ, items 3
   // and 4): no full stop after the heading, one sentence of description.
-  heroTitle: words(
+  heroEyebrow: words(
     'Инженерлік білімді дамытатын қор',
     'Фонд развития инженерного образования',
     'The foundation advancing engineering education'
   ),
-  heroText: words(
-    'USTEM Foundation балаларды, педагогтерді және серіктестерді ғылым мен технология төңірегінде біріктіреді: жарыстар өткізеді, педагогтерді оқытады және жас инженерлерді қолдайды.',
-    'USTEM Foundation объединяет детей, педагогов и партнёров вокруг науки и технологий: проводит соревнования, обучает педагогов и поддерживает молодых инженеров.',
-    'USTEM Foundation brings students, teachers and partners together around science and technology: it runs competitions, trains teachers and supports young engineers.'
+  heroTitle: words(
+    'Инженерлік білімнің болашағын бірге құрамыз',
+    'Вместе строим будущее инженерного образования',
+    'Building the future of engineering education together'
   ),
-  heroCta: words('Жарыстарды көру', 'Смотреть соревнования', 'Explore competitions'),
-  heroAbout: words('Біз туралы', 'О нас', 'About us'),
+  heroText: words(
+    'USTEM Foundation — балаларды, педагогтерді және серіктестерді ғылым мен технология айналасында біріктіретін қор. Біз жарыстар ұйымдастырамыз, мұғалімдерді оқытамыз және жас инженерлерді қолдаймыз.',
+    'USTEM Foundation — фонд, который объединяет детей, педагогов и партнёров вокруг науки и технологий. Мы организуем соревнования, обучаем учителей и поддерживаем молодых инженеров.',
+    'USTEM Foundation brings children, teachers and partners together around science and technology. We organise competitions, train teachers and support young engineers.'
+  ),
+  heroCta: words('Бағдарламалар', 'Программы', 'Programs'),
+  heroJoin: words('Бізге қосылу', 'Присоединиться', 'Join us'),
   // Photo supplied by the foundation; event and year confirmed by the
   // owner on 2026-10-01 (TZ §6.1: the caption must match the frame).
   heroCaption: words(
