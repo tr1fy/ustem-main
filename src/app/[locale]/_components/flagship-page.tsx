@@ -1,6 +1,13 @@
 'use client'
 
-import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
+import {
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode
+} from 'react'
 import { ArrowUpRightIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link } from '@/i18n/routing'
 import { track } from '@/lib/analytics'
@@ -377,7 +384,7 @@ export default function FlagshipPage({
 
       {/* 2. Last year's numbers, counting up from zero */}
       <section
-        className='fp-section fp-section--numbers is-center'
+        className='fp-section fp-section--numbers'
         aria-labelledby={statsId}
       >
         <div className='container'>
@@ -386,8 +393,11 @@ export default function FlagshipPage({
             <p className='fp-head-note'>{t(page.stats.note)}</p>
           </div>
           <ul
-            className='fp-stats'
+            className={`fp-stats${
+              page.stats.items.length === 4 ? ' fp-stats--four' : ''
+            }`}
             role='list'
+            style={{ '--n': page.stats.items.length } as CSSProperties}
           >
             {page.stats.items.map(item => (
               <li key={t(item.label)}>
