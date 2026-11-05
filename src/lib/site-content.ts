@@ -928,11 +928,8 @@ export const ui = {
     'Поддержите первый шаг юных инженеров.',
     'Support young engineers’ first step.'
   ),
-  footerTitle: words(
-    'Ынтымақтастыққа ашықпыз',
-    'Открыты к сотрудничеству',
-    'Open to collaboration'
-  ),
+  footerTitle: words('Ынтымақтастық', 'Сотрудничество', 'Collaboration'),
+  footerCta: words('Пікір қалдыру', 'Оставить заявку', 'Leave a message'),
   /** One line under the footer heading, addressed to every audience. */
   footerLead: words(
     'Бағдарламалар, жарыстар немесе бірлескен жобалар туралы сұрағыңыз болса, жазыңыз.',

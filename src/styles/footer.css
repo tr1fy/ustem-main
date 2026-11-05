@@ -95,12 +95,12 @@
    of it stays on the left, clear of the circles in the top-right corner. */
 .ftr-contact {
   display: grid;
-  gap: 20px;
-  padding-bottom: clamp(40px, 3.5vw, 48px);
+  gap: 16px;
+  padding-bottom: clamp(32px, 3vw, 40px);
 }
 .ftr-title {
   max-width: 18ch;
-  font-size: clamp(2rem, 1.3rem + 2.4vw, 3.75rem);
+  font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.75rem);
   line-height: 1.05;
   letter-spacing: -0.04em;
 }
@@ -108,7 +108,7 @@
 .ftr-lead {
   max-width: 44ch;
   margin-top: -4px;
-  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
   line-height: 1.5;
   color: var(--ftr-muted);
 }
@@ -124,29 +124,16 @@
   align-items: center;
   gap: 8px 32px;
 }
-.ftr-email {
-  display: inline-flex;
-  align-items: center;
-  max-width: 100%;
+.ftr-cta {
   min-height: 48px;
-  font-size: clamp(1.375rem, 1.15rem + 0.9vw, 2rem);
-  font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: -0.02em;
-  overflow-wrap: anywhere;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-decoration-color: rgba(255, 255, 255, 0.45);
-  text-underline-offset: 0.22em;
-}
-.ftr-email:hover {
-  text-decoration-color: currentColor;
+  padding-inline: 28px;
+  font-size: 1rem;
 }
 .ftr-phone {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  font-size: 1.125rem;
+  font-size: 1.0625rem;
   font-weight: 600;
   text-decoration: underline;
   text-decoration-thickness: 1px;
