@@ -1,6 +1,5 @@
 import Navbar from './Navbar'
 import Footer from './Footer'
-import SupportPopup from '../../_components/support-popup'
 import CookieConsent from '../../_components/cookie-consent'
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
@@ -11,7 +10,6 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       <Navbar />
       {children}
       <Footer />
-      <SupportPopup />
       <CookieConsent />
     </div>
   )
