@@ -247,249 +247,271 @@ export default function FlagshipPage({
       {/* 1. Hero: breadcrumb, name, description, buttons, six-photo mosaic */}
       <section className='fp-hero'>
         <span className='fp-hero-circle' aria-hidden='true' />
-        <div className='container fp-hero-grid'>
-          <div className='fp-hero-copy'>
-            <nav aria-label='Breadcrumb'>
-              <ol className='breadcrumbs'>
-                <li>
-                  <Link href='/competitions'>{t(catalogLabel)}</Link>
-                </li>
-                <li aria-current='page'>{event.title}</li>
-              </ol>
-            </nav>
-            <ul className='cmp-chips' role='list'>
-              <li className='chip fp-chip-solid'>{t(text.flagship)}</li>
-              <li className='chip fp-chip-tint'>{t(page.nextShort)}</li>
-            </ul>
-            <h1 className='fp-title'>
-              {titleB ? (
-                <>
-                  {titleA}
-                  <br />
-                  Tech {titleB}
-                </>
-              ) : (
-                event.title
-              )}
-            </h1>
-            <p className='fp-lead'>{t(page.description)}</p>
-            <div className='fp-actions'>
-              <button
-                ref={openerRef}
-                type='button'
-                className='btn btn-primary'
-                onClick={openNotice}
-              >
-                {t(ui.officialSite)}
-              </button>
-              <a className='btn btn-secondary' href='#fp-join'>
-                {t(text.howToJoin)}
-              </a>
+        <div className='container'>
+          <nav aria-label='Breadcrumb'>
+            <ol className='breadcrumbs'>
+              <li>
+                <Link href='/competitions'>{t(catalogLabel)}</Link>
+              </li>
+              <li aria-current='page'>{event.title}</li>
+            </ol>
+          </nav>
+          <div className='fp-hero-grid'>
+            <div className='fp-hero-copy'>
+              <ul className='cmp-chips' role='list'>
+                <li className='chip fp-chip-solid'>{t(text.flagship)}</li>
+                <li className='chip fp-chip-tint'>{t(page.nextShort)}</li>
+              </ul>
+              <h1 className='fp-title'>
+                {titleB ? (
+                  <>
+                    {titleA}
+                    <br />
+                    Tech {titleB}
+                  </>
+                ) : (
+                  event.title
+                )}
+              </h1>
+              <p className='fp-lead'>{t(page.description)}</p>
+              <div className='fp-actions'>
+                <button
+                  ref={openerRef}
+                  type='button'
+                  className='btn btn-primary'
+                  onClick={openNotice}
+                >
+                  {t(ui.officialSite)}
+                </button>
+                <a className='btn btn-secondary' href='#fp-join'>
+                  {t(text.howToJoin)}
+                </a>
+              </div>
+            </div>
+            <div className='fp-hero-media'>
+              <ul className='fp-mosaic' role='list'>
+                {page.photos.map(photo => (
+                  <li key={photo.src}>
+                    <img
+                      src={photo.src}
+                      alt={t(photo.alt)}
+                      loading='eager'
+                      decoding='async'
+                    />
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
-          <ul className='fp-mosaic' role='list'>
-            {page.photos.map(photo => (
-              <li key={photo.src}>
-                <img
-                  src={photo.src}
-                  alt={t(photo.alt)}
-                  loading='eager'
-                  decoding='async'
-                />
+        </div>
+      </section>
+
+      {/* 2. Last year's numbers, counting up from zero */}
+      <section className='fp-section' aria-labelledby={statsId}>
+        <div className='container'>
+          <div className='fp-head'>
+            <h2 id={statsId}>{t(text.stats)}</h2>
+            <p className='fp-head-note'>{t(page.stats.note)}</p>
+          </div>
+          <ul className='fp-stats' role='list'>
+            {page.stats.items.map(item => (
+              <li key={t(item.label)}>
+                <span className='fp-stat-value'>
+                  <Count value={item.value} suffix={item.suffix} />
+                </span>
+                <span className='fp-stat-label'>{t(item.label)}</span>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      {/* 2. Last year's numbers, counting up from zero */}
-      <section className='container fp-section' aria-labelledby={statsId}>
-        <div className='fp-head'>
-          <h2 id={statsId}>{t(text.stats)}</h2>
-          <p className='fp-head-note'>{t(page.stats.note)}</p>
-        </div>
-        <ul className='fp-stats' role='list'>
-          {page.stats.items.map(item => (
-            <li key={t(item.label)}>
-              <span className='fp-stat-value'>
-                <Count value={item.value} suffix={item.suffix} />
-              </span>
-              <span className='fp-stat-label'>{t(item.label)}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
-
       {/* 3. Mission */}
       <section
-        className='container fp-section fp-mission'
+        className='fp-section fp-section--paper'
         aria-labelledby={missionId}
       >
-        <div className='fp-mission-key'>
-          <span id={missionId} className='label fp-label'>
-            {t(text.mission)}
-          </span>
-          <span className='fp-rule' aria-hidden='true' />
-        </div>
-        <div className='fp-mission-body'>
-          <p className='fp-mission-lead'>{t(page.mission.lead)}</p>
-          <p className='fp-mission-text'>{t(page.mission.text)}</p>
+        <div className='fp-mission container'>
+          <div className='fp-mission-key'>
+            <span id={missionId} className='label fp-label'>
+              {t(text.mission)}
+            </span>
+            <span className='fp-rule' aria-hidden='true' />
+          </div>
+          <div className='fp-mission-body'>
+            <p className='fp-mission-lead'>{t(page.mission.lead)}</p>
+            <p className='fp-mission-text'>{t(page.mission.text)}</p>
+          </div>
         </div>
       </section>
 
       {/* 4. Tracks: one rectangle divided into six */}
-      <section className='container fp-section' aria-labelledby={tracksId}>
-        <h2 id={tracksId} className='fp-h2'>
-          {t(text.tracks)}
-        </h2>
-        <ol className='fp-tracks' role='list'>
-          {page.tracks.map((item, index) => (
-            <li key={item.icon}>
-              <div className='fp-track-top'>
-                <span className='fp-track-icon'>
-                  <TrackIcon icon={item.icon} />
-                </span>
-                <span className='fp-track-n'>
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-              </div>
-              <span className='fp-track-name'>{t(item.name)}</span>
-            </li>
-          ))}
-        </ol>
+      <section className='fp-section' aria-labelledby={tracksId}>
+        <div className='container'>
+          <h2 id={tracksId} className='fp-h2'>
+            {t(text.tracks)}
+          </h2>
+          <ol className='fp-tracks' role='list'>
+            {page.tracks.map((item, index) => (
+              <li key={item.icon}>
+                <div className='fp-track-top'>
+                  <span className='fp-track-icon'>
+                    <TrackIcon icon={item.icon} />
+                  </span>
+                  <span className='fp-track-n'>
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                </div>
+                <span className='fp-track-name'>{t(item.name)}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
       </section>
 
       {/* 5. Next edition */}
-      <section className='container fp-section' aria-labelledby={nextId}>
-        <div className='fp-next on-dark'>
-          <span className='fp-next-circle' aria-hidden='true' />
-          <span className='label fp-label-dark'>{t(text.nextEvent)}</span>
-          <h2 id={nextId} className='fp-next-title'>
-            {page.next.title}
-          </h2>
-          <p className='fp-next-line'>{t(page.next.line)}</p>
+      <section
+        className='fp-section fp-section--paper'
+        aria-labelledby={nextId}
+      >
+        <div className='container'>
+          <div className='fp-next on-dark'>
+            <span className='fp-next-circle' aria-hidden='true' />
+            <span className='label fp-label-dark'>{t(text.nextEvent)}</span>
+            <h2 id={nextId} className='fp-next-title'>
+              {page.next.title}
+            </h2>
+            <p className='fp-next-line'>{t(page.next.line)}</p>
+          </div>
         </div>
       </section>
 
       {/* 6. Two steps to take part */}
       <section
         id='fp-join'
-        className='container fp-section'
+        className='fp-section'
         aria-labelledby='fp-join-title'
       >
-        <h2 id='fp-join-title' className='fp-h2'>
-          {t(text.join)}
-        </h2>
-        <ol className='fp-steps' role='list'>
-          <li>
-            <span className='fp-step-n' aria-hidden='true'>
-              1
-            </span>
-            <div className='fp-step-body'>
-              <span className='fp-step-title'>{t(text.step1)}</span>
-              <span className='fp-step-note'>{t(text.step1note)}</span>
-              <ul className='fp-links' role='list'>
-                {page.rules.map(channel => (
-                  <li key={channel.url}>
-                    <a
-                      className='fp-pill'
-                      href={channel.url}
-                      target='_blank'
-                      rel='noreferrer'
-                      onClick={() =>
-                        track('rules_channel_click', {
-                          slug: event.slug,
-                          channel: channel.label
-                        })
-                      }
-                    >
-                      {channel.label}
-                      <span className='visually-hidden'> {t(text.newTab)}</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </li>
-          <li>
-            <span className='fp-step-n' aria-hidden='true'>
-              2
-            </span>
-            <div className='fp-step-body'>
-              <span className='fp-step-title'>{t(text.step2)}</span>
-              <div>
-                <a
-                  className='btn btn-primary fp-step-cta'
-                  href={site.connectUrl}
-                  target='_blank'
-                  rel='noreferrer'
-                  onClick={() =>
-                    track('connect_click', {
-                      place: 'competition',
-                      slug: event.slug
-                    })
-                  }
-                >
-                  {t(text.goConnect)}
-                  <span className='visually-hidden'> {t(text.newTab)}</span>
-                  <ArrowUpRightIcon aria-hidden='true' />
-                </a>
+        <div className='container'>
+          <h2 id='fp-join-title' className='fp-h2'>
+            {t(text.join)}
+          </h2>
+          <ol className='fp-steps' role='list'>
+            <li>
+              <span className='fp-step-n' aria-hidden='true'>
+                1
+              </span>
+              <div className='fp-step-body'>
+                <span className='fp-step-title'>{t(text.step1)}</span>
+                <span className='fp-step-note'>{t(text.step1note)}</span>
+                <ul className='fp-links' role='list'>
+                  {page.rules.map(channel => (
+                    <li key={channel.url}>
+                      <a
+                        className='fp-pill'
+                        href={channel.url}
+                        target='_blank'
+                        rel='noreferrer'
+                        onClick={() =>
+                          track('rules_channel_click', {
+                            slug: event.slug,
+                            channel: channel.label
+                          })
+                        }
+                      >
+                        {channel.label}
+                        <span className='visually-hidden'>
+                          {' '}
+                          {t(text.newTab)}
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </div>
-          </li>
-        </ol>
+            </li>
+            <li>
+              <span className='fp-step-n' aria-hidden='true'>
+                2
+              </span>
+              <div className='fp-step-body'>
+                <span className='fp-step-title'>{t(text.step2)}</span>
+                <div>
+                  <a
+                    className='btn btn-primary fp-step-cta'
+                    href={site.connectUrl}
+                    target='_blank'
+                    rel='noreferrer'
+                    onClick={() =>
+                      track('connect_click', {
+                        place: 'competition',
+                        slug: event.slug
+                      })
+                    }
+                  >
+                    {t(text.goConnect)}
+                    <span className='visually-hidden'> {t(text.newTab)}</span>
+                    <ArrowUpRightIcon aria-hidden='true' />
+                  </a>
+                </div>
+              </div>
+            </li>
+          </ol>
+        </div>
       </section>
 
       {/* 7. Contacts */}
       <section
-        className='container fp-section fp-section--last'
+        className='fp-section fp-section--paper fp-section--last'
         aria-labelledby={contactsId}
       >
-        <h2 id={contactsId} className='fp-h2'>
-          {t(text.contacts)}
-        </h2>
-        <ul className='fp-contacts' role='list'>
-          <li>
-            <button type='button' className='fp-contact' onClick={openNotice}>
-              <span className='fp-contact-key'>{t(ui.officialSite)}</span>
-              <span className='fp-contact-value'>
-                {event.officialUrl?.replace(/^https?:\/\/(www\.)?/, '')}
-              </span>
-            </button>
-          </li>
-          <li>
-            <a className='fp-contact' href={`mailto:${page.contacts.email}`}>
-              <span className='fp-contact-key'>{t(text.email)}</span>
-              <span className='fp-contact-value'>{page.contacts.email}</span>
-            </a>
-          </li>
-          <li>
-            <a
-              className='fp-contact'
-              href={page.contacts.instagram.url}
-              target='_blank'
-              rel='noreferrer'
-            >
-              <span className='fp-contact-key'>Instagram</span>
-              <span className='fp-contact-value'>
-                {page.contacts.instagram.handle}
-              </span>
-            </a>
-          </li>
-          <li>
-            <a
-              className='fp-contact'
-              href={page.contacts.telegram.url}
-              target='_blank'
-              rel='noreferrer'
-            >
-              <span className='fp-contact-key'>Telegram</span>
-              <span className='fp-contact-value'>
-                {page.contacts.telegram.handle}
-              </span>
-            </a>
-          </li>
-        </ul>
+        <div className='container'>
+          <h2 id={contactsId} className='fp-h2'>
+            {t(text.contacts)}
+          </h2>
+          <ul className='fp-contacts' role='list'>
+            <li>
+              <button type='button' className='fp-contact' onClick={openNotice}>
+                <span className='fp-contact-key'>{t(ui.officialSite)}</span>
+                <span className='fp-contact-value'>
+                  {event.officialUrl?.replace(/^https?:\/\/(www\.)?/, '')}
+                </span>
+              </button>
+            </li>
+            <li>
+              <a className='fp-contact' href={`mailto:${page.contacts.email}`}>
+                <span className='fp-contact-key'>{t(text.email)}</span>
+                <span className='fp-contact-value'>{page.contacts.email}</span>
+              </a>
+            </li>
+            <li>
+              <a
+                className='fp-contact'
+                href={page.contacts.instagram.url}
+                target='_blank'
+                rel='noreferrer'
+              >
+                <span className='fp-contact-key'>Instagram</span>
+                <span className='fp-contact-value'>
+                  {page.contacts.instagram.handle}
+                </span>
+              </a>
+            </li>
+            <li>
+              <a
+                className='fp-contact'
+                href={page.contacts.telegram.url}
+                target='_blank'
+                rel='noreferrer'
+              >
+                <span className='fp-contact-key'>Telegram</span>
+                <span className='fp-contact-value'>
+                  {page.contacts.telegram.handle}
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </section>
 
       <SiteNotice
