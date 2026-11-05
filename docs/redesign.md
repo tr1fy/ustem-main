@@ -12,8 +12,9 @@ donation destination and public contact details are preserved.
 Palette: USTEM blue #0066c3, warm orange #e85638, ink #122e47, paper #f3f6f8,
 white. Manrope with Cyrillic Extended is loaded through next/font; Kazakh is
 displayed as KK while existing /kz URLs remain compatible. EN is enabled. Locale
-selection uses client navigation and a one-year NEXT_LOCALE cookie. The root
-route honors a saved locale; otherwise it opens Kazakh. Legacy content without
+selection uses client navigation and lives only in the URL; no language cookie
+is kept. The root route and unprefixed paths always open Kazakh, so a new visit
+starts in Kazakh even after the visitor chose another language. Legacy content without
 English translation falls back to Kazakh.
 
 Hero is isolated in `src/app/[locale]/_components/hero.tsx`, ready for the

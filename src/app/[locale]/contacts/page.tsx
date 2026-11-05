@@ -21,12 +21,12 @@ const title = navItems.find(item => item.key === 'contacts')!.label
 const description = words(
   'USTEM Foundation байланыстары: e-mail, телефон және БАҚ сұраулары.',
   'Контакты USTEM Foundation: e-mail, телефон и запросы СМИ.',
-  'USTEM Foundation contacts: e-mail, phone and media enquiries.'
+  'USTEM Foundation contacts: e-mail, phone and media inquiries.'
 )
 const lead = words(
   'Жарыстар, USTEM Academy, серіктестік және БАҚ сұраулары бойынша жазыңыз немесе қоңырау шалыңыз.',
   'Пишите или звоните по вопросам соревнований, USTEM Academy, партнёрства и СМИ.',
-  'Write or call about competitions, USTEM Academy, partnerships and media enquiries.'
+  'Write or call about competitions, USTEM Academy, partnerships and media inquiries.'
 )
 const phoneLabel = words('Телефон', 'Телефон', 'Phone')
 const opensInNewTab = words(
@@ -54,7 +54,7 @@ const mediaText = words(
   'Запросы журналистов принимаем письмом с темой «СМИ».',
   'We take journalists’ requests by e-mail with the subject “Media”.'
 )
-const mediaAction = words('БАҚ сұрауы', 'Запрос от СМИ', 'Media enquiry')
+const mediaAction = words('БАҚ сұрауы', 'Запрос от СМИ', 'Media inquiry')
 const pressReleases = words('Баспасөз хабарламалары', 'Пресс-релизы', 'Press releases')
 
 const mailto = (subject: Localized, locale: string) =>

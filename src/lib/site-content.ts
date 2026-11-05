@@ -60,7 +60,7 @@ export const copy = {
   spaceLabText: words(
     '36 академиялық сағаттық бағдарлама зымыран ұшуының физикасын, цифрлық модельдеуді, CanSat және CubeSat жасауды, қауіпсіз ұшыру мен WSO жарысына дайындықты біріктіреді.',
     '36-часовая программа объединяет физику полёта, цифровое моделирование, сборку CanSat и CubeSat, безопасные запуски и подготовку к WSO.',
-    'A 36-hour program covering flight physics, digital modelling, CanSat and CubeSat assembly, safe launches and WSO preparation.'
+    'A 36-hour program covering flight physics, digital modeling, CanSat and CubeSat assembly, safe launches and WSO preparation.'
   ),
   spaceLabMeta: words(
     '36 академиялық сағат · 8 модуль',
@@ -91,7 +91,7 @@ export const testimonials = [
     photo: '/feedback-photos/baurzhan.jpg',
     quote: words(
       'Бізге ақылды мамандар, инженерлер қажет, сондықтан STEM саласын дәл қазір дамытуға ерекше көңіл бөлу маңызды. Кейде балаларды шетелдегі мықты университетте оқытсақ, мықты маман аламыз деп ойлаймыз. Мен бизнес саласында шамамен 35 жыл жүрмін және баланың болашағының 80 пайызы мектеп қабырғасынан басталады деп сенімді айта аламын.',
-      'Нам нужны умные специалисты, инженеры, поэтому важно уделить должное внимание развитию STEM уже сейчас. Нам кажется, что, обучив детей в сильном вузе за рубежом, мы получим сильных специалистов. Я в бизнесе около 35 лет и могу уверенно сказать: 80% будущего детей начинается со школьной скамьи.',
+      'Нам нужны умные специалисты, инженеры, поэтому важно уделить должное внимание развитию STEM уже сейчас. Иногда нам кажется, что, обучив детей в сильном вузе за рубежом, мы получим сильных специалистов. Я в бизнесе около 35 лет и могу уверенно сказать: 80% будущего ребёнка начинается со школьной скамьи.',
       'We need capable specialists and engineers, so developing STEM now matters. After almost 35 years in business, I can say with confidence that 80% of a child’s future begins at school.'
     )
   },
@@ -180,13 +180,13 @@ const allNews: {
     text: words(
       'Инчхонда 7–10 қазанда өтетін олимпиадаға 185 ел қатысады. Қазақстан құрамасы — Алматының бес оқушысы: № 92 мамандандырылған лицейден төртеуі және № 159 гимназиядан біреуі.',
       'В олимпиаде в Инчхоне 7–10 октября участвуют 185 стран. Сборная Казахстана — пятеро школьников из Алматы: четверо из специализированного лицея № 92 и один из гимназии № 159.',
-      '185 nations take part in the olympiad in Incheon on 7–10 October. Team Kazakhstan is five students from Almaty: four from Specialised Lyceum No. 92 and one from Gymnasium No. 159.'
+      '185 nations take part in the olympiad in Incheon on 7–10 October. Team Kazakhstan is five students from Almaty: four from Specialized Lyceum No. 92 and one from Gymnasium No. 159.'
     ),
     body: [
       words(
         'Құрама мектептері (FIRST Global ресми бетінен): Алматы қаласының № 92 мамандандырылған лицейі — 4 оқушы; Алматы қаласының № 159 гимназиясы — 1 оқушы.',
         'Школы сборной (с официальной страницы FIRST Global): специализированный лицей № 92 г. Алматы — 4 ученика; гимназия № 159 г. Алматы — 1 ученик.',
-        'Schools on the team (from the official FIRST Global page): Specialised Lyceum No. 92, Almaty — 4 students; Gymnasium No. 159, Almaty — 1 student.'
+        'Schools on the team (from the official FIRST Global page): Specialized Lyceum No. 92, Almaty — 4 students; Gymnasium No. 159, Almaty — 1 student.'
       ),
       words(
         'Қазақстан FIRST Global Challenge-ке 2017 жылдан бері қатысады; 2022–2025 жылдары қатарынан төрт рет Grand Challenge Award алтын медалін алды. Құраманы қолдаушылар: USTEM Foundation, «Дарын» РҒПО, Almaty Daryny, OMODA&JAECOO by Astana Motors.',
@@ -217,7 +217,7 @@ const allNews: {
       words(
         '24–25 қыркүйек 2026 — AI Month 2026 аясында USTEM Foundation Alem.ai алаңында AI & Digital Bridge Cup жарысын өткізді: FIRST Tech Challenge маусымының алғашқы турнирі, Қазақстан мен Өзбекстаннан 35 команда. AI Month бағдарламасына FIRST Tech Challenge және FIRST LEGO League Future Edition бағыттары енген.',
         '24–25 сентября 2026 года в рамках AI Month 2026 USTEM Foundation провёл на площадке Alem.ai соревнование AI & Digital Bridge Cup — первый турнир сезона FIRST Tech Challenge, 35 команд из Казахстана и Узбекистана. В программу AI Month вошли направления FIRST Tech Challenge и FIRST LEGO League Future Edition.',
-        'On 24–25 September 2026, USTEM Foundation held the AI & Digital Bridge Cup at Alem.ai as part of AI Month 2026: the first FIRST Tech Challenge event of the season, with 35 teams from Kazakhstan and Uzbekistan. The AI Month programme included FIRST Tech Challenge and FIRST LEGO League Future Edition.'
+        'On 24–25 September 2026, USTEM Foundation held the AI & Digital Bridge Cup at Alem.ai as part of AI Month 2026: the first FIRST Tech Challenge event of the season, with 35 teams from Kazakhstan and Uzbekistan. The AI Month program included FIRST Tech Challenge and FIRST LEGO League Future Edition.'
       )
     ],
     source: 'https://digitalbridge.ai/'
@@ -1123,7 +1123,7 @@ export const events: SiteEvent[] = [
     detail: words(
       'USTEM Foundation ұйымдастыратын технология чемпионаты. XII чемпионат «Age of AI» 2026 жылғы 30 маусым – 1 шілдеде Almaty Arena-да өтті: 3000-нан астам қатысушы, 14 жарыс, 5 ел.',
       'Технологический чемпионат, который организует USTEM Foundation. XII чемпионат «Age of AI» прошёл 30 июня – 1 июля 2026 года в Almaty Arena: более 3000 участников, 14 соревнований, 5 стран.',
-      'A technology championship organised by USTEM Foundation. The XII championship “Age of AI” took place on 30 June – 1 July 2026 at Almaty Arena: 3,000+ participants, 14 competitions, 5 countries.'
+      'A technology championship organized by USTEM Foundation. The XII championship “Age of AI” took place on 30 June – 1 July 2026 at Almaty Arena: 3,000+ participants, 14 competitions, 5 countries.'
     ),
     meta: words(
       '2026 · Almaty Arena · 3000+ қатысушы · 14 бағыт · 5 ел',
@@ -1250,7 +1250,7 @@ export const events: SiteEvent[] = [
     detail: words(
       '2026 жылғы 11–13 ақпанда Астанада, EXPO алаңында өтті: 5000-нан астам қатысушы. Бағдарламада — Central Asia FIRST Championship, FIRST LEGO League, FIRST Tech Challenge, RoboCup, дрон жарыстары және Physical AI Championship.',
       'Прошёл 11–13 февраля 2026 года в Астане на площадке EXPO: более 5000 участников. В программе — Central Asia FIRST Championship, FIRST LEGO League, FIRST Tech Challenge, RoboCup, гонки дронов и Physical AI Championship.',
-      'Held on 11–13 February 2026 at EXPO, Astana, with 5,000+ participants. The programme included the Central Asia FIRST Championship, FIRST LEGO League, FIRST Tech Challenge, RoboCup, drone racing and the Physical AI Championship.'
+      'Held on 11–13 February 2026 at EXPO, Astana, with 5,000+ participants. The program included the Central Asia FIRST Championship, FIRST LEGO League, FIRST Tech Challenge, RoboCup, drone racing and the Physical AI Championship.'
     ),
     meta: words(
       '2026 · Астана, EXPO · 5000+ қатысушы · 500+ команда · 7 ел мен өңір',
@@ -1277,7 +1277,7 @@ export const events: SiteEvent[] = [
     detail: words(
       'AI & Digital Bridge — Астанада өтетін халықаралық жасанды интеллект форумы. 2026 жылы форум 1–3 қазанда Астанадағы EXPO-да өтті. Оның алдындағы AI Month 2026 бағдарламасына FIRST LEGO League Future Edition және FIRST Tech Challenge бағыттары, сондай-ақ студенттерге арналған Unitree G1 гуманоидты роботындағы хакатон енді. 24–25 қыркүйекте USTEM Foundation Alem.ai алаңында FIRST Tech Challenge маусымын ашатын AI & Digital Bridge Cup жарысын өткізді: Қазақстан мен Өзбекстаннан 35 команда қатысты. Форумдағы робототехника аймағын USTEM Foundation Kerneu Group-пен бірлесіп ұйымдастырды: онда гуманоидты роботтар, робот-иттер және үстел теннисі ойнайтын роботтар көрсетілді.',
       'AI & Digital Bridge — международный форум по искусственному интеллекту в Астане. В 2026 году форум прошёл 1–3 октября в EXPO, Астана. В программу предшествовавшего ему AI Month 2026 вошли направления FIRST LEGO League Future Edition и FIRST Tech Challenge, а также хакатон для студентов на гуманоидном роботе Unitree G1. 24–25 сентября USTEM Foundation провёл на площадке Alem.ai соревнование AI & Digital Bridge Cup, открывающее сезон FIRST Tech Challenge: 35 команд из Казахстана и Узбекистана. Зону робототехники форума USTEM Foundation организовал вместе с Kerneu Group: там показали человекоподобных роботов, робособак и роботов, играющих в настольный теннис.',
-      'AI & Digital Bridge is an international AI forum held in Astana. In 2026 it took place on 1–3 October at EXPO, Astana. The AI Month 2026 programme that led up to it included FIRST LEGO League Future Edition and FIRST Tech Challenge, as well as a student hackathon on the Unitree G1 humanoid robot. On 24–25 September, USTEM Foundation held the AI & Digital Bridge Cup at Alem.ai, the opening event of the FIRST Tech Challenge season, with 35 teams from Kazakhstan and Uzbekistan. USTEM Foundation organised the forum’s robotics zone together with Kerneu Group, showing humanoid robots, robot dogs and table-tennis-playing robots.'
+      'AI & Digital Bridge is an international AI forum held in Astana. In 2026 it took place on 1–3 October at EXPO, Astana. The AI Month 2026 program that led up to it included FIRST LEGO League Future Edition and FIRST Tech Challenge, as well as a student hackathon on the Unitree G1 humanoid robot. On 24–25 September, USTEM Foundation held the AI & Digital Bridge Cup at Alem.ai, the opening event of the FIRST Tech Challenge season, with 35 teams from Kazakhstan and Uzbekistan. USTEM Foundation organized the forum’s robotics zone together with Kerneu Group, showing humanoid robots, robot dogs and table-tennis-playing robots.'
     ),
     meta: words(
       '2026 · Астана, EXPO · 1–3 қазан',
@@ -1414,7 +1414,7 @@ export const events: SiteEvent[] = [
     detail: words(
       'Physical AI — сенсорлар мен лидарлар арқылы физикалық әлемді «көріп», өзі шешім қабылдайтын жасанды интеллект. Хакатонда командалар гуманоидты роботтарға шешімдер жасайды; Almaty Tech Cup 2026-да Unitree гуманоидты роботтарындағы 48 сағаттық хакатон өтті. Humanoid Robot R&D бағытының мақсаты — Astana Hub-пен бірге Орталық Азияда Physical AI құзырет орталығын құру.',
       'Physical AI — искусственный интеллект, который «видит» физический мир через сенсоры и лидары и сам принимает решения. На хакатоне команды создают решения для гуманоидных роботов; на Almaty Tech Cup 2026 прошёл 48-часовой хакатон на гуманоидных роботах Unitree. Цель направления Humanoid Robot R&D — вместе с Astana Hub создать центр компетенций по Physical AI в Центральной Азии.',
-      'Physical AI is artificial intelligence that perceives the physical world through sensors and lidars and makes its own decisions. At the hackathon teams build solutions for humanoid robots; Almaty Tech Cup 2026 hosted a 48-hour hackathon on Unitree humanoid robots. The Humanoid Robot R&D track aims, with Astana Hub, to build a Physical AI competence centre in Central Asia.'
+      'Physical AI is artificial intelligence that perceives the physical world through sensors and lidars and makes its own decisions. At the hackathon teams build solutions for humanoid robots; Almaty Tech Cup 2026 hosted a 48-hour hackathon on Unitree humanoid robots. The Humanoid Robot R&D track aims, with Astana Hub, to build a Physical AI competence center in Central Asia.'
     ),
     // Same forum photo as AI Digital Bridge, cropped to the left humanoid,
     // until the foundation supplies a Physical AI hackathon photo.
@@ -1571,7 +1571,7 @@ export const partnerLogos: {
   { slug: 'rumcdo', name: words(
       'Республикалық қосымша білім беру оқу-әдістемелік орталығы',
       'Республиканский учебно-методический центр дополнительного образования',
-      'Republican Training and Methodological Centre for Additional Education'
+      'Republican Training and Methodological Center for Additional Education'
     ), w: 60, h: 60 },
   { slug: 'astana-daryny', name: 'Astana Daryny', w: 103, h: 55 },
   { slug: 'almaty-daryny', name: 'Almaty Daryny', w: 41, h: 60 },
@@ -1646,7 +1646,7 @@ export const trustItems: {
     text: words(
       'Жасанды интеллектті дамыту жөніндегі кеңес отырысы аясындағы цифрлық шешімдер көрмесі: ЖИ жобаларын ұсынған ұйымдардың қатарында — USTEM Foundation.',
       'Выставка цифровых решений на заседании Совета по развитию искусственного интеллекта: USTEM Foundation — среди организаций, представивших свои ИИ-проекты.',
-      'The digital solutions exhibition at the Artificial Intelligence Development Council: USTEM Foundation was among the organisations presenting AI projects.'
+      'The digital solutions exhibition at the Artificial Intelligence Development Council: USTEM Foundation was among the organizations presenting AI projects.'
     ),
     url: 'https://www.akorda.kz/ru/glava-gosudarstva-posetil-vystavku-cifrovyh-resheniy-192814',
     link: words('Ақорданың ресми хабарламасы', 'Официальное сообщение Акорды', 'Official Akorda release'),
@@ -1709,7 +1709,7 @@ export const trustItems: {
     text: words(
       'FIRST бағдарламаларының Орталық Азиядағы Program Delivery Partner-і, «Басқару» санаты. USTEM Foundation командасында 2023 жылдан бері: FIRST Tech Challenge төрешісінен бағдарлама үйлестірушісіне дейін.',
       'Program Delivery Partner программ FIRST в Центральной Азии, категория «Управление». В команде USTEM Foundation с 2023 года: от судьи FIRST Tech Challenge до координатора программ.',
-      'Program Delivery Partner for FIRST in Central Asia, Management category. With USTEM Foundation since 2023 — from FIRST Tech Challenge judge to programme coordinator.'
+      'Program Delivery Partner for FIRST in Central Asia, Management category. With USTEM Foundation since 2023 — from FIRST Tech Challenge judge to program coordinator.'
     ),
     url: 'https://forbes.kz/articles/forbes-kazakhstan-predstavlyaet-reyting-30-do-30-e11bed',
     link: words('Forbes рейтингі', 'Рейтинг Forbes', 'Forbes list'),

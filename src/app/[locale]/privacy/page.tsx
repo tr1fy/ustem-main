@@ -41,11 +41,6 @@ const blocks: Block[] = [
     title: words('Сайт нені сақтайды', 'Что сохраняет сайт', 'What the site stores'),
     list: [
       words(
-        'NEXT_LOCALE cookie файлы — сайттың таңдалған тілі. 1 жыл сақталады.',
-        'Cookie NEXT_LOCALE — выбранный язык сайта. Хранится 1 год.',
-        'The NEXT_LOCALE cookie — your chosen site language, kept for 1 year.'
-      ),
-      words(
         `Браузеріңіздің localStorage жадындағы белгілер: «${ui.supportLabel.kz}» карточкасын жапқаныңыз және аналитика баннерінде жасаған таңдауыңыз.`,
         `Отметки в localStorage вашего браузера: что вы закрыли карточку «${ui.supportLabel.ru}» и какой выбор сделали в баннере аналитики.`,
         `Flags in your browser’s localStorage: that you closed the “${ui.supportLabel.en}” card and the choice you made in the analytics banner.`
