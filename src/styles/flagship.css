@@ -217,10 +217,16 @@
   font-size: 1rem;
   color: var(--muted);
 }
+/* From tablets the numbers sit as one group with normal gaps between
+   them, not stretched across the whole card (owner, 2026-11-05). */
 @media (min-width: 768px) {
   .fp .fp-stats {
-    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
-    gap: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px clamp(56px, 7vw, 112px);
+  }
+  .fp-stats li {
+    flex: 0 1 auto;
   }
 }
 
@@ -624,10 +630,5 @@
   }
   .fp-tracks--four li:not(:first-child) {
     border-left: 1px solid var(--line);
-  }
-}
-@media (min-width: 768px) {
-  .fp .fp-stats--three {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }

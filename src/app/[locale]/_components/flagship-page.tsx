@@ -258,9 +258,7 @@ export default function FlagshipPage({
             <p className='fp-head-note'>{t(page.stats.note)}</p>
           </div>
           <ul
-            className={`fp-stats${
-              page.stats.items.length === 3 ? ' fp-stats--three' : ''
-            }`}
+            className='fp-stats'
             role='list'
           >
             {page.stats.items.map(item => (

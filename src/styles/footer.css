@@ -370,12 +370,13 @@
   transform: translateY(-3px);
 }
 
-/* /contacts: the page already lists the contacts, so the footer starts
-   with its columns; smaller circles stay in the band above them. */
+/* /contacts and the flagship pages: the page already lists the contacts,
+   so the footer starts with its columns, lifted close to the top (owner,
+   2026-11-05: no empty band); smaller circles sit behind them. */
 .ftr.ftr-compact {
   --ftr-ca: clamp(160px, 26vw, 340px);
   --ftr-cb: clamp(100px, 14vw, 180px);
-  padding-top: clamp(96px, 10vw, 128px);
+  padding-top: clamp(48px, 4vw, 64px);
 }
 .ftr-compact .ftr-grid {
   padding-top: 0;
