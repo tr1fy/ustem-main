@@ -16,6 +16,7 @@ import {
 } from '@/lib/site-content'
 import { coverImage, coverSize } from '../../_components/competition-card'
 import CompetitionDetail from '../../_components/competition-detail'
+import FlagshipPage from '../../_components/flagship-page'
 import { StaggerReveal } from '../../_components/competitions-showcase'
 import { NewsCard, latestNews } from '../../_components/news-card'
 import { SectionHead } from '../../_components/ui'
@@ -131,6 +132,9 @@ export default function CompetitionPage({ params: { locale, slug } }: Params) {
           }}
         />
       )}
+      {event.page ? (
+        <FlagshipPage event={event} locale={locale} />
+      ) : (
       <div className='container cmp-page'>
         <nav aria-label={t(text.breadcrumb)}>
           <ol className='breadcrumbs'>
@@ -172,6 +176,7 @@ export default function CompetitionPage({ params: { locale, slug } }: Params) {
           </div>
         </div>
       </div>
+      )}
 
       {related.length > 0 && (
         <section className='container cmp-related' aria-labelledby='cmp-news-title'>
