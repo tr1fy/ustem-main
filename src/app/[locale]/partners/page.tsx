@@ -11,7 +11,6 @@ import {
 import { localize, navItems, site, words, type Localized } from '@/lib/site-content'
 import { alternatesFor, htmlLang } from '@/lib/seo'
 import { PageHead, SectionHead } from '../_components/ui'
-import ImpactCard from '../_components/impact-card'
 import PartnerLogos from '../_components/partner-logos'
 import { Reveal } from '../_components/reveal'
 
@@ -200,10 +199,6 @@ export default function PartnersPage({
           </Reveal>
         </div>
       </section>
-
-      {/* Same numbers component as the homepage (TZ §8.5); renders its own
-          <section> and H2. */}
-      <ImpactCard variant='plain' />
 
       <section className='section' aria-labelledby='partners-logos'>
         <div className='container'>

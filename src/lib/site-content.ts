@@ -704,9 +704,8 @@ export const audiences: {
   }
 ]
 
-/** Main menu (TZ §5.1), in this exact order. */
+/** Main menu: five items (2026-11-05), in this exact order. */
 export const navItems = [
-  { key: 'about', href: '/about', label: words('Біз туралы', 'О нас', 'About us') },
   {
     key: 'competitions',
     href: '/competitions',
@@ -717,19 +716,21 @@ export const navItems = [
     href: '/academy',
     label: words('USTEM Academy', 'USTEM Academy', 'USTEM Academy')
   },
-  { key: 'projects', href: '/projects', label: words('Жобалар', 'Проекты', 'Projects') },
+  { key: 'about', href: '/about', label: words('Біз туралы', 'О нас', 'About us') },
   { key: 'news', href: '/news', label: words('Жаңалықтар', 'Новости', 'News') },
   {
     key: 'partners',
     href: '/partners',
     label: words('Серіктестерге', 'Партнёрам', 'For Partners')
-  },
-  {
-    key: 'contacts',
-    href: '/contacts',
-    label: words('Контактілер', 'Контакты', 'Contacts')
   }
 ] as const
+
+/** Pages that left the main menu (2026-11-05): still reachable from About
+    (projects) and the footer (contacts), old URLs keep working. */
+export const subPages = {
+  projects: { href: '/projects', label: words('Жобалар', 'Проекты', 'Projects') },
+  contacts: { href: '/contacts', label: words('Контактілер', 'Контакты', 'Contacts') }
+} as const
 
 export const languages = [
   { code: 'kz', short: 'KK', name: 'Қазақша', lang: 'kk' },
@@ -783,9 +784,9 @@ export const ui = {
     'The foundation advancing engineering education'
   ),
   heroText: words(
-    'USTEM Foundation балаларды, педагогтерді және серіктестерді ғылым мен технология төңірегінде біріктіреді: жарыстар өткізеді, педагогтерді оқытады және жас инженерлерді қолдайды.',
-    'USTEM Foundation объединяет детей, педагогов и партнёров вокруг науки и технологий: проводит соревнования, обучает педагогов и поддерживает молодых инженеров.',
-    'USTEM Foundation brings students, teachers and partners together around science and technology: it runs competitions, trains teachers and supports young engineers.'
+    'USTEM Foundation Орталық Азиядағы балаларды, педагогтерді және серіктестерді ғылым мен технология төңірегінде біріктіреді: жарыстар өткізеді, педагогтерді оқытады және жас инженерлерді қолдайды.',
+    'USTEM Foundation объединяет детей, педагогов и партнёров Центральной Азии вокруг науки и технологий: проводит соревнования, обучает педагогов и поддерживает молодых инженеров.',
+    'USTEM Foundation brings students, teachers and partners across Central Asia together around science and technology: it runs competitions, trains teachers and supports young engineers.'
   ),
   heroCta: words('Жарыстарды көру', 'Смотреть соревнования', 'Explore competitions'),
   heroAbout: words('Біз туралы', 'О нас', 'About us'),
@@ -1142,9 +1143,9 @@ export const events: SiteEvent[] = [
     title: 'Almaty Tech Cup',
     kind: 'flagship',
     fact: words(
-      'Алматыдағы жыл сайынғы робототехника, инженерия және ЖИ чемпионаты.',
-      'Ежегодный чемпионат по робототехнике, инженерии и ИИ в Алматы.',
-      'Almaty’s annual championship in robotics, engineering and AI.'
+      'Робототехника, инженерия және ЖИ чемпионаты. Алматы.',
+      'Чемпионат по робототехнике, инженерии и ИИ. Алматы.',
+      'Robotics, engineering and AI championship. Almaty.'
     ),
     detail: words(
       'USTEM Foundation ұйымдастыратын технология чемпионаты. XII чемпионат «Age of AI» 2026 жылғы 30 маусым – 1 шілдеде Almaty Arena-да өтті: 3000-нан астам қатысушы, 14 жарыс, 10 000 қонақ, 5 ел.',
@@ -1157,9 +1158,9 @@ export const events: SiteEvent[] = [
       '2026 · Almaty Arena · 3,000+ participants · 14 competitions · 10,000 visitors · 5 countries'
     ),
     next: words(
-      'маусым 2027 · FIRST Tech Challenge Premier Event · 96 командаға дейін',
-      'июнь 2027 · FIRST Tech Challenge Premier Event · до 96 команд',
-      'June 2027 · FIRST Tech Challenge Premier Event · up to 96 teams'
+      'маусым 2027 · Алматы',
+      'июнь 2027 · Алматы',
+      'June 2027 · Almaty'
     ),
     cover: '/images/projects/almaty-tech-cup-cover.jpg',
     officialUrl: 'https://www.almaty-tech-cup.kz',
@@ -1271,9 +1272,9 @@ export const events: SiteEvent[] = [
     title: 'Alem Tech Fest',
     kind: 'flagship',
     fact: words(
-      'Астанадағы технология фестивалі: FIRST, RoboCup, дрон жарыстары және Physical AI.',
-      'Технологический фестиваль в Астане: FIRST, RoboCup, гонки дронов и Physical AI.',
-      'A technology festival in Astana: FIRST, RoboCup, drone racing and Physical AI.'
+      'Технология фестивалі: FIRST, RoboCup, дрондар, Physical AI. Астана.',
+      'Технологический фестиваль: FIRST, RoboCup, дроны, Physical AI. Астана.',
+      'Technology festival: FIRST, RoboCup, drones, Physical AI. Astana.'
     ),
     detail: words(
       '2026 жылғы 11–13 ақпанда Астанада, EXPO алаңында өтті: 5000-нан астам қатысушы. Бағдарламада — Central Asia FIRST Championship, FIRST LEGO League, FIRST Tech Challenge, RoboCup, дрон жарыстары және Physical AI Championship.',
@@ -1286,9 +1287,9 @@ export const events: SiteEvent[] = [
       '2026 · Astana, EXPO · 5,000+ participants · 500+ teams · 7 countries and regions'
     ),
     next: words(
-      '18–21 ақпан 2027 · Астана · Central Asia FIRST Championship 2027',
-      '18–21 февраля 2027 · Астана · Central Asia FIRST Championship 2027',
-      '18–21 February 2027 · Astana · Central Asia FIRST Championship 2027'
+      '18–21 ақпан 2027 · Астана',
+      '18–21 февраля 2027 · Астана',
+      '18–21 February 2027 · Astana'
     ),
     cover: '/images/projects/alem-tech-fest-cover.jpg',
     officialUrl: 'https://alemtechfest.kz',
@@ -1381,10 +1382,11 @@ export const events: SiteEvent[] = [
     title: 'AI & Digital Bridge',
     kind: 'flagship',
     fact: words(
-      'Астанадағы халықаралық жасанды интеллект форумы: USTEM Foundation ұйымдастыратын робототехника аймағы және FIRST жарыстары.',
-      'Международный форум по искусственному интеллекту в Астане: зона робототехники USTEM Foundation и соревнования FIRST.',
-      'An international AI forum in Astana: the USTEM Foundation robotics zone and FIRST competitions.'
+      'Халықаралық жасанды интеллект форумы және FIRST жарыстары. Астана.',
+      'Международный форум по искусственному интеллекту и соревнования FIRST. Астана.',
+      'International AI forum and FIRST competitions. Astana.'
     ),
+    next: words('2027 · Астана', '2027 · Астана', '2027 · Astana'),
     detail: words(
       'AI & Digital Bridge — Астанада өтетін халықаралық жасанды интеллект форумы. 2026 жылы форум 1–3 қазанда Астанадағы EXPO-да өтті. Оның алдындағы AI Month 2026 бағдарламасына FIRST LEGO League Future Edition және FIRST Tech Challenge бағыттары, сондай-ақ студенттерге арналған Unitree G1 гуманоидты роботындағы хакатон енді. 24–25 қыркүйекте USTEM Foundation Alem.ai алаңында FIRST Tech Challenge маусымын ашатын AI & Digital Bridge Cup жарысын өткізді: Қазақстан мен Өзбекстаннан 35 команда қатысты. Форумдағы робототехника аймағын USTEM Foundation Kerneu Group-пен бірлесіп ұйымдастырды: онда гуманоидты роботтар, робот-иттер және үстел теннисі ойнайтын роботтар көрсетілді.',
       'AI & Digital Bridge — международный форум по искусственному интеллекту в Астане. В 2026 году форум прошёл 1–3 октября в EXPO, Астана. В программу предшествовавшего ему AI Month 2026 вошли направления FIRST LEGO League Future Edition и FIRST Tech Challenge, а также хакатон для студентов на гуманоидном роботе Unitree G1. 24–25 сентября USTEM Foundation провёл на площадке Alem.ai соревнование AI & Digital Bridge Cup, открывающее сезон FIRST Tech Challenge: 35 команд из Казахстана и Узбекистана. Зону робототехники форума USTEM Foundation организовал вместе с Kerneu Group: там показали человекоподобных роботов, робособак и роботов, играющих в настольный теннис.',

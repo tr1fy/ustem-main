@@ -6,6 +6,7 @@ import {
   copy,
   localize,
   navItems,
+  subPages,
   projects,
   site,
   trustItems,
@@ -61,7 +62,8 @@ const text = {
   facts: [
     { value: '2020', label: words('10 ақпанда Алматыда құрылды', 'основан 10 февраля в Алматы', 'founded on 10 February in Almaty') },
     { value: '1 000+', label: words('өңірлік жарыс өткізілді', 'региональных соревнований', 'regional competitions held') },
-    { value: '3', label: words('ел: Қазақстан, Өзбекстан, Қырғызстан', 'страны: Казахстан, Узбекистан, Кыргызстан', 'countries: Kazakhstan, Uzbekistan, Kyrgyzstan') }
+    { value: '3', label: words('ел: Қазақстан, Өзбекстан, Қырғызстан', 'страны: Казахстан, Узбекистан, Кыргызстан', 'countries: Kazakhstan, Uzbekistan, Kyrgyzstan') },
+    { value: '30+', label: words('маман: инженерлер, педагогтер, жаттықтырушылар', 'специалистов: инженеры, педагоги, тренеры', 'specialists: engineers, educators, coaches') }
   ],
   path: words('Біздің жол', 'Наш путь', 'Our path'),
   pathSteps: [
@@ -189,7 +191,7 @@ export default function AboutPage({
     },
     {
       href: '/projects',
-      title: t(navLabel('projects')),
+      title: t(subPages.projects.label),
       line: t(ui.projectsLead)
     }
   ]
@@ -273,22 +275,6 @@ export default function AboutPage({
               </li>
             ))}
           </ul>
-          <div className='pg-v2-team'>
-            <div className='pg-v2-team-media'>
-            <img
-              src='/images/people/team-staff-1132.jpg'
-              alt={t(text.teamAlt)}
-              width={1132}
-              height={794}
-              loading='lazy'
-              decoding='async'
-            />
-          </div>
-            <div className='pg-v2-team-body'>
-              <h2 id='pg-team-title'>{t(text.team)}</h2>
-              <p>{t(text.teamText)}</p>
-            </div>
-          </div>
         </div>
       </section>
 
