@@ -210,7 +210,7 @@
  * 12-column desktop grid --span from tileSpans() keeps every row full.
  * ====================================================================== */
 .cmp-tiles {
-  --row: clamp(160px, 46vw, 260px);
+  --row: clamp(150px, 42vw, 220px);
   display: grid;
   grid-auto-rows: var(--row);
   gap: 12px;
@@ -405,7 +405,7 @@
 }
 @media (min-width: 768px) {
   .cmp-tiles {
-    --row: clamp(220px, 28vw, 280px);
+    --row: clamp(180px, 23vw, 220px);
     gap: 16px;
   }
   .cmp-card--tile {
@@ -427,7 +427,7 @@
 }
 @media (min-width: 1024px) {
   .cmp-tiles {
-    --row: clamp(220px, 19vw, 272px);
+    --row: clamp(170px, 14vw, 204px);
     grid-template-columns: repeat(12, minmax(0, 1fr));
     gap: 20px;
   }
