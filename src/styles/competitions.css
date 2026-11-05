@@ -922,11 +922,11 @@
 .cmp-detail--flagship {
   gap: 20px;
 }
-.cmp-detail--flagship .cmp-detail-text {
-  display: block;
-  -webkit-line-clamp: unset;
-  line-clamp: unset;
-  overflow: visible;
+.cmp-teaser-meta {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink);
+  font-weight: 500;
 }
 .cmp-teaser-tracks {
   font-size: 1rem;

@@ -1130,9 +1130,9 @@ export const events: SiteEvent[] = [
       'A technology championship organized by USTEM Foundation. The XII championship “Age of AI” took place on 30 June – 1 July 2026 at Almaty Arena: 3,000+ participants, 14 competitions, 10,000 visitors, 5 countries.'
     ),
     meta: words(
-      '2026 · Almaty Arena · 3000+ қатысушы · 14 бағыт · 5 ел',
-      '2026 · Almaty Arena · 3000+ участников · 14 направлений · 5 стран',
-      '2026 · Almaty Arena · 3,000+ participants · 14 competition tracks · 5 countries'
+      '2026 · Almaty Arena · 3000+ қатысушы · 14 жарыс · 10 000 қонақ · 5 ел',
+      '2026 · Almaty Arena · 3000+ участников · 14 соревнований · 10 000 гостей · 5 стран',
+      '2026 · Almaty Arena · 3,000+ participants · 14 competitions · 10,000 visitors · 5 countries'
     ),
     next: words(
       'маусым 2027 · FIRST Tech Challenge Premier Event · 96 командаға дейін',

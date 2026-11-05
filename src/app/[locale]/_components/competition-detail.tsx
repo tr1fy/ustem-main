@@ -72,7 +72,7 @@ export default function CompetitionDetail({
           </Title>
           <p className='cmp-detail-fact'>{t(page.description)}</p>
         </div>
-        <p className='cmp-detail-text'>{t(event.detail)}</p>
+        {event.meta && <p className='cmp-teaser-meta'>{t(event.meta)}</p>}
         <p className='cmp-teaser-tracks'>
           <strong>{t(text.tracks)}:</strong>{' '}
           {page.tracks.map(item => t(item.name)).join(' · ')}
