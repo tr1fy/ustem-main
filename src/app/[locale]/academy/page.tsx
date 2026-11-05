@@ -25,9 +25,9 @@ import PublicDiscussion from '../_components/public-discussion'
  */
 const text = {
   lead: words(
-    'Педагогтерге арналған робототехниканы сабақта қолдану бағдарламасы.',
-    'Программа для педагогов по применению робототехники на уроке.',
-    'A program for teachers on using robotics in the classroom.'
+    'Педагогтерге арналған робототехника және ғарыштық инженерия бағдарламалары.',
+    'Программы для педагогов по робототехнике и космической инженерии.',
+    'Robotics and space engineering programs for teachers.'
   ),
   description: words(
     'USTEM Academy — педагогтерге арналған Robotics Lab және Space Lab бағдарламалары және олардың жария талқылауы.',

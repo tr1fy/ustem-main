@@ -29,7 +29,7 @@ import { Count } from './reveal'
  */
 
 const text = {
-  flagship: words('Флагман жарыс', 'Флагманское событие', 'Flagship event'),
+  flagship: words('Флагман іс-шара', 'Флагманское событие', 'Flagship event'),
   howToJoin: words(
     'Қалай қатысуға болады',
     'Как принять участие',
@@ -40,13 +40,13 @@ const text = {
     'Прошлый год в цифрах',
     'Last year in numbers'
   ),
-  mission: words('Мақсаты', 'Миссия', 'Mission'),
+  mission: words('Миссиясы', 'Миссия', 'Mission'),
   tracks: words(
     'Чемпионат жарыс бағыттары',
     'Направления чемпионата',
     'Championship tracks'
   ),
-  nextEvent: words('Келесі жарыс', 'Следующее соревнование', 'Next event'),
+  nextEvent: words('Келесі іс-шара', 'Следующее событие', 'Next event'),
   join: words('Қатысу', 'Участие', 'Take part'),
   connectOnly: words(
     'Біздің барлық жарысқа тіркелу USTEM Connect арқылы өтеді',
