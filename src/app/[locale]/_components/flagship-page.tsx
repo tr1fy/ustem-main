@@ -1,7 +1,7 @@
 'use client'
 
-import { useId, type ReactNode } from 'react'
-import { ArrowUpRightIcon } from '@heroicons/react/24/outline'
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
+import { ArrowUpRightIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link } from '@/i18n/routing'
 import { track } from '@/lib/analytics'
 import {
@@ -21,10 +21,13 @@ import { Count } from './reveal'
  * day): name + one-sentence description with a six-photo mosaic, last
  * year's numbers counting up from zero, mission, the six tracks in one
  * divided rectangle, the next edition, one «how to take part» card
- * (registration for every USTEM competition goes through USTEM Connect;
- * no rules step, user 2026-11-05), contacts. Nothing else: cost, deadlines,
- * rules, partners and reports live on the event's own site, and «Official
- * website» links there directly (no notice dialog, user 2026-11-05).
+ * (registration through USTEM Connect, or on the event's own site where
+ * `page.join` says so; no rules step, user 2026-11-05), contacts. Nothing
+ * else: cost, deadlines, rules, partners and reports live on the event's
+ * own site. «Official website» links there directly, except where
+ * `page.siteNotice` is set (Almaty Tech Cup, whose site still shows last
+ * season): then a small notice opens first, with a «go to the site anyway»
+ * link under it (user 2026-11-05).
  */
 
 const text = {
@@ -48,14 +51,26 @@ const text = {
   nextEvent: words('Келесі іс-шара', 'Следующее событие', 'Next event'),
   join: words('Қатысу', 'Участие', 'Take part'),
   connectOnly: words(
-    'Біздің барлық жарысқа тіркелу USTEM Connect арқылы өтеді',
-    'Регистрация на все наши соревнования проходит через USTEM Connect',
-    'Registration for all our competitions goes through USTEM Connect'
+    'USTEM Foundation жарыстарына тіркелу USTEM Connect платформасы арқылы жүргізіледі',
+    'Регистрация на соревнования USTEM Foundation осуществляется через платформу USTEM Connect',
+    'Registration for USTEM Foundation competitions is carried out through the USTEM Connect platform'
+  ),
+  siteOnly: words(
+    'Фестивальге тіркелу ресми сайтында жүргізіледі',
+    'Регистрация на фестиваль проводится на официальном сайте',
+    'Registration for the festival takes place on the official website'
   ),
   goConnect: words(
     'USTEM Connect-ке өту',
     'Перейти в USTEM Connect',
     'Open USTEM Connect'
+  ),
+  notice: words('Хабарландыру', 'Уведомление', 'Notice'),
+  close: words('Жабу', 'Закрыть', 'Close'),
+  anyway: words(
+    'Ресми сайтқа бәрібір өту',
+    'Всё равно перейти на официальный сайт',
+    'Go to the official website anyway'
   ),
   contacts: words('Байланыс', 'Контакты', 'Contacts'),
   email: words('Пошта', 'Почта', 'Email'),
@@ -130,6 +145,102 @@ const icons: Record<FlagshipTrackIcon, ReactNode> = {
   )
 }
 
+/**
+ * The notice shown before the official site: a small modal dialog. It
+ * focuses its close button, closes on Escape and on the backdrop, and
+ * gives focus back to the button that opened it.
+ */
+function SiteNotice({
+  event,
+  locale,
+  open,
+  onClose,
+  returnTo
+}: {
+  event: SiteEvent
+  locale: string
+  open: boolean
+  onClose: () => void
+  returnTo: React.RefObject<HTMLButtonElement>
+}) {
+  const t = (value: Localized) => localize(value, locale)
+  const titleId = useId()
+  const closeRef = useRef<HTMLButtonElement>(null)
+  const notice = event.page!.siteNotice
+  useEffect(() => {
+    if (!open) return
+    closeRef.current?.focus()
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    document.addEventListener('keydown', onKey)
+    document.documentElement.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.documentElement.style.overflow = ''
+      returnTo.current?.focus()
+    }
+  }, [open, onClose, returnTo])
+  if (!open || !notice) return null
+  return (
+    <div className='fp-backdrop' onClick={onClose}>
+      <div
+        className='fp-dialog'
+        role='dialog'
+        aria-modal='true'
+        aria-labelledby={titleId}
+        onClick={e => e.stopPropagation()}
+      >
+        <button
+          ref={closeRef}
+          type='button'
+          className='fp-dialog-x'
+          onClick={onClose}
+          aria-label={t(text.close)}
+        >
+          <XMarkIcon aria-hidden='true' />
+        </button>
+        <span className='chip fp-dialog-chip'>{t(text.notice)}</span>
+        <h2 id={titleId} className='fp-dialog-title'>
+          {t(notice.title)}
+        </h2>
+        <p className='fp-dialog-text'>{t(notice.text)}</p>
+        <div className='fp-dialog-actions'>
+          <a
+            className='btn btn-primary'
+            href={notice.channel.url}
+            target='_blank'
+            rel='noreferrer'
+            onClick={() =>
+              track('rules_channel_click', {
+                slug: event.slug,
+                channel: notice.channel.label
+              })
+            }
+          >
+            {notice.channel.label}
+            <span className='visually-hidden'> {t(text.newTab)}</span>
+          </a>
+          <button type='button' className='btn btn-secondary' onClick={onClose}>
+            {t(text.close)}
+          </button>
+        </div>
+        <a
+          className='fp-dialog-anyway'
+          href={event.officialUrl}
+          target='_blank'
+          rel='noreferrer'
+          onClick={() => track('official_site_anyway', { slug: event.slug })}
+        >
+          {t(text.anyway)}
+          <span className='visually-hidden'> {t(text.newTab)}</span>
+          <ArrowUpRightIcon aria-hidden='true' />
+        </a>
+      </div>
+    </div>
+  )
+}
+
 function TrackIcon({ icon }: { icon: FlagshipTrackIcon }) {
   return (
     <svg
@@ -160,6 +271,12 @@ export default function FlagshipPage({
   const tracksId = useId()
   const nextId = useId()
   const contactsId = useId()
+  const [noticeOpen, setNoticeOpen] = useState(false)
+  const openerRef = useRef<HTMLButtonElement>(null)
+  const openNotice = () => {
+    track('official_site_notice', { slug: event.slug })
+    setNoticeOpen(true)
+  }
   const [titleA, titleB] = event.title.split(' Tech ')
   const siteHost = event.officialUrl
     ?.replace(/^https?:\/\/(www\.)?/, '')
@@ -197,15 +314,26 @@ export default function FlagshipPage({
               </h1>
               <p className='fp-lead'>{t(page.description)}</p>
               <div className='fp-actions'>
-                <a
-                  className='btn btn-primary'
-                  href={event.officialUrl}
-                  target='_blank'
-                  rel='noreferrer'
-                >
-                  {t(ui.officialSite)}
-                  <span className='visually-hidden'> {t(text.newTab)}</span>
-                </a>
+                {page.siteNotice ? (
+                  <button
+                    ref={openerRef}
+                    type='button'
+                    className='btn btn-primary'
+                    onClick={openNotice}
+                  >
+                    {t(ui.officialSite)}
+                  </button>
+                ) : (
+                  <a
+                    className='btn btn-primary'
+                    href={event.officialUrl}
+                    target='_blank'
+                    rel='noreferrer'
+                  >
+                    {t(ui.officialSite)}
+                    <span className='visually-hidden'> {t(text.newTab)}</span>
+                  </a>
+                )}
                 <a className='btn btn-secondary' href='#fp-join'>
                   {t(text.howToJoin)}
                 </a>
@@ -249,7 +377,7 @@ export default function FlagshipPage({
 
       {/* 2. Last year's numbers, counting up from zero */}
       <section
-        className='fp-section fp-section--numbers'
+        className='fp-section fp-section--numbers is-center'
         aria-labelledby={statsId}
       >
         <div className='container'>
@@ -360,7 +488,8 @@ export default function FlagshipPage({
         </div>
       </section>
 
-      {/* 5. How to take part: one line, registration via USTEM Connect */}
+      {/* 5. How to take part: one line, registration via USTEM Connect or
+          on the event's own site */}
       <section
         id='fp-join'
         className='fp-section'
@@ -371,23 +500,47 @@ export default function FlagshipPage({
             {t(text.join)}
           </h2>
           <div className='fp-join-card'>
-            <p className='fp-step-title'>{t(text.connectOnly)}</p>
-            <a
-              className='btn btn-primary fp-step-cta'
-              href={site.connectUrl}
-              target='_blank'
-              rel='noreferrer'
-              onClick={() =>
-                track('connect_click', {
-                  place: 'competition',
-                  slug: event.slug
-                })
-              }
-            >
-              {t(text.goConnect)}
-              <span className='visually-hidden'> {t(text.newTab)}</span>
-              <ArrowUpRightIcon aria-hidden='true' />
-            </a>
+            {page.join === 'site' ? (
+              <>
+                <p className='fp-step-title'>{t(text.siteOnly)}</p>
+                <a
+                  className='btn btn-primary fp-step-cta'
+                  href={event.officialUrl}
+                  target='_blank'
+                  rel='noreferrer'
+                  onClick={() =>
+                    track('official_site_click', {
+                      place: 'join',
+                      slug: event.slug
+                    })
+                  }
+                >
+                  {siteHost}
+                  <span className='visually-hidden'> {t(text.newTab)}</span>
+                  <ArrowUpRightIcon aria-hidden='true' />
+                </a>
+              </>
+            ) : (
+              <>
+                <p className='fp-step-title'>{t(text.connectOnly)}</p>
+                <a
+                  className='btn btn-primary fp-step-cta'
+                  href={site.connectUrl}
+                  target='_blank'
+                  rel='noreferrer'
+                  onClick={() =>
+                    track('connect_click', {
+                      place: 'competition',
+                      slug: event.slug
+                    })
+                  }
+                >
+                  {t(text.goConnect)}
+                  <span className='visually-hidden'> {t(text.newTab)}</span>
+                  <ArrowUpRightIcon aria-hidden='true' />
+                </a>
+              </>
+            )}
           </div>
         </div>
       </section>
@@ -463,6 +616,13 @@ export default function FlagshipPage({
         </div>
       </section>
 
+      <SiteNotice
+        event={event}
+        locale={locale}
+        open={noticeOpen}
+        onClose={() => setNoticeOpen(false)}
+        returnTo={openerRef}
+      />
     </div>
   )
 }

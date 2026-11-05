@@ -229,6 +229,24 @@
     flex: 0 1 auto;
   }
 }
+/* Centred (owner's pick, 2026-11-05): heading and note stacked in the
+   middle, the numbers centred under them with wide gaps. */
+.fp-section--numbers.is-center .fp-head {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+}
+.fp-section--numbers.is-center .fp-stats li {
+  align-items: center;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .fp-section--numbers.is-center .fp-stats {
+    justify-content: center;
+    gap: 32px clamp(64px, 9vw, 144px);
+  }
+}
 
 /* ---------- 3. mission ---------- */
 .fp-mission {
@@ -545,7 +563,8 @@
   }
 }
 
-/* ---------- dialog shell (used by the homepage reports list) ---------- */
+/* ---------- notice before the official site (also the shell of the
+   homepage reports list) ---------- */
 .fp-backdrop {
   position: fixed;
   inset: 0;
@@ -591,15 +610,56 @@
   width: 20px;
   height: 20px;
 }
+.fp-dialog-chip {
+  align-self: flex-start;
+  background: var(--tint);
+  color: var(--blue);
+}
 .fp-dialog-title {
   font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.625rem);
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.03em;
 }
+.fp-dialog-text {
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.fp-dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+/* «Go to the site anyway»: a quiet text link under the buttons */
+.fp-dialog-anyway {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  align-self: flex-start;
+  margin-top: 4px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--dur) var(--ease);
+}
+.fp-dialog-anyway:hover {
+  color: var(--blue);
+}
+.fp-dialog-anyway svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+}
 @media (max-width: 479px) {
   .fp-dialog {
     padding: 32px 24px 24px;
+  }
+  .fp-dialog-actions .btn {
+    width: 100%;
   }
 }
 @keyframes fp-fade {
