@@ -133,19 +133,23 @@
   font-size: 0.9375rem;
   color: var(--muted);
 }
+/* four soft tiles, alternating blue tint and paper; no hairlines */
 .fp-stats {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 28px 24px;
-  padding-block: 32px;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+  gap: 12px;
 }
 .fp-stats li {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   min-width: 0;
+  padding: 24px 24px 22px;
+  border-radius: 20px;
+  background: var(--tint);
+}
+.fp-stats li:nth-child(even) {
+  background: var(--paper);
 }
 .fp-stat-value {
   font-size: clamp(2.5rem, 1.6rem + 2.6vw, 3.375rem);
@@ -163,12 +167,11 @@
 @media (min-width: 768px) {
   .fp-stats {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 32px;
-    padding-block: 36px;
+    gap: 16px;
   }
-  .fp-stats li + li {
-    padding-left: 32px;
-    border-left: 1px solid var(--line);
+  .fp-stats li {
+    padding: 32px 32px 28px;
+    border-radius: var(--radius);
   }
 }
 
