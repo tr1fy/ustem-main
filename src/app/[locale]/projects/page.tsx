@@ -16,7 +16,8 @@ import { Reveal } from '../_components/reveal'
 
 /*
  * Жобалар / Проекты — TZ §8.3: STEM Hanym (external ↗), Jasampaz Urpaq and
- * USTEM Academy (the program, leading to /academy). Large airy cards: the sub-brand artwork framed on brand paper (never
+ * USTEM Academy (the program, leading to /academy). Three airy cards in
+ * one row on desktop: the sub-brand artwork framed on brand paper (never
  * full-bleed, so the page stays USTEM's), text below it, the whole card is
  * one link (stretched .card-link). The head closes with one 2px Aral rule.
  */

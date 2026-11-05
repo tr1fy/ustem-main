@@ -584,6 +584,15 @@ export const ui = {
   ),
   footerTitle: words('Ынтымақтастық', 'Сотрудничество', 'Collaboration'),
   footerCta: words('Пікір қалдыру', 'Оставить отзыв', 'Leave feedback'),
+  /** /partners: the footer shows the e-mail itself instead of the feedback
+   *  button, so a would-be partner sees where to write (owner, 2026-11-05). */
+  footerPartnersTitle: words('Серіктес болыңыз', 'Станьте партнёром', 'Become a partner'),
+  footerPartnersLead: words(
+    'Серіктестік туралы осы поштаға жазыңыз — форматын бірге талқылаймыз.',
+    'О партнёрстве пишите на эту почту — формат обсудим вместе.',
+    'Write to this address about partnership and we will work out the format together.'
+  ),
+  footerPartnersSubject: words('Серіктестік', 'Партнёрство', 'Partnership'),
   /** One line under the footer heading, addressed to every audience. */
   footerLead: words(
     'Бағдарламалар, жарыстар немесе бірлескен жобалар туралы сұрағыңыз болса, жазыңыз.',
