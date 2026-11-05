@@ -1364,9 +1364,10 @@ export const events: SiteEvent[] = [
           '18–21 February 2027 · Astana, Kazakh National University of Sports (KNUS)'
         )
       },
+      // The regulations are published on the festival site itself.
       rules: [
-        { label: 'Instagram @alemtechfest', url: 'https://www.instagram.com/alemtechfest/' },
-        { label: 'Telegram @firstroboticskz', url: 'https://t.me/firstroboticskz' }
+        { label: 'alemtechfest.kz', url: 'https://alemtechfest.kz' },
+        { label: 'Instagram @alemtechfest', url: 'https://www.instagram.com/alemtechfest/' }
       ],
       contacts: {
         email: 'hello@ustemfoundation.org',
