@@ -92,7 +92,7 @@ export const testimonials = [
     quote: words(
       'Бізге ақылды мамандар, инженерлер қажет, сондықтан STEM саласын дәл қазір дамытуға ерекше көңіл бөлу маңызды. Кейде балаларды шетелдегі мықты университетте оқытсақ, мықты маман аламыз деп ойлаймыз. Мен бизнес саласында шамамен 35 жыл жүрмін және баланың болашағының 80 пайызы мектеп қабырғасынан басталады деп сенімді айта аламын.',
       'Нам нужны умные специалисты, инженеры, поэтому важно уделить должное внимание развитию STEM уже сейчас. Иногда нам кажется, что, обучив детей в сильном вузе за рубежом, мы получим сильных специалистов. Я в бизнесе около 35 лет и могу уверенно сказать: 80% будущего ребёнка начинается со школьной скамьи.',
-      'We need capable specialists and engineers, so developing STEM now matters. After almost 35 years in business, I can say with confidence that 80% of a child’s future begins at school.'
+      'We need capable specialists and engineers, so it is important to pay special attention to STEM right now. We sometimes think that if our children study at a strong university abroad, we will get strong specialists. I have been in business for about 35 years, and I can say with confidence that 80% of a child’s future begins at school.'
     )
   },
   {
@@ -101,8 +101,8 @@ export const testimonials = [
     photo: '/feedback-photos/bagdat.jpg',
     quote: words(
       'Экономикамызда инженерлердің тапшылығы айқын сезіледі. Инженерлік ойлау барлық жерде және әрдайым болуы керек, ол инновациялық өнімдер тудырады. Менің ойымша, прогресс USTEM Foundation командасы ұйымдастыратын осындай чемпионаттардан басталады: жұмыс істей алған шағын идеялардан, тіпті олар әзірге шағын көлемде болса да.',
-      'В нашей экономике чувствуется острый дефицит инженеров. Инженерная мысль должна присутствовать везде и всегда, создавая инновационные продукты. Прогресс начинается с чемпионатов, которые организует команда USTEM Foundation, — с небольших идей, которые удалось заставить работать, пусть пока и в микромасштабе.',
-      'Our economy faces a real shortage of engineers. Engineering thinking should be present everywhere, creating innovative products. Progress begins at championships like those organized by USTEM Foundation — with small ideas that have been made to work.'
+      'В нашей экономике чувствуется острый дефицит инженеров. Инженерная мысль должна присутствовать везде и всегда, создавая инновационные продукты. На мой взгляд, прогресс начинается с чемпионатов, которые организует команда USTEM Foundation, — с небольших идей, которые удалось заставить работать, пусть пока и в микромасштабе.',
+      'Our economy faces an acute shortage of engineers. Engineering thinking should be present everywhere and always: it creates innovative products. In my view, progress begins at championships like those organized by the USTEM Foundation team — with small ideas that have been made to work, even if only on a small scale for now.'
     )
   },
   {
@@ -115,8 +115,8 @@ export const testimonials = [
     photo: '/feedback-photos/sardar.jpg',
     quote: words(
       'FIRST чемпионаттарына қатысу менің техникалық дағдыларымды ғана емес, командада жұмыс істеу, шектеулі уақыт ішінде шешім қабылдау және стандарттан тыс идеялар ұсыну қабілетімді де дамытты. Жаңа технологияларға тез бейімделуім және FIRST-ке дайындық кезінде қалыптасқан жүйелі ойлауым Delta Airlines, Rivian және Apple компанияларындағы сұхбаттарда жоғары бағаланды.',
-      'Участие в чемпионатах FIRST не только улучшило мои технические навыки, но и развило умение работать в команде, принимать решения в условиях ограниченного времени и предлагать нестандартные решения. Моя способность быстро адаптироваться к технологиям и системный подход получили признание на собеседованиях в Delta Airlines, Rivian и Apple.',
-      'FIRST strengthened both my technical skills and my ability to work in a team, make decisions under time pressure and offer unconventional solutions. That adaptability and systematic approach were recognized during interviews with Delta Airlines, Rivian and Apple.'
+      'Участие в чемпионатах FIRST не только улучшило мои технические навыки, но и развило умение работать в команде, принимать решения в условиях ограниченного времени и предлагать нестандартные идеи. Умение быстро адаптироваться к новым технологиям и системное мышление, сформированное при подготовке к FIRST, высоко оценили на собеседованиях в Delta Airlines, Rivian и Apple.',
+      'FIRST strengthened not only my technical skills but also my ability to work in a team, make decisions under time pressure and offer unconventional ideas. My ability to adapt quickly to new technology and the systematic thinking I developed preparing for FIRST were highly valued in interviews with Delta Airlines, Rivian and Apple.'
     )
   },
   {
@@ -143,8 +143,8 @@ export const testimonials = [
     photo: '/feedback-photos/amira.jpg',
     quote: words(
       'FTC маған командалық жұмысты үйретті. Робот біреу, ал біз көп болғандықтан, әр адамның мықты тұстарын ескеру маңызды екенін түсіндік. Дайындық бізді жақындатып, нағыз командаға айналдырды. Бағдарламалаумен айналыссам да, роботты құрастырудан шет қалмадым. Кодымның инженериямен қалай байланысатынын көру өте қызықты болды.',
-      'FTC научило меня командной работе. Мы понимали, что робот один, а нас много, поэтому важно учитывать сильные стороны каждого. Подготовка сблизила нас, и мы стали настоящей командой. Даже занимаясь программированием, я не оставалась в стороне от сборки робота. Было захватывающе видеть, как мой код взаимодействует с инженерией.',
-      'FTC taught me teamwork. With one robot and many people, we learned to use everyone’s strengths. Preparation brought us together as a real team. Even as a programmer, I stayed involved in the build — seeing my code interact with the engineering was exciting.'
+      'FTC научил меня командной работе. Мы понимали, что робот один, а нас много, поэтому важно учитывать сильные стороны каждого. Подготовка сблизила нас, и мы стали настоящей командой. Даже занимаясь программированием, я не оставалась в стороне от сборки робота. Было очень интересно видеть, как мой код связан с инженерной частью.',
+      'FTC taught me teamwork. With one robot and many people, we learned to use everyone’s strengths. Preparation brought us together as a real team. Even as a programmer, I stayed involved in the build — seeing how my code connected with the engineering was exciting.'
     )
   }
 ]
@@ -180,7 +180,7 @@ const allNews: {
     text: words(
       'Инчхонда 7–10 қазанда өтетін олимпиадаға 185 ел қатысады. Қазақстан құрамасы — Алматының бес оқушысы: № 92 мамандандырылған лицейден төртеуі және № 159 гимназиядан біреуі.',
       'В олимпиаде в Инчхоне 7–10 октября участвуют 185 стран. Сборная Казахстана — пятеро школьников из Алматы: четверо из специализированного лицея № 92 и один из гимназии № 159.',
-      '185 nations take part in the olympiad in Incheon on 7–10 October. Team Kazakhstan is five students from Almaty: four from Specialized Lyceum No. 92 and one from Gymnasium No. 159.'
+      '185 nations take part in the olympiad in Incheon on 7–10 October. Team Kazakhstan consists of five students from Almaty: four from Specialized Lyceum No. 92 and one from Gymnasium No. 159.'
     ),
     body: [
       words(
@@ -231,7 +231,7 @@ const allNews: {
     title: words(
       'USTEM Connect — командалар мен жарыстарға арналған бірыңғай кабинет',
       'USTEM Connect — единый кабинет для команд и соревнований',
-      'USTEM Connect — one team hub for competitions'
+      'USTEM Connect — a single account for teams and competitions'
     ),
     text: words(
       'USTEM Foundation командаларды тіркеуге, қатысушылар мен менторларды басқаруға, іс-шараларға өтінім беруге және олардың мәртебесін бақылауға арналған платформаны іске қосты.',
@@ -267,8 +267,8 @@ const allNews: {
     category: 'foundation',
     title: words(
       'Астанада FIRST Global Challenge ұлттық іріктеуі өтті',
-      'Астана принимает отбор на FIRST Global Challenge 2026',
-      'Astana hosts the FIRST Global Challenge 2026 selection'
+      'В Астане прошёл национальный отбор на FIRST Global Challenge 2026',
+      'Astana hosted the national selection for FIRST Global Challenge 2026'
     ),
     text: words(
       '24–26 тамызда Астанада Орталық Азия командалары жиналды. Іріктеу жеңімпазы Инчхонда өтетін әлемдік чемпионатта Қазақстан намысын қорғайды.',
@@ -292,8 +292,8 @@ const allNews: {
     ),
     text: words(
       'Forbes Kazakhstan Орталық Азиядағы FIRST бағдарламасының Program Delivery Partner-і, 27 жастағы Данияр Ерматовты 2026 жылғы «30 до 30» рейтингіне енгізді. Ол мектептермен және серіктестермен бірге робототехника командалары мен инженерлік қауымдастықтарды дамытады.',
-      'Forbes Kazakhstan включил в рейтинг «30 до 30» 2026 года Данияра Ерматова, 27 лет, — Program Delivery Partner FIRST в Центральной Азии. Вместе со школами и партнёрами он развивает робототехнические команды и инженерные сообщества.',
-      'Forbes Kazakhstan included Daniyar Yermatov, 27, Program Delivery Partner for FIRST in Central Asia, in its 2026 “30 Under 30” list. Together with schools and partners he builds robotics teams and engineering communities.'
+      'Forbes Kazakhstan включил в рейтинг «30 до 30» 2026 года 27-летнего Данияра Ерматова — Program Delivery Partner FIRST в Центральной Азии. Вместе со школами и партнёрами он развивает робототехнические команды и инженерные сообщества.',
+      'Forbes Kazakhstan included Daniyar Yermatov, 27, Program Delivery Partner for FIRST in Central Asia, in its 2026 “30 Under 30” list. Together with schools and partners, he builds robotics teams and engineering communities.'
     ),
     source:
       'https://forbes.kz/articles/forbes-kazakhstan-predstavlyaet-reyting-30-do-30-e11bed'
@@ -307,7 +307,7 @@ const allNews: {
     title: words(
       'Төртінші жеңіс. Қазақстан — тағы да әлем чемпионы',
       'Четвёртая победа. Казахстан снова — чемпион мира',
-      'Four in a row. Kazakhstan are world champions again'
+      'Fourth victory. Kazakhstan is world champion again'
     ),
     text: words(
       'Панама-Ситиде Қазақстан құрамасы FIRST Global Challenge 2025 жеңімпазы атанды. Команда Grand Challenge Award және Albert Einstein Award алтын марапаттарын жеңіп алды.',
@@ -358,13 +358,13 @@ export const tournaments = [
   },
   {
     slug: 'robot-battle',
-    title: 'Battle of bots',
+    title: 'Battle of Bots',
     code: '05 / ENGINEERING',
     type: 'battle',
     fact: words(
       'Роботтар шайқасы',
-      'Инженерные поединки роботов',
-      'Robot engineering battles'
+      'Битва роботов',
+      'Robot battles'
     ),
     detail: words(
       'Командалар өз роботтарын жасап, беріктігін, басқаруын және стратегиясын аренада сынайды.',
@@ -416,7 +416,7 @@ export const tournaments = [
     ),
     detail: words(
       'Алматыдағы жыл сайынғы технология чемпионаты. FIRST, RoboCup, ABU Robocon және роботтар шайқасы бір алаңда.',
-      'Ежегодный технологический чемпионат в Алматы. FIRST, RoboCup, ABU Robocon и поединки роботов на одной площадке.',
+      'Ежегодный технологический чемпионат в Алматы. FIRST, RoboCup, ABU Robocon и битвы роботов на одной площадке.',
       'Almaty’s annual technology championship. FIRST, RoboCup, ABU Robocon and robot battles share one arena.'
     ),
     externalUrl: words(
@@ -474,7 +474,7 @@ export const tournaments = [
     ),
     detail: words(
       'Оқушылар CanSat, CubeSat, инженерлік жобалар, роверлер және ғарыштық орта бағыттарында өз шешімдерін жасайды.',
-      'Участники создают решения в направлениях CanSat, CubeSat, инженерных проектов, роверов и проектирования космической среды.',
+      'Школьники создают решения в направлениях CanSat, CubeSat, инженерных проектов, роверов и проектирования космической среды.',
       'Students build solutions across CanSat, CubeSat, engineering projects, rovers and space-environment design.'
     ),
     externalUrl: words(
@@ -722,7 +722,7 @@ export const navItems = [
   {
     key: 'partners',
     href: '/partners',
-    label: words('Серіктестерге', 'Партнёрам', 'For Partners')
+    label: words('Серіктестерге', 'Партнёрам', 'For partners')
   },
   {
     key: 'contacts',
@@ -751,7 +751,7 @@ export const publicReports: {
 }[] = [
   {
     file: '/docs/public-report-alem-techfest-2026.pdf',
-    date: words('2026 ж. 10 сәуір', '10 апреля 2026', 'April 10, 2026'),
+    date: words('2026 ж. 10 сәуір', '10 апреля 2026', '10 April 2026'),
     meta: words(
       'Alem TechFest 2026 · КҚ «Samruk-Kazyna Trust» · орыс тілінде',
       'Alem TechFest 2026 · КФ «Samruk-Kazyna Trust»',
@@ -804,7 +804,7 @@ export const ui = {
   heroPhoto2Alt: words(
     'FIRST LEGO League төрешісі ойын алаңының жанында Қазақстан командасымен заезды талқылап тұр',
     'Судья FIRST LEGO League обсуждает заезд с командой Казахстана у игрового поля',
-    'A FIRST LEGO League referee talks a run through with a team from Kazakhstan at the field'
+    'A FIRST LEGO League referee discusses a run with a team from Kazakhstan at the field'
   ),
   heroPhoto3Alt: words(
     'Қазақстан командасы FIRST Tech Challenge жарысында өз роботының жанында',
@@ -845,13 +845,13 @@ export const ui = {
   competitionsTitle: words(
     'Үш флагман іс-шара және жыл бойы — сегіз бағыт бойынша жарыстар',
     'Три флагманских события и круглый год — соревнования по восьми направлениям',
-    'Three flagship events and, all year round, competitions in eight tracks'
+    'Three flagship events and year-round competitions in eight tracks'
   ),
   competitionsLead: connectEnabled
     ? words(
         'Робототехника, дрондар, ғарыш және жасанды интеллект бойынша жарыстар. Тіркелу — USTEM Connect арқылы.',
         'Соревнования по робототехнике, дронам, космосу и искусственному интеллекту. Регистрация — через USTEM Connect.',
-        'Competitions in robotics, drones, space and artificial intelligence. Registration is through USTEM Connect.'
+        'Competitions in robotics, drones, space and artificial intelligence. Register through USTEM Connect.'
       )
     : words(
         'Робототехника, дрондар, ғарыш және жасанды интеллект бойынша жарыстар.',
@@ -871,12 +871,12 @@ export const ui = {
     words(
       'USTEM Connect платформасында тіркеліңіз.',
       'Зарегистрируйтесь в USTEM Connect.',
-      'Sign up on USTEM Connect.'
+      'Register on USTEM Connect.'
     ),
     words(
       'Команда құрып, жарысты таңдаңыз.',
       'Соберите команду и выберите соревнование.',
-      'Build a team and choose the competition.'
+      'Form a team and choose a competition.'
     ),
     words(
       'Өтінім беріп, оның мәртебесін кабинетте бақылаңыз.',
@@ -884,7 +884,7 @@ export const ui = {
       'Apply and track your application status in your account.'
     )
   ],
-  joinInConnect: words('USTEM Connect-те тіркелу', 'Регистрация в USTEM Connect', 'Register in USTEM Connect'),
+  joinInConnect: words('USTEM Connect-те тіркелу', 'Регистрация в USTEM Connect', 'Register on USTEM Connect'),
   age: words('Жасы', 'Возраст', 'Age'),
   format: words('Формат', 'Формат', 'Format'),
   season: words('Маусым', 'Сезон', 'Season'),
@@ -929,7 +929,7 @@ export const ui = {
     'Support young engineers’ first step.'
   ),
   footerTitle: words('Ынтымақтастық', 'Сотрудничество', 'Collaboration'),
-  footerCta: words('Пікір қалдыру', 'Оставить заявку', 'Leave a message'),
+  footerCta: words('Пікір қалдыру', 'Оставить отзыв', 'Leave feedback'),
   /** One line under the footer heading, addressed to every audience. */
   footerLead: words(
     'Бағдарламалар, жарыстар немесе бірлескен жобалар туралы сұрағыңыз болса, жазыңыз.',
@@ -958,7 +958,8 @@ export const ui = {
   next: words('Келесі', 'Вперёд', 'Next'),
   program: words('Бағдарлама', 'Программа', 'Program'),
   project: words('Жоба', 'Проект', 'Project'),
-  home: words('Басты бет', 'Главная', 'Home')
+  home: words('Басты бет', 'Главная', 'Home'),
+  breadcrumb: words('Навигация жолы', 'Навигационная цепочка', 'Breadcrumb')
 }
 
 /** Numbers block (TZ §6.2, §11). Only `verified` entries are rendered. */
@@ -1171,7 +1172,7 @@ export const events: SiteEvent[] = [
       description: words(
         'Адам капиталы мен STEM болашағын қалыптастыратын Орталық Азиядағы ірі технологиялық чемпионат.',
         'Крупный технологический чемпионат Центральной Азии, который формирует человеческий капитал и будущее STEM.',
-        'Central Asia’s major technology championship, shaping human capital and the future of STEM.'
+        'A major technology championship in Central Asia, shaping human capital and the future of STEM.'
       ),
       photos: [
         {
@@ -1220,7 +1221,7 @@ export const events: SiteEvent[] = [
         ),
         text: words(
           'Қатысушыларға заманауи технологиялармен, командалық жұмыспен, инженерлік ойлаумен және AI шешімдерімен нақты тәжірибе беру.',
-          'Дать участникам реальный опыт работы с современными технологиями, командной работы, инженерного мышления и AI-решений.',
+          'Дать участникам реальный опыт: современные технологии, командная работа, инженерное мышление и AI-решения.',
           'Give participants hands-on experience with modern technology, teamwork, engineering thinking and AI solutions.'
         )
       },
@@ -1257,8 +1258,8 @@ export const events: SiteEvent[] = [
         ),
         text: words(
           'Almaty Tech Cup ресми сайты жаңа маусымға дайындалуда: қазіргі нұсқада 2026 жылғы ережелер орналасқан. Жаңартылған ережелер мен тіркеу жарияланған сәтте сайтқа қолжетімділік ашылады. Хабарландыруларды ресми Instagram парақшасынан немесе Telegram-каналдан бақылаңыз.',
-          'Официальный сайт Almaty Tech Cup готовится к новому сезону: сейчас на нём размещены правила 2026 года. Доступ к сайту откроется, как только будут опубликованы обновлённые правила и регистрация. Следите за объявлениями в официальном Instagram или Telegram-канале.',
-          'The official Almaty Tech Cup website is being prepared for the new season and currently shows the 2026 rules. Access opens as soon as the updated rules and registration are published. Follow the announcements on the official Instagram page or Telegram channel.'
+          'Официальный сайт Almaty Tech Cup готовится к новому сезону: сейчас на нём размещены правила 2026 года. Доступ к сайту откроется, как только будут опубликованы обновлённые правила и открыта регистрация. Следите за объявлениями в официальном Instagram или в Telegram-канале.',
+          'The official Almaty Tech Cup website is being prepared for the new season and currently shows the 2026 rules. Access will be available as soon as the updated rules are published and registration opens. Follow the announcements on the official Instagram page or Telegram channel.'
         )
       }
     }
@@ -1337,13 +1338,13 @@ export const events: SiteEvent[] = [
       mission: {
         lead: words(
           'Жастарды STEM-ге тарту арқылы адами капиталды арттыру.',
-          'Повысить человеческий капитал путём вовлечения молодёжи в STEM.',
+          'Наращивать человеческий капитал, вовлекая молодёжь в STEM.',
           'Grow human capital by bringing young people into STEM.'
         ),
         text: words(
           '4 жастан 25 жасқа дейінгі және одан үлкен командалар роботтарын, дрондарын, спутниктері мен кодын әкеледі. Нәтижелер ұлттық рейтингке және халықаралық чемпионаттарға іріктеуге есептеледі.',
-          'Команды от 4 до 25 лет и старше привозят роботов, дроны, спутники и код. Результаты идут в национальный рейтинг и в отбор на международные чемпионаты.',
-          'Teams aged 4 to 25 and older bring robots, drones, satellites and code. Results count toward national rankings and qualification to international championships.'
+          'Команды от 4 до 25 лет и старше привозят роботов, дроны, спутники и код. Результаты учитываются в национальном рейтинге и при отборе на международные чемпионаты.',
+          'Teams aged 4 to 25 and older bring robots, drones, satellites and code. Results count toward national rankings and qualification for international championships.'
         )
       },
       tracksTitle: words('Фестиваль бағыттары', 'Направления фестиваля', 'Festival tracks'),
@@ -1385,7 +1386,7 @@ export const events: SiteEvent[] = [
     next: words('2027 · Астана', '2027 · Астана', '2027 · Astana'),
     detail: words(
       'AI & Digital Bridge — Астанада өтетін халықаралық жасанды интеллект форумы. 2026 жылы форум 1–3 қазанда Астанадағы EXPO-да өтті. Оның алдындағы AI Month 2026 бағдарламасына FIRST LEGO League Future Edition және FIRST Tech Challenge бағыттары, сондай-ақ студенттерге арналған Unitree G1 гуманоидты роботындағы хакатон енді. 24–25 қыркүйекте USTEM Foundation Alem.ai алаңында FIRST Tech Challenge маусымын ашатын AI & Digital Bridge Cup жарысын өткізді: Қазақстан мен Өзбекстаннан 35 команда қатысты. Форумдағы робототехника аймағын USTEM Foundation Kerneu Group-пен бірлесіп ұйымдастырды: онда гуманоидты роботтар, робот-иттер және үстел теннисі ойнайтын роботтар көрсетілді.',
-      'AI & Digital Bridge — международный форум по искусственному интеллекту в Астане. В 2026 году форум прошёл 1–3 октября в EXPO, Астана. В программу предшествовавшего ему AI Month 2026 вошли направления FIRST LEGO League Future Edition и FIRST Tech Challenge, а также хакатон для студентов на гуманоидном роботе Unitree G1. 24–25 сентября USTEM Foundation провёл на площадке Alem.ai соревнование AI & Digital Bridge Cup, открывающее сезон FIRST Tech Challenge: 35 команд из Казахстана и Узбекистана. Зону робототехники форума USTEM Foundation организовал вместе с Kerneu Group: там показали человекоподобных роботов, робособак и роботов, играющих в настольный теннис.',
+      'AI & Digital Bridge — международный форум по искусственному интеллекту в Астане. В 2026 году форум прошёл 1–3 октября на площадке EXPO в Астане. В программу предшествовавшего ему AI Month 2026 вошли направления FIRST LEGO League Future Edition и FIRST Tech Challenge, а также хакатон для студентов на гуманоидном роботе Unitree G1. 24–25 сентября USTEM Foundation провёл на площадке Alem.ai соревнование AI & Digital Bridge Cup, открывающее сезон FIRST Tech Challenge: 35 команд из Казахстана и Узбекистана. Зону робототехники форума USTEM Foundation организовал вместе с Kerneu Group: там показали человекоподобных роботов, робособак и роботов, играющих в настольный теннис.',
       'AI & Digital Bridge is an international AI forum held in Astana. In 2026 it took place on 1–3 October at EXPO, Astana. The AI Month 2026 program that led up to it included FIRST LEGO League Future Edition and FIRST Tech Challenge, as well as a student hackathon on the Unitree G1 humanoid robot. On 24–25 September, USTEM Foundation held the AI & Digital Bridge Cup at Alem.ai, the opening event of the FIRST Tech Challenge season, with 35 teams from Kazakhstan and Uzbekistan. USTEM Foundation organized the forum’s robotics zone together with Kerneu Group, showing humanoid robots, robot dogs and table-tennis-playing robots.'
     ),
     meta: words(
@@ -1509,7 +1510,7 @@ export const events: SiteEvent[] = [
     ),
     detail: words(
       'Оқушылар CanSat, CubeSat, инженерлік жобалар, роверлер және ғарыштық орта бағыттарында өз шешімдерін жасайды.',
-      'Участники создают решения в направлениях CanSat, CubeSat, инженерных проектов, роверов и проектирования космической среды.',
+      'Школьники создают решения в направлениях CanSat, CubeSat, инженерных проектов, роверов и проектирования космической среды.',
       'Students build solutions across CanSat, CubeSat, engineering projects, rovers and space-environment design.'
     ),
     age: words(
@@ -1547,8 +1548,8 @@ export const events: SiteEvent[] = [
     kind: 'direction',
     fact: words(
       'Роботтар шайқасы.',
-      'Инженерные поединки роботов.',
-      'Robot engineering battles.'
+      'Битва роботов.',
+      'Robot battles.'
     ),
     detail: words(
       'Командалар өз роботтарын жасап, беріктігін, басқаруын және стратегиясын аренада сынайды.',
@@ -1574,7 +1575,7 @@ export const events: SiteEvent[] = [
     detail: words(
       'Physical AI — сенсорлар мен лидарлар арқылы физикалық әлемді «көріп», өзі шешім қабылдайтын жасанды интеллект. Хакатонда командалар гуманоидты роботтарға шешімдер жасайды; Almaty Tech Cup 2026-да Unitree гуманоидты роботтарындағы 48 сағаттық хакатон өтті. Humanoid Robot R&D бағытының мақсаты — Astana Hub-пен бірге Орталық Азияда Physical AI құзырет орталығын құру.',
       'Physical AI — искусственный интеллект, который «видит» физический мир через сенсоры и лидары и сам принимает решения. На хакатоне команды создают решения для гуманоидных роботов; на Almaty Tech Cup 2026 прошёл 48-часовой хакатон на гуманоидных роботах Unitree. Цель направления Humanoid Robot R&D — вместе с Astana Hub создать центр компетенций по Physical AI в Центральной Азии.',
-      'Physical AI is artificial intelligence that perceives the physical world through sensors and lidars and makes its own decisions. At the hackathon teams build solutions for humanoid robots; Almaty Tech Cup 2026 hosted a 48-hour hackathon on Unitree humanoid robots. The Humanoid Robot R&D track aims, with Astana Hub, to build a Physical AI competence center in Central Asia.'
+      'Physical AI is artificial intelligence that perceives the physical world through sensors and lidars and makes its own decisions. At the hackathon, teams build solutions for humanoid robots; Almaty Tech Cup 2026 hosted a 48-hour hackathon on Unitree humanoid robots. The Humanoid Robot R&D track aims to build a Physical AI competence center in Central Asia together with Astana Hub.'
     ),
     // Same forum photo as AI Digital Bridge, cropped to the left humanoid,
     // until the foundation supplies a Physical AI hackathon photo.
@@ -1806,7 +1807,7 @@ export const trustItems: {
     text: words(
       'Жасанды интеллектті дамыту жөніндегі кеңес отырысы аясындағы цифрлық шешімдер көрмесі: ЖИ жобаларын ұсынған ұйымдардың қатарында — USTEM Foundation.',
       'Выставка цифровых решений на заседании Совета по развитию искусственного интеллекта: USTEM Foundation — среди организаций, представивших свои ИИ-проекты.',
-      'The digital solutions exhibition at the Artificial Intelligence Development Council: USTEM Foundation was among the organizations presenting AI projects.'
+      'A digital solutions exhibition at the meeting of the Artificial Intelligence Development Council: USTEM Foundation was among the organizations presenting AI projects.'
     ),
     url: 'https://www.akorda.kz/ru/glava-gosudarstva-posetil-vystavku-cifrovyh-resheniy-192814',
     link: words('Ақорданың ресми хабарламасы', 'Официальное сообщение Акорды', 'Official Akorda release'),

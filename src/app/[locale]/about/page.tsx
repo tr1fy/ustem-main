@@ -60,7 +60,7 @@ const text = {
   ),
   facts: [
     { value: '2020', label: words('10 ақпанда Алматыда құрылды', 'основан 10 февраля в Алматы', 'founded on 10 February in Almaty') },
-    { value: '1 000+', label: words('өңірлік жарыс өткізілді', 'региональных соревнований', 'regional competitions held') },
+    { value: '1 000+', label: words('өңірлік жарыс өткізілді', 'проведённых региональных соревнований', 'regional competitions held') },
     { value: '3', label: words('ел: Қазақстан, Өзбекстан, Қырғызстан', 'страны: Казахстан, Узбекистан, Кыргызстан', 'countries: Kazakhstan, Uzbekistan, Kyrgyzstan') },
     { value: '30+', label: words('маман: инженерлер, педагогтер, жаттықтырушылар', 'специалистов: инженеры, педагоги, тренеры', 'specialists: engineers, educators, coaches') }
   ],
@@ -74,7 +74,7 @@ const text = {
     {
       year: '2022–2025',
       title: words('FIRST Global Challenge', 'FIRST Global Challenge', 'FIRST Global Challenge'),
-      line: words('Қазақстан құрамасы — қатарынан 4 рет әлем чемпионы.', 'Сборная Казахстана — 4 раза подряд чемпион мира.', 'Team Kazakhstan — world champion 4 years in a row.')
+      line: words('Қазақстан құрамасы — қатарынан 4 рет әлем чемпионы.', 'Сборная Казахстана — чемпион мира 4 года подряд.', 'Team Kazakhstan — world champion 4 years in a row.')
     },
     {
       year: '2026',
@@ -88,13 +88,13 @@ const text = {
       photo: '/images/people/founder-asylbek-512.jpg',
       name: words('Асылбек Мырзахметов', 'Асылбек Мырзахметов', 'Asylbek Myrzakhmetov'),
       role: words('Тең құрылтайшы, қор басшысы', 'Сооснователь, руководитель фонда', 'Co-founder, head of the foundation'),
-      line: words('FIRST Program Delivery Partner · ҚР робототехника құрамасының жаттықтырушысы', 'FIRST Program Delivery Partner · тренер сборной РК по робототехнике', 'FIRST Program Delivery Partner · coach of the national robotics team')
+      line: words('FIRST Program Delivery Partner · ҚР робототехника құрамасының жаттықтырушысы', 'FIRST Program Delivery Partner · тренер сборной РК по робототехнике', 'FIRST Program Delivery Partner · coach of Kazakhstan’s national robotics team')
     },
     {
       photo: '/images/people/founder-nurdaulet-512.jpg',
       name: words('Нұрдәулет Досмағамбет', 'Нурдаулет Досмагамбет', 'Nurdaulet Dosmagambet'),
       role: words('Тең құрылтайшы', 'Сооснователь', 'Co-founder'),
-      line: words('FIRST Program Delivery Partner · ҚР робототехника құрамасының жаттықтырушысы', 'FIRST Program Delivery Partner · тренер сборной РК по робототехнике', 'FIRST Program Delivery Partner · coach of the national robotics team')
+      line: words('FIRST Program Delivery Partner · ҚР робототехника құрамасының жаттықтырушысы', 'FIRST Program Delivery Partner · тренер сборной РК по робототехнике', 'FIRST Program Delivery Partner · coach of Kazakhstan’s national robotics team')
     }
   ],
   team: words('Команда', 'Команда', 'Team'),
@@ -113,12 +113,12 @@ const text = {
   recognition: words('Ресми мәртебе және мойындау', 'Официальный статус и признание', 'Official status and recognition'),
   orders: [
     {
-      meta: words('№ 514 бұйрық · 07.12.2011', 'Приказ № 514 · 07.12.2011', 'Order No. 514 · 07.12.2011'),
-      title: words('FIRST Robotics — министрлік ұсынатын олимпиадалар мен жарыстар тізімінде (1–11 сынып).', 'FIRST Robotics — в перечне олимпиад и конкурсов, рекомендованных министерством (1–11 классы).', 'FIRST Robotics is on the ministry’s list of recommended competitions (grades 1–11).'),
+      meta: words('№ 514 бұйрық · 07.12.2011', 'Приказ № 514 · 07.12.2011', 'Order No. 514 · 7 December 2011'),
+      title: words('FIRST Robotics — министрлік ұсынатын олимпиадалар мен жарыстар тізімінде (1–11 сынып).', 'FIRST Robotics — в перечне олимпиад и конкурсов, рекомендованных министерством (1–11 классы).', 'FIRST Robotics is on the ministry’s list of recommended olympiads and competitions (grades 1–11).'),
       url: 'https://adilet.zan.kz/kaz/docs/V1100007355'
     },
     {
-      meta: words('№ 70 бұйрық · 22.01.2016', 'Приказ № 70 · 22.01.2016', 'Order No. 70 · 22.01.2016'),
+      meta: words('№ 70 бұйрық · 22.01.2016', 'Приказ № 70 · 22.01.2016', 'Order No. 70 · 22 January 2016'),
       title: words('Робототехника және бағдарламалау жинақтары мектеп жабдықтарының нормаларына енгізілген.', 'Наборы по робототехнике и программированию включены в нормы оснащения школ.', 'Robotics and programming kits are included in school equipment standards.'),
       url: ''
     }

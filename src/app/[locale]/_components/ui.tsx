@@ -84,7 +84,7 @@ export function PageHead({
 }) {
   return (
     <header className='page-head container'>
-      <nav aria-label='Breadcrumb'>
+      <nav aria-label={localize(ui.breadcrumb, locale)}>
         <ol className='breadcrumbs'>
           <li>
             <Link href='/'>{localize(ui.home, locale)}</Link>
