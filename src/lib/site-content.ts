@@ -1248,7 +1248,7 @@ export const events: SiteEvent[] = [
         { label: 'Telegram @firstroboticskz', url: 'https://t.me/firstroboticskz' }
       ],
       contacts: {
-        email: 'hello@ustemfoundation.org',
+        email: 'info@almatytechcup.kz',
         instagram: { handle: '@tech_cup_almaty', url: 'https://www.instagram.com/tech_cup_almaty/' },
         telegram: { handle: 't.me/firstroboticskz', url: 'https://t.me/firstroboticskz' }
       },
