@@ -36,7 +36,6 @@ import { NewsCard, latestNews } from './news-card'
 import PartnerLogos from './partner-logos'
 import ReportsDialog from './reports-dialog'
 import { Reveal } from './reveal'
-import Squircle from './squircle'
 import Testimonials from './testimonials'
 import { ArrowLink, SectionHead } from './ui'
 
@@ -46,14 +45,6 @@ const newTab = words(
   '(жаңа бетте ашылады)',
   '(откроется в новой вкладке)',
   '(opens in a new tab)'
-)
-
-/** The Partners card photo: Team Kazakhstan tossing a teammate at the
-    FIRST Championship in Houston (houston306). */
-const partnersPhotoAlt = words(
-  'Қазақстан командасы Хьюстондағы FIRST Championship жарысында командаласын аспанға лақтырып жатыр',
-  'Команда Казахстана подбрасывает товарища на FIRST Championship в Хьюстоне',
-  'Team Kazakhstan tossing a teammate into the air at the FIRST Championship in Houston'
 )
 
 /** Stagger index for `.rv` children (see home.css, "Reveals"). */
@@ -91,21 +82,6 @@ const projectCovers: Record<
     width: 800,
     height: 540
   }
-}
-
-/** One photo, two layers: the right panel shows it, and the same src masked
-    to the tossed boy and the raised hands (houston-toss-mask, same canvas)
-    lets him fly out over the blue half. */
-const partnersPhoto = {
-  src: '/images/people/houston-toss-1886.webp',
-  srcSet: [
-    '/images/people/houston-toss-1000.webp 1000w',
-    '/images/people/houston-toss-1886.webp 1886w'
-  ].join(', '),
-  /* home.css: 1184px on desktop, 159cqw of the card below 1024px */
-  sizes: '(min-width: 1024px) 1184px, 160vw',
-  width: 1886,
-  height: 1472
 }
 
 /** «Who it is for»: one plain row of four entry points under the numbers —
@@ -541,49 +517,6 @@ function Reports({ locale }: { locale: string }) {
   )
 }
 
-function Partners({ locale }: { locale: string }) {
-  const photo = (cutout: boolean) => (
-    <img
-      className={`home-partners-img${cutout ? ' home-partners-cutout' : ''}`}
-      src={partnersPhoto.src}
-      srcSet={partnersPhoto.srcSet}
-      sizes={partnersPhoto.sizes}
-      alt={cutout ? '' : localize(partnersPhotoAlt, locale)}
-      aria-hidden={cutout ? true : undefined}
-      width={partnersPhoto.width}
-      height={partnersPhoto.height}
-      loading='lazy'
-      decoding='async'
-    />
-  )
-  return (
-    <section
-      id='partners'
-      className='section home-partners'
-      aria-labelledby='partners-title'
-    >
-      <div className='container'>
-        <Reveal className='home-rv home-partners-shadow'>
-          <Squircle className='home-partners-card rv'>
-            <div className='home-partners-copy'>
-              <h2 id='partners-title'>{localize(ui.partnersTitle, locale)}</h2>
-              <p>{localize(ui.partnersText, locale)}</p>
-              <Link className='btn home-partners-cta' href='/partners'>
-                {localize(ui.becomePartner, locale)}
-                <ArrowRightIcon aria-hidden='true' />
-              </Link>
-            </div>
-            <div className='home-partners-photo'>
-              <div className='home-partners-frame'>{photo(false)}</div>
-              {photo(true)}
-            </div>
-          </Squircle>
-        </Reveal>
-      </div>
-    </section>
-  )
-}
-
 export default function HomeSections({ locale }: { locale: string }) {
   return (
     <>
@@ -596,7 +529,6 @@ export default function HomeSections({ locale }: { locale: string }) {
       <PartnerLogoBand locale={locale} />
       <News locale={locale} />
       <Reports locale={locale} />
-      <Partners locale={locale} />
     </>
   )
 }
