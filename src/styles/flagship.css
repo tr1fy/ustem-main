@@ -185,6 +185,42 @@
   font-size: 0.9375rem;
   color: var(--muted);
 }
+/* one light-blue block, four plain numbers inside, no lines */
+.fp .fp-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px 24px;
+  padding: 28px 24px;
+  border-radius: var(--radius);
+  background: var(--tint);
+}
+.fp-stats li {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.fp-stat-value {
+  font-size: clamp(2.5rem, 1.6rem + 2.6vw, 3.375rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--blue);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.fp-stat-label {
+  font-size: 1rem;
+  color: var(--muted);
+}
+@media (min-width: 768px) {
+  .fp .fp-stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 32px;
+    padding: 36px 40px;
+  }
+}
+
 /* ---------- 3. mission ---------- */
 .fp-mission {
   display: grid;
@@ -358,7 +394,7 @@
   overflow: hidden;
   isolation: isolate;
   display: grid;
-  gap: 32px;
+  gap: 20px;
   padding: clamp(32px, 5vw, 56px);
   border-radius: var(--radius-lg);
   background: var(--aral-deep);
@@ -369,48 +405,32 @@
   flex-direction: column;
   gap: 14px;
 }
-/* last year's numbers inside the banner: plain white figures */
-.fp-next-stats {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  padding-top: 28px;
-  border-top: 1px solid rgba(255, 255, 255, 0.22);
-}
-.fp-stats {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px 24px;
-}
-.fp-stats li {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  min-width: 0;
-}
-.fp-stat-value {
-  font-size: clamp(1.75rem, 1.3rem + 1.2vw, 2.125rem);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.035em;
-  color: var(--white);
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-}
-.fp-stat-label {
-  font-size: 0.9375rem;
+.fp-next-line {
+  max-width: 48ch;
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+  line-height: 1.5;
   color: var(--on-dark-muted);
 }
 @media (min-width: 1024px) {
   .fp-next {
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    grid-template-columns: minmax(0, 1fr) auto;
     gap: 48px;
+    align-items: end;
+  }
+  .fp-next-line {
+    max-width: 26ch;
+    text-align: right;
+    padding-bottom: 6px;
+  }
+}
+@media (min-width: 1200px) {
+  .fp-next {
     align-items: center;
   }
-  .fp-next-stats {
-    padding: 0 0 0 48px;
-    border-top: 0;
-    border-left: 1px solid rgba(255, 255, 255, 0.22);
+  .fp-next-line {
+    max-width: none;
+    white-space: nowrap;
+    padding-bottom: 0;
   }
 }
 .fp-next-circle {
@@ -433,12 +453,6 @@
   line-height: 1.05;
   letter-spacing: -0.035em;
   color: var(--white);
-}
-.fp-next-line {
-  max-width: 48ch;
-  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
-  line-height: 1.5;
-  color: var(--on-dark-muted);
 }
 
 /* ---------- 6. two steps ---------- */

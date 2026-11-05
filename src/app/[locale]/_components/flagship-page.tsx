@@ -324,8 +324,31 @@ export default function FlagshipPage({
         </div>
       </section>
 
-      {/* 2. Mission */}
-      <section className='fp-section' aria-labelledby={missionId}>
+      {/* 2. Last year's numbers, counting up from zero */}
+      <section className='fp-section' aria-labelledby={statsId}>
+        <div className='container'>
+          <div className='fp-head'>
+            <h2 id={statsId}>{t(text.stats)}</h2>
+            <p className='fp-head-note'>{t(page.stats.note)}</p>
+          </div>
+          <ul className='fp-stats' role='list'>
+            {page.stats.items.map(item => (
+              <li key={t(item.label)}>
+                <span className='fp-stat-value'>
+                  <Count value={item.value} suffix={item.suffix} />
+                </span>
+                <span className='fp-stat-label'>{t(item.label)}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* 3. Mission */}
+      <section
+        className='fp-section fp-section--paper'
+        aria-labelledby={missionId}
+      >
         <div className='fp-mission container'>
           <div className='fp-mission-key'>
             <span id={missionId} className='label fp-label'>
@@ -340,11 +363,8 @@ export default function FlagshipPage({
         </div>
       </section>
 
-      {/* 3. Tracks: one rectangle divided into six */}
-      <section
-        className='fp-section fp-section--paper'
-        aria-labelledby={tracksId}
-      >
+      {/* 4. Tracks: one rectangle divided into six */}
+      <section className='fp-section' aria-labelledby={tracksId}>
         <div className='container'>
           <h2 id={tracksId} className='fp-h2'>
             {t(text.tracks)}
@@ -401,8 +421,7 @@ export default function FlagshipPage({
         aria-labelledby={nextId}
       >
         <div className='container'>
-          {/* One banner: the next edition left, last year's numbers right,
-              counting up from zero (TZ: statistics from the previous year). */}
+          {/* One banner: the next edition left, its date and size right */}
           <div className='fp-next on-dark'>
             <span className='fp-next-circle' aria-hidden='true' />
             <div className='fp-next-main'>
@@ -410,23 +429,8 @@ export default function FlagshipPage({
               <h2 id={nextId} className='fp-next-title'>
                 {page.next.title}
               </h2>
-              <p className='fp-next-line'>{t(page.next.line)}</p>
             </div>
-            <div className='fp-next-stats' aria-labelledby={statsId}>
-              <span id={statsId} className='label fp-label-dark'>
-                {t(page.stats.note)}
-              </span>
-              <ul className='fp-stats' role='list'>
-                {page.stats.items.map(item => (
-                  <li key={t(item.label)}>
-                    <span className='fp-stat-value'>
-                      <Count value={item.value} suffix={item.suffix} />
-                    </span>
-                    <span className='fp-stat-label'>{t(item.label)}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <p className='fp-next-line'>{t(page.next.line)}</p>
           </div>
         </div>
       </section>
