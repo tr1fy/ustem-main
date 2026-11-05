@@ -103,7 +103,8 @@ export default function ContactsPage({
           : item.network === 'telegram'
             ? 'Telegram'
             : 'YouTube',
-      value: item.network === 'telegram' ? 'FIRST Central Asia' : item.label,
+      // Telegram: the channel's own name, same as in the footer (owner, 2026-11-05).
+      value: item.network === 'telegram' ? 'FIRST Kazakhstan' : item.label,
       href: item.url,
       external: true
     }))
