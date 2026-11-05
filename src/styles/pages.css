@@ -757,9 +757,17 @@
     aspect-ratio: 2 / 1;
   }
 }
+/* Three projects side by side from 1024px (owner, 2026-11-05): no orphan
+   card under a two-column grid. */
+@media (min-width: 1024px) {
+  .pg-projects {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 56px 32px;
+  }
+}
 @media (min-width: 1200px) {
   .pg-projects {
-    gap: 64px 48px;
+    gap: 64px 40px;
   }
 }
 

@@ -16,7 +16,8 @@ import { Reveal } from '../_components/reveal'
  * over a cropped Aral circle → partner types → the partner logo wall. The
  * presentation PDF, the partner form and the format packages are not
  * published yet (TZ §14 items 5, 10): the lead says they come on request,
- * and the footer's «Пікір қалдыру» mailto is the one call to action. */
+ * and the footer (which shows the e-mail itself on this page) is the one
+ * call to action. */
 
 const title = navItems.find(item => item.key === 'partners')!.label
 

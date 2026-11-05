@@ -8,7 +8,8 @@
  * Instagram, link columns (navigation, about, social accounts), the legal
  * line (©, name, BIN, address) and «Back to top».
  * On /contacts the contact block is left out: the page itself lists the same
- * e-mail, phone and Instagram just above.
+ * e-mail, phone and Instagram just above. On /partners the block shows the
+ * e-mail itself in place of the «Пікір қалдыру» button.
  * Keeps the class .site-footer: Navbar makes it inert while the mobile menu
  * is open; the «Көмектесу» window steps aside when it reaches it.
  */
@@ -137,6 +138,7 @@ export default function Footer() {
   const compact =
     pathname === '/contacts' ||
     events.some(e => e.page && pathname === `/competitions/${e.slug}`)
+  const partners = pathname === '/partners'
 
   const aboutLinks = [
     { href: '/#reports', label: ui.reports },
@@ -165,19 +167,29 @@ export default function Footer() {
         {compact ? null : (
           <div className='ftr-contact'>
             <h2 className='ftr-title ftr-in' style={order(0)}>
-              {t(ui.footerTitle)}
+              {t(partners ? ui.footerPartnersTitle : ui.footerTitle)}
             </h2>
             <p className='ftr-lead ftr-in' style={order(1)}>
-              {t(ui.footerLead)}
+              {t(partners ? ui.footerPartnersLead : ui.footerLead)}
             </p>
             <div className='ftr-reach'>
-              <a
-                className='btn btn-light ftr-cta ftr-in'
-                style={order(2)}
-                href={`mailto:${site.email}`}
-              >
-                {t(ui.footerCta)}
-              </a>
+              {partners ? (
+                <a
+                  className='btn btn-light ftr-cta ftr-in'
+                  style={order(2)}
+                  href={`mailto:${site.email}?subject=${encodeURIComponent(t(ui.footerPartnersSubject))}`}
+                >
+                  {site.email}
+                </a>
+              ) : (
+                <a
+                  className='btn btn-light ftr-cta ftr-in'
+                  style={order(2)}
+                  href={`mailto:${site.email}`}
+                >
+                  {t(ui.footerCta)}
+                </a>
+              )}
               <div className='ftr-reach-row ftr-in' style={order(3)}>
                 <a className='ftr-phone' href={site.phone.href}>
                   {site.phone.display}
