@@ -1401,7 +1401,68 @@ export const events: SiteEvent[] = [
     ),
     cover: '/images/competitions/digital-bridge-2026-poster.jpg',
     coverPosition: '50% 50%',
-    officialUrl: 'https://digitalbridge.ai/'
+    officialUrl: 'https://digitalbridge.ai/',
+    // Facts: ustem.kz (digitalbridge.ai shows only a 2027 teaser). The
+    // mission and the 2027 date are not published yet, so they are left out.
+    page: {
+      heroStyle: 'cover',
+      trackStyle: 'icons',
+      nextShort: words('Келесі: 2027', 'Следующий: 2027', 'Next: 2027'),
+      description: words(
+        'Астанадағы халықаралық жасанды интеллект форумы: USTEM Foundation ұйымдастыратын робототехника аймағы және FIRST жарыстары.',
+        'Международный форум по искусственному интеллекту в Астане: зона робототехники USTEM Foundation и соревнования FIRST.',
+        'An international AI forum in Astana: the USTEM Foundation robotics zone and FIRST competitions.'
+      ),
+      photos: [],
+      stats: {
+        note: words(
+          'Өткен жылғы қорытынды · AI & Digital Bridge 2026, 1–3 қазан, EXPO',
+          'Итоги прошлого года · AI & Digital Bridge 2026, 1–3 октября, EXPO',
+          'Last year’s results · AI & Digital Bridge 2026, 1–3 October, EXPO'
+        ),
+        items: [
+          { value: 35, label: words('команда · AI & Digital Bridge Cup', 'команд · AI & Digital Bridge Cup', 'teams · AI & Digital Bridge Cup') },
+          { value: 2, label: words('ел · Қазақстан, Өзбекстан', 'страны · Казахстан, Узбекистан', 'countries · Kazakhstan, Uzbekistan') },
+          { value: 3, label: words('күн · форум', 'дня · форум', 'days · forum') }
+        ]
+      },
+      tracksTitle: words('Форумдағы USTEM бағыттары', 'Направления USTEM на форуме', 'USTEM tracks at the forum'),
+      tracks: [
+        { icon: 'blocks', name: words('FIRST LEGO League Future Edition', 'FIRST LEGO League Future Edition', 'FIRST LEGO League Future Edition') },
+        { icon: 'robot', name: words('FIRST Tech Challenge', 'FIRST Tech Challenge', 'FIRST Tech Challenge') },
+        { icon: 'humanoid', name: words('Unitree G1 хакатоны', 'Хакатон на Unitree G1', 'Unitree G1 hackathon') },
+        { icon: 'zone', name: words('Робототехника аймағы', 'Зона робототехники', 'Robotics zone') }
+      ],
+      next: {
+        title: 'AI & Digital Bridge 2027',
+        line: words(
+          'Күні ресми сайтта жарияланады',
+          'Дата будет объявлена на официальном сайте',
+          'The date will be announced on the official website'
+        )
+      },
+      rules: [
+        { label: 'Instagram @digitalbridge.ai', url: 'https://www.instagram.com/digitalbridge.ai/' },
+        { label: 'Telegram @firstroboticskz', url: 'https://t.me/firstroboticskz' }
+      ],
+      contacts: {
+        email: 'info@ustemfoundation.org',
+        instagram: { handle: '@digitalbridge.ai', url: 'https://www.instagram.com/digitalbridge.ai/' },
+        telegram: { handle: 't.me/firstroboticskz', url: 'https://t.me/firstroboticskz' }
+      },
+      siteNotice: {
+        title: words(
+          'Ресми сайт жаңартылу үстінде',
+          'Официальный сайт обновляется',
+          'The official website is being updated'
+        ),
+        text: words(
+          'AI & Digital Bridge ресми сайты 2027 жылғы форумға дайындалуда. Бағдарлама мен тіркеу жарияланған сәтте сайтқа қолжетімділік ашылады. Хабарландыруларды ресми Instagram парақшасынан немесе Telegram-каналдан бақылаңыз.',
+          'Официальный сайт AI & Digital Bridge готовится к форуму 2027 года. Доступ к сайту откроется, как только будут опубликованы программа и регистрация. Следите за объявлениями в официальном Instagram или Telegram-канале.',
+          'The official AI & Digital Bridge website is being prepared for the 2027 forum. Access opens as soon as the program and registration are published. Follow the announcements on the official Instagram page or Telegram channel.'
+        )
+      }
+    }
   },
   {
     slug: 'first-robotics',

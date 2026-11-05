@@ -687,3 +687,8 @@
     border-left: 1px solid var(--line);
   }
 }
+@media (min-width: 768px) {
+  .fp .fp-stats--three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
